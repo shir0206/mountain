@@ -1,7 +1,7 @@
-import { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Float } from "@react-three/drei";
-import type { GLTF } from "three-stdlib";
+import type { GLTF, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 
 // ─── Model config ────────────────────────────────────────────────────────────
@@ -21,11 +21,15 @@ import * as THREE from "three";
 //  SURF_Y  = desk surface height  (~5.45 = DESK_Y + ~0.85)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MOUNTAIN_SCALE = 10; // fills the screen nicely at fov 55
-const MOUNTAIN_Y = -3.5; // push base below camera so peak is centred
+const MOUNTAIN_SCALE = 80; // world-filling — edges never visible, you live inside it
+const MOUNTAIN_Y = -50; // sink the base deep; the peak rises above the camera
 
-// terrace sits on the mountain summit plateau
-const TERRACE_Y = 4.8; // ↑ raise/lower to land on the peak
+// Peak world-Y derived from original model-space ratio (0.83) measured at scale 10 / Y -3.5
+// Formula: MOUNTAIN_Y + 0.83 * MOUNTAIN_SCALE
+const PEAK_WORLD_Y = MOUNTAIN_Y + 0.24 * MOUNTAIN_SCALE; // ≈ 16.4
+
+// Terrace is locked to the real peak — no guesswork
+const TERRACE_Y = PEAK_WORLD_Y;
 const TERRACE_SCALE = 0.003;
 
 // desk on the terrace floor
@@ -47,7 +51,7 @@ interface ModelConfig {
   path: string;
   label: string;
   position: [number, number, number];
-  scale: number;
+  scale: number | [number, number, number]; // uniform or per-axis [x, y, z]
   floatSpeed: number;
   floatIntensity: number;
   rotationY?: number; // optional Y-axis rotation in radians
@@ -69,8 +73,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/terrace.glb",
     label: "Glass Terrace",
     position: [0, TERRACE_Y, 0],
-    scale: TERRACE_SCALE,
-
+    scale: [TERRACE_SCALE * 2.4, TERRACE_SCALE, TERRACE_SCALE * 2.4], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -214,11 +217,60 @@ function AlpineLighting() {
   );
 }
 
+// ─── Camera tracker ──────────────────────────────────────────────────────────
+// Logs camera position + OrbitControls target to devtools on every change.
+function CameraTracker({
+  controlsRef,
+}: {
+  controlsRef: React.RefObject<OrbitControlsImpl | null>;
+}) {
+  const { camera } = useThree();
+  const lastPos = useRef(new THREE.Vector3());
+  const lastTarget = useRef(new THREE.Vector3());
+
+  useFrame(() => {
+    const pos = camera.position;
+    const target = controlsRef.current?.target ?? new THREE.Vector3();
+
+    const posChanged =
+      Math.abs(pos.x - lastPos.current.x) > 0.01 ||
+      Math.abs(pos.y - lastPos.current.y) > 0.01 ||
+      Math.abs(pos.z - lastPos.current.z) > 0.01;
+
+    const targetChanged =
+      Math.abs(target.x - lastTarget.current.x) > 0.01 ||
+      Math.abs(target.y - lastTarget.current.y) > 0.01 ||
+      Math.abs(target.z - lastTarget.current.z) > 0.01;
+
+    if (posChanged || targetChanged) {
+      console.log("%c[Camera]", "color:#7eb8f7;font-weight:bold", {
+        position: {
+          x: +pos.x.toFixed(2),
+          y: +pos.y.toFixed(2),
+          z: +pos.z.toFixed(2),
+        },
+        target: {
+          x: +target.x.toFixed(2),
+          y: +target.y.toFixed(2),
+          z: +target.z.toFixed(2),
+        },
+      });
+      lastPos.current.copy(pos);
+      lastTarget.current.copy(target);
+    }
+  });
+
+  return null;
+}
+
 // ─── Scene ────────────────────────────────────────────────────────────────────
 function Scene() {
+  const controlsRef = useRef<OrbitControlsImpl>(null);
+
   return (
     <>
       <AlpineLighting />
+      <CameraTracker controlsRef={controlsRef} />
 
       {MODEL_CONFIG.map((config) => (
         <Suspense
@@ -237,13 +289,13 @@ function Scene() {
       ))}
 
       <OrbitControls
+        ref={controlsRef}
         makeDefault
         enableDamping
         dampingFactor={0.05}
-        minDistance={2}
+        minDistance={0}
         maxDistance={80}
-        // Start looking slightly upward toward the peak
-        target={[0, 3, 0]}
+        target={[50, -30, -20]}
       />
     </>
   );
@@ -257,10 +309,10 @@ export default function World() {
     <div style={{ width: "100vw", height: "100vh", background: "#0d1520" }}>
       <Canvas
         camera={{
-          position: [0, 6, 28], // eye level below the peak, looking up
-          fov: 55,
+          position: [0, 4, 55], // deep inside the mountain base, looking up
+          fov: 58,
           near: 0.1,
-          far: 250,
+          far: 600,
         }}
         gl={{ antialias: true, toneMapping: 3 /* ACESFilmic */ }}
         shadows
@@ -268,8 +320,6 @@ export default function World() {
           gl.setClearColor("#0d1520");
         }}
       >
-        {/* Deep-blue alpine dusk sky fading into darkness */}
-        <fog attach="fog" args={["#0d1a2e", 40, 120]} />
         <Scene />
       </Canvas>
     </div>
