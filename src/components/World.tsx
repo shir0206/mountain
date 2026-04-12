@@ -31,7 +31,7 @@ const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE; // ≈ 16.4
 // Terrace is locked to the real peak — no guesswork
 const TERRACE_X = -2;
 const TERRACE_Y = PEAK_WORLD_Y;
-const TERRACE_Z = -5;
+const TERRACE_Z = -4.5;
 const TERRACE_SCALE = 0.003;
 
 // desk on the terrace floor
@@ -61,6 +61,29 @@ const CHAIR_X = DESK_X;
 const CHAIR_Y = DESK_Y;
 const CHAIR_Z = DESK_Z + 1.0; // in front of desk (toward camera)
 const CHAIR_SCALE = 0.95;
+
+const TABLE_X = TERRACE_X + 1.2;
+const TABLE_Y = TERRACE_Y + 0.05;
+const TABLE_Z = TERRACE_Z - 0.75;
+
+const CHAIR_A_X = TABLE_X + 0.3;
+const CHAIR_A_Y = TABLE_Y;
+const CHAIR_A_Z = TABLE_Z - 1.6;
+const dx = TABLE_X - CHAIR_A_X;
+const dz = TABLE_Z - CHAIR_A_Z;
+const angle = Math.atan2(dx, dz); // gives the exact Y rotation to face the table
+
+const CHAIR_B_X = TABLE_X + 1.8;
+const CHAIR_B_Y = TABLE_Y;
+const CHAIR_B_Z = TABLE_Z - 0.8;
+
+const CHAIR_C_X = TABLE_X + 0.8;
+const CHAIR_C_Y = TABLE_Y;
+const CHAIR_C_Z = TABLE_Z + 1;
+
+const PLANT_X = TABLE_X;
+const PLANT_Y = TABLE_Y + 0.45;
+const PLANT_Z = TABLE_Z;
 
 interface ModelConfig {
   path: string;
@@ -142,6 +165,54 @@ const MODEL_CONFIG: ModelConfig[] = [
     label: "mouse",
     position: [MOUSE_X, MOUSE_Y, MOUSE_Z],
     scale: 1.5,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
+  {
+    path: "/models/armchair_poppi.glb",
+    label: "chair a",
+    position: [CHAIR_A_X, CHAIR_A_Y, CHAIR_A_Z],
+    scale: 1,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: angle,
+  },
+
+  {
+    path: "/models/armchair_poppi.glb",
+    label: "chair b",
+    position: [CHAIR_B_X, CHAIR_B_Y, CHAIR_B_Z],
+    scale: 1,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: angle,
+  },
+
+  {
+    path: "/models/armchair_poppi.glb",
+    label: "chair c",
+    position: [CHAIR_C_X, CHAIR_C_Y, CHAIR_C_Z],
+    scale: 1,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: angle,
+  },
+
+  {
+    path: "/models/pothos_plant.glb",
+    label: "table plant",
+    position: [PLANT_X, PLANT_Y, PLANT_Z],
+    scale: 1.2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
+  {
+    path: "/models/round_range_coffee_table_oak_and_copper.glb",
+    label: "coffee table",
+    position: [TABLE_X, TABLE_Y, TABLE_Z],
+    scale: 0.01,
     floatSpeed: 0,
     floatIntensity: 0,
   },
