@@ -26,20 +26,35 @@ const MOUNTAIN_Y = -50; // sink the base deep; the peak rises above the camera
 
 // Peak world-Y derived from original model-space ratio (0.83) measured at scale 10 / Y -3.5
 // Formula: MOUNTAIN_Y + 0.83 * MOUNTAIN_SCALE
-const PEAK_WORLD_Y = MOUNTAIN_Y + 0.24 * MOUNTAIN_SCALE; // ≈ 16.4
+const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE; // ≈ 16.4
 
 // Terrace is locked to the real peak — no guesswork
+const TERRACE_X = -2;
 const TERRACE_Y = PEAK_WORLD_Y;
+const TERRACE_Z = -5;
 const TERRACE_SCALE = 0.003;
 
 // desk on the terrace floor
-const DESK_X = 0;
+const DESK_X = TERRACE_X - 2.5; // slight offset from terrace center
 const DESK_Y = TERRACE_Y + 0.05; // just above terrace floor
-const DESK_Z = 0;
+const DESK_Z = TERRACE_Z - 2.5;
 const DESK_SCALE = 0.95;
 
-// desk surface (monitors / keyboard / laptop sit here)
-const SURF_Y = DESK_Y + 0.88;
+const MONITOR_X = DESK_X - 3;
+const MONITOR_Y = DESK_Y + 0.41;
+const MONITOR_Z = DESK_Z - 0.05; // slightly back on the desk
+
+const KEYBOARD_X = DESK_X;
+const KEYBOARD_Y = DESK_Y + 0.74;
+const KEYBOARD_Z = DESK_Z + 0.5;
+
+const LAPTOP_X = DESK_X - 0.7;
+const LAPTOP_Y = DESK_Y + 0.74;
+const LAPTOP_Z = DESK_Z;
+
+const MOUSE_X = DESK_X + 0.6;
+const MOUSE_Y = DESK_Y + 0.74;
+const MOUSE_Z = DESK_Z + 0.3;
 
 // chair — pulled back from the desk
 const CHAIR_X = DESK_X;
@@ -58,7 +73,6 @@ interface ModelConfig {
 }
 
 const MODEL_CONFIG: ModelConfig[] = [
-  // ── 1. MOUNTAIN ─────────────────────────────────────────────────────────────
   {
     path: "/models/weisse_wand_mountain_peek_2517_m_8257_ft.glb",
     label: "Mountain Peak",
@@ -68,27 +82,24 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
 
-  // ── 2. GLASS TERRACE on the summit ──────────────────────────────────────────
   {
     path: "/models/terrace.glb",
     label: "Glass Terrace",
-    position: [0, TERRACE_Y, 0],
+    position: [TERRACE_X, TERRACE_Y, TERRACE_Z],
     scale: [TERRACE_SCALE * 2.4, TERRACE_SCALE, TERRACE_SCALE * 2.4], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
-  // ── 3. DESK on the terrace ───────────────────────────────────────────────────
   {
     path: "/models/scandi_modern_office_desk_psx_style.glb",
-    label: "Scandi Desk",
+    label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
-    scale: DESK_SCALE,
+    scale: [DESK_SCALE * 2.4, DESK_SCALE, DESK_SCALE * 2.4], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
-  // ── 4. CHAIR beside / in front of desk ──────────────────────────────────────
   {
     path: "/models/muskonge_n24t6n23s2001.glb",
     label: "Chair",
@@ -99,32 +110,38 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: Math.PI, // face the desk
   },
 
-  // ── 5. DUAL MONITORS on the desk surface ────────────────────────────────────
   {
-    path: "/models/two_monitors.glb",
-    label: "Monitors",
-    position: [DESK_X, SURF_Y, DESK_Z - 0.25], // pushed toward back of desk
-    scale: 0.005,
+    path: "/models/monitor.glb",
+    label: "Monitor",
+    position: [MONITOR_X, MONITOR_Y, MONITOR_Z],
+    scale: 1.2,
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
-  // ── 6. KEYBOARD on the desk surface ─────────────────────────────────────────
   {
     path: "/models/mac_keyboard.glb",
     label: "Keyboard",
-    position: [DESK_X, SURF_Y, DESK_Z + 0.1], // in front of monitors
-    scale: 0.005,
+    position: [KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z],
+    scale: 0.007,
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
-  // ── 7. LAPTOP beside keyboard ────────────────────────────────────────────────
   {
     path: "/models/free_mac_book_pro_-_laptop.glb",
     label: "Laptop",
-    position: [DESK_X + 0.5, SURF_Y, DESK_Z + 0.05], // right side of desk
-    scale: 0.005,
+    position: [LAPTOP_X, LAPTOP_Y, LAPTOP_Z],
+    scale: 0.6,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
+  {
+    path: "/models/imac_magic_mouse.glb",
+    label: "mouse",
+    position: [MOUSE_X, MOUSE_Y, MOUSE_Z],
+    scale: 1.5,
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -295,7 +312,9 @@ function Scene() {
         dampingFactor={0.05}
         minDistance={0}
         maxDistance={80}
-        target={[50, -30, -20]}
+        //  target={[50, -30, -20]}
+        // target={[1, -30, -15]}
+        target={[30, -40, -30]}
       />
     </>
   );
