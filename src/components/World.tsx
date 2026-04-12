@@ -66,12 +66,9 @@ const TABLE_X = TERRACE_X + 1.2;
 const TABLE_Y = TERRACE_Y + 0.05;
 const TABLE_Z = TERRACE_Z - 0.75;
 
-const CHAIR_A_X = TABLE_X + 0.3;
+const CHAIR_A_X = TABLE_X + 0.2;
 const CHAIR_A_Y = TABLE_Y;
-const CHAIR_A_Z = TABLE_Z - 1.6;
-const dx = TABLE_X - CHAIR_A_X;
-const dz = TABLE_Z - CHAIR_A_Z;
-const angle = Math.atan2(dx, dz); // gives the exact Y rotation to face the table
+const CHAIR_A_Z = TABLE_Z - 1.4;
 
 const CHAIR_B_X = TABLE_X + 1.8;
 const CHAIR_B_Y = TABLE_Y;
@@ -80,6 +77,10 @@ const CHAIR_B_Z = TABLE_Z - 0.8;
 const CHAIR_C_X = TABLE_X + 0.8;
 const CHAIR_C_Y = TABLE_Y;
 const CHAIR_C_Z = TABLE_Z + 1;
+
+const CHAIR_A_ANGLE = Math.atan2(TABLE_X - CHAIR_A_X, TABLE_Z - CHAIR_A_Z);
+const CHAIR_B_ANGLE = Math.atan2(TABLE_X - CHAIR_B_X, TABLE_Z - CHAIR_B_Z);
+const CHAIR_C_ANGLE = Math.atan2(TABLE_X - CHAIR_C_X, TABLE_Z - CHAIR_C_Z);
 
 const PLANT_X = TABLE_X;
 const PLANT_Y = TABLE_Y + 0.45;
@@ -176,7 +177,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     scale: 1,
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: angle,
+    rotationY: CHAIR_A_ANGLE,
   },
 
   {
@@ -186,7 +187,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     scale: 1,
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: angle,
+    rotationY: CHAIR_B_ANGLE,
   },
 
   {
@@ -196,7 +197,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     scale: 1,
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: angle,
+    rotationY: CHAIR_C_ANGLE,
   },
 
   {
