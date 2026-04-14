@@ -36,9 +36,9 @@ const TERRACE_SCALE = 0.003;
 
 // desk on the terrace floor
 const DESK_X = TERRACE_X - 2.5; // slight offset from terrace center
-const DESK_Y = TERRACE_Y + 0.05; // just above terrace floor
+const DESK_Y = TERRACE_Y + 0.05;
 const DESK_Z = TERRACE_Z - 2.5;
-const DESK_SCALE = 0.95;
+const DESK_SCALE = 0.0095;
 
 const MONITOR_X = DESK_X - 3;
 const MONITOR_Y = DESK_Y + 0.41;
@@ -63,7 +63,7 @@ const CHAIR_Z = DESK_Z + 1.0; // in front of desk (toward camera)
 const CHAIR_SCALE = 0.95;
 
 const TABLE_X = TERRACE_X + 1.2;
-const TABLE_Y = TERRACE_Y + 0.05;
+const TABLE_Y = TERRACE_Y + 0.2;
 const TABLE_Z = TERRACE_Z - 0.75;
 
 const CHAIR_A_X = TABLE_X + 0.2;
@@ -74,6 +74,10 @@ const CHAIR_B_X = TABLE_X + 1.8;
 const CHAIR_B_Y = TABLE_Y;
 const CHAIR_B_Z = TABLE_Z - 0.8;
 
+// const PILLOW_B_X = TABLE_X + 1.8;
+// const PILLOW_B_Y = TABLE_Y + 0.45;
+// const PILLOW_B_Z = TABLE_Z - 0.8;
+
 const CHAIR_C_X = TABLE_X + 0.8;
 const CHAIR_C_Y = TABLE_Y;
 const CHAIR_C_Z = TABLE_Z + 1;
@@ -81,10 +85,15 @@ const CHAIR_C_Z = TABLE_Z + 1;
 const CHAIR_A_ANGLE = Math.atan2(TABLE_X - CHAIR_A_X, TABLE_Z - CHAIR_A_Z);
 const CHAIR_B_ANGLE = Math.atan2(TABLE_X - CHAIR_B_X, TABLE_Z - CHAIR_B_Z);
 const CHAIR_C_ANGLE = Math.atan2(TABLE_X - CHAIR_C_X, TABLE_Z - CHAIR_C_Z);
+// const PILLOW_B_ANGLE = Math.atan2(TABLE_X - CHAIR_B_X, TABLE_Z - CHAIR_B_Z);
 
-const PLANT_X = TABLE_X;
-const PLANT_Y = TABLE_Y + 0.45;
-const PLANT_Z = TABLE_Z;
+// const PLANT_X = TABLE_X;
+// const PLANT_Y = TABLE_Y + 0.45;
+// const PLANT_Z = TABLE_Z;
+
+const CARPET_X = TERRACE_X + 2;
+const CARPET_Y = TERRACE_Y + 0.05;
+const CARPET_Z = TERRACE_Z - 1;
 
 interface ModelConfig {
   path: string;
@@ -116,10 +125,10 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/scandi_modern_office_desk_psx_style.glb",
+    path: "/models/edelweiss_extending_dining_table_ash_and_brass.glb",
     label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
-    scale: [DESK_SCALE * 2.4, DESK_SCALE, DESK_SCALE * 2.4], // stretch X+Z, keep height
+    scale: [DESK_SCALE * 1.8, DESK_SCALE, DESK_SCALE * 1.8], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -171,49 +180,67 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/armchair_poppi.glb",
+    path: "/models/Untitled.glb",
     label: "chair a",
     position: [CHAIR_A_X, CHAIR_A_Y, CHAIR_A_Z],
-    scale: 1,
+    scale: 0.001,
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: CHAIR_A_ANGLE,
   },
 
   {
-    path: "/models/armchair_poppi.glb",
+    path: "/models/Untitled.glb",
     label: "chair b",
     position: [CHAIR_B_X, CHAIR_B_Y, CHAIR_B_Z],
-    scale: 1,
+    scale: 0.001,
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: CHAIR_B_ANGLE,
   },
 
   {
-    path: "/models/armchair_poppi.glb",
+    path: "/models/Untitled.glb",
     label: "chair c",
     position: [CHAIR_C_X, CHAIR_C_Y, CHAIR_C_Z],
-    scale: 1,
+    scale: 0.001,
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: CHAIR_C_ANGLE,
   },
 
-  {
-    path: "/models/pothos_plant.glb",
-    label: "table plant",
-    position: [PLANT_X, PLANT_Y, PLANT_Z],
-    scale: 1.2,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+  // {
+  //   path: "/models/pothos_plant.glb",
+  //   label: "table plant",
+  //   position: [PLANT_X, PLANT_Y, PLANT_Z],
+  //   scale: 1.2,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
 
   {
     path: "/models/round_range_coffee_table_oak_and_copper.glb",
     label: "coffee table",
     position: [TABLE_X, TABLE_Y, TABLE_Z],
     scale: 0.01,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
+  // {
+  //   path: "/models/Untitled.glb",
+  //   label: "coffee table",
+  //   position: [TABLE_X, TABLE_Y, TABLE_Z],
+  //   scale: 0.001,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
+
+  {
+    path: "/models/bhadoi_rug.glb",
+    label: "carpet",
+    position: [CARPET_X, CARPET_Y, CARPET_Z],
+    scale: 2,
     floatSpeed: 0,
     floatIntensity: 0,
   },
