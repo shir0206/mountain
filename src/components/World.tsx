@@ -34,11 +34,15 @@ const TERRACE_Y = PEAK_WORLD_Y;
 const TERRACE_Z = -4.5;
 const TERRACE_SCALE = 0.003;
 
-// desk on the terrace floor
+const SHELF_X = TERRACE_X + 3.5; // slight offset from terrace center
+const SHELF_Y = TERRACE_Y + 0.5;
+const SHELF_Z = TERRACE_Z - 3.5;
+const SHELF_ANGLE = Math.PI; // slight angle facing the desk
+
 const DESK_X = TERRACE_X - 2.5; // slight offset from terrace center
-const DESK_Y = TERRACE_Y + 0.05;
-const DESK_Z = TERRACE_Z - 2.5;
-const DESK_SCALE = 0.0095;
+const DESK_Y = TERRACE_Y + 0.6;
+const DESK_Z = TERRACE_Z - 4;
+const DESK_SCALE = 1;
 
 const MONITOR_X = DESK_X - 3;
 const MONITOR_Y = DESK_Y + 0.41;
@@ -55,45 +59,41 @@ const LAPTOP_Z = DESK_Z;
 const MOUSE_X = DESK_X + 0.6;
 const MOUSE_Y = DESK_Y + 0.74;
 const MOUSE_Z = DESK_Z + 0.3;
+const OFFICE_CHAIR_X = DESK_X;
+const OFFICE_CHAIR_Y = DESK_Y - 0.4;
+const OFFICE_CHAIR_Z = DESK_Z + 1.0; // in front of desk (toward camera)
+const OFFICE_CHAIR_SCALE = 0.015;
 
-// chair — pulled back from the desk
-const CHAIR_X = DESK_X;
-const CHAIR_Y = DESK_Y;
-const CHAIR_Z = DESK_Z + 1.0; // in front of desk (toward camera)
-const CHAIR_SCALE = 0.95;
+const COFFEE_TABLE_X = TERRACE_X + 1.2;
+const COFFEE_TABLE_Y = TERRACE_Y + 0.2;
+const COFFEE_TABLE_Z = TERRACE_Z - 0.75;
 
-const TABLE_X = TERRACE_X + 1.2;
-const TABLE_Y = TERRACE_Y + 0.2;
-const TABLE_Z = TERRACE_Z - 0.75;
+const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
+const ARMCHAIR_Y = COFFEE_TABLE_Y - 0.15;
+const ARMCHAIR_Z = COFFEE_TABLE_Z - 1.4;
+const ARMCHAIR_SCALE = 0.012;
 
-const CHAIR_A_X = TABLE_X + 0.2;
-const CHAIR_A_Y = TABLE_Y;
-const CHAIR_A_Z = TABLE_Z - 1.4;
-
-const CHAIR_B_X = TABLE_X + 1.8;
-const CHAIR_B_Y = TABLE_Y;
-const CHAIR_B_Z = TABLE_Z - 0.8;
-
-// const PILLOW_B_X = TABLE_X + 1.8;
-// const PILLOW_B_Y = TABLE_Y + 0.45;
-// const PILLOW_B_Z = TABLE_Z - 0.8;
-
-const CHAIR_C_X = TABLE_X + 0.8;
-const CHAIR_C_Y = TABLE_Y;
-const CHAIR_C_Z = TABLE_Z + 1;
-
-const CHAIR_A_ANGLE = Math.atan2(TABLE_X - CHAIR_A_X, TABLE_Z - CHAIR_A_Z);
-const CHAIR_B_ANGLE = Math.atan2(TABLE_X - CHAIR_B_X, TABLE_Z - CHAIR_B_Z);
-const CHAIR_C_ANGLE = Math.atan2(TABLE_X - CHAIR_C_X, TABLE_Z - CHAIR_C_Z);
-// const PILLOW_B_ANGLE = Math.atan2(TABLE_X - CHAIR_B_X, TABLE_Z - CHAIR_B_Z);
-
+const ARMCHAIR_ANGLE = Math.atan2(
+  COFFEE_TABLE_X - ARMCHAIR_X,
+  COFFEE_TABLE_Z - ARMCHAIR_Z
+);
+const SOFA_X = COFFEE_TABLE_X + 1.5;
+const SOFA_Y = COFFEE_TABLE_Y - 0.05;
+const SOFA_Z = COFFEE_TABLE_Z - 0.8;
+const SOFA_ANGLE = Math.PI * 1.5;
 // const PLANT_X = TABLE_X;
 // const PLANT_Y = TABLE_Y + 0.45;
 // const PLANT_Z = TABLE_Z;
 
-const CARPET_X = TERRACE_X + 2;
-const CARPET_Y = TERRACE_Y + 0.05;
-const CARPET_Z = TERRACE_Z - 1;
+const RUG_MEETING_X = TERRACE_X + 2;
+const RUG_MEETING_Y = TERRACE_Y + 0.05;
+const RUG_MEETING_Z = TERRACE_Z - 1;
+
+const RUG_OFFICE_X = DESK_X;
+const RUG_OFFICE_Y = DESK_Y - 0.5;
+const RUG_OFFICE_Z = DESK_Z + 0.4;
+const RUG_OFFICE_SCALE = 2;
+const RUG_OFFICE_ANGLE = Math.PI / 2;
 
 interface ModelConfig {
   path: string;
@@ -119,25 +119,25 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/terrace.glb",
     label: "Glass Terrace",
     position: [TERRACE_X, TERRACE_Y, TERRACE_Z],
-    scale: [TERRACE_SCALE * 2.4, TERRACE_SCALE, TERRACE_SCALE * 2.4], // stretch X+Z, keep height
+    scale: [TERRACE_SCALE * 2.2, TERRACE_SCALE, TERRACE_SCALE * 4], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
   {
-    path: "/models/edelweiss_extending_dining_table_ash_and_brass.glb",
+    path: "/models/old_table_-_game_ready.glb",
     label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
-    scale: [DESK_SCALE * 1.8, DESK_SCALE, DESK_SCALE * 1.8], // stretch X+Z, keep height
+    scale: [DESK_SCALE * 1.2, DESK_SCALE, DESK_SCALE * 1.2], // stretch X+Z, keep height
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
   {
-    path: "/models/muskonge_n24t6n23s2001.glb",
+    path: "/models/harvey_swivel_chair_mineral_blue.glb",
     label: "Chair",
-    position: [CHAIR_X, CHAIR_Y, CHAIR_Z],
-    scale: CHAIR_SCALE,
+    position: [OFFICE_CHAIR_X, OFFICE_CHAIR_Y, OFFICE_CHAIR_Z],
+    scale: OFFICE_CHAIR_SCALE,
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: Math.PI, // face the desk
@@ -162,10 +162,10 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/free_mac_book_pro_-_laptop.glb",
+    path: "/models/lowpoly_laptop_closed.glb",
     label: "Laptop",
     position: [LAPTOP_X, LAPTOP_Y, LAPTOP_Z],
-    scale: 0.6,
+    scale: 1.8,
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -180,69 +180,60 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/Untitled.glb",
-    label: "chair a",
-    position: [CHAIR_A_X, CHAIR_A_Y, CHAIR_A_Z],
-    scale: 0.001,
+    path: "/models/rug.glb",
+    label: "rug office",
+    position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
+    scale: [RUG_OFFICE_SCALE * 1.2, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: CHAIR_A_ANGLE,
+    rotationY: RUG_OFFICE_ANGLE,
   },
 
   {
     path: "/models/Untitled.glb",
-    label: "chair b",
-    position: [CHAIR_B_X, CHAIR_B_Y, CHAIR_B_Z],
-    scale: 0.001,
+    label: "Armchair",
+    position: [ARMCHAIR_X, ARMCHAIR_Y, ARMCHAIR_Z],
+    scale: ARMCHAIR_SCALE,
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: CHAIR_B_ANGLE,
+    rotationY: ARMCHAIR_ANGLE,
   },
-
   {
-    path: "/models/Untitled.glb",
-    label: "chair c",
-    position: [CHAIR_C_X, CHAIR_C_Y, CHAIR_C_Z],
-    scale: 0.001,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: CHAIR_C_ANGLE,
-  },
-
-  // {
-  //   path: "/models/pothos_plant.glb",
-  //   label: "table plant",
-  //   position: [PLANT_X, PLANT_Y, PLANT_Z],
-  //   scale: 1.2,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-
-  {
-    path: "/models/round_range_coffee_table_oak_and_copper.glb",
-    label: "coffee table",
-    position: [TABLE_X, TABLE_Y, TABLE_Z],
+    path: "/models/dylan_2_seater_sofa_mineral_blue.glb",
+    label: "sofa",
+    position: [SOFA_X, SOFA_Y, SOFA_Z],
     scale: 0.01,
     floatSpeed: 0,
     floatIntensity: 0,
+    rotationY: SOFA_ANGLE,
   },
 
-  // {
-  //   path: "/models/Untitled.glb",
-  //   label: "coffee table",
-  //   position: [TABLE_X, TABLE_Y, TABLE_Z],
-  //   scale: 0.001,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-
   {
-    path: "/models/bhadoi_rug.glb",
-    label: "carpet",
-    position: [CARPET_X, CARPET_Y, CARPET_Z],
+    path: "/models/retro_wood_coffee_table.glb",
+    label: "coffee table",
+    position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
     scale: 2,
     floatSpeed: 0,
     floatIntensity: 0,
+  },
+
+  {
+    path: "/models/rug.glb",
+    label: "rug meeting",
+    position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
+    scale: 2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
+  {
+    path: "/models/tv_bench__tv_table__tv_stand_wood.glb",
+    label: "shelf",
+    position: [SHELF_X, SHELF_Y, SHELF_Z],
+    scale: 2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: SHELF_ANGLE,
   },
 ];
 
@@ -282,7 +273,7 @@ function Placeholder({ position }: { position: [number, number, number] }) {
   return (
     <mesh position={position}>
       <boxGeometry args={[0.6, 0.6, 0.6]} />
-      <meshStandardMaterial color="#3a4a5a" wireframe />
+      <meshStandardMaterial color="#fff" wireframe />
     </mesh>
   );
 }
@@ -293,20 +284,18 @@ function AlpineLighting() {
   return (
     <>
       {/* Cold-sky ambient fill */}
-      <ambientLight color="#b0c8e0" intensity={0.9} />
-
-      {/* Hemisphere: ice-blue sky / grey-white snow ground */}
-      <hemisphereLight args={["#a8c8e8", "#d8dde0", 1.6]} />
+      <ambientLight color="#dedede" intensity={0.9} />
+      <hemisphereLight args={["#dedede", "#dedede", 1.6]} />
 
       {/* High-altitude sun — sharp, slightly warm white */}
       <directionalLight
-        color="#fff5e8"
+        color="#dedede"
         intensity={2.2}
         position={[12, 20, 8]}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-near={0.1}
+        shadow-camera-near={0.01}
         shadow-camera-far={80}
         shadow-camera-left={-20}
         shadow-camera-right={20}
@@ -316,7 +305,7 @@ function AlpineLighting() {
 
       {/* Cool fill light from opposite side — blue alpine shadow */}
       <directionalLight
-        color="#8ab0d8"
+        color="#dedede"
         intensity={0.6}
         position={[-10, 6, -12]}
         castShadow={false}
@@ -324,7 +313,7 @@ function AlpineLighting() {
 
       {/* Subtle warm bounce from below (snow reflection) */}
       <directionalLight
-        color="#e8f0f8"
+        color="#dedede"
         intensity={0.35}
         position={[0, -8, 0]}
         castShadow={false}
@@ -359,7 +348,7 @@ function CameraTracker({
       Math.abs(target.z - lastTarget.current.z) > 0.01;
 
     if (posChanged || targetChanged) {
-      console.log("%c[Camera]", "color:#7eb8f7;font-weight:bold", {
+      console.log("%c[Camera]", "color:#dedede;font-weight:bold", {
         position: {
           x: +pos.x.toFixed(2),
           y: +pos.y.toFixed(2),
@@ -413,7 +402,8 @@ function Scene() {
         maxDistance={80}
         //  target={[50, -30, -20]}
         // target={[1, -30, -15]}
-        target={[30, -40, -30]}
+        // target={[30, -40, -30]}
+        target={[-8.27, -29.56, -3.16]}
       />
     </>
   );
@@ -424,18 +414,18 @@ function Scene() {
 // with the glass terrace + desk visible at the summit.
 export default function World() {
   return (
-    <div style={{ width: "100vw", height: "100vh", background: "#0d1520" }}>
+    <div style={{ width: "100vw", height: "100vh", background: "#fff" }}>
       <Canvas
         camera={{
           position: [0, 4, 55], // deep inside the mountain base, looking up
-          fov: 58,
+          fov: 20,
           near: 0.1,
           far: 600,
         }}
         gl={{ antialias: true, toneMapping: 3 /* ACESFilmic */ }}
         shadows
         onCreated={({ gl }) => {
-          gl.setClearColor("#0d1520");
+          gl.setClearColor("#fff");
         }}
       >
         <Scene />
