@@ -77,10 +77,17 @@ const ARMCHAIR_ANGLE = Math.atan2(
   COFFEE_TABLE_X - ARMCHAIR_X,
   COFFEE_TABLE_Z - ARMCHAIR_Z
 );
-const SOFA_X = COFFEE_TABLE_X + 1.5;
-const SOFA_Y = COFFEE_TABLE_Y - 0.05;
-const SOFA_Z = COFFEE_TABLE_Z - 0.8;
+const SOFA_X = COFFEE_TABLE_X + 1;
+const SOFA_Y = COFFEE_TABLE_Y - 0.1;
+const SOFA_Z = COFFEE_TABLE_Z + 0;
 const SOFA_ANGLE = Math.PI * 1.5;
+
+const PILLOW_X = SOFA_X - 0.15;
+const PILLOW_Y = SOFA_Y + 0.15; // + 1;
+const PILLOW_Z = SOFA_Z - 0.35; //- 1;
+const PILLOW_SCALE = 0.0007;
+const PILLOW_ANGLE = -Math.PI / 4;
+
 // const PLANT_X = TABLE_X;
 // const PLANT_Y = TABLE_Y + 0.45;
 // const PLANT_Z = TABLE_Z;
@@ -207,7 +214,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: SOFA_ANGLE,
   },
-
+  {
+    path: "/models/pillow_test.glb",
+    label: "pillow",
+    position: [PILLOW_X, PILLOW_Y, PILLOW_Z],
+    scale: PILLOW_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PILLOW_ANGLE,
+  },
   {
     path: "/models/retro_wood_coffee_table.glb",
     label: "coffee table",
