@@ -35,38 +35,41 @@ const TERRACE_Z = -4.5;
 const TERRACE_SCALE = 0.003;
 
 const SHELF_X = TERRACE_X + 3.5; // slight offset from terrace center
-const SHELF_Y = TERRACE_Y + 0.5;
-const SHELF_Z = TERRACE_Z - 3.5;
-const SHELF_ANGLE = Math.PI; // slight angle facing the desk
+const SHELF_Y = TERRACE_Y + 0.05;
+const SHELF_Z = TERRACE_Z - 4;
+const SHELF_SCALE = 0.015;
+const SHELF_ANGLE = Math.PI * 1.5;
 
 const DESK_X = TERRACE_X - 2.5; // slight offset from terrace center
-const DESK_Y = TERRACE_Y + 0.6;
+const DESK_Y = TERRACE_Y + 0.2;
 const DESK_Z = TERRACE_Z - 4;
-const DESK_SCALE = 1;
+const DESK_SCALE = 0.015;
 
 const MONITOR_X = DESK_X - 3;
-const MONITOR_Y = DESK_Y + 0.41;
+const MONITOR_Y = DESK_Y + 0.75;
 const MONITOR_Z = DESK_Z - 0.05; // slightly back on the desk
 
 const KEYBOARD_X = DESK_X;
-const KEYBOARD_Y = DESK_Y + 0.74;
+const KEYBOARD_Y = DESK_Y + 1.08;
 const KEYBOARD_Z = DESK_Z + 0.5;
 
 const LAPTOP_X = DESK_X - 0.7;
-const LAPTOP_Y = DESK_Y + 0.74;
+const LAPTOP_Y = DESK_Y + 1.14;
 const LAPTOP_Z = DESK_Z;
 
 const MOUSE_X = DESK_X + 0.6;
-const MOUSE_Y = DESK_Y + 0.74;
+const MOUSE_Y = DESK_Y + 1.08;
 const MOUSE_Z = DESK_Z + 0.3;
+
 const OFFICE_CHAIR_X = DESK_X;
-const OFFICE_CHAIR_Y = DESK_Y - 0.4;
+const OFFICE_CHAIR_Y = DESK_Y + 0;
 const OFFICE_CHAIR_Z = DESK_Z + 1.0; // in front of desk (toward camera)
 const OFFICE_CHAIR_SCALE = 0.015;
 
 const COFFEE_TABLE_X = TERRACE_X + 1.2;
 const COFFEE_TABLE_Y = TERRACE_Y + 0.2;
 const COFFEE_TABLE_Z = TERRACE_Z - 0.75;
+const COFFEE_TABLE_SCALE = 0.01;
 
 const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
 const ARMCHAIR_Y = COFFEE_TABLE_Y - 0.15;
@@ -77,14 +80,15 @@ const ARMCHAIR_ANGLE = Math.atan2(
   COFFEE_TABLE_X - ARMCHAIR_X,
   COFFEE_TABLE_Z - ARMCHAIR_Z
 );
-const SOFA_X = COFFEE_TABLE_X + 1;
+const SOFA_X = COFFEE_TABLE_X + 1.25;
 const SOFA_Y = COFFEE_TABLE_Y - 0.1;
-const SOFA_Z = COFFEE_TABLE_Z + 0;
+const SOFA_Z = COFFEE_TABLE_Z + 0.2;
+const SOFA_SCALE = 0.01;
 const SOFA_ANGLE = Math.PI * 1.5;
 
 const PILLOW_X = SOFA_X - 0.15;
-const PILLOW_Y = SOFA_Y + 0.15; // + 1;
-const PILLOW_Z = SOFA_Z - 0.35; //- 1;
+const PILLOW_Y = SOFA_Y + 0.15;
+const PILLOW_Z = SOFA_Z - 0.5;
 const PILLOW_SCALE = 0.0007;
 const PILLOW_ANGLE = -Math.PI / 4;
 
@@ -95,9 +99,10 @@ const PILLOW_ANGLE = -Math.PI / 4;
 const RUG_MEETING_X = TERRACE_X + 2;
 const RUG_MEETING_Y = TERRACE_Y + 0.05;
 const RUG_MEETING_Z = TERRACE_Z - 1;
+const RUG_MEETING_SCALE = 2;
 
 const RUG_OFFICE_X = DESK_X;
-const RUG_OFFICE_Y = DESK_Y - 0.5;
+const RUG_OFFICE_Y = DESK_Y - 0.005;
 const RUG_OFFICE_Z = DESK_Z + 0.4;
 const RUG_OFFICE_SCALE = 2;
 const RUG_OFFICE_ANGLE = Math.PI / 2;
@@ -132,7 +137,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/old_table_-_game_ready.glb",
+    path: "/models/jenson_extending_dining_table_solid_oak.glb",
     label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
     scale: [DESK_SCALE * 1.2, DESK_SCALE, DESK_SCALE * 1.2], // stretch X+Z, keep height
@@ -209,7 +214,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/dylan_2_seater_sofa_mineral_blue.glb",
     label: "sofa",
     position: [SOFA_X, SOFA_Y, SOFA_Z],
-    scale: 0.01,
+    scale: [SOFA_SCALE * 1.3, SOFA_SCALE, SOFA_SCALE],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: SOFA_ANGLE,
@@ -224,10 +229,14 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PILLOW_ANGLE,
   },
   {
-    path: "/models/retro_wood_coffee_table.glb",
+    path: "/models/round_range_coffee_table_oak_and_brass.glb",
     label: "coffee table",
     position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
-    scale: 2,
+    scale: [
+      COFFEE_TABLE_SCALE * 1.1,
+      COFFEE_TABLE_SCALE * 0.7,
+      COFFEE_TABLE_SCALE * 1.5,
+    ],
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -236,16 +245,20 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/rug.glb",
     label: "rug meeting",
     position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
-    scale: 2,
+    scale: [
+      RUG_MEETING_SCALE * 1.4,
+      RUG_MEETING_SCALE,
+      RUG_MEETING_SCALE * 1.4,
+    ],
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
   {
-    path: "/models/tv_bench__tv_table__tv_stand_wood.glb",
+    path: "/models/esme_coffee_table_with_2_drawers_ash.glb",
     label: "shelf",
     position: [SHELF_X, SHELF_Y, SHELF_Z],
-    scale: 2,
+    scale: [SHELF_SCALE * 1.4, SHELF_SCALE * 1.1, SHELF_SCALE * 0.4],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: SHELF_ANGLE,
