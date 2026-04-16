@@ -1,6 +1,6 @@
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Float, Environment } from "@react-three/drei";
+import { OrbitControls, useGLTF, Float } from "@react-three/drei";
 import type { GLTF, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 
@@ -36,10 +36,10 @@ const SHELF_Z = TERRACE_Z - 3;
 const SHELF_SCALE = 0.015;
 const SHELF_ANGLE = Math.PI * 1.5;
 
-const BOOKS_X = SHELF_X + 2.5;
-const BOOKS_Y = SHELF_Y + 3;
-const BOOKS_Z = SHELF_Z + 3;
-const BOOKS_SCALE = 0.001;
+const BOOKS_X = SHELF_X - 2;
+const BOOKS_Y = SHELF_Y - 1;
+const BOOKS_Z = SHELF_Z - 1;
+const BOOKS_SCALE = 0.5;
 const BOOKS_ANGLE = Math.PI * 1.5;
 
 const DESK_X = TERRACE_X - 1.5;
@@ -47,16 +47,18 @@ const DESK_Y = TERRACE_Y + 0.02;
 const DESK_Z = TERRACE_Z - 5.3;
 const DESK_SCALE = 0.015;
 
-const MUG_X = DESK_X - 3.3;
-const MUG_Y = DESK_Y + 0.75;
-const MUG_Z = DESK_Z - 0.35;
+const MUG_X = DESK_X + 1;
+const MUG_Y = DESK_Y + 1.09;
+const MUG_Z = DESK_Z + 0.3;
+const MUG_SCALE = 1.8;
+const MUG_ANGLE = Math.PI * 0.8;
 
 const MONITOR_LEFT_X = DESK_X - 3.3;
-const MONITOR_LEFT_Y = DESK_Y + 0.75;
+const MONITOR_LEFT_Y = DESK_Y + 0.73;
 const MONITOR_LEFT_Z = DESK_Z - 0.35;
 
 const MONITOR_RIGHT_X = DESK_X - 2.4;
-const MONITOR_RIGHT_Y = DESK_Y + 0.75;
+const MONITOR_RIGHT_Y = DESK_Y + 0.73;
 const MONITOR_RIGHT_Z = DESK_Z - 0.35;
 
 const KEYBOARD_X = DESK_X;
@@ -64,7 +66,7 @@ const KEYBOARD_Y = DESK_Y + 1.08;
 const KEYBOARD_Z = DESK_Z + 0.5;
 
 const LAPTOP_X = DESK_X - 1;
-const LAPTOP_Y = DESK_Y + 1.14;
+const LAPTOP_Y = DESK_Y + 1.1;
 const LAPTOP_Z = DESK_Z;
 
 const MOUSE_X = DESK_X + 0.6;
@@ -81,10 +83,10 @@ const COFFEE_TABLE_Y = TERRACE_Y + 0.03;
 const COFFEE_TABLE_Z = TERRACE_Z + 0.75;
 const COFFEE_TABLE_SCALE = 0.01;
 
-const TABLET_X = COFFEE_TABLE_X - 1;
-const TABLET_Y = COFFEE_TABLE_Y - 3;
-const TABLET_Z = COFFEE_TABLE_Z + 1;
-const TABLET_SCALE = 0.01;
+const TABLET_X = COFFEE_TABLE_X - 0.2;
+const TABLET_Y = COFFEE_TABLE_Y + 0.5;
+const TABLET_Z = COFFEE_TABLE_Z + 0.2;
+const TABLET_SCALE = 1.5;
 const TABLET_ANGLE = Math.PI * 1.5;
 
 const TV_X = COFFEE_TABLE_X - 0.3;
@@ -144,6 +146,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/terrace.glb",
     label: "Glass Terrace",
@@ -152,6 +155,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
     label: "Desk",
@@ -160,6 +164,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/harvey_swivel_chair_mineral_blue.glb",
     label: "Chair",
@@ -169,6 +174,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: Math.PI,
   },
+
   {
     path: "/models/monitor.glb",
     label: "Monitor Left",
@@ -193,6 +199,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/lowpoly_laptop_closed.glb",
     label: "Laptop",
@@ -201,6 +208,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/imac_magic_mouse.glb",
     label: "mouse",
@@ -213,9 +221,10 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/mug.glb",
     label: "Mug",
     position: [MUG_X, MUG_Y, MUG_Z],
-    scale: 1.2,
+    scale: MUG_SCALE,
     floatSpeed: 0,
     floatIntensity: 0,
+    rotationY: MUG_ANGLE,
   },
   {
     path: "/models/rug.glb",
@@ -283,6 +292,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/rug.glb",
     label: "rug meeting",
@@ -295,6 +305,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+
   {
     path: "/models/esme_coffee_table_with_2_drawers_ash.glb",
     label: "shelf",
@@ -317,86 +328,7 @@ const MODEL_CONFIG: ModelConfig[] = [
 
 MODEL_CONFIG.forEach(({ path }) => useGLTF.preload(path));
 
-// ─── Glass material keywords ──────────────────────────────────────────────────
-const GLASS_KEYWORDS = [
-  "glass",
-  "glazing",
-  "window",
-  "crystal",
-  "transparent",
-  "transp",
-];
-
-function isGlassMaterial(mat: THREE.Material): boolean {
-  const name = mat.name.toLowerCase();
-  return (
-    GLASS_KEYWORDS.some((kw) => name.includes(kw)) ||
-    (mat instanceof THREE.MeshPhysicalMaterial && mat.transmission > 0)
-  );
-}
-
-// Builds a glass MeshPhysicalMaterial that visibly shines and refracts
-function makeGlass(): THREE.MeshPhysicalMaterial {
-  return new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color(0xd0e8ff), // faint ice-blue tint
-    transmission: 1.0,
-    opacity: 1.0,
-    transparent: true,
-    roughness: 0.0, // perfectly smooth = sharp reflections
-    metalness: 0.0,
-    ior: 1.52, // real soda-lime glass
-    thickness: 0.4,
-    envMapIntensity: 4.0, // glass MUST be high so env map shows
-    reflectivity: 1.0,
-    iridescence: 0.2,
-    iridescenceIOR: 1.3,
-    attenuationDistance: 6.0,
-    attenuationColor: new THREE.Color(0xd8eeff),
-    side: THREE.DoubleSide,
-    depthWrite: false,
-  });
-}
-
-// ─── Material enhancer ────────────────────────────────────────────────────────
-// `forceGlass` — set true for the terrace model so every mesh gets glass
-// treatment regardless of material name.
-function enhanceMaterials(root: THREE.Object3D, forceGlass = false) {
-  root.traverse((child) => {
-    if (!(child instanceof THREE.Mesh)) return;
-
-    child.castShadow = true;
-    child.receiveShadow = true;
-
-    const mats: THREE.Material[] = Array.isArray(child.material)
-      ? child.material
-      : [child.material];
-
-    mats.forEach((mat, idx) => {
-      if (!mat) return;
-
-      if (forceGlass || isGlassMaterial(mat)) {
-        const glass = makeGlass();
-        glass.name = mat.name;
-        if (Array.isArray(child.material)) {
-          (child.material as THREE.Material[])[idx] = glass;
-        } else {
-          child.material = glass;
-        }
-      } else if (
-        mat instanceof THREE.MeshStandardMaterial ||
-        mat instanceof THREE.MeshPhysicalMaterial
-      ) {
-        // Non-glass PBR: modest env reflection — don't overdo it
-        mat.envMapIntensity = 0.9;
-        mat.needsUpdate = true;
-      }
-    });
-  });
-}
-
 // ─── Individual model loader ──────────────────────────────────────────────────
-const TERRACE_PATH = "/models/terrace.glb";
-
 function Model({
   path,
   position,
@@ -407,13 +339,6 @@ function Model({
 }: Omit<ModelConfig, "label">) {
   const { scene } = useGLTF(path) as GLTF & { scene: THREE.Group };
   const cloned = scene.clone(true);
-  const isTerraceModel = path === TERRACE_PATH;
-
-  // Run material enhancement once after the clone is ready
-  useEffect(() => {
-    enhanceMaterials(cloned, isTerraceModel);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path]);
 
   return (
     <Float
@@ -442,34 +367,43 @@ function Placeholder({ position }: { position: [number, number, number] }) {
 }
 
 // ─── Lighting ─────────────────────────────────────────────────────────────────
-// Minimal direct lights — the Environment map already provides ambient fill
-// and reflection data for glass. Stacking ambient + hemisphere + env was the
-// cause of the "flash / everything blown out" look.
+// Crisp alpine atmosphere — thin cold air, bright directional sun, blue shadows.
 function AlpineLighting() {
   return (
     <>
-      {/* Single primary sun — crisp, slightly warm. Everything else comes from env. */}
+      {/* Cold-sky ambient fill */}
+      <ambientLight color="#dedede" intensity={0.9} />
+      <hemisphereLight args={["#dedede", "#dedede", 1.6]} />
+
+      {/* High-altitude sun — sharp, slightly warm white */}
       <directionalLight
-        color="#fff6ee"
-        intensity={1.2}
+        color="#dedede"
+        intensity={2.2}
         position={[12, 20, 8]}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-near={0.1}
-        shadow-camera-far={120}
-        shadow-camera-left={-30}
-        shadow-camera-right={30}
-        shadow-camera-top={30}
-        shadow-camera-bottom={-30}
-        shadow-bias={-0.0005}
+        shadow-camera-near={0.01}
+        shadow-camera-far={80}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
       />
 
-      {/* Very subtle cool fill from the opposite side — just enough for shadow detail */}
+      {/* Cool fill light from opposite side — blue alpine shadow */}
       <directionalLight
-        color="#c8ddf0"
-        intensity={0.18}
+        color="#dedede"
+        intensity={0.6}
         position={[-10, 6, -12]}
+        castShadow={false}
+      />
+
+      {/* Subtle warm bounce from below (snow reflection) */}
+      <directionalLight
+        color="#dedede"
+        intensity={0.35}
+        position={[0, -8, 0]}
         castShadow={false}
       />
     </>
@@ -477,6 +411,7 @@ function AlpineLighting() {
 }
 
 // ─── Camera tracker ──────────────────────────────────────────────────────────
+// Logs camera position + OrbitControls target to devtools on every change.
 function CameraTracker({
   controlsRef,
 }: {
@@ -527,23 +462,6 @@ function Scene() {
 
   return (
     <>
-      {/*
-        ── Environment map ─────────────────────────────────────────────────────
-        This is THE most important fix for glass reflections.
-        `preset="apartment"` gives a bright, neutral interior sky that reads
-        well as alpine light. Swap to "city", "dawn", "sunset" to taste.
-        `background={false}` keeps your white canvas, but still feeds
-        all MeshStandardMaterial / MeshPhysicalMaterial their reflection data.
-        `resolution={512}` is enough for reflections — raise to 1024 if you
-        want sharper env reflections at the cost of GPU memory.
-      */}
-      <Environment
-        preset="apartment"
-        background={false}
-        resolution={512}
-        environmentIntensity={0.65}
-      />
-
       <AlpineLighting />
       <CameraTracker controlsRef={controlsRef} />
 
@@ -570,6 +488,9 @@ function Scene() {
         dampingFactor={0.05}
         minDistance={0}
         maxDistance={80}
+        //  target={[50, -30, -20]}
+        // target={[1, -30, -15]}
+        // target={[30, -40, -30]}
         target={[-8.27, -29.56, -3.16]}
       />
     </>
@@ -577,33 +498,22 @@ function Scene() {
 }
 
 // ─── World (root export) ──────────────────────────────────────────────────────
+// Camera: pulled back and slightly low so the mountain fills the frame,
+// with the glass terrace + desk visible at the summit.
 export default function World() {
   return (
     <div style={{ width: "100vw", height: "100vh", background: "#fff" }}>
       <Canvas
         camera={{
-          position: [0, 4, 55],
+          position: [0, 4, 55], // deep inside the mountain base, looking up
           fov: 20,
           near: 0.1,
           far: 600,
         }}
-        gl={{
-          antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 0.8, // pull back from blown-out white
-          outputColorSpace: THREE.SRGBColorSpace,
-        }}
-        // ↓ Required for physically correct light attenuation with PBR materials
-        // In R3F v9+ this replaces the deprecated `physicallyCorrectLights` prop
-        scene={{ backgroundIntensity: 1 }}
-        shadows="soft" // PCFSoft shadows — smoother than default
+        gl={{ antialias: true, toneMapping: 3 /* ACESFilmic */ }}
+        shadows
         onCreated={({ gl }) => {
-          gl.setClearColor("#ffffff");
-          // Ensure the renderer uses physically correct light falloff
-          // (needed for transmission / glass to behave properly)
-          // Tone mapping already set via gl prop but set here as well for safety
-          gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.1;
+          gl.setClearColor("#fff");
         }}
       >
         <Scene />
