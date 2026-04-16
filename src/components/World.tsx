@@ -36,20 +36,34 @@ const SHELF_Z = TERRACE_Z - 3;
 const SHELF_SCALE = 0.015;
 const SHELF_ANGLE = Math.PI * 1.5;
 
+const BOOKS_X = SHELF_X + 2.5;
+const BOOKS_Y = SHELF_Y + 3;
+const BOOKS_Z = SHELF_Z + 3;
+const BOOKS_SCALE = 0.001;
+const BOOKS_ANGLE = Math.PI * 1.5;
+
 const DESK_X = TERRACE_X - 1.5;
 const DESK_Y = TERRACE_Y + 0.02;
 const DESK_Z = TERRACE_Z - 5.3;
 const DESK_SCALE = 0.015;
 
-const MONITOR_X = DESK_X - 3;
-const MONITOR_Y = DESK_Y + 0.75;
-const MONITOR_Z = DESK_Z - 0.05;
+const MUG_X = DESK_X - 3.3;
+const MUG_Y = DESK_Y + 0.75;
+const MUG_Z = DESK_Z - 0.35;
+
+const MONITOR_LEFT_X = DESK_X - 3.3;
+const MONITOR_LEFT_Y = DESK_Y + 0.75;
+const MONITOR_LEFT_Z = DESK_Z - 0.35;
+
+const MONITOR_RIGHT_X = DESK_X - 2.4;
+const MONITOR_RIGHT_Y = DESK_Y + 0.75;
+const MONITOR_RIGHT_Z = DESK_Z - 0.35;
 
 const KEYBOARD_X = DESK_X;
 const KEYBOARD_Y = DESK_Y + 1.08;
 const KEYBOARD_Z = DESK_Z + 0.5;
 
-const LAPTOP_X = DESK_X - 0.7;
+const LAPTOP_X = DESK_X - 1;
 const LAPTOP_Y = DESK_Y + 1.14;
 const LAPTOP_Z = DESK_Z;
 
@@ -67,6 +81,18 @@ const COFFEE_TABLE_Y = TERRACE_Y + 0.03;
 const COFFEE_TABLE_Z = TERRACE_Z + 0.75;
 const COFFEE_TABLE_SCALE = 0.01;
 
+const TABLET_X = COFFEE_TABLE_X - 1;
+const TABLET_Y = COFFEE_TABLE_Y - 3;
+const TABLET_Z = COFFEE_TABLE_Z + 1;
+const TABLET_SCALE = 0.01;
+const TABLET_ANGLE = Math.PI * 1.5;
+
+const TV_X = COFFEE_TABLE_X - 0.3;
+const TV_Y = COFFEE_TABLE_Y + 0.2;
+const TV_Z = COFFEE_TABLE_Z + 2;
+const TV_SCALE = 0.5;
+const TV_ANGLE = -Math.PI * 1.13;
+
 const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
 const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
 const ARMCHAIR_Z = COFFEE_TABLE_Z - 1.4;
@@ -82,9 +108,9 @@ const SOFA_Z = COFFEE_TABLE_Z + 0.2;
 const SOFA_SCALE = 0.01;
 const SOFA_ANGLE = Math.PI * 1.5;
 
-const PILLOW_X = SOFA_X - 0.15;
-const PILLOW_Y = SOFA_Y + 0.15;
-const PILLOW_Z = SOFA_Z - 0.5;
+const PILLOW_X = SOFA_X - 0.1;
+const PILLOW_Y = SOFA_Y + 0.13;
+const PILLOW_Z = SOFA_Z - 0.6;
 const PILLOW_SCALE = 0.0007;
 const PILLOW_ANGLE = -Math.PI / 4;
 
@@ -145,8 +171,16 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
   {
     path: "/models/monitor.glb",
-    label: "Monitor",
-    position: [MONITOR_X, MONITOR_Y, MONITOR_Z],
+    label: "Monitor Left",
+    position: [MONITOR_LEFT_X, MONITOR_LEFT_Y, MONITOR_LEFT_Z],
+    scale: 1.2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+  {
+    path: "/models/monitor.glb",
+    label: "Monitor Right",
+    position: [MONITOR_RIGHT_X, MONITOR_RIGHT_Y, MONITOR_RIGHT_Z],
     scale: 1.2,
     floatSpeed: 0,
     floatIntensity: 0,
@@ -176,6 +210,14 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
+    path: "/models/mug.glb",
+    label: "Mug",
+    position: [MUG_X, MUG_Y, MUG_Z],
+    scale: 1.2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+  {
     path: "/models/rug.glb",
     label: "rug office",
     position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
@@ -183,6 +225,24 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: RUG_OFFICE_ANGLE,
+  },
+  {
+    path: "/models/tv_with_a_wall_mount.glb",
+    label: "TV",
+    position: [TV_X, TV_Y, TV_Z],
+    scale: TV_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: TV_ANGLE,
+  },
+  {
+    path: "/models/ipad_air4.glb",
+    label: "tablet",
+    position: [TABLET_X, TABLET_Y, TABLET_Z],
+    scale: TABLET_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: TABLET_ANGLE,
   },
   {
     path: "/models/Untitled.glb",
@@ -243,6 +303,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: SHELF_ANGLE,
+  },
+  {
+    path: "/models/stack_of_books_3d_scan.glb",
+    label: "books",
+    position: [BOOKS_X, BOOKS_Y, BOOKS_Z],
+    scale: BOOKS_SCALE, //[BOOKS_SCALE * 1.4, BOOKS_SCALE * 1.1, BOOKS_SCALE * 0.4],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: BOOKS_ANGLE,
   },
 ];
 
@@ -480,7 +549,7 @@ function Scene() {
 
       {MODEL_CONFIG.map((config) => (
         <Suspense
-          key={config.path}
+          key={config.position.join(",")}
           fallback={<Placeholder position={config.position} />}
         >
           <Model
@@ -528,7 +597,7 @@ export default function World() {
         // In R3F v9+ this replaces the deprecated `physicallyCorrectLights` prop
         scene={{ backgroundIntensity: 1 }}
         shadows="soft" // PCFSoft shadows — smoother than default
-        onCreated={({ gl, scene }) => {
+        onCreated={({ gl }) => {
           gl.setClearColor("#ffffff");
           // Ensure the renderer uses physically correct light falloff
           // (needed for transmission / glass to behave properly)
