@@ -36,10 +36,10 @@ const SHELF_Z = TERRACE_Z - 3;
 const SHELF_SCALE = 0.015;
 const SHELF_ANGLE = Math.PI * 1.5;
 
-const BOOKS_X = SHELF_X - 2;
-const BOOKS_Y = SHELF_Y - 1;
-const BOOKS_Z = SHELF_Z - 1;
-const BOOKS_SCALE = 0.5;
+const BOOKS_X = SHELF_X - 1;
+const BOOKS_Y = SHELF_Y + 14;
+const BOOKS_Z = SHELF_Z - 0.1;
+const BOOKS_SCALE = 150;
 const BOOKS_ANGLE = Math.PI * 1.5;
 
 const DESK_X = TERRACE_X - 1.5;
@@ -155,6 +155,14 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
+  // {
+  //   path: "/models/wood_floor.glb",
+  //   label: "Glass Terrace",
+  //   position: [TERRACE_X, TERRACE_Y, TERRACE_Z],
+  //   scale: 5,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
 
   {
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
