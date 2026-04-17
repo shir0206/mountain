@@ -30,6 +30,11 @@ const TERRACE_Y = PEAK_WORLD_Y - 0.5;
 const TERRACE_Z = -8;
 const TERRACE_SCALE = 0.003;
 
+const FLOOR_X = TERRACE_X;
+const FLOOR_Y = TERRACE_Y + 0.05;
+const FLOOR_Z = TERRACE_Z;
+const FLOOR_SCALE = 1.7;
+
 const SHELF_X = TERRACE_X + 2.5;
 const SHELF_Y = TERRACE_Y + 0.05;
 const SHELF_Z = TERRACE_Z - 3;
@@ -127,6 +132,16 @@ const RUG_OFFICE_Z = DESK_Z + 0.4;
 const RUG_OFFICE_SCALE = 2;
 const RUG_OFFICE_ANGLE = Math.PI / 2;
 
+// const PLANT_MONEY_X = TERRACE_X + 0.5;
+// const PLANT_MONEY_Y = TERRACE_Y;
+// const PLANT_MONEY_Z = TERRACE_Z - 1.2;
+// const PLANT_MONEY_SCALE = 2;
+
+const PLANT_SNAKE_X = TERRACE_X + 2.2;
+const PLANT_SNAKE_Y = TERRACE_Y;
+const PLANT_SNAKE_Z = TERRACE_Z - 1;
+const PLANT_SNAKE_SCALE = 2;
+
 interface ModelConfig {
   path: string;
   label: string;
@@ -155,14 +170,14 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-  // {
-  //   path: "/models/wood_floor.glb",
-  //   label: "Glass Terrace",
-  //   position: [TERRACE_X, TERRACE_Y, TERRACE_Z],
-  //   scale: 5,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
+  {
+    path: "/models/wood_floor.glb",
+    label: "floor",
+    position: [FLOOR_X, FLOOR_Y, FLOOR_Z],
+    scale: [FLOOR_SCALE * 2, FLOOR_SCALE * 10, FLOOR_SCALE * 4],
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
 
   {
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
@@ -331,6 +346,24 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: BOOKS_ANGLE,
+  },
+
+  // {
+  //   path: "/models/free_pothos_potted_plant_-_money_plant.glb",
+  //   label: "plant_money",
+  //   position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
+  //   scale: PLANT_MONEY_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
+
+  {
+    path: "/models/snake_plant.glb",
+    label: "plant_snake",
+    position: [PLANT_SNAKE_X, PLANT_SNAKE_Y, PLANT_SNAKE_Z],
+    scale: PLANT_SNAKE_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
   },
 ];
 
