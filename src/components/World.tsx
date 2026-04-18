@@ -28,12 +28,12 @@ const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 const TERRACE_X = -5;
 const TERRACE_Y = PEAK_WORLD_Y - 0.5;
 const TERRACE_Z = -8;
-const TERRACE_SCALE = 0.003;
 
-const FLOOR_X = TERRACE_X;
-const FLOOR_Y = TERRACE_Y + 0.05;
-const FLOOR_Z = TERRACE_Z;
-const FLOOR_SCALE = 1.7;
+const PERGOLA_X = 8;
+const PERGOLA_Y = PEAK_WORLD_Y - 12;
+const PERGOLA_Z = -17.1;
+const PERGOLA_SCALE = 0.05; //0.003;
+const PERGOLA_ANGLE = Math.PI;
 
 const SHELF_X = TERRACE_X + 2.5;
 const SHELF_Y = TERRACE_Y + 0.05;
@@ -47,9 +47,9 @@ const BOOKS_Z = SHELF_Z - 0.1;
 const BOOKS_SCALE = 150;
 const BOOKS_ANGLE = Math.PI * 1.5;
 
-const DESK_X = TERRACE_X - 1.5;
-const DESK_Y = TERRACE_Y + 0.02;
-const DESK_Z = TERRACE_Z - 5.3;
+const DESK_X = PERGOLA_X + 3.5;
+const DESK_Y = PERGOLA_Y + 8;
+const DESK_Z = PERGOLA_Z + 3.5;
 const DESK_SCALE = 0.015;
 
 const MUG_X = DESK_X + 1;
@@ -83,9 +83,9 @@ const OFFICE_CHAIR_Y = DESK_Y + 0.02;
 const OFFICE_CHAIR_Z = DESK_Z + 1.0;
 const OFFICE_CHAIR_SCALE = 0.015;
 
-const COFFEE_TABLE_X = TERRACE_X - 1.7;
-const COFFEE_TABLE_Y = TERRACE_Y + 0.03;
-const COFFEE_TABLE_Z = TERRACE_Z + 0.75;
+const COFFEE_TABLE_X = PERGOLA_X - 10;
+const COFFEE_TABLE_Y = PERGOLA_Y + 8;
+const COFFEE_TABLE_Z = TERRACE_Z - 3;
 const COFFEE_TABLE_SCALE = 0.01;
 
 const TABLET_X = COFFEE_TABLE_X - 0.2;
@@ -102,18 +102,15 @@ const TV_ANGLE = -Math.PI * 1.13;
 
 const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
 const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
-const ARMCHAIR_Z = COFFEE_TABLE_Z - 1.4;
+const ARMCHAIR_Z = COFFEE_TABLE_Z + 1.6;
 const ARMCHAIR_SCALE = 0.012;
+const ARMCHAIR_ANGLE = Math.PI;
 
-const ARMCHAIR_ANGLE = Math.atan2(
-  COFFEE_TABLE_X - ARMCHAIR_X,
-  COFFEE_TABLE_Z - ARMCHAIR_Z
-);
-const SOFA_X = COFFEE_TABLE_X + 1.25;
+const SOFA_X = COFFEE_TABLE_X - 1.25;
 const SOFA_Y = COFFEE_TABLE_Y + 0.01;
 const SOFA_Z = COFFEE_TABLE_Z + 0.2;
 const SOFA_SCALE = 0.01;
-const SOFA_ANGLE = Math.PI * 1.5;
+const SOFA_ANGLE = Math.PI / 2;
 
 const PILLOW_X = SOFA_X - 0.1;
 const PILLOW_Y = SOFA_Y + 0.13;
@@ -121,9 +118,9 @@ const PILLOW_Z = SOFA_Z - 0.6;
 const PILLOW_SCALE = 0.0007;
 const PILLOW_ANGLE = -Math.PI / 4;
 
-const RUG_MEETING_X = COFFEE_TABLE_X + 0.5;
+const RUG_MEETING_X = COFFEE_TABLE_X - 0.5;
 const RUG_MEETING_Y = COFFEE_TABLE_Y + 0.01;
-const RUG_MEETING_Z = COFFEE_TABLE_Z - 0.2;
+const RUG_MEETING_Z = COFFEE_TABLE_Z + 0.5;
 const RUG_MEETING_SCALE = 2;
 
 const RUG_OFFICE_X = DESK_X;
@@ -163,21 +160,22 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/terrace.glb",
+    path: "/models/pergola.glb",
     label: "Glass Terrace",
-    position: [TERRACE_X, TERRACE_Y, TERRACE_Z],
-    scale: [TERRACE_SCALE * 2, TERRACE_SCALE, TERRACE_SCALE * 4],
+    position: [PERGOLA_X, PERGOLA_Y, PERGOLA_Z],
+    scale: [PERGOLA_SCALE, PERGOLA_SCALE * 0.5, PERGOLA_SCALE],
     floatSpeed: 0,
     floatIntensity: 0,
+    rotationY: PERGOLA_ANGLE,
   },
-  {
-    path: "/models/wood_floor.glb",
-    label: "floor",
-    position: [FLOOR_X, FLOOR_Y, FLOOR_Z],
-    scale: [FLOOR_SCALE * 2, FLOOR_SCALE * 10, FLOOR_SCALE * 4],
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+  // {
+  //   path: "/models/wood_floor.glb",
+  //   label: "floor",
+  //   position: [FLOOR_X, FLOOR_Y, FLOOR_Z],
+  //   scale: [FLOOR_SCALE * 2, FLOOR_SCALE * 10, FLOOR_SCALE * 4],
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
 
   {
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
@@ -321,7 +319,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     label: "rug meeting",
     position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
     scale: [
-      RUG_MEETING_SCALE * 1.4,
+      RUG_MEETING_SCALE * 1.8,
       RUG_MEETING_SCALE,
       RUG_MEETING_SCALE * 1.4,
     ],
