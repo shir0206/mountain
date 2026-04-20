@@ -30,22 +30,101 @@ const TERRACE_Y = PEAK_WORLD_Y - 0.5;
 const TERRACE_Z = -8;
 
 const PERGOLA_X = 8;
-const PERGOLA_Y = PEAK_WORLD_Y - 12;
-const PERGOLA_Z = -17.1;
+const PERGOLA_Y = PEAK_WORLD_Y - 11;
+const PERGOLA_Z = -15;
 const PERGOLA_SCALE = 0.05; //0.003;
 const PERGOLA_ANGLE = Math.PI;
 
-const SHELF_X = TERRACE_X + 2.5;
-const SHELF_Y = TERRACE_Y + 0.05;
-const SHELF_Z = TERRACE_Z - 3;
-const SHELF_SCALE = 0.015;
-const SHELF_ANGLE = Math.PI * 1.5;
+const BAR_TABLE_X = PERGOLA_X - 9.2;
+const BAR_TABLE_Y = PERGOLA_Y + 7.8;
+const BAR_TABLE_Z = PERGOLA_Z - 0.1;
+const BAR_TABLE_SCALE = 0.01;
 
-const BOOKS_X = SHELF_X - 1;
-const BOOKS_Y = SHELF_Y + 14;
-const BOOKS_Z = SHELF_Z - 0.1;
-const BOOKS_SCALE = 150;
-const BOOKS_ANGLE = Math.PI * 1.5;
+const BAR_CHAIR_FIRST_X = BAR_TABLE_X;
+const BAR_CHAIR_FIRST_Y = BAR_TABLE_Y;
+const BAR_CHAIR_FIRST_Z = BAR_TABLE_Z + 0.5;
+const BAR_CHAIR_FIRST_SCALE = 0.01;
+const BAR_CHAIR_FIRST_ANGLE = Math.PI;
+
+const BAR_CHAIR_SECOND_X = BAR_TABLE_X - 0.5;
+const BAR_CHAIR_SECOND_Y = BAR_TABLE_Y;
+const BAR_CHAIR_SECOND_Z = BAR_TABLE_Z;
+const BAR_CHAIR_SECOND_SCALE = 0.01;
+const BAR_CHAIR_SECOND_ANGLE = Math.PI / 2;
+
+const SHELF_X = TERRACE_X + 8.7;
+const SHELF_Y = TERRACE_Y - 2.7;
+const SHELF_Z = TERRACE_Z - 5;
+const SHELF_SCALE = 1.8;
+const SHELF_ANGLE = Math.PI;
+
+// const GARDEN_TABLE_X = PERGOLA_X - 4;
+// const GARDEN_TABLE_Y = PERGOLA_Y + 7.8;
+// const GARDEN_TABLE_Z = PERGOLA_Z + 8;
+// const GARDEN_TABLE_SCALE = 0.01;
+
+// const GARDEN_CHAIR_FIRST_X = GARDEN_TABLE_X;
+// const GARDEN_CHAIR_FIRST_Y = GARDEN_TABLE_Y;
+// const GARDEN_CHAIR_FIRST_Z = GARDEN_TABLE_Z + 0.6;
+// const GARDEN_CHAIR_FIRST_SCALE = 0.01;
+// const GARDEN_CHAIR_FIRST_ANGLE = Math.PI;
+
+// const GARDEN_CHAIR_SECOND_X = GARDEN_TABLE_X;
+// const GARDEN_CHAIR_SECOND_Y = GARDEN_TABLE_Y;
+// const GARDEN_CHAIR_SECOND_Z = GARDEN_TABLE_Z - 0.6;
+// const GARDEN_CHAIR_SECOND_SCALE = 0.01;
+// const GARDEN_CHAIR_SECOND_ANGLE = Math.PI * 2;
+
+// const GARDEN_CHAIR_THIRD_X = GARDEN_TABLE_X - 0.6;
+// const GARDEN_CHAIR_THIRD_Y = GARDEN_TABLE_Y;
+// const GARDEN_CHAIR_THIRD_Z = GARDEN_TABLE_Z;
+// const GARDEN_CHAIR_THIRD_SCALE = 0.01;
+// const GARDEN_CHAIR_THIRD_ANGLE = Math.PI / 2;
+
+// const GARDEN_CHAIR_FOURTH_X = GARDEN_TABLE_X + 0.6;
+// const GARDEN_CHAIR_FOURTH_Y = GARDEN_TABLE_Y;
+// const GARDEN_CHAIR_FOURTH_Z = GARDEN_TABLE_Z;
+// const GARDEN_CHAIR_FOURTH_SCALE = 0.01;
+// const GARDEN_CHAIR_FOURTH_ANGLE = -Math.PI / 2;
+
+// const STRAW_MAT_X = GARDEN_TABLE_X;
+// const STRAW_MAT_Y = GARDEN_TABLE_Y;
+// const STRAW_MAT_Z = GARDEN_TABLE_Z;
+// const STRAW_MAT_SCALE = 2;
+
+const MUD_X = PERGOLA_X - 4;
+const MUD_Y = PERGOLA_Y + 7.82;
+const MUD_Z = PERGOLA_Z + 10.5;
+const MUD_SCALE = 0.01;
+
+const WOODEN_FENCE_A_X = MUD_X + 7.25;
+const WOODEN_FENCE_B_X = MUD_X + 4;
+const WOODEN_FENCE_C_X = MUD_X + 0.75;
+const WOODEN_FENCE_D_X = MUD_X - 2.25;
+const WOODEN_FENCE_E_X = MUD_X - 5.4;
+const WOODEN_FENCE_Y = MUD_Y;
+const WOODEN_FENCE_Z = MUD_Z - 1.5;
+const WOODEN_FENCE_SCALE = 0.5;
+const WOODEN_FENCE_ANGLE = -Math.PI / 2;
+
+const PLANT_GERANIUM_A_X = MUD_X + 4;
+const PLANT_GERANIUM_B_X = MUD_X - 1;
+const PLANT_GERANIUM_Y = MUD_Y;
+const PLANT_GERANIUM_A_Z = MUD_Z - 1.1;
+const PLANT_GERANIUM_B_Z = MUD_Z - 1.2;
+const PLANT_GERANIUM_SCALE = 0.8;
+const PLANT_GERANIUM_A_ANGLE = Math.PI * 1.5;
+const PLANT_GERANIUM_B_ANGLE = Math.PI;
+
+const PLANT_PALM_A_X = MUD_X + 3;
+const PLANT_PALM_B_X = MUD_X - 2;
+const PLANT_PALM_Y = MUD_Y;
+const PLANT_PALM_A_Z = MUD_Z - 0.1;
+const PLANT_PALM_B_Z = MUD_Z - 0.2;
+const PLANT_PALM_A_SCALE = 2;
+const PLANT_PALM_B_SCALE = 1.2;
+const PLANT_PALM_A_ANGLE = Math.PI * 1.5;
+const PLANT_PALM_B_ANGLE = Math.PI;
 
 const DESK_X = PERGOLA_X + 3.5;
 const DESK_Y = PERGOLA_Y + 8;
@@ -83,22 +162,34 @@ const OFFICE_CHAIR_Y = DESK_Y + 0.02;
 const OFFICE_CHAIR_Z = DESK_Z + 1.0;
 const OFFICE_CHAIR_SCALE = 0.015;
 
-const COFFEE_TABLE_X = PERGOLA_X - 10;
+const COFFEE_TABLE_X = PERGOLA_X - 8;
 const COFFEE_TABLE_Y = PERGOLA_Y + 8;
-const COFFEE_TABLE_Z = TERRACE_Z - 3;
+const COFFEE_TABLE_Z = TERRACE_Z - 2.5;
 const COFFEE_TABLE_SCALE = 0.01;
 
 const TABLET_X = COFFEE_TABLE_X - 0.2;
-const TABLET_Y = COFFEE_TABLE_Y + 0.5;
+const TABLET_Y = COFFEE_TABLE_Y + 0.3;
 const TABLET_Z = COFFEE_TABLE_Z + 0.2;
 const TABLET_SCALE = 1.5;
 const TABLET_ANGLE = Math.PI * 1.5;
 
-const TV_X = COFFEE_TABLE_X - 0.3;
-const TV_Y = COFFEE_TABLE_Y + 0.2;
-const TV_Z = COFFEE_TABLE_Z + 2;
-const TV_SCALE = 0.5;
-const TV_ANGLE = -Math.PI * 1.13;
+// const TV_X = COFFEE_TABLE_X - 0.3;
+// const TV_Y = COFFEE_TABLE_Y + 0.2;
+// const TV_Z = COFFEE_TABLE_Z + 2;
+// const TV_SCALE = 0.5;
+// const TV_ANGLE = -Math.PI * 1.13;
+
+const PLANT_CREEPER_LEFT_X = PERGOLA_X - 7;
+const PLANT_CREEPER_LEFT_Y = PERGOLA_Y + 7.9;
+const PLANT_CREEPER_LEFT_Z = PERGOLA_Z + 2.2;
+const PLANT_CREEPER_LEFT_SCALE = 0.0001;
+const PLANT_CREEPER_LEFT_ANGLE = Math.PI * 1.5; // 2;
+
+const PLANT_CREEPER_RIGHT_X = PERGOLA_X - 8.5;
+const PLANT_CREEPER_RIGHT_Y = PERGOLA_Y + 7.5;
+const PLANT_CREEPER_RIGHT_Z = PERGOLA_Z + 2.2;
+const PLANT_CREEPER_RIGHT_SCALE = 0.00011;
+const PLANT_CREEPER_RIGHT_ANGLE = Math.PI * 1.7; // 2;
 
 const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
 const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
@@ -134,10 +225,20 @@ const RUG_OFFICE_ANGLE = Math.PI / 2;
 // const PLANT_MONEY_Z = TERRACE_Z - 1.2;
 // const PLANT_MONEY_SCALE = 2;
 
-const PLANT_SNAKE_X = TERRACE_X + 2.2;
-const PLANT_SNAKE_Y = TERRACE_Y;
-const PLANT_SNAKE_Z = TERRACE_Z - 1;
-const PLANT_SNAKE_SCALE = 2;
+// const BOOKCASE_X = TERRACE_X + 4;
+// const BOOKCASE_Y = TERRACE_Y - 2.68;
+// const BOOKCASE_Z = TERRACE_Z + 1.5;
+// const BOOKCASE_SCALE = 1.2;
+
+// const PLANT_FICUS_X = TERRACE_X + 4;
+// const PLANT_FICUS_Y = TERRACE_Y - 2;
+// const PLANT_FICUS_Z = TERRACE_Z + 1;
+// const PLANT_FICUS_SCALE = 1.2;
+
+const PLANT_FLOWERS_X = TERRACE_X + 17;
+const PLANT_FLOWERS_Y = TERRACE_Y - 2.7;
+const PLANT_FLOWERS_Z = TERRACE_Z + 1;
+const PLANT_FLOWERS_SCALE = 1.5;
 
 interface ModelConfig {
   path: string;
@@ -163,7 +264,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/pergola.glb",
     label: "Glass Terrace",
     position: [PERGOLA_X, PERGOLA_Y, PERGOLA_Z],
-    scale: [PERGOLA_SCALE, PERGOLA_SCALE * 0.5, PERGOLA_SCALE],
+    scale: [PERGOLA_SCALE * 0.8, PERGOLA_SCALE * 0.5, PERGOLA_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: PERGOLA_ANGLE,
@@ -256,15 +357,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: RUG_OFFICE_ANGLE,
   },
-  {
-    path: "/models/tv_with_a_wall_mount.glb",
-    label: "TV",
-    position: [TV_X, TV_Y, TV_Z],
-    scale: TV_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: TV_ANGLE,
-  },
+  // {
+  //   path: "/models/tv_with_a_wall_mount.glb",
+  //   label: "TV",
+  //   position: [TV_X, TV_Y, TV_Z],
+  //   scale: TV_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: TV_ANGLE,
+  // },
   {
     path: "/models/ipad_air4.glb",
     label: "tablet",
@@ -273,6 +374,43 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: TABLET_ANGLE,
+  },
+  {
+    path: "/models/green_creeper_plant.glb",
+    label: "creeper",
+    position: [
+      PLANT_CREEPER_LEFT_X,
+      PLANT_CREEPER_LEFT_Y,
+      PLANT_CREEPER_LEFT_Z,
+    ],
+    scale: [
+      PLANT_CREEPER_LEFT_SCALE * 1.2,
+      PLANT_CREEPER_LEFT_SCALE * 1.2,
+      PLANT_CREEPER_LEFT_SCALE * 1.8,
+    ],
+
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_CREEPER_LEFT_ANGLE,
+  },
+
+  {
+    path: "/models/green_creeper_plant.glb",
+    label: "creeper",
+    position: [
+      PLANT_CREEPER_RIGHT_X,
+      PLANT_CREEPER_RIGHT_Y,
+      PLANT_CREEPER_RIGHT_Z,
+    ],
+    scale: [
+      PLANT_CREEPER_RIGHT_SCALE * 1.2,
+      PLANT_CREEPER_RIGHT_SCALE * 1.2,
+      PLANT_CREEPER_RIGHT_SCALE * 1.8,
+    ],
+
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_CREEPER_RIGHT_ANGLE,
   },
   {
     path: "/models/Untitled.glb",
@@ -302,13 +440,13 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PILLOW_ANGLE,
   },
   {
-    path: "/models/round_range_coffee_table_oak_and_brass.glb",
+    path: "/models/edelweiss_round_table_ash_and_white.glb",
     label: "coffee table",
     position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
     scale: [
       COFFEE_TABLE_SCALE * 1.1,
-      COFFEE_TABLE_SCALE * 0.7,
-      COFFEE_TABLE_SCALE * 1.5,
+      COFFEE_TABLE_SCALE * 0.4,
+      COFFEE_TABLE_SCALE * 1.3,
     ],
     floatSpeed: 0,
     floatIntensity: 0,
@@ -321,31 +459,240 @@ const MODEL_CONFIG: ModelConfig[] = [
     scale: [
       RUG_MEETING_SCALE * 1.8,
       RUG_MEETING_SCALE,
-      RUG_MEETING_SCALE * 1.4,
+      RUG_MEETING_SCALE * 1.6,
     ],
     floatSpeed: 0,
     floatIntensity: 0,
   },
 
   {
-    path: "/models/esme_coffee_table_with_2_drawers_ash.glb",
+    path: "/models/edelweiss_bar_table_ash_and_white.glb",
+    label: "bar table",
+    position: [BAR_TABLE_X, BAR_TABLE_Y, BAR_TABLE_Z],
+    scale: BAR_TABLE_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+  {
+    path: "/models/set_of_2_edelweiss_bar_chairs_white.glb",
+    label: "bar chair first",
+    position: [BAR_CHAIR_FIRST_X, BAR_CHAIR_FIRST_Y, BAR_CHAIR_FIRST_Z],
+    scale: BAR_CHAIR_FIRST_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: BAR_CHAIR_FIRST_ANGLE,
+  },
+
+  {
+    path: "/models/set_of_2_edelweiss_bar_chairs_white.glb",
+    label: "bar chair second",
+    position: [BAR_CHAIR_SECOND_X, BAR_CHAIR_SECOND_Y, BAR_CHAIR_SECOND_Z],
+    scale: BAR_CHAIR_SECOND_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: BAR_CHAIR_SECOND_ANGLE,
+  },
+  {
+    path: "/models/base_240tv_oak.glb",
     label: "shelf",
     position: [SHELF_X, SHELF_Y, SHELF_Z],
-    scale: [SHELF_SCALE * 1.4, SHELF_SCALE * 1.1, SHELF_SCALE * 0.4],
+    scale: SHELF_SCALE, //[SHELF_SCALE * 1.4, SHELF_SCALE * 1.1, SHELF_SCALE * 0.4],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: SHELF_ANGLE,
   },
+  // {
+  //   path: "/models/stack_of_books_3d_scan.glb",
+  //   label: "books",
+  //   position: [BOOKS_X, BOOKS_Y, BOOKS_Z],
+  //   scale: BOOKS_SCALE, //[BOOKS_SCALE * 1.4, BOOKS_SCALE * 1.1, BOOKS_SCALE * 0.4],
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: BOOKS_ANGLE,
+  // },
   {
-    path: "/models/stack_of_books_3d_scan.glb",
-    label: "books",
-    position: [BOOKS_X, BOOKS_Y, BOOKS_Z],
-    scale: BOOKS_SCALE, //[BOOKS_SCALE * 1.4, BOOKS_SCALE * 1.1, BOOKS_SCALE * 0.4],
+    path: "/models/mud_material.glb",
+    label: "mud",
+    position: [MUD_X, MUD_Y, MUD_Z],
+    scale: [MUD_SCALE * 3, MUD_SCALE, MUD_SCALE * 0.5],
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: BOOKS_ANGLE,
+  },
+  {
+    path: "/models/wooden_fence.glb",
+    label: "wooden_fence a",
+    position: [WOODEN_FENCE_A_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+    scale: [
+      WOODEN_FENCE_SCALE * 2,
+      WOODEN_FENCE_SCALE * 0.6,
+      WOODEN_FENCE_SCALE * 6,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: WOODEN_FENCE_ANGLE,
+  },
+  {
+    path: "/models/wooden_fence.glb",
+    label: "wooden_fence a",
+    position: [WOODEN_FENCE_B_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+    scale: [
+      WOODEN_FENCE_SCALE * 2,
+      WOODEN_FENCE_SCALE * 0.6,
+      WOODEN_FENCE_SCALE * 6,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: WOODEN_FENCE_ANGLE,
+  },
+  {
+    path: "/models/wooden_fence.glb",
+    label: "wooden_fence a",
+    position: [WOODEN_FENCE_C_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+    scale: [
+      WOODEN_FENCE_SCALE * 2,
+      WOODEN_FENCE_SCALE * 0.6,
+      WOODEN_FENCE_SCALE * 6,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: WOODEN_FENCE_ANGLE,
+  },
+  {
+    path: "/models/wooden_fence.glb",
+    label: "wooden_fence a",
+    position: [WOODEN_FENCE_D_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+    scale: [
+      WOODEN_FENCE_SCALE * 2,
+      WOODEN_FENCE_SCALE * 0.6,
+      WOODEN_FENCE_SCALE * 6,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: WOODEN_FENCE_ANGLE,
+  },
+  {
+    path: "/models/wooden_fence.glb",
+    label: "wooden_fence a",
+    position: [WOODEN_FENCE_E_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+    scale: [
+      WOODEN_FENCE_SCALE * 2,
+      WOODEN_FENCE_SCALE * 0.6,
+      WOODEN_FENCE_SCALE * 6,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: WOODEN_FENCE_ANGLE,
   },
 
+  {
+    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    label: "jungle geranium",
+    position: [PLANT_GERANIUM_A_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_A_Z],
+    scale: PLANT_GERANIUM_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_GERANIUM_A_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    label: "jungle geranium",
+    position: [PLANT_GERANIUM_B_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_B_Z],
+    scale: PLANT_GERANIUM_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_GERANIUM_B_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_windmill_palm_1625.glb",
+    label: "jungle PALM",
+    position: [PLANT_PALM_A_X, PLANT_PALM_Y, PLANT_PALM_A_Z],
+    scale: PLANT_PALM_A_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_PALM_A_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_windmill_palm_1625.glb",
+    label: "jungle PALM",
+    position: [PLANT_PALM_B_X, PLANT_PALM_Y, PLANT_PALM_B_Z],
+    scale: PLANT_PALM_B_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_PALM_B_ANGLE,
+  },
+
+  // {
+  //   path: "/models/edelweiss_round_table_ash_and_white.glb",
+  //   label: "garden table",
+  //   position: [GARDEN_TABLE_X, GARDEN_TABLE_Y, GARDEN_TABLE_Z],
+  //   scale: GARDEN_TABLE_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
+  // {
+  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   label: "garden chair first",
+  //   position: [
+  //     GARDEN_CHAIR_FIRST_X,
+  //     GARDEN_CHAIR_FIRST_Y,
+  //     GARDEN_CHAIR_FIRST_Z,
+  //   ],
+  //   scale: GARDEN_CHAIR_FIRST_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: GARDEN_CHAIR_FIRST_ANGLE,
+  // },
+
+  // {
+  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   label: "garden chair second",
+  //   position: [
+  //     GARDEN_CHAIR_SECOND_X,
+  //     GARDEN_CHAIR_SECOND_Y,
+  //     GARDEN_CHAIR_SECOND_Z,
+  //   ],
+  //   scale: GARDEN_CHAIR_SECOND_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: GARDEN_CHAIR_SECOND_ANGLE,
+  // },
+
+  // {
+  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   label: "garden chair third",
+  //   position: [
+  //     GARDEN_CHAIR_THIRD_X,
+  //     GARDEN_CHAIR_THIRD_Y,
+  //     GARDEN_CHAIR_THIRD_Z,
+  //   ],
+  //   scale: GARDEN_CHAIR_THIRD_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: GARDEN_CHAIR_THIRD_ANGLE,
+  // },
+
+  // {
+  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   label: "garden chair fourth",
+  //   position: [
+  //     GARDEN_CHAIR_FOURTH_X,
+  //     GARDEN_CHAIR_FOURTH_Y,
+  //     GARDEN_CHAIR_FOURTH_Z,
+  //   ],
+  //   scale: GARDEN_CHAIR_FOURTH_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: GARDEN_CHAIR_FOURTH_ANGLE,
+  // },
+
+  // {
+  //   path: "/models/unhyun__straw_mat_a.glb",
+  //   label: "STRAW MAT",
+  //   position: [STRAW_MAT_X, STRAW_MAT_Y, STRAW_MAT_Z],
+  //   scale: STRAW_MAT_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
   // {
   //   path: "/models/free_pothos_potted_plant_-_money_plant.glb",
   //   label: "plant_money",
@@ -354,12 +701,28 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatSpeed: 0,
   //   floatIntensity: 0,
   // },
+  // {
+  //   path: "/models/ficus_lyrata_-_plants.glb",
+  //   label: "wall",
+  //   position: [PLANT_FICUS_X, PLANT_FICUS_Y, PLANT_FICUS_Z],
+  //   scale: PLANT_FICUS_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
 
+  // {
+  //   path: "/models/metal_frame_bookcase.glb",
+  //   label: "bookcase",
+  //   position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
+  //   scale: [BOOKCASE_SCALE * 1.4, BOOKCASE_SCALE * 0.6, BOOKCASE_SCALE * 0.7],
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
   {
-    path: "/models/snake_plant.glb",
-    label: "plant_snake",
-    position: [PLANT_SNAKE_X, PLANT_SNAKE_Y, PLANT_SNAKE_Z],
-    scale: PLANT_SNAKE_SCALE,
+    path: "/models/outdoor_decoration_plants_flower.glb",
+    label: "flowers",
+    position: [PLANT_FLOWERS_X, PLANT_FLOWERS_Y, PLANT_FLOWERS_Z],
+    scale: PLANT_FLOWERS_SCALE,
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -530,7 +893,7 @@ function Scene() {
         //  target={[50, -30, -20]}
         // target={[1, -30, -15]}
         // target={[30, -40, -30]}
-        target={[-8.27, -29.56, -3.16]}
+        target={[-8.27, -34, -3.16]}
       />
     </>
   );
