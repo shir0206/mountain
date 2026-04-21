@@ -109,15 +109,25 @@ const WOODEN_FENCE_ANGLE = -Math.PI / 2;
 
 const PLANT_GERANIUM_A_X = MUD_X + 4;
 const PLANT_GERANIUM_B_X = MUD_X - 1;
+const PLANT_GERANIUM_C_X = MUD_X - 4.7;
+const PLANT_GERANIUM_D_X = MUD_X - 1;
+const PLANT_GERANIUM_E_X = MUD_X - 4.7;
 const PLANT_GERANIUM_Y = MUD_Y;
 const PLANT_GERANIUM_A_Z = MUD_Z - 1.1;
 const PLANT_GERANIUM_B_Z = MUD_Z - 1.2;
+const PLANT_GERANIUM_C_Z = MUD_Z - 0.7;
+const PLANT_GERANIUM_D_Z = MUD_Z - 1.2;
+const PLANT_GERANIUM_E_Z = MUD_Z - 0.7;
 const PLANT_GERANIUM_SCALE = 0.8;
+const PLANT_GERANIUM_C_SCALE = 1;
 const PLANT_GERANIUM_A_ANGLE = Math.PI * 1.5;
 const PLANT_GERANIUM_B_ANGLE = Math.PI;
+const PLANT_GERANIUM_C_ANGLE = -Math.PI;
+const PLANT_GERANIUM_D_ANGLE = Math.PI;
+const PLANT_GERANIUM_E_ANGLE = -Math.PI;
 
 const PLANT_PALM_A_X = MUD_X + 3;
-const PLANT_PALM_B_X = MUD_X - 2;
+const PLANT_PALM_B_X = MUD_X - 1;
 const PLANT_PALM_Y = MUD_Y;
 const PLANT_PALM_A_Z = MUD_Z - 0.1;
 const PLANT_PALM_B_Z = MUD_Z - 0.2;
@@ -125,6 +135,84 @@ const PLANT_PALM_A_SCALE = 2;
 const PLANT_PALM_B_SCALE = 1.2;
 const PLANT_PALM_A_ANGLE = Math.PI * 1.5;
 const PLANT_PALM_B_ANGLE = Math.PI;
+
+const PLANT_LUPINE_A_X = MUD_X + 6;
+const PLANT_LUPINE_B_X = MUD_X - 3.5;
+const PLANT_LUPINE_C_X = MUD_X + 6;
+const PLANT_LUPINE_D_X = MUD_X - 3.5;
+const PLANT_LUPINE_Y = MUD_Y;
+const PLANT_LUPINE_A_Z = MUD_Z - 1;
+const PLANT_LUPINE_B_Z = MUD_Z - 0.9;
+const PLANT_LUPINE_C_Z = MUD_Z - 1;
+const PLANT_LUPINE_D_Z = MUD_Z - 0.9;
+const PLANT_LUPINE_A_SCALE = 1;
+const PLANT_LUPINE_B_SCALE = 0.8;
+const PLANT_LUPINE_C_SCALE = 1;
+const PLANT_LUPINE_D_SCALE = 0.8;
+const PLANT_LUPINE_A_ANGLE = Math.PI * 1.5;
+const PLANT_LUPINE_B_ANGLE = Math.PI;
+const PLANT_LUPINE_C_ANGLE = Math.PI * 1.5;
+const PLANT_LUPINE_D_ANGLE = Math.PI;
+
+const PLANT_SNOWFLAKE_A_X = MUD_X + 5;
+const PLANT_SNOWFLAKE_B_X = MUD_X;
+const PLANT_SNOWFLAKE_C_X = MUD_X + 5;
+const PLANT_SNOWFLAKE_D_X = MUD_X;
+const PLANT_SNOWFLAKE_Y = MUD_Y;
+const PLANT_SNOWFLAKE_A_Z = MUD_Z - 1;
+const PLANT_SNOWFLAKE_B_Z = MUD_Z - 0.7;
+const PLANT_SNOWFLAKE_C_Z = MUD_Z - 1;
+const PLANT_SNOWFLAKE_D_Z = MUD_Z - 0.7;
+const PLANT_SNOWFLAKE_A_SCALE = 0.6;
+const PLANT_SNOWFLAKE_B_SCALE = 0.7;
+const PLANT_SNOWFLAKE_C_SCALE = 0.6;
+const PLANT_SNOWFLAKE_D_SCALE = 0.7;
+const PLANT_SNOWFLAKE_A_ANGLE = Math.PI * 1.5;
+const PLANT_SNOWFLAKE_B_ANGLE = Math.PI;
+const PLANT_SNOWFLAKE_C_ANGLE = Math.PI * 1.5;
+const PLANT_SNOWFLAKE_D_ANGLE = Math.PI;
+
+const PLANT_CROTON_A_X = MUD_X + 8;
+const PLANT_CROTON_B_X = MUD_X - 5.5;
+const PLANT_CROTON_C_X = MUD_X + 1;
+const PLANT_CROTON_D_X = MUD_X + 1;
+const PLANT_CROTON_Y = MUD_Y;
+const PLANT_CROTON_A_Z = MUD_Z - 1.15;
+const PLANT_CROTON_B_Z = MUD_Z - 1.2;
+const PLANT_CROTON_C_Z = MUD_Z - 0.35;
+const PLANT_CROTON_D_Z = MUD_Z - 0.35;
+const PLANT_CROTON_A_SCALE = 0.25;
+const PLANT_CROTON_B_SCALE = 0.22;
+const PLANT_CROTON_C_SCALE = 0.3;
+const PLANT_CROTON_D_SCALE = 0.3;
+const PLANT_CROTON_A_ANGLE = Math.PI * 1.5;
+const PLANT_CROTON_B_ANGLE = -Math.PI * 1.5;
+const PLANT_CROTON_C_ANGLE = Math.PI * 1.75;
+const PLANT_CROTON_D_ANGLE = Math.PI * 1.75;
+
+const PLANT_SINENSIS_A_X = MUD_X - 2.5;
+const PLANT_SINENSIS_B_X = MUD_X - 6.5;
+const PLANT_SINENSIS_Y = MUD_Y - 1.6;
+const PLANT_SINENSIS_A_Z = MUD_Z - 0.6;
+const PLANT_SINENSIS_B_Z = MUD_Z - 0.4;
+const PLANT_SINENSIS_A_SCALE = 1.4;
+const PLANT_SINENSIS_B_SCALE = 1.3;
+const PLANT_SINENSIS_A_ANGLE = 0;
+const PLANT_SINENSIS_B_ANGLE = Math.PI;
+
+const PLANT_BUSH_A_X = MUD_X + 8;
+const PLANT_BUSH_B_X = MUD_X + 6;
+const PLANT_BUSH_C_X = MUD_X + 4;
+const PLANT_BUSH_Y = MUD_Y;
+const PLANT_BUSH_A_Z = MUD_Z + 0.5;
+const PLANT_BUSH_B_Z = MUD_Z + 0.5;
+const PLANT_BUSH_C_Z = MUD_Z + 0.35;
+const PLANT_BUSH_A_SCALE = 1.7;
+const PLANT_BUSH_B_SCALE = 1.8;
+const PLANT_BUSH_C_SCALE = 1.6;
+const PLANT_BUSH_A_ANGLE = Math.PI * 1.5;
+const PLANT_BUSH_B_ANGLE = -Math.PI * 1.5;
+const PLANT_BUSH_C_ANGLE = Math.PI * 1.75;
 
 const DESK_X = PERGOLA_X + 3.5;
 const DESK_Y = PERGOLA_Y + 8;
@@ -163,7 +251,7 @@ const OFFICE_CHAIR_Z = DESK_Z + 1.0;
 const OFFICE_CHAIR_SCALE = 0.015;
 
 const COFFEE_TABLE_X = PERGOLA_X - 8;
-const COFFEE_TABLE_Y = PERGOLA_Y + 8;
+const COFFEE_TABLE_Y = PERGOLA_Y + 7.8;
 const COFFEE_TABLE_Z = TERRACE_Z - 2.5;
 const COFFEE_TABLE_SCALE = 0.01;
 
@@ -603,6 +691,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_GERANIUM_B_ANGLE,
   },
   {
+    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    label: "jungle geranium",
+    position: [PLANT_GERANIUM_C_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_C_Z],
+    scale: PLANT_GERANIUM_C_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_GERANIUM_C_ANGLE,
+  },
+  {
     path: "/models/realistic_hd_windmill_palm_1625.glb",
     label: "jungle PALM",
     position: [PLANT_PALM_A_X, PLANT_PALM_Y, PLANT_PALM_A_Z],
@@ -619,6 +716,142 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: PLANT_PALM_B_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    label: "jungle LUPINE",
+    position: [PLANT_LUPINE_A_X, PLANT_LUPINE_Y, PLANT_LUPINE_A_Z],
+    scale: PLANT_LUPINE_A_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_LUPINE_A_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    label: "jungle LUPINE",
+    position: [PLANT_LUPINE_B_X, PLANT_LUPINE_Y, PLANT_LUPINE_B_Z],
+    scale: [
+      PLANT_LUPINE_B_SCALE * 1.2,
+      PLANT_LUPINE_B_SCALE * 0.8,
+      PLANT_LUPINE_B_SCALE * 1.2,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_LUPINE_B_ANGLE,
+  },
+  {
+    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    label: "jungle SNOWFLAKE",
+    position: [PLANT_SNOWFLAKE_A_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_A_Z],
+    scale: PLANT_SNOWFLAKE_A_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_SNOWFLAKE_A_ANGLE,
+  },
+  {
+    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    label: "jungle SNOWFLAKE",
+    position: [PLANT_SNOWFLAKE_B_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_B_Z],
+    scale: PLANT_SNOWFLAKE_B_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_SNOWFLAKE_B_ANGLE,
+  },
+
+  {
+    path: "/models/croton_leaf_plants.glb",
+    label: "jungle CROTON",
+    position: [PLANT_CROTON_A_X, PLANT_CROTON_Y, PLANT_CROTON_A_Z],
+    scale: PLANT_CROTON_A_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_CROTON_A_ANGLE,
+  },
+  {
+    path: "/models/croton_leaf_plants.glb",
+    label: "jungle CROTON",
+    position: [PLANT_CROTON_B_X, PLANT_CROTON_Y, PLANT_CROTON_B_Z],
+    scale: PLANT_CROTON_B_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_CROTON_B_ANGLE,
+  },
+  {
+    path: "/models/croton_leaf_plants.glb",
+    label: "jungle CROTON",
+    position: [PLANT_CROTON_C_X, PLANT_CROTON_Y, PLANT_CROTON_C_Z],
+    scale: PLANT_CROTON_C_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_CROTON_C_ANGLE,
+  },
+
+  {
+    path: "/models/wisteria_sinensis005.glb",
+    label: "jungle SINENSIS",
+    position: [PLANT_SINENSIS_A_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_A_Z],
+    scale: [
+      PLANT_SINENSIS_A_SCALE,
+      PLANT_SINENSIS_A_SCALE * 0.8,
+      PLANT_SINENSIS_A_SCALE,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_SINENSIS_A_ANGLE,
+  },
+  {
+    path: "/models/wisteria_sinensis005.glb",
+    label: "jungle SINENSIS",
+    position: [PLANT_SINENSIS_B_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_B_Z],
+    scale: [
+      PLANT_SINENSIS_B_SCALE,
+      PLANT_SINENSIS_B_SCALE * 0.9,
+      PLANT_SINENSIS_B_SCALE,
+    ],
+
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_SINENSIS_B_ANGLE,
+  },
+
+  {
+    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    label: "jungle BUSH",
+    position: [PLANT_BUSH_A_X, PLANT_BUSH_Y, PLANT_BUSH_A_Z],
+    scale: [
+      PLANT_BUSH_A_SCALE * 1.2,
+      PLANT_BUSH_A_SCALE,
+      PLANT_BUSH_A_SCALE * 1.3,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_BUSH_A_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    label: "jungle BUSH",
+    position: [PLANT_BUSH_B_X, PLANT_BUSH_Y, PLANT_BUSH_B_Z],
+    scale: [
+      PLANT_BUSH_B_SCALE * 1.1,
+      PLANT_BUSH_B_SCALE,
+      PLANT_BUSH_B_SCALE * 1.1,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_BUSH_B_ANGLE,
+  },
+  {
+    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    label: "jungle BUSH",
+    position: [PLANT_BUSH_C_X, PLANT_BUSH_Y, PLANT_BUSH_C_Z],
+    scale: [
+      PLANT_BUSH_C_SCALE * 1.2,
+      PLANT_BUSH_C_SCALE,
+      PLANT_BUSH_C_SCALE * 1.3,
+    ],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PLANT_BUSH_C_ANGLE,
   },
 
   // {
