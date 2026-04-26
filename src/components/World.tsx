@@ -225,8 +225,8 @@ const DESK_SCALE = 0.015;
 
 const MUG_X = DESK_X + 1;
 const MUG_Y = DESK_Y + 1.09;
-const MUG_Z = DESK_Z + 0.3;
-const MUG_SCALE = 1.8;
+const MUG_Z = DESK_Z - 0.25;
+const MUG_SCALE = 0.02;
 const MUG_ANGLE = Math.PI * 0.8;
 
 const MONITOR_LEFT_X = DESK_X - 3.3;
@@ -240,6 +240,12 @@ const MONITOR_RIGHT_Z = DESK_Z - 0.35;
 const KEYBOARD_X = DESK_X;
 const KEYBOARD_Y = DESK_Y + 1.08;
 const KEYBOARD_Z = DESK_Z + 0.5;
+
+const PAD_X = DESK_X;
+const PAD_Y = DESK_Y - 1;
+const PAD_Z = DESK_Z - 0.7;
+const PAD_SCALE = 0.4;
+const PAD_ANGLE = Math.PI * 1.5;
 
 const LAPTOP_X = DESK_X - 1;
 const LAPTOP_Y = DESK_Y + 1.1;
@@ -427,7 +433,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-
+  {
+    path: "/models/mousepad.glb",
+    label: "pad",
+    position: [PAD_X, PAD_Y, PAD_Z],
+    scale: PAD_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: PAD_ANGLE,
+  },
   {
     path: "/models/lowpoly_laptop_closed.glb",
     label: "Laptop",
