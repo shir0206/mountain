@@ -52,9 +52,9 @@ const BAR_CHAIR_SECOND_Z = BAR_TABLE_Z;
 const BAR_CHAIR_SECOND_SCALE = 0.01;
 const BAR_CHAIR_SECOND_ANGLE = Math.PI / 2;
 
-const SHELF_X = TERRACE_X + 8.7;
+const SHELF_X = TERRACE_X + 9.5;
 const SHELF_Y = TERRACE_Y - 2.7;
-const SHELF_Z = TERRACE_Z - 5;
+const SHELF_Z = TERRACE_Z - 4;
 const SHELF_SCALE = 1.8;
 const SHELF_ANGLE = Math.PI;
 
@@ -218,12 +218,12 @@ const PLANT_BUSH_B_ANGLE = -Math.PI * 1.5;
 const PLANT_BUSH_C_ANGLE = Math.PI * 1.75;
 const PLANT_BUSH_D_ANGLE = Math.PI * 1.85;
 
-const DESK_X = PERGOLA_X + 3.5;
-const DESK_Y = PERGOLA_Y + 8;
+const DESK_X = PERGOLA_X + 1.85;
+const DESK_Y = PERGOLA_Y + 7.8;
 const DESK_Z = PERGOLA_Z + 3.5;
 const DESK_SCALE = 0.015;
 
-const MUG_X = DESK_X + 1;
+const MUG_X = DESK_X + 1.5;
 const MUG_Y = DESK_Y + 1.09;
 const MUG_Z = DESK_Z - 0.25;
 const MUG_SCALE = 0.02;
@@ -243,11 +243,11 @@ const KEYBOARD_Z = DESK_Z + 0.5;
 
 const PAD_X = DESK_X;
 const PAD_Y = DESK_Y - 1;
-const PAD_Z = DESK_Z - 0.7;
+const PAD_Z = DESK_Z - 0.6;
 const PAD_SCALE = 0.4;
 const PAD_ANGLE = Math.PI * 1.5;
 
-const LAPTOP_X = DESK_X - 1;
+const LAPTOP_X = DESK_X - 1.1;
 const LAPTOP_Y = DESK_Y + 1.1;
 const LAPTOP_Z = DESK_Z;
 
@@ -326,9 +326,9 @@ const RUG_MEETING_Y = COFFEE_TABLE_Y + 0.01;
 const RUG_MEETING_Z = COFFEE_TABLE_Z + 0.5;
 const RUG_MEETING_SCALE = 2.2;
 
-const RUG_OFFICE_X = DESK_X;
+const RUG_OFFICE_X = DESK_X - 0.1;
 const RUG_OFFICE_Y = DESK_Y + 0.02;
-const RUG_OFFICE_Z = DESK_Z + 0.4;
+const RUG_OFFICE_Z = DESK_Z + 0.8;
 const RUG_OFFICE_SCALE = 2;
 const RUG_OFFICE_ANGLE = Math.PI / 2;
 
@@ -337,10 +337,11 @@ const RUG_OFFICE_ANGLE = Math.PI / 2;
 // const PLANT_MONEY_Z = TERRACE_Z - 1.2;
 // const PLANT_MONEY_SCALE = 2;
 
-// const BOOKCASE_X = TERRACE_X + 4;
-// const BOOKCASE_Y = TERRACE_Y - 2.68;
-// const BOOKCASE_Z = TERRACE_Z + 1.5;
-// const BOOKCASE_SCALE = 1.2;
+const BOOKCASE_X = DESK_X + 2.1;
+const BOOKCASE_Y = DESK_Y;
+const BOOKCASE_Z = DESK_Z + 1.1;
+const BOOKCASE_SCALE = 0.01;
+const BOOKCASE_ANGLE = Math.PI * 1.5;
 
 // const PLANT_FICUS_X = TERRACE_X + 4;
 // const PLANT_FICUS_Y = TERRACE_Y - 2;
@@ -351,6 +352,32 @@ const PLANT_FLOWERS_X = TERRACE_X + 17;
 const PLANT_FLOWERS_Y = TERRACE_Y - 2.7;
 const PLANT_FLOWERS_Z = TERRACE_Z + 1;
 const PLANT_FLOWERS_SCALE = 1.5;
+
+const PLANT_AGLAONEMA_X = TERRACE_X + 17;
+const PLANT_AGLAONEMA_Y = TERRACE_Y - 2.1;
+const PLANT_AGLAONEMA_Z = TERRACE_Z + 1;
+const PLANT_AGLAONEMA_SCALE = 1.5;
+
+const PLANT_INDOOR_PACK_X = TERRACE_X + 10;
+const PLANT_INDOOR_PACK_Y = TERRACE_Y - 2.3;
+const PLANT_INDOOR_PACK_Z = TERRACE_Z - 4;
+const PLANT_INDOOR_PACK_SCALE = 1;
+const PLANT_INDOOR_PACK_ANGLE = Math.PI * 1.4;
+
+const PLANT_FAN_X = TERRACE_X + 17;
+const PLANT_FAN_Y = TERRACE_Y - 2.7;
+const PLANT_FAN_Z = TERRACE_Z + 1;
+const PLANT_FAN_SCALE = 1.5;
+
+const PLANT_POTTED_PALM_X = TERRACE_X + 17;
+const PLANT_POTTED_PALM_Y = TERRACE_Y - 2.7;
+const PLANT_POTTED_PALM_Z = TERRACE_Z + 1;
+const PLANT_POTTED_PALM_SCALE = 1.5;
+
+const PLANT_ORANGE_FLOWERS_X = TERRACE_X + 17;
+const PLANT_ORANGE_FLOWERS_Y = TERRACE_Y + 2.7;
+const PLANT_ORANGE_FLOWERS_Z = TERRACE_Z + 1;
+const PLANT_ORANGE_FLOWERS_SCALE = 0.05;
 
 interface ModelConfig {
   path: string;
@@ -394,7 +421,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
     label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
-    scale: [DESK_SCALE * 1.2, DESK_SCALE, DESK_SCALE * 1.2],
+    scale: [DESK_SCALE * 1.8, DESK_SCALE * 0.9, DESK_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -437,7 +464,8 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/mousepad.glb",
     label: "pad",
     position: [PAD_X, PAD_Y, PAD_Z],
-    scale: PAD_SCALE,
+    scale: [PAD_SCALE * 0.9, PAD_SCALE, PAD_SCALE * 1.2],
+
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: PAD_ANGLE,
@@ -472,7 +500,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "/models/rug.glb",
     label: "rug office",
     position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
-    scale: [RUG_OFFICE_SCALE * 1.2, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 1.2],
+    scale: [RUG_OFFICE_SCALE * 1.85, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 2.5],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: RUG_OFFICE_ANGLE,
@@ -656,10 +684,10 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: BAR_CHAIR_SECOND_ANGLE,
   },
   {
-    path: "/models/base_240tv_oak.glb",
+    path: "/models/shoe_cabinet.glb",
     label: "shelf",
     position: [SHELF_X, SHELF_Y, SHELF_Z],
-    scale: SHELF_SCALE, //[SHELF_SCALE * 1.4, SHELF_SCALE * 1.1, SHELF_SCALE * 0.4],
+    scale: [SHELF_SCALE * 2.5, SHELF_SCALE * 0.7, SHELF_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: SHELF_ANGLE,
@@ -1120,22 +1148,56 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
 
+  {
+    path: "/models/jenson_sideboard_solid_oak.glb",
+    label: "bookcase",
+    position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
+    scale: [BOOKCASE_SCALE * 2.4, BOOKCASE_SCALE, BOOKCASE_SCALE * 1.5],
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: BOOKCASE_ANGLE,
+  },
   // {
-  //   path: "/models/metal_frame_bookcase.glb",
-  //   label: "bookcase",
-  //   position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
-  //   scale: [BOOKCASE_SCALE * 1.4, BOOKCASE_SCALE * 0.6, BOOKCASE_SCALE * 0.7],
+  //   path: "/models/outdoor_decoration_plants_flower.glb",
+  //   label: "flowers",
+  //   position: [PLANT_FLOWERS_X, PLANT_FLOWERS_Y, PLANT_FLOWERS_Z],
+  //   scale: PLANT_FLOWERS_SCALE,
   //   floatSpeed: 0,
   //   floatIntensity: 0,
   // },
-  {
-    path: "/models/outdoor_decoration_plants_flower.glb",
-    label: "flowers",
-    position: [PLANT_FLOWERS_X, PLANT_FLOWERS_Y, PLANT_FLOWERS_Z],
-    scale: PLANT_FLOWERS_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+  // {
+  //   path: "/models/aglaonema_plant.glb",
+  //   label: "AGLAONEMA",
+  //   position: [PLANT_AGLAONEMA_X, PLANT_AGLAONEMA_Y, PLANT_AGLAONEMA_Z],
+  //   scale: PLANT_AGLAONEMA_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
+  // {
+  //   path: "/models/indoor_plants_pack.glb",
+  //   label: "INDOOR_PACK",
+  //   position: [PLANT_INDOOR_PACK_X, PLANT_INDOOR_PACK_Y, PLANT_INDOOR_PACK_Z],
+  //   scale: PLANT_INDOOR_PACK_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  //   rotationY: PLANT_INDOOR_PACK_ANGLE,
+  // },
+  // {
+  //   path: "/models/free__livistona_chinensis_-_fan_palm (1).glb",
+  //   label: "FAN",
+  //   position: [PLANT_FAN_X, PLANT_FAN_Y, PLANT_FAN_Z],
+  //   scale: PLANT_FAN_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
+  // {
+  //   path: "/models/free_dyspis_lutescens_-_potted_palm.glb",
+  //   label: "POTTED_PALM",
+  //   position: [PLANT_POTTED_PALM_X, PLANT_POTTED_PALM_Y, PLANT_POTTED_PALM_Z],
+  //   scale: PLANT_POTTED_PALM_SCALE,
+  //   floatSpeed: 0,
+  //   floatIntensity: 0,
+  // },
 ];
 
 MODEL_CONFIG.forEach(({ path }) => useGLTF.preload(path));
