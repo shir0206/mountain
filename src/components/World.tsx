@@ -58,6 +58,22 @@ const SHELF_Z = TERRACE_Z - 4;
 const SHELF_SCALE = 1.8;
 const SHELF_ANGLE = Math.PI;
 
+const FRUITS_X = SHELF_X + 1.2; //- 0.7;
+const FRUITS_Y = SHELF_Y + 0.85;
+const FRUITS_Z = SHELF_Z;
+const FRUITS_SCALE = 1.7;
+
+const TEA_X = SHELF_X - 0.1; //+ 0.5;
+const TEA_Y = SHELF_Y + 0.85;
+const TEA_Z = SHELF_Z;
+const TEA_SCALE = 1.4;
+const TEA_ANGLE = Math.PI / 2;
+
+const COFFEE_X = SHELF_X - 1; //+ 1.2;
+const COFFEE_Y = SHELF_Y + 0.8;
+const COFFEE_Z = SHELF_Z;
+const COFFEE_SCALE = 35;
+
 // const GARDEN_TABLE_X = PERGOLA_X - 4;
 // const GARDEN_TABLE_Y = PERGOLA_Y + 7.8;
 // const GARDEN_TABLE_Z = PERGOLA_Z + 8;
@@ -247,7 +263,7 @@ const PAD_Z = DESK_Z - 0.6;
 const PAD_SCALE = 0.4;
 const PAD_ANGLE = Math.PI * 1.5;
 
-const LAPTOP_X = DESK_X - 1.1;
+const LAPTOP_X = DESK_X - 1;
 const LAPTOP_Y = DESK_Y + 1.1;
 const LAPTOP_Z = DESK_Z;
 
@@ -690,7 +706,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     scale: [SHELF_SCALE * 2.5, SHELF_SCALE * 0.7, SHELF_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
-    rotationY: SHELF_ANGLE,
+    rotationY: 0, //SHELF_ANGLE,
   },
   // {
   //   path: "/models/stack_of_books_3d_scan.glb",
@@ -1157,6 +1173,34 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: BOOKCASE_ANGLE,
   },
+
+  {
+    path: "/models/fruit_basket.glb",
+    label: "ORANGE_FLOWERS",
+    position: [FRUITS_X, FRUITS_Y, FRUITS_Z],
+    scale: FRUITS_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+  {
+    path: "/models/teapot.glb",
+    label: "ORANGE_FLOWERS",
+    position: [TEA_X, TEA_Y, TEA_Z],
+    scale: TEA_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: TEA_ANGLE,
+  },
+
+  {
+    path: "/models/nespresso_machine_2.glb",
+    label: "ORANGE_FLOWERS",
+    position: [COFFEE_X, COFFEE_Y, COFFEE_Z],
+    scale: COFFEE_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
+
   // {
   //   path: "/models/outdoor_decoration_plants_flower.glb",
   //   label: "flowers",
