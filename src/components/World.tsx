@@ -40,6 +40,11 @@ const BAR_TABLE_Y = PERGOLA_Y + 7.8;
 const BAR_TABLE_Z = PERGOLA_Z - 0.1;
 const BAR_TABLE_SCALE = 0.01;
 
+const PLANT_MONEY_X = BAR_TABLE_X;
+const PLANT_MONEY_Y = BAR_TABLE_Y + 0.95;
+const PLANT_MONEY_Z = BAR_TABLE_Z;
+const PLANT_MONEY_SCALE = 0.5;
+
 const BAR_CHAIR_FIRST_X = BAR_TABLE_X;
 const BAR_CHAIR_FIRST_Y = BAR_TABLE_Y;
 const BAR_CHAIR_FIRST_Z = BAR_TABLE_Z + 0.5;
@@ -56,10 +61,9 @@ const SHELF_X = TERRACE_X + 9.5;
 const SHELF_Y = TERRACE_Y - 2.7;
 const SHELF_Z = TERRACE_Z - 4;
 const SHELF_SCALE = 1.8;
-const SHELF_ANGLE = Math.PI;
 
 const FRUITS_X = SHELF_X + 1.2; //- 0.7;
-const FRUITS_Y = SHELF_Y + 0.85;
+const FRUITS_Y = SHELF_Y + 0.83;
 const FRUITS_Z = SHELF_Z;
 const FRUITS_SCALE = 1.7;
 
@@ -240,35 +244,60 @@ const DESK_Z = PERGOLA_Z + 3.5;
 const DESK_SCALE = 0.015;
 
 const MUG_X = DESK_X + 1.5;
-const MUG_Y = DESK_Y + 1.09;
+const MUG_Y = DESK_Y + 0.98;
 const MUG_Z = DESK_Z - 0.25;
 const MUG_SCALE = 0.02;
 const MUG_ANGLE = Math.PI * 0.8;
 
-const MONITOR_LEFT_X = DESK_X - 3.3;
-const MONITOR_LEFT_Y = DESK_Y + 0.73;
-const MONITOR_LEFT_Z = DESK_Z - 0.35;
+const COASTER_X = MUG_X + 0.28;
+const COASTER_Y = MUG_Y;
+const COASTER_Z = MUG_Z + 0.17;
+const COASTER_SCALE = 0.15;
+const COASTER_ANGLE = Math.PI * 0.8;
 
-const MONITOR_RIGHT_X = DESK_X - 2.4;
-const MONITOR_RIGHT_Y = DESK_Y + 0.73;
-const MONITOR_RIGHT_Z = DESK_Z - 0.35;
+const MONITOR_A_X = DESK_X - 3.47;
+const MONITOR_A_Y = DESK_Y + 0.62;
+const MONITOR_A_Z = DESK_Z + 0.4;
+const MONITOR_A_ANGLE = Math.PI * 0.08;
+
+const MONITOR_B_X = DESK_X - 2.7;
+const MONITOR_B_Y = DESK_Y + 0.62;
+const MONITOR_B_Z = DESK_Z - 0.5;
+const MONITOR_B_ANGLE = 0;
+
+const MONITOR_C_X = DESK_X - 1.67;
+const MONITOR_C_Y = DESK_Y + 0.62;
+const MONITOR_C_Z = DESK_Z - 1.35;
+const MONITOR_C_ANGLE = -Math.PI * 0.1;
+
+const MONITOR_CODE_X = MONITOR_C_X;
+const MONITOR_CODE_Y = MONITOR_C_Y;
+const MONITOR_CODE_Z = MONITOR_C_Z;
+const MONITOR_CODE_SCALE = 0.5;
+const MONITOR_CODE_ANGLE = -Math.PI * 0.1;
 
 const KEYBOARD_X = DESK_X;
-const KEYBOARD_Y = DESK_Y + 1.08;
+const KEYBOARD_Y = DESK_Y + 0.98;
 const KEYBOARD_Z = DESK_Z + 0.5;
 
 const PAD_X = DESK_X;
-const PAD_Y = DESK_Y - 1;
+const PAD_Y = DESK_Y - 1.1;
 const PAD_Z = DESK_Z - 0.6;
 const PAD_SCALE = 0.4;
 const PAD_ANGLE = Math.PI * 1.5;
 
 const LAPTOP_X = DESK_X - 1;
-const LAPTOP_Y = DESK_Y + 1.1;
+const LAPTOP_Y = DESK_Y + 1;
 const LAPTOP_Z = DESK_Z;
 
+const DESK_LAMP_X = DESK_X - 1.5;
+const DESK_LAMP_Y = DESK_Y + 1.38;
+const DESK_LAMP_Z = DESK_Z - 0.4;
+const DESK_LAMP_SCALE = 0.8;
+const DESK_LAMP_ANGLE = -Math.PI * 1.5;
+
 const MOUSE_X = DESK_X + 0.6;
-const MOUSE_Y = DESK_Y + 1.08;
+const MOUSE_Y = DESK_Y + 0.98;
 const MOUSE_Z = DESK_Z + 0.3;
 
 const OFFICE_CHAIR_X = DESK_X;
@@ -287,11 +316,23 @@ const TABLET_Z = COFFEE_TABLE_Z + 0.2;
 const TABLET_SCALE = 1.5;
 const TABLET_ANGLE = Math.PI * 1.5;
 
-const TV_X = PERGOLA_X - 8;
+const STRING_LIGHTS_X = PERGOLA_X - 6.4;
+const STRING_LIGHTS_Y = PERGOLA_Y + 10.1;
+const STRING_LIGHTS_Z = PERGOLA_Z + 6.4;
+const STRING_LIGHTS_SCALE = 0.8;
+const STRING_LIGHTS_ANGLE = Math.PI * 1.5;
+
+const TV_X = PERGOLA_X - 7.75;
 const TV_Y = PERGOLA_Y + 8.2;
 const TV_Z = PERGOLA_Z + 3.4;
 const TV_SCALE = 0.8;
 const TV_ANGLE = Math.PI * 2;
+
+const TV_CODE_X = TV_X - 2.75;
+const TV_CODE_Y = TV_Y + 0.2;
+const TV_CODE_Z = TV_Z - 2.4;
+const TV_CODE_SCALE = 2;
+const TV_CODE_ANGLE = Math.PI * 2;
 
 const PLANT_SQUARE_X = PERGOLA_X - 8;
 const PLANT_SQUARE_Y = PERGOLA_Y + 7.5;
@@ -307,17 +348,23 @@ const PLANT_SQUARE_C_X = PERGOLA_X - 8.8;
 const PLANT_SQUARE_C_Z = PERGOLA_Z + 10;
 const PLANT_SQUARE_C_ANGLE = Math.PI * 1.5;
 
-const PLANT_CREEPER_LEFT_X = PERGOLA_X - 12;
+const PLANT_CREEPER_LEFT_X = PERGOLA_X - 11;
 const PLANT_CREEPER_LEFT_Y = PERGOLA_Y + 7.9;
-const PLANT_CREEPER_LEFT_Z = PERGOLA_Z + 2.2;
-const PLANT_CREEPER_LEFT_SCALE = 0.0001;
-const PLANT_CREEPER_LEFT_ANGLE = Math.PI * 1.5;
+const PLANT_CREEPER_LEFT_Z = PERGOLA_Z + 0.2;
+const PLANT_CREEPER_LEFT_SCALE = 0.00007;
+const PLANT_CREEPER_LEFT_ANGLE = -Math.PI * 1.5;
 
-const PLANT_CREEPER_RIGHT_X = PERGOLA_X - 12;
-const PLANT_CREEPER_RIGHT_Y = PERGOLA_Y + 7.5;
-const PLANT_CREEPER_RIGHT_Z = PERGOLA_Z + 2.2;
-const PLANT_CREEPER_RIGHT_SCALE = 0.00011;
-const PLANT_CREEPER_RIGHT_ANGLE = Math.PI * 1.7;
+const PLANT_CREEPER_RIGHT_X = PERGOLA_X - 11;
+const PLANT_CREEPER_RIGHT_Y = PERGOLA_Y + 7.6;
+const PLANT_CREEPER_RIGHT_Z = PERGOLA_Z + 1.5;
+const PLANT_CREEPER_RIGHT_SCALE = 0.00007;
+const PLANT_CREEPER_RIGHT_ANGLE = Math.PI * 1.4;
+
+const FLOOR_LAMP_X = COFFEE_TABLE_X - 1;
+const FLOOR_LAMP_Y = COFFEE_TABLE_Y + 0.01;
+const FLOOR_LAMP_Z = COFFEE_TABLE_Z + 1.8;
+const FLOOR_LAMP_SCALE = 0.01;
+const FLOOR_LAMP_ANGLE = Math.PI;
 
 const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
 const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
@@ -347,11 +394,6 @@ const RUG_OFFICE_Y = DESK_Y + 0.02;
 const RUG_OFFICE_Z = DESK_Z + 0.8;
 const RUG_OFFICE_SCALE = 2;
 const RUG_OFFICE_ANGLE = Math.PI / 2;
-
-// const PLANT_MONEY_X = TERRACE_X + 0.5;
-// const PLANT_MONEY_Y = TERRACE_Y;
-// const PLANT_MONEY_Z = TERRACE_Z - 1.2;
-// const PLANT_MONEY_SCALE = 2;
 
 const BOOKCASE_X = DESK_X + 2.1;
 const BOOKCASE_Y = DESK_Y;
@@ -455,18 +497,39 @@ const MODEL_CONFIG: ModelConfig[] = [
   {
     path: "/models/monitor.glb",
     label: "Monitor Left",
-    position: [MONITOR_LEFT_X, MONITOR_LEFT_Y, MONITOR_LEFT_Z],
+    position: [MONITOR_A_X, MONITOR_A_Y, MONITOR_A_Z],
     scale: 1.2,
     floatSpeed: 0,
     floatIntensity: 0,
+    rotationY: MONITOR_A_ANGLE,
   },
   {
     path: "/models/monitor.glb",
     label: "Monitor Right",
-    position: [MONITOR_RIGHT_X, MONITOR_RIGHT_Y, MONITOR_RIGHT_Z],
+    position: [MONITOR_B_X, MONITOR_B_Y, MONITOR_B_Z],
     scale: 1.2,
     floatSpeed: 0,
     floatIntensity: 0,
+    rotationY: MONITOR_B_ANGLE,
+  },
+  {
+    path: "/models/monitor.glb",
+    label: "Monitor Right",
+    position: [MONITOR_C_X, MONITOR_C_Y, MONITOR_C_Z],
+    scale: 1.2,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: MONITOR_C_ANGLE,
+  },
+
+  {
+    path: "/models/alexandra_cardenas_livecoding_d5.glb",
+    label: "alexandra_cardenas_livecoding_d5.glb",
+    position: [MONITOR_CODE_X, MONITOR_CODE_Y, MONITOR_CODE_Z],
+    scale: MONITOR_CODE_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: MONITOR_CODE_ANGLE,
   },
   {
     path: "/models/mac_keyboard.glb",
@@ -494,7 +557,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-
+  {
+    path: "/models/the_serpent_-_tret030.glb",
+    label: "DESK_LAMP",
+    position: [DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z],
+    scale: DESK_LAMP_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: DESK_LAMP_ANGLE,
+  },
   {
     path: "/models/imac_magic_mouse.glb",
     label: "mouse",
@@ -513,6 +584,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MUG_ANGLE,
   },
   {
+    path: "/models/unhyun__straw_mat_a.glb",
+    label: "COASTER",
+    position: [COASTER_X, COASTER_Y, COASTER_Z],
+    scale: COASTER_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: COASTER_ANGLE,
+  },
+  {
     path: "/models/rug.glb",
     label: "rug office",
     position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
@@ -520,6 +600,15 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: RUG_OFFICE_ANGLE,
+  },
+  {
+    path: "/models/alexandra_cardenas_code.glb",
+    label: "TV_CODE",
+    position: [TV_CODE_X, TV_CODE_Y, TV_CODE_Z],
+    scale: TV_CODE_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: TV_CODE_ANGLE,
   },
   {
     path: "/models/tv_with_a_wall_mount.glb",
@@ -582,6 +671,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: PLANT_SQUARE_C_ANGLE,
   },
+
   {
     path: "/models/green_creeper_plant.glb",
     label: "creeper",
@@ -591,9 +681,9 @@ const MODEL_CONFIG: ModelConfig[] = [
       PLANT_CREEPER_LEFT_Z,
     ],
     scale: [
-      PLANT_CREEPER_LEFT_SCALE * 1.2,
-      PLANT_CREEPER_LEFT_SCALE * 1.2,
       PLANT_CREEPER_LEFT_SCALE * 1.8,
+      PLANT_CREEPER_LEFT_SCALE * 1.2,
+      PLANT_CREEPER_LEFT_SCALE * 1.2,
     ],
 
     floatSpeed: 0,
@@ -610,14 +700,23 @@ const MODEL_CONFIG: ModelConfig[] = [
       PLANT_CREEPER_RIGHT_Z,
     ],
     scale: [
-      PLANT_CREEPER_RIGHT_SCALE * 1.2,
-      PLANT_CREEPER_RIGHT_SCALE * 1.2,
-      PLANT_CREEPER_RIGHT_SCALE * 1.8,
+      PLANT_CREEPER_RIGHT_SCALE * 1.3,
+      PLANT_CREEPER_RIGHT_SCALE * 1.7,
+      PLANT_CREEPER_RIGHT_SCALE * 2,
     ],
 
     floatSpeed: 0,
     floatIntensity: 0,
     rotationY: PLANT_CREEPER_RIGHT_ANGLE,
+  },
+  {
+    path: "/models/irvin_floor_lamp_natural_wood_and_white.glb",
+    label: "FLOOR_LAMP",
+    position: [FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z],
+    scale: FLOOR_LAMP_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+    rotationY: FLOOR_LAMP_ANGLE,
   },
   {
     path: "/models/Untitled.glb",
@@ -1147,14 +1246,14 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatSpeed: 0,
   //   floatIntensity: 0,
   // },
-  // {
-  //   path: "/models/free_pothos_potted_plant_-_money_plant.glb",
-  //   label: "plant_money",
-  //   position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
-  //   scale: PLANT_MONEY_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
+  {
+    path: "/models/free_pothos_potted_plant_-_money_plant.glb",
+    label: "plant_money",
+    position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
+    scale: PLANT_MONEY_SCALE,
+    floatSpeed: 0,
+    floatIntensity: 0,
+  },
   // {
   //   path: "/models/ficus_lyrata_-_plants.glb",
   //   label: "wall",
