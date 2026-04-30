@@ -705,15 +705,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: 0, //SHELF_ANGLE,
   },
-  // {
-  //   path: "models/stack_of_books_3d_scan.glb",
-  //   label: "books",
-  //   position: [BOOKS_X, BOOKS_Y, BOOKS_Z],
-  //   scale: BOOKS_SCALE, //[BOOKS_SCALE * 1.4, BOOKS_SCALE * 1.1, BOOKS_SCALE * 0.4],
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: BOOKS_ANGLE,
-  // },
+
   {
     path: "models/mud_material.glb",
     label: "mud",
@@ -1072,78 +1064,6 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: PLANT_BUSH_D_ANGLE,
   },
-  // {
-  //   path: "models/edelweiss_round_table_ash_and_white.glb",
-  //   label: "garden table",
-  //   position: [GARDEN_TABLE_X, GARDEN_TABLE_Y, GARDEN_TABLE_Z],
-  //   scale: GARDEN_TABLE_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-  // {
-  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
-  //   label: "garden chair first",
-  //   position: [
-  //     GARDEN_CHAIR_FIRST_X,
-  //     GARDEN_CHAIR_FIRST_Y,
-  //     GARDEN_CHAIR_FIRST_Z,
-  //   ],
-  //   scale: GARDEN_CHAIR_FIRST_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: GARDEN_CHAIR_FIRST_ANGLE,
-  // },
-
-  // {
-  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
-  //   label: "garden chair second",
-  //   position: [
-  //     GARDEN_CHAIR_SECOND_X,
-  //     GARDEN_CHAIR_SECOND_Y,
-  //     GARDEN_CHAIR_SECOND_Z,
-  //   ],
-  //   scale: GARDEN_CHAIR_SECOND_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: GARDEN_CHAIR_SECOND_ANGLE,
-  // },
-
-  // {
-  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
-  //   label: "garden chair third",
-  //   position: [
-  //     GARDEN_CHAIR_THIRD_X,
-  //     GARDEN_CHAIR_THIRD_Y,
-  //     GARDEN_CHAIR_THIRD_Z,
-  //   ],
-  //   scale: GARDEN_CHAIR_THIRD_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: GARDEN_CHAIR_THIRD_ANGLE,
-  // },
-
-  // {
-  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
-  //   label: "garden chair fourth",
-  //   position: [
-  //     GARDEN_CHAIR_FOURTH_X,
-  //     GARDEN_CHAIR_FOURTH_Y,
-  //     GARDEN_CHAIR_FOURTH_Z,
-  //   ],
-  //   scale: GARDEN_CHAIR_FOURTH_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: GARDEN_CHAIR_FOURTH_ANGLE,
-  // },
-
-  // {
-  //   path: "models/unhyun__straw_mat_a.glb",
-  //   label: "STRAW MAT",
-  //   position: [STRAW_MAT_X, STRAW_MAT_Y, STRAW_MAT_Z],
-  //   scale: STRAW_MAT_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
   {
     path: "models/free_pothos_potted_plant_-_money_plant.glb",
     label: "plant_money",
@@ -1152,15 +1072,6 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-  // {
-  //   path: "models/ficus_lyrata_-_plants.glb",
-  //   label: "wall",
-  //   position: [PLANT_FICUS_X, PLANT_FICUS_Y, PLANT_FICUS_Z],
-  //   scale: PLANT_FICUS_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-
   {
     path: "models/jenson_sideboard_solid_oak.glb",
     label: "bookcase",
@@ -1197,53 +1108,12 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-
-  // {
-  //   path: "models/outdoor_decoration_plants_flower.glb",
-  //   label: "flowers",
-  //   position: [PLANT_FLOWERS_X, PLANT_FLOWERS_Y, PLANT_FLOWERS_Z],
-  //   scale: PLANT_FLOWERS_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-  // {
-  //   path: "models/aglaonema_plant.glb",
-  //   label: "AGLAONEMA",
-  //   position: [PLANT_AGLAONEMA_X, PLANT_AGLAONEMA_Y, PLANT_AGLAONEMA_Z],
-  //   scale: PLANT_AGLAONEMA_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-  // {
-  //   path: "models/indoor_plants_pack.glb",
-  //   label: "INDOOR_PACK",
-  //   position: [PLANT_INDOOR_PACK_X, PLANT_INDOOR_PACK_Y, PLANT_INDOOR_PACK_Z],
-  //   scale: PLANT_INDOOR_PACK_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  //   rotationY: PLANT_INDOOR_PACK_ANGLE,
-  // },
-  // {
-  //   path: "models/free__livistona_chinensis_-_fan_palm (1).glb",
-  //   label: "FAN",
-  //   position: [PLANT_FAN_X, PLANT_FAN_Y, PLANT_FAN_Z],
-  //   scale: PLANT_FAN_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
-  // {
-  //   path: "models/free_dyspis_lutescens_-_potted_palm.glb",
-  //   label: "POTTED_PALM",
-  //   position: [PLANT_POTTED_PALM_X, PLANT_POTTED_PALM_Y, PLANT_POTTED_PALM_Z],
-  //   scale: PLANT_POTTED_PALM_SCALE,
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
 ];
 
-MODEL_CONFIG.forEach(({ path }) =>
-  useGLTF.preload(import.meta.env.BASE_URL + path.replace(/^\//, ""))
-);
+MODEL_CONFIG.forEach(({ path }) => {
+  const model = import.meta.env.BASE_URL + path;
+  useGLTF.preload(model);
+});
 
 // ─── Individual model loader ──────────────────────────────────────────────────
 function Model({
@@ -1254,7 +1124,9 @@ function Model({
   floatIntensity,
   rotationY = 0,
 }: Omit<ModelConfig, "label">) {
-  const { scene } = useGLTF(path) as GLTF & { scene: THREE.Group };
+  const url = import.meta.env.BASE_URL + path;
+
+  const { scene } = useGLTF(url) as GLTF & { scene: THREE.Group };
   const cloned = scene.clone(true);
 
   return (
