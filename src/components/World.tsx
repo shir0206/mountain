@@ -4,23 +4,6 @@ import { OrbitControls, useGLTF, Float } from "@react-three/drei";
 import type { GLTF, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 
-// ─── Model config ────────────────────────────────────────────────────────────
-//
-//  SCENE LAYOUT (top-down):
-//
-//    [Mountain] — massive, fills viewport, camera looks slightly upward
-//        └── [Terrace]  — glass terrace sitting on the summit plateau
-//                └── [Desk]      — Scandinavian desk on the terrace floor
-//                       ├── [Monitors]  — dual monitors on desk surface
-//                       ├── [Keyboard]  — keyboard in front of monitors
-//                       └── [Laptop]    — laptop beside keyboard
-//             └── [Chair]       — pulled up to the desk
-//
-//  All Y values are world-space.  Tune them if model origins differ.
-//  DESK_Y  = terrace floor height (~4.6)
-//  SURF_Y  = desk surface height  (~5.45 = DESK_Y + ~0.85)
-// ─────────────────────────────────────────────────────────────────────────────
-
 const MOUNTAIN_SCALE = 80;
 const MOUNTAIN_Y = -50;
 const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
@@ -78,40 +61,6 @@ const COFFEE_Y = SHELF_Y + 0.8;
 const COFFEE_Z = SHELF_Z;
 const COFFEE_SCALE = 35;
 
-// const GARDEN_TABLE_X = PERGOLA_X - 4;
-// const GARDEN_TABLE_Y = PERGOLA_Y + 7.8;
-// const GARDEN_TABLE_Z = PERGOLA_Z + 8;
-// const GARDEN_TABLE_SCALE = 0.01;
-
-// const GARDEN_CHAIR_FIRST_X = GARDEN_TABLE_X;
-// const GARDEN_CHAIR_FIRST_Y = GARDEN_TABLE_Y;
-// const GARDEN_CHAIR_FIRST_Z = GARDEN_TABLE_Z + 0.6;
-// const GARDEN_CHAIR_FIRST_SCALE = 0.01;
-// const GARDEN_CHAIR_FIRST_ANGLE = Math.PI;
-
-// const GARDEN_CHAIR_SECOND_X = GARDEN_TABLE_X;
-// const GARDEN_CHAIR_SECOND_Y = GARDEN_TABLE_Y;
-// const GARDEN_CHAIR_SECOND_Z = GARDEN_TABLE_Z - 0.6;
-// const GARDEN_CHAIR_SECOND_SCALE = 0.01;
-// const GARDEN_CHAIR_SECOND_ANGLE = Math.PI * 2;
-
-// const GARDEN_CHAIR_THIRD_X = GARDEN_TABLE_X - 0.6;
-// const GARDEN_CHAIR_THIRD_Y = GARDEN_TABLE_Y;
-// const GARDEN_CHAIR_THIRD_Z = GARDEN_TABLE_Z;
-// const GARDEN_CHAIR_THIRD_SCALE = 0.01;
-// const GARDEN_CHAIR_THIRD_ANGLE = Math.PI / 2;
-
-// const GARDEN_CHAIR_FOURTH_X = GARDEN_TABLE_X + 0.6;
-// const GARDEN_CHAIR_FOURTH_Y = GARDEN_TABLE_Y;
-// const GARDEN_CHAIR_FOURTH_Z = GARDEN_TABLE_Z;
-// const GARDEN_CHAIR_FOURTH_SCALE = 0.01;
-// const GARDEN_CHAIR_FOURTH_ANGLE = -Math.PI / 2;
-
-// const STRAW_MAT_X = GARDEN_TABLE_X;
-// const STRAW_MAT_Y = GARDEN_TABLE_Y;
-// const STRAW_MAT_Z = GARDEN_TABLE_Z;
-// const STRAW_MAT_SCALE = 2;
-
 const MUD_X = PERGOLA_X - 4;
 const MUD_Y = PERGOLA_Y + 7.82;
 const MUD_Z = PERGOLA_Z + 10.5;
@@ -130,14 +79,14 @@ const WOODEN_FENCE_ANGLE = -Math.PI / 2;
 const PLANT_GERANIUM_A_X = MUD_X + 4;
 const PLANT_GERANIUM_B_X = MUD_X - 1;
 const PLANT_GERANIUM_C_X = MUD_X - 4.7;
-const PLANT_GERANIUM_D_X = MUD_X + 1.3; // was -1
-const PLANT_GERANIUM_E_X = MUD_X + 7; // was -4.7
+const PLANT_GERANIUM_D_X = MUD_X + 1.3;
+const PLANT_GERANIUM_E_X = MUD_X + 7;
 const PLANT_GERANIUM_Y = MUD_Y;
 const PLANT_GERANIUM_A_Z = MUD_Z - 1.1;
 const PLANT_GERANIUM_B_Z = MUD_Z - 1.2;
 const PLANT_GERANIUM_C_Z = MUD_Z - 0.7;
-const PLANT_GERANIUM_D_Z = MUD_Z - 0.6; // was -1.2
-const PLANT_GERANIUM_E_Z = MUD_Z - 0.55; // was -0.7
+const PLANT_GERANIUM_D_Z = MUD_Z - 0.6;
+const PLANT_GERANIUM_E_Z = MUD_Z - 0.55;
 const PLANT_GERANIUM_SCALE = 0.8;
 const PLANT_GERANIUM_C_SCALE = 1;
 const PLANT_GERANIUM_A_ANGLE = Math.PI * 1.5;
@@ -164,11 +113,11 @@ const PLANT_LUPINE_Y = MUD_Y;
 const PLANT_LUPINE_A_Z = MUD_Z - 1;
 const PLANT_LUPINE_B_Z = MUD_Z - 0.9;
 const PLANT_LUPINE_C_Z = MUD_Z - 0.4;
-const PLANT_LUPINE_D_Z = MUD_Z - 0.4; // was -0.9
+const PLANT_LUPINE_D_Z = MUD_Z - 0.4;
 const PLANT_LUPINE_A_SCALE = 1;
 const PLANT_LUPINE_B_SCALE = 0.8;
-const PLANT_LUPINE_C_SCALE = 0.95; // was 1
-const PLANT_LUPINE_D_SCALE = 0.85; // was 0.8
+const PLANT_LUPINE_C_SCALE = 0.95;
+const PLANT_LUPINE_D_SCALE = 0.85;
 const PLANT_LUPINE_A_ANGLE = Math.PI * 1.5;
 const PLANT_LUPINE_B_ANGLE = Math.PI;
 const PLANT_LUPINE_C_ANGLE = Math.PI * 1.6;
@@ -200,15 +149,15 @@ const PLANT_CROTON_Y = MUD_Y;
 const PLANT_CROTON_A_Z = MUD_Z - 1.15;
 const PLANT_CROTON_B_Z = MUD_Z - 1.2;
 const PLANT_CROTON_C_Z = MUD_Z - 0.35;
-const PLANT_CROTON_D_Z = MUD_Z - 1.1; // was -0.35
+const PLANT_CROTON_D_Z = MUD_Z - 1.1;
 const PLANT_CROTON_A_SCALE = 0.25;
 const PLANT_CROTON_B_SCALE = 0.22;
 const PLANT_CROTON_C_SCALE = 0.24;
-const PLANT_CROTON_D_SCALE = 0.28; // was 0.3
+const PLANT_CROTON_D_SCALE = 0.28;
 const PLANT_CROTON_A_ANGLE = Math.PI * 1.5;
 const PLANT_CROTON_B_ANGLE = -Math.PI * 1.5;
 const PLANT_CROTON_C_ANGLE = Math.PI * 1.85;
-const PLANT_CROTON_D_ANGLE = Math.PI / 2; // slight offset
+const PLANT_CROTON_D_ANGLE = Math.PI / 2;
 
 const PLANT_SINENSIS_A_X = MUD_X - 2.5;
 const PLANT_SINENSIS_B_X = MUD_X - 6.5;
