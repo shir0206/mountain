@@ -407,7 +407,7 @@ interface ModelConfig {
 
 const MODEL_CONFIG: ModelConfig[] = [
   {
-    path: "/models/weisse_wand_mountain_peek_2517_m_8257_ft.glb",
+    path: "/models/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
     label: "Mountain Peak",
     position: [0, MOUNTAIN_Y, 0],
     scale: MOUNTAIN_SCALE,
