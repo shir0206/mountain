@@ -407,7 +407,7 @@ interface ModelConfig {
 
 const MODEL_CONFIG: ModelConfig[] = [
   {
-    path: "/models/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
+    path: "models/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
     label: "Mountain Peak",
     position: [0, MOUNTAIN_Y, 0],
     scale: MOUNTAIN_SCALE,
@@ -415,7 +415,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/pergola.glb",
+    path: "models/pergola.glb",
     label: "Glass Terrace",
     position: [PERGOLA_X, PERGOLA_Y, PERGOLA_Z],
     scale: [PERGOLA_SCALE * 0.8, PERGOLA_SCALE * 0.5, PERGOLA_SCALE * 1.2],
@@ -425,7 +425,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/jenson_extending_dining_table_solid_oak.glb",
+    path: "models/jenson_extending_dining_table_solid_oak.glb",
     label: "Desk",
     position: [DESK_X, DESK_Y, DESK_Z],
     scale: [DESK_SCALE * 1.8, DESK_SCALE * 0.9, DESK_SCALE * 1.2],
@@ -434,7 +434,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/harvey_swivel_chair_mineral_blue.glb",
+    path: "models/harvey_swivel_chair_mineral_blue.glb",
     label: "Chair",
     position: [OFFICE_CHAIR_X, OFFICE_CHAIR_Y, OFFICE_CHAIR_Z],
     scale: OFFICE_CHAIR_SCALE,
@@ -444,7 +444,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/monitor.glb",
+    path: "models/monitor.glb",
     label: "Monitor Left",
     position: [MONITOR_A_X, MONITOR_A_Y, MONITOR_A_Z],
     scale: 1.2,
@@ -453,7 +453,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MONITOR_A_ANGLE,
   },
   {
-    path: "/models/monitor.glb",
+    path: "models/monitor.glb",
     label: "Monitor Right",
     position: [MONITOR_B_X, MONITOR_B_Y, MONITOR_B_Z],
     scale: 1.2,
@@ -462,7 +462,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MONITOR_B_ANGLE,
   },
   {
-    path: "/models/monitor.glb",
+    path: "models/monitor.glb",
     label: "Monitor Right",
     position: [MONITOR_C_X, MONITOR_C_Y, MONITOR_C_Z],
     scale: 1.2,
@@ -472,7 +472,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/alexandra_cardenas_livecoding_d5.glb",
+    path: "models/alexandra_cardenas_livecoding_d5.glb",
     label: "alexandra_cardenas_livecoding_d5.glb",
     position: [MONITOR_CODE_X, MONITOR_CODE_Y, MONITOR_CODE_Z],
     scale: MONITOR_CODE_SCALE,
@@ -481,7 +481,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MONITOR_CODE_ANGLE,
   },
   {
-    path: "/models/mac_keyboard.glb",
+    path: "models/mac_keyboard.glb",
     label: "Keyboard",
     position: [KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z],
     scale: 0.007,
@@ -489,7 +489,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/mousepad.glb",
+    path: "models/mousepad.glb",
     label: "pad",
     position: [PAD_X, PAD_Y, PAD_Z],
     scale: [PAD_SCALE * 0.9, PAD_SCALE, PAD_SCALE * 1.2],
@@ -499,7 +499,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PAD_ANGLE,
   },
   {
-    path: "/models/lowpoly_laptop_closed.glb",
+    path: "models/lowpoly_laptop_closed.glb",
     label: "Laptop",
     position: [LAPTOP_X, LAPTOP_Y, LAPTOP_Z],
     scale: 1.8,
@@ -507,7 +507,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/the_serpent_-_tret030.glb",
+    path: "models/the_serpent_-_tret030.glb",
     label: "DESK_LAMP",
     position: [DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z],
     scale: DESK_LAMP_SCALE,
@@ -516,7 +516,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: DESK_LAMP_ANGLE,
   },
   {
-    path: "/models/imac_magic_mouse.glb",
+    path: "models/imac_magic_mouse.glb",
     label: "mouse",
     position: [MOUSE_X, MOUSE_Y, MOUSE_Z],
     scale: 1.5,
@@ -524,7 +524,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/mug.glb",
+    path: "models/mug.glb",
     label: "Mug",
     position: [MUG_X, MUG_Y, MUG_Z],
     scale: MUG_SCALE,
@@ -533,7 +533,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MUG_ANGLE,
   },
   {
-    path: "/models/unhyun__straw_mat_a.glb",
+    path: "models/unhyun__straw_mat_a.glb",
     label: "COASTER",
     position: [COASTER_X, COASTER_Y, COASTER_Z],
     scale: COASTER_SCALE,
@@ -542,7 +542,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: COASTER_ANGLE,
   },
   {
-    path: "/models/rug.glb",
+    path: "models/rug.glb",
     label: "rug office",
     position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
     scale: [RUG_OFFICE_SCALE * 1.85, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 2.5],
@@ -551,7 +551,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: RUG_OFFICE_ANGLE,
   },
   {
-    path: "/models/alexandra_cardenas_code.glb",
+    path: "models/alexandra_cardenas_code.glb",
     label: "TV_CODE",
     position: [TV_CODE_X, TV_CODE_Y, TV_CODE_Z],
     scale: TV_CODE_SCALE,
@@ -560,7 +560,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: TV_CODE_ANGLE,
   },
   {
-    path: "/models/tv_with_a_wall_mount.glb",
+    path: "models/tv_with_a_wall_mount.glb",
     label: "TV",
     position: [TV_X, TV_Y, TV_Z],
     scale: TV_SCALE,
@@ -569,7 +569,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: TV_ANGLE,
   },
   {
-    path: "/models/ipad_air4.glb",
+    path: "models/ipad_air4.glb",
     label: "tablet",
     position: [TABLET_X, TABLET_Y, TABLET_Z],
     scale: TABLET_SCALE,
@@ -579,7 +579,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/bush_square.glb",
+    path: "models/bush_square.glb",
     label: "square",
     position: [PLANT_SQUARE_X, PLANT_SQUARE_Y, PLANT_SQUARE_Z],
     scale: [
@@ -593,7 +593,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_SQUARE_ANGLE,
   },
   {
-    path: "/models/bush_square.glb",
+    path: "models/bush_square.glb",
     label: "square",
     position: [PLANT_SQUARE_B_X, PLANT_SQUARE_Y, PLANT_SQUARE_B_Z],
     scale: [
@@ -607,7 +607,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_SQUARE_B_ANGLE,
   },
   {
-    path: "/models/bush_square.glb",
+    path: "models/bush_square.glb",
     label: "square",
     position: [PLANT_SQUARE_C_X, PLANT_SQUARE_Y, PLANT_SQUARE_C_Z],
     scale: [
@@ -622,7 +622,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/green_creeper_plant.glb",
+    path: "models/green_creeper_plant.glb",
     label: "creeper",
     position: [
       PLANT_CREEPER_LEFT_X,
@@ -641,7 +641,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/green_creeper_plant.glb",
+    path: "models/green_creeper_plant.glb",
     label: "creeper",
     position: [
       PLANT_CREEPER_RIGHT_X,
@@ -659,7 +659,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_CREEPER_RIGHT_ANGLE,
   },
   {
-    path: "/models/irvin_floor_lamp_natural_wood_and_white.glb",
+    path: "models/irvin_floor_lamp_natural_wood_and_white.glb",
     label: "FLOOR_LAMP",
     position: [FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z],
     scale: FLOOR_LAMP_SCALE,
@@ -668,7 +668,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: FLOOR_LAMP_ANGLE,
   },
   {
-    path: "/models/Untitled.glb",
+    path: "models/Untitled.glb",
     label: "Armchair",
     position: [ARMCHAIR_X, ARMCHAIR_Y, ARMCHAIR_Z],
     scale: ARMCHAIR_SCALE,
@@ -677,7 +677,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: ARMCHAIR_ANGLE,
   },
   {
-    path: "/models/dylan_2_seater_sofa_mineral_blue.glb",
+    path: "models/dylan_2_seater_sofa_mineral_blue.glb",
     label: "sofa",
     position: [SOFA_X, SOFA_Y, SOFA_Z],
     scale: [SOFA_SCALE * 1.3, SOFA_SCALE, SOFA_SCALE],
@@ -686,7 +686,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: SOFA_ANGLE,
   },
   {
-    path: "/models/pillow_test.glb",
+    path: "models/pillow_test.glb",
     label: "pillow",
     position: [PILLOW_X, PILLOW_Y, PILLOW_Z],
     scale: PILLOW_SCALE,
@@ -695,7 +695,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PILLOW_ANGLE,
   },
   {
-    path: "/models/edelweiss_round_table_ash_and_white.glb",
+    path: "models/edelweiss_round_table_ash_and_white.glb",
     label: "coffee table",
     position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
     scale: [
@@ -708,7 +708,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/rug.glb",
+    path: "models/rug.glb",
     label: "rug meeting",
     position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
     scale: [
@@ -721,7 +721,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/edelweiss_bar_table_ash_and_white.glb",
+    path: "models/edelweiss_bar_table_ash_and_white.glb",
     label: "bar table",
     position: [BAR_TABLE_X, BAR_TABLE_Y, BAR_TABLE_Z],
     scale: BAR_TABLE_SCALE,
@@ -729,7 +729,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/set_of_2_edelweiss_bar_chairs_white.glb",
+    path: "models/set_of_2_edelweiss_bar_chairs_white.glb",
     label: "bar chair first",
     position: [BAR_CHAIR_FIRST_X, BAR_CHAIR_FIRST_Y, BAR_CHAIR_FIRST_Z],
     scale: BAR_CHAIR_FIRST_SCALE,
@@ -739,7 +739,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/set_of_2_edelweiss_bar_chairs_white.glb",
+    path: "models/set_of_2_edelweiss_bar_chairs_white.glb",
     label: "bar chair second",
     position: [BAR_CHAIR_SECOND_X, BAR_CHAIR_SECOND_Y, BAR_CHAIR_SECOND_Z],
     scale: BAR_CHAIR_SECOND_SCALE,
@@ -748,7 +748,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: BAR_CHAIR_SECOND_ANGLE,
   },
   {
-    path: "/models/shoe_cabinet.glb",
+    path: "models/shoe_cabinet.glb",
     label: "shelf",
     position: [SHELF_X, SHELF_Y, SHELF_Z],
     scale: [SHELF_SCALE * 2.5, SHELF_SCALE * 0.7, SHELF_SCALE * 1.2],
@@ -757,7 +757,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: 0, //SHELF_ANGLE,
   },
   // {
-  //   path: "/models/stack_of_books_3d_scan.glb",
+  //   path: "models/stack_of_books_3d_scan.glb",
   //   label: "books",
   //   position: [BOOKS_X, BOOKS_Y, BOOKS_Z],
   //   scale: BOOKS_SCALE, //[BOOKS_SCALE * 1.4, BOOKS_SCALE * 1.1, BOOKS_SCALE * 0.4],
@@ -766,7 +766,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   rotationY: BOOKS_ANGLE,
   // },
   {
-    path: "/models/mud_material.glb",
+    path: "models/mud_material.glb",
     label: "mud",
     position: [MUD_X, MUD_Y, MUD_Z],
     scale: [MUD_SCALE * 3, MUD_SCALE, MUD_SCALE * 0.5],
@@ -774,7 +774,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/wooden_fence.glb",
+    path: "models/wooden_fence.glb",
     label: "wooden_fence a",
     position: [WOODEN_FENCE_A_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
     scale: [
@@ -787,7 +787,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: WOODEN_FENCE_ANGLE,
   },
   {
-    path: "/models/wooden_fence.glb",
+    path: "models/wooden_fence.glb",
     label: "wooden_fence a",
     position: [WOODEN_FENCE_B_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
     scale: [
@@ -800,7 +800,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: WOODEN_FENCE_ANGLE,
   },
   {
-    path: "/models/wooden_fence.glb",
+    path: "models/wooden_fence.glb",
     label: "wooden_fence a",
     position: [WOODEN_FENCE_C_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
     scale: [
@@ -813,7 +813,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: WOODEN_FENCE_ANGLE,
   },
   {
-    path: "/models/wooden_fence.glb",
+    path: "models/wooden_fence.glb",
     label: "wooden_fence a",
     position: [WOODEN_FENCE_D_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
     scale: [
@@ -826,7 +826,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: WOODEN_FENCE_ANGLE,
   },
   {
-    path: "/models/wooden_fence.glb",
+    path: "models/wooden_fence.glb",
     label: "wooden_fence a",
     position: [WOODEN_FENCE_E_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
     scale: [
@@ -840,7 +840,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
     label: "jungle geranium",
     position: [PLANT_GERANIUM_A_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_A_Z],
     scale: PLANT_GERANIUM_SCALE,
@@ -849,7 +849,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_GERANIUM_A_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
     label: "jungle geranium",
     position: [PLANT_GERANIUM_B_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_B_Z],
     scale: PLANT_GERANIUM_SCALE,
@@ -858,7 +858,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_GERANIUM_B_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
     label: "jungle geranium",
     position: [PLANT_GERANIUM_C_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_C_Z],
     scale: PLANT_GERANIUM_C_SCALE,
@@ -868,7 +868,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
     label: "jungle geranium",
     position: [PLANT_GERANIUM_D_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_D_Z],
     scale: PLANT_GERANIUM_SCALE,
@@ -877,7 +877,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_GERANIUM_D_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_310.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
     label: "jungle geranium",
     position: [PLANT_GERANIUM_E_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_E_Z],
     scale: PLANT_GERANIUM_SCALE,
@@ -887,7 +887,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/realistic_hd_windmill_palm_1625.glb",
+    path: "models/realistic_hd_windmill_palm_1625.glb",
     label: "jungle PALM",
     position: [PLANT_PALM_A_X, PLANT_PALM_Y, PLANT_PALM_A_Z],
     scale: PLANT_PALM_A_SCALE,
@@ -896,7 +896,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_PALM_A_ANGLE,
   },
   {
-    path: "/models/realistic_hd_windmill_palm_1625.glb",
+    path: "models/realistic_hd_windmill_palm_1625.glb",
     label: "jungle PALM",
     position: [PLANT_PALM_B_X, PLANT_PALM_Y, PLANT_PALM_B_Z],
     scale: PLANT_PALM_B_SCALE,
@@ -905,7 +905,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_PALM_B_ANGLE,
   },
   {
-    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    path: "models/realistic_hd_large-leaved_lupine_318.glb",
     label: "jungle LUPINE",
     position: [PLANT_LUPINE_A_X, PLANT_LUPINE_Y, PLANT_LUPINE_A_Z],
     scale: PLANT_LUPINE_A_SCALE,
@@ -914,7 +914,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_LUPINE_A_ANGLE,
   },
   {
-    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    path: "models/realistic_hd_large-leaved_lupine_318.glb",
     label: "jungle LUPINE",
     position: [PLANT_LUPINE_B_X, PLANT_LUPINE_Y, PLANT_LUPINE_B_Z],
     scale: [
@@ -927,7 +927,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_LUPINE_B_ANGLE,
   },
   {
-    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    path: "models/realistic_hd_large-leaved_lupine_318.glb",
     label: "jungle LUPINE",
     position: [PLANT_LUPINE_C_X, PLANT_LUPINE_Y, PLANT_LUPINE_C_Z],
     scale: [
@@ -940,7 +940,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_LUPINE_C_ANGLE,
   },
   {
-    path: "/models/realistic_hd_large-leaved_lupine_318.glb",
+    path: "models/realistic_hd_large-leaved_lupine_318.glb",
     label: "jungle LUPINE",
     position: [PLANT_LUPINE_D_X, PLANT_LUPINE_Y, PLANT_LUPINE_D_Z],
     scale: [
@@ -954,7 +954,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
     label: "jungle SNOWFLAKE",
     position: [PLANT_SNOWFLAKE_A_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_A_Z],
     scale: [
@@ -967,7 +967,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_SNOWFLAKE_A_ANGLE,
   },
   {
-    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
     label: "jungle SNOWFLAKE",
     position: [PLANT_SNOWFLAKE_B_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_B_Z],
     scale: [
@@ -981,7 +981,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
     label: "jungle SNOWFLAKE",
     position: [PLANT_SNOWFLAKE_C_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_C_Z],
     scale: [
@@ -994,7 +994,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_SNOWFLAKE_C_ANGLE,
   },
   {
-    path: "/models/dwarf_snowflake_mock_orange_flowers_spring.glb",
+    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
     label: "jungle SNOWFLAKE",
     position: [PLANT_SNOWFLAKE_D_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_D_Z],
     scale: [
@@ -1008,7 +1008,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/croton_leaf_plants.glb",
+    path: "models/croton_leaf_plants.glb",
     label: "jungle CROTON",
     position: [PLANT_CROTON_A_X, PLANT_CROTON_Y, PLANT_CROTON_A_Z],
     scale: PLANT_CROTON_A_SCALE,
@@ -1017,7 +1017,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_CROTON_A_ANGLE,
   },
   {
-    path: "/models/croton_leaf_plants.glb",
+    path: "models/croton_leaf_plants.glb",
     label: "jungle CROTON",
     position: [PLANT_CROTON_B_X, PLANT_CROTON_Y, PLANT_CROTON_B_Z],
     scale: PLANT_CROTON_B_SCALE,
@@ -1026,7 +1026,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_CROTON_B_ANGLE,
   },
   {
-    path: "/models/croton_leaf_plants.glb",
+    path: "models/croton_leaf_plants.glb",
     label: "jungle CROTON",
     position: [PLANT_CROTON_C_X, PLANT_CROTON_Y, PLANT_CROTON_C_Z],
     scale: PLANT_CROTON_C_SCALE,
@@ -1035,7 +1035,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_CROTON_C_ANGLE,
   },
   {
-    path: "/models/croton_leaf_plants.glb",
+    path: "models/croton_leaf_plants.glb",
     label: "jungle CROTON",
     position: [PLANT_CROTON_D_X, PLANT_CROTON_Y, PLANT_CROTON_D_Z],
     scale: PLANT_CROTON_D_SCALE,
@@ -1044,7 +1044,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_CROTON_D_ANGLE,
   },
   {
-    path: "/models/wisteria_sinensis005.glb",
+    path: "models/wisteria_sinensis005.glb",
     label: "jungle SINENSIS",
     position: [PLANT_SINENSIS_A_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_A_Z],
     scale: [
@@ -1057,7 +1057,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_SINENSIS_A_ANGLE,
   },
   {
-    path: "/models/wisteria_sinensis005.glb",
+    path: "models/wisteria_sinensis005.glb",
     label: "jungle SINENSIS",
     position: [PLANT_SINENSIS_B_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_B_Z],
     scale: [
@@ -1072,7 +1072,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
     label: "jungle BUSH",
     position: [PLANT_BUSH_A_X, PLANT_BUSH_Y, PLANT_BUSH_A_Z],
     scale: [
@@ -1085,7 +1085,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_BUSH_A_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
     label: "jungle BUSH",
     position: [PLANT_BUSH_B_X, PLANT_BUSH_Y, PLANT_BUSH_B_Z],
     scale: [
@@ -1098,7 +1098,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_BUSH_B_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
     label: "jungle BUSH",
     position: [PLANT_BUSH_C_X, PLANT_BUSH_Y, PLANT_BUSH_C_Z],
     scale: [
@@ -1111,7 +1111,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_BUSH_C_ANGLE,
   },
   {
-    path: "/models/realistic_hd_chinese_jungle_geranium_710.glb",
+    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
     label: "jungle BUSH",
     position: [PLANT_BUSH_D_X, PLANT_BUSH_Y, PLANT_BUSH_D_Z],
     scale: [
@@ -1124,7 +1124,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: PLANT_BUSH_D_ANGLE,
   },
   // {
-  //   path: "/models/edelweiss_round_table_ash_and_white.glb",
+  //   path: "models/edelweiss_round_table_ash_and_white.glb",
   //   label: "garden table",
   //   position: [GARDEN_TABLE_X, GARDEN_TABLE_Y, GARDEN_TABLE_Z],
   //   scale: GARDEN_TABLE_SCALE,
@@ -1132,7 +1132,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
   // {
-  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
   //   label: "garden chair first",
   //   position: [
   //     GARDEN_CHAIR_FIRST_X,
@@ -1146,7 +1146,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 
   // {
-  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
   //   label: "garden chair second",
   //   position: [
   //     GARDEN_CHAIR_SECOND_X,
@@ -1160,7 +1160,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 
   // {
-  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
   //   label: "garden chair third",
   //   position: [
   //     GARDEN_CHAIR_THIRD_X,
@@ -1174,7 +1174,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 
   // {
-  //   path: "/models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
+  //   path: "models/set_of_2_edelweiss_dining_chairs_ash_white.glb",
   //   label: "garden chair fourth",
   //   position: [
   //     GARDEN_CHAIR_FOURTH_X,
@@ -1188,7 +1188,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 
   // {
-  //   path: "/models/unhyun__straw_mat_a.glb",
+  //   path: "models/unhyun__straw_mat_a.glb",
   //   label: "STRAW MAT",
   //   position: [STRAW_MAT_X, STRAW_MAT_Y, STRAW_MAT_Z],
   //   scale: STRAW_MAT_SCALE,
@@ -1196,7 +1196,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
   {
-    path: "/models/free_pothos_potted_plant_-_money_plant.glb",
+    path: "models/free_pothos_potted_plant_-_money_plant.glb",
     label: "plant_money",
     position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
     scale: PLANT_MONEY_SCALE,
@@ -1204,7 +1204,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   // {
-  //   path: "/models/ficus_lyrata_-_plants.glb",
+  //   path: "models/ficus_lyrata_-_plants.glb",
   //   label: "wall",
   //   position: [PLANT_FICUS_X, PLANT_FICUS_Y, PLANT_FICUS_Z],
   //   scale: PLANT_FICUS_SCALE,
@@ -1213,7 +1213,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 
   {
-    path: "/models/jenson_sideboard_solid_oak.glb",
+    path: "models/jenson_sideboard_solid_oak.glb",
     label: "bookcase",
     position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
     scale: [BOOKCASE_SCALE * 2.4, BOOKCASE_SCALE, BOOKCASE_SCALE * 1.5],
@@ -1223,7 +1223,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/fruit_basket.glb",
+    path: "models/fruit_basket.glb",
     label: "ORANGE_FLOWERS",
     position: [FRUITS_X, FRUITS_Y, FRUITS_Z],
     scale: FRUITS_SCALE,
@@ -1231,7 +1231,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
   },
   {
-    path: "/models/teapot.glb",
+    path: "models/teapot.glb",
     label: "ORANGE_FLOWERS",
     position: [TEA_X, TEA_Y, TEA_Z],
     scale: TEA_SCALE,
@@ -1241,7 +1241,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   {
-    path: "/models/nespresso_machine_2.glb",
+    path: "models/nespresso_machine_2.glb",
     label: "ORANGE_FLOWERS",
     position: [COFFEE_X, COFFEE_Y, COFFEE_Z],
     scale: COFFEE_SCALE,
@@ -1250,7 +1250,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   },
 
   // {
-  //   path: "/models/outdoor_decoration_plants_flower.glb",
+  //   path: "models/outdoor_decoration_plants_flower.glb",
   //   label: "flowers",
   //   position: [PLANT_FLOWERS_X, PLANT_FLOWERS_Y, PLANT_FLOWERS_Z],
   //   scale: PLANT_FLOWERS_SCALE,
@@ -1258,7 +1258,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
   // {
-  //   path: "/models/aglaonema_plant.glb",
+  //   path: "models/aglaonema_plant.glb",
   //   label: "AGLAONEMA",
   //   position: [PLANT_AGLAONEMA_X, PLANT_AGLAONEMA_Y, PLANT_AGLAONEMA_Z],
   //   scale: PLANT_AGLAONEMA_SCALE,
@@ -1266,7 +1266,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
   // {
-  //   path: "/models/indoor_plants_pack.glb",
+  //   path: "models/indoor_plants_pack.glb",
   //   label: "INDOOR_PACK",
   //   position: [PLANT_INDOOR_PACK_X, PLANT_INDOOR_PACK_Y, PLANT_INDOOR_PACK_Z],
   //   scale: PLANT_INDOOR_PACK_SCALE,
@@ -1275,7 +1275,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   rotationY: PLANT_INDOOR_PACK_ANGLE,
   // },
   // {
-  //   path: "/models/free__livistona_chinensis_-_fan_palm (1).glb",
+  //   path: "models/free__livistona_chinensis_-_fan_palm (1).glb",
   //   label: "FAN",
   //   position: [PLANT_FAN_X, PLANT_FAN_Y, PLANT_FAN_Z],
   //   scale: PLANT_FAN_SCALE,
@@ -1283,7 +1283,7 @@ const MODEL_CONFIG: ModelConfig[] = [
   //   floatIntensity: 0,
   // },
   // {
-  //   path: "/models/free_dyspis_lutescens_-_potted_palm.glb",
+  //   path: "models/free_dyspis_lutescens_-_potted_palm.glb",
   //   label: "POTTED_PALM",
   //   position: [PLANT_POTTED_PALM_X, PLANT_POTTED_PALM_Y, PLANT_POTTED_PALM_Z],
   //   scale: PLANT_POTTED_PALM_SCALE,
@@ -1292,7 +1292,9 @@ const MODEL_CONFIG: ModelConfig[] = [
   // },
 ];
 
-MODEL_CONFIG.forEach(({ path }) => useGLTF.preload(path));
+MODEL_CONFIG.forEach(({ path }) =>
+  useGLTF.preload(import.meta.env.BASE_URL + path.replace(/^\//, ""))
+);
 
 // ─── Individual model loader ──────────────────────────────────────────────────
 function Model({
