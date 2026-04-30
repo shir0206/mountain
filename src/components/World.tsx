@@ -414,7 +414,6 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatSpeed: 0,
     floatIntensity: 0,
   },
-
   {
     path: "/models/pergola.glb",
     label: "Glass Terrace",
