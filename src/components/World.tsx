@@ -270,9 +270,9 @@ const MONITOR_C_Y = DESK_Y + 0.62;
 const MONITOR_C_Z = DESK_Z - 1.35;
 const MONITOR_C_ANGLE = -Math.PI * 0.1;
 
-const MONITOR_CODE_X = MONITOR_C_X;
-const MONITOR_CODE_Y = MONITOR_C_Y;
-const MONITOR_CODE_Z = MONITOR_C_Z;
+const MONITOR_CODE_X = MONITOR_C_X + 2;
+const MONITOR_CODE_Y = MONITOR_C_Y + 1;
+const MONITOR_CODE_Z = MONITOR_C_Z + 1;
 const MONITOR_CODE_SCALE = 0.5;
 const MONITOR_CODE_ANGLE = -Math.PI * 0.1;
 
@@ -315,12 +315,6 @@ const TABLET_Y = COFFEE_TABLE_Y + 0.3;
 const TABLET_Z = COFFEE_TABLE_Z + 0.2;
 const TABLET_SCALE = 1.5;
 const TABLET_ANGLE = Math.PI * 1.5;
-
-const STRING_LIGHTS_X = PERGOLA_X - 6.4;
-const STRING_LIGHTS_Y = PERGOLA_Y + 10.1;
-const STRING_LIGHTS_Z = PERGOLA_Z + 6.4;
-const STRING_LIGHTS_SCALE = 0.8;
-const STRING_LIGHTS_ANGLE = Math.PI * 1.5;
 
 const TV_X = PERGOLA_X - 7.75;
 const TV_Y = PERGOLA_Y + 8.2;
@@ -401,42 +395,6 @@ const BOOKCASE_Z = DESK_Z + 1.1;
 const BOOKCASE_SCALE = 0.01;
 const BOOKCASE_ANGLE = Math.PI * 1.5;
 
-// const PLANT_FICUS_X = TERRACE_X + 4;
-// const PLANT_FICUS_Y = TERRACE_Y - 2;
-// const PLANT_FICUS_Z = TERRACE_Z + 1;
-// const PLANT_FICUS_SCALE = 1.2;
-
-const PLANT_FLOWERS_X = TERRACE_X + 17;
-const PLANT_FLOWERS_Y = TERRACE_Y - 2.7;
-const PLANT_FLOWERS_Z = TERRACE_Z + 1;
-const PLANT_FLOWERS_SCALE = 1.5;
-
-const PLANT_AGLAONEMA_X = TERRACE_X + 17;
-const PLANT_AGLAONEMA_Y = TERRACE_Y - 2.1;
-const PLANT_AGLAONEMA_Z = TERRACE_Z + 1;
-const PLANT_AGLAONEMA_SCALE = 1.5;
-
-const PLANT_INDOOR_PACK_X = TERRACE_X + 10;
-const PLANT_INDOOR_PACK_Y = TERRACE_Y - 2.3;
-const PLANT_INDOOR_PACK_Z = TERRACE_Z - 4;
-const PLANT_INDOOR_PACK_SCALE = 1;
-const PLANT_INDOOR_PACK_ANGLE = Math.PI * 1.4;
-
-const PLANT_FAN_X = TERRACE_X + 17;
-const PLANT_FAN_Y = TERRACE_Y - 2.7;
-const PLANT_FAN_Z = TERRACE_Z + 1;
-const PLANT_FAN_SCALE = 1.5;
-
-const PLANT_POTTED_PALM_X = TERRACE_X + 17;
-const PLANT_POTTED_PALM_Y = TERRACE_Y - 2.7;
-const PLANT_POTTED_PALM_Z = TERRACE_Z + 1;
-const PLANT_POTTED_PALM_SCALE = 1.5;
-
-const PLANT_ORANGE_FLOWERS_X = TERRACE_X + 17;
-const PLANT_ORANGE_FLOWERS_Y = TERRACE_Y + 2.7;
-const PLANT_ORANGE_FLOWERS_Z = TERRACE_Z + 1;
-const PLANT_ORANGE_FLOWERS_SCALE = 0.05;
-
 interface ModelConfig {
   path: string;
   label: string;
@@ -466,14 +424,6 @@ const MODEL_CONFIG: ModelConfig[] = [
     floatIntensity: 0,
     rotationY: PERGOLA_ANGLE,
   },
-  // {
-  //   path: "/models/wood_floor.glb",
-  //   label: "floor",
-  //   position: [FLOOR_X, FLOOR_Y, FLOOR_Z],
-  //   scale: [FLOOR_SCALE * 2, FLOOR_SCALE * 10, FLOOR_SCALE * 4],
-  //   floatSpeed: 0,
-  //   floatIntensity: 0,
-  // },
 
   {
     path: "/models/jenson_extending_dining_table_solid_oak.glb",
