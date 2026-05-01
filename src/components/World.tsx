@@ -1,11 +1,12 @@
-import { Suspense, useMemo, useRef, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Suspense, useMemo, useRef, useEffect, useState, useCallback } from "react";
+import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import {
 	OrbitControls,
 	useGLTF,
 	Float,
 	BakeShadows,
 	useProgress,
+	Html,
 } from "@react-three/drei";
 import type { GLTF, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
@@ -1377,14 +1378,267 @@ function ShadowFreezer() {
 	return null;
 }
 
+// ─── Camera presets ──────────────────────────────────────────────────────────
+type PresetKey = "workstation" | "meeting" | "balcony";
+
+interface CameraPreset {
+	position: [number, number, number];
+	target: [number, number, number];
+}
+
+const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
+	workstation: {
+		// Pulled back-right of desk, slightly above chair height, looking at monitors.
+		position: [DESK_X + 4.5, DESK_Y + 2.2, DESK_Z + 4],
+		target: [DESK_X - 2.5, DESK_Y + 0.6, DESK_Z - 0.8],
+	},
+	meeting: {
+		// Close/intimate: sofa + coffee-table + TV + floor lamp in frame.
+		position: [COFFEE_TABLE_X + 3, COFFEE_TABLE_Y + 1.8, COFFEE_TABLE_Z + 3.2],
+		target: [COFFEE_TABLE_X - 1.2, COFFEE_TABLE_Y + 0.8, COFFEE_TABLE_Z],
+	},
+	balcony: {
+		// Behind the balcony looking outward over the fence toward the mountain view.
+		position: [MUD_X + 1, MUD_Y + 3, MUD_Z + 5.5],
+		target: [MUD_X, MUD_Y + 1, MUD_Z - 12],
+	},
+};
+
+const INITIAL_PRESET: PresetKey = "workstation";
+
+// ─── Camera rig ──────────────────────────────────────────────────────────────
+// Smoothly lerps camera position + OrbitControls target toward active preset.
+// Disables user input + damping during transition to avoid fighting the lerp.
+function CameraRig({
+	activePreset,
+	controlsRef,
+}: {
+	activePreset: PresetKey;
+	controlsRef: React.RefObject<OrbitControlsImpl | null>;
+}) {
+	const { camera } = useThree();
+	const desiredPos = useRef(new THREE.Vector3());
+	const desiredTarget = useRef(new THREE.Vector3());
+	const animating = useRef(false);
+
+	// On preset change → set new desired pose and start animating.
+	useEffect(() => {
+		const p = CAMERA_PRESETS[activePreset];
+		desiredPos.current.set(...p.position);
+		desiredTarget.current.set(...p.target);
+		animating.current = true;
+		if (controlsRef.current) {
+			controlsRef.current.enabled = false;
+		}
+	}, [activePreset, controlsRef]);
+
+	// Initial snap (before first user interaction).
+	useEffect(() => {
+		const p = CAMERA_PRESETS[INITIAL_PRESET];
+		camera.position.set(...p.position);
+		if (controlsRef.current) {
+			controlsRef.current.target.set(...p.target);
+			controlsRef.current.update();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useFrame(() => {
+		if (!animating.current) return;
+		const controls = controlsRef.current;
+		camera.position.lerp(desiredPos.current, 0.08);
+		if (controls) {
+			controls.target.lerp(desiredTarget.current, 0.08);
+			controls.update();
+		}
+		const posDone = camera.position.distanceTo(desiredPos.current) < 0.02;
+		const tgtDone = controls
+			? controls.target.distanceTo(desiredTarget.current) < 0.02
+			: true;
+		if (posDone && tgtDone) {
+			camera.position.copy(desiredPos.current);
+			if (controls) {
+				controls.target.copy(desiredTarget.current);
+				controls.enabled = true;
+				controls.update();
+			}
+			animating.current = false;
+		}
+	});
+
+	return null;
+}
+
+// ─── In-scene 3D button ──────────────────────────────────────────────────────
+// Small glowing disc with floating HTML label; acts as click affordance.
+function SceneButton3D({
+	position,
+	color,
+	label,
+	onClick,
+	size = 0.18,
+}: {
+	position: [number, number, number];
+	color: string;
+	label: string;
+	onClick: () => void;
+	size?: number;
+}) {
+	const [hovered, setHovered] = useState(false);
+	const meshRef = useRef<THREE.Mesh>(null);
+
+	useFrame(({ clock }) => {
+		if (!meshRef.current) return;
+		const t = clock.getElapsedTime();
+		// Gentle pulse — stronger on hover.
+		const pulse = 1 + Math.sin(t * 2.5) * (hovered ? 0.12 : 0.06);
+		meshRef.current.scale.setScalar(pulse);
+	});
+
+	const handleOver = useCallback((e: ThreeEvent<PointerEvent>) => {
+		e.stopPropagation();
+		setHovered(true);
+		document.body.style.cursor = "pointer";
+	}, []);
+	const handleOut = useCallback((e: ThreeEvent<PointerEvent>) => {
+		e.stopPropagation();
+		setHovered(false);
+		document.body.style.cursor = "default";
+	}, []);
+	const handleClick = useCallback(
+		(e: ThreeEvent<MouseEvent>) => {
+			e.stopPropagation();
+			onClick();
+		},
+		[onClick],
+	);
+
+	return (
+		<group position={position}>
+			<mesh
+				ref={meshRef}
+				onPointerOver={handleOver}
+				onPointerOut={handleOut}
+				onClick={handleClick}
+			>
+				<sphereGeometry args={[size, 24, 24]} />
+				<meshStandardMaterial
+					color={color}
+					emissive={color}
+					emissiveIntensity={hovered ? 1.8 : 1.0}
+					roughness={0.3}
+					metalness={0.1}
+					toneMapped={false}
+				/>
+			</mesh>
+			{/* Soft halo ring */}
+			<mesh rotation-x={-Math.PI / 2}>
+				<ringGeometry args={[size * 1.3, size * 1.9, 32]} />
+				<meshBasicMaterial
+					color={color}
+					transparent
+					opacity={hovered ? 0.55 : 0.3}
+					side={THREE.DoubleSide}
+					toneMapped={false}
+				/>
+			</mesh>
+			<Html
+				center
+				distanceFactor={8}
+				position={[0, size * 2.2, 0]}
+				style={{
+					pointerEvents: "none",
+					fontFamily: "system-ui, sans-serif",
+					fontSize: 14,
+					fontWeight: 600,
+					color: "#fff",
+					background: "rgba(30,20,10,0.75)",
+					padding: "4px 10px",
+					borderRadius: 999,
+					whiteSpace: "nowrap",
+					opacity: hovered ? 1 : 0.85,
+					transition: "opacity 180ms ease",
+					userSelect: "none",
+				}}
+			>
+				{label}
+			</Html>
+		</group>
+	);
+}
+
+
+// ─── Monitor popup (DOM overlay) ─────────────────────────────────────────────
+function MonitorPopup({ open, onClose }: { open: boolean; onClose: () => void }) {
+	if (!open) return null;
+	return (
+		<div
+			onClick={onClose}
+			style={{
+				position: "fixed",
+				inset: 0,
+				background: "rgba(10,8,6,0.55)",
+				backdropFilter: "blur(6px)",
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				zIndex: 20,
+				fontFamily: "system-ui, sans-serif",
+			}}
+		>
+			<div
+				onClick={(e) => e.stopPropagation()}
+				style={{
+					background: "#fffaf0",
+					color: "#3a2a10",
+					padding: "28px 32px",
+					borderRadius: 14,
+					maxWidth: 420,
+					boxShadow: "0 30px 80px rgba(0,0,0,0.35)",
+					border: "1px solid #e6d5a8",
+				}}
+			>
+				<h2 style={{ margin: "0 0 10px 0", fontSize: 20 }}>Monitor</h2>
+				<p style={{ margin: "0 0 18px 0", fontSize: 14, lineHeight: 1.5 }}>
+					Popup opened. Placeholder interaction triggered from the middle monitor.
+				</p>
+				<button
+					onClick={onClose}
+					style={{
+						background: "#c68a3a",
+						color: "#fff",
+						border: "none",
+						padding: "8px 18px",
+						borderRadius: 8,
+						fontSize: 14,
+						fontWeight: 600,
+						cursor: "pointer",
+					}}
+				>
+					Close
+				</button>
+			</div>
+		</div>
+	);
+}
+
 // ─── Scene ────────────────────────────────────────────────────────────────────
-function Scene() {
+function Scene({
+	activePreset,
+	setActivePreset,
+	onOpenPopup,
+}: {
+	activePreset: PresetKey;
+	setActivePreset: (p: PresetKey) => void;
+	onOpenPopup: () => void;
+}) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 
 	return (
 		<>
 			<PostRainSummerLighting />
 			<CameraTracker controlsRef={controlsRef} />
+			<CameraRig activePreset={activePreset} controlsRef={controlsRef} />
 
 			{/* Single Suspense boundary — nothing renders until ALL models ready */}
 			<Suspense fallback={null}>
@@ -1399,6 +1653,46 @@ function Scene() {
 						rotationY={config.rotationY}
 					/>
 				))}
+
+				{/* Button 1 — Workstation (floats above desk corner, near laptop) */}
+				<SceneButton3D
+					position={[DESK_X + 1.4, DESK_Y + 1.2, DESK_Z + 0.6]}
+					color='#e88a3a'
+					label='Workstation'
+					onClick={() => setActivePreset("workstation")}
+					size={0.12}
+				/>
+
+				{/* Button 2 — Meeting area (above coffee table) */}
+				<SceneButton3D
+					position={[COFFEE_TABLE_X, COFFEE_TABLE_Y + 0.6, COFFEE_TABLE_Z]}
+					color='#6aa5d8'
+					label='Meeting Area'
+					onClick={() => setActivePreset("meeting")}
+					size={0.12}
+				/>
+
+				{/* Button 3 — Balcony (above fence) */}
+				<SceneButton3D
+					position={[MUD_X, MUD_Y + 1.4, MUD_Z - 1.3]}
+					color='#7fc27f'
+					label='Balcony'
+					onClick={() => setActivePreset("balcony")}
+					size={0.12}
+				/>
+
+				{/* Button 4 — Monitor popup trigger (on middle monitor face) */}
+				<SceneButton3D
+					position={[MONITOR_B_X - 0.05, MONITOR_B_Y + 0.5, MONITOR_B_Z + 0.25]}
+					color='#e84a6a'
+					label='Open'
+					onClick={() => {
+						console.log("Popup opened");
+						onOpenPopup();
+					}}
+					size={0.08}
+				/>
+
 				<BakeShadows />
 				<ShadowFreezer />
 			</Suspense>
@@ -1410,10 +1704,6 @@ function Scene() {
 				dampingFactor={0.05}
 				minDistance={0}
 				maxDistance={80}
-				//  target={[50, -30, -20]}
-				// target={[1, -30, -15]}
-				// target={[30, -40, -30]}
-				target={[-8.27, -34, -3.16]}
 			/>
 		</>
 	);
@@ -1423,6 +1713,9 @@ function Scene() {
 // Camera: pulled back and slightly low so the mountain fills the frame,
 // with the glass terrace + desk visible at the summit.
 export default function World() {
+	const [activePreset, setActivePreset] = useState<PresetKey>(INITIAL_PRESET);
+	const [popupOpen, setPopupOpen] = useState(false);
+
 	return (
 		<div
 			style={{
@@ -1434,8 +1727,8 @@ export default function World() {
 		>
 			<Canvas
 				camera={{
-					position: [0, 4, 55], // deep inside the mountain base, looking up
-					fov: 20,
+					position: CAMERA_PRESETS[INITIAL_PRESET].position,
+					fov: 35,
 					near: 0.1,
 					far: 600,
 				}}
@@ -1450,8 +1743,54 @@ export default function World() {
 					gl.setClearColor("#f5ead6");
 				}}
 			>
-				<Scene />
+				<Scene
+					activePreset={activePreset}
+					setActivePreset={setActivePreset}
+					onOpenPopup={() => setPopupOpen(true)}
+				/>
 			</Canvas>
+
+			{/* 2D overlay fallback buttons (accessibility + visibility guarantee) */}
+			<div
+				style={{
+					position: "fixed",
+					bottom: 20,
+					left: "50%",
+					transform: "translateX(-50%)",
+					display: "flex",
+					gap: 10,
+					zIndex: 5,
+					fontFamily: "system-ui, sans-serif",
+				}}
+			>
+				{(
+					[
+						{ key: "workstation", label: "Workstation", color: "#e88a3a" },
+						{ key: "meeting", label: "Meeting", color: "#6aa5d8" },
+						{ key: "balcony", label: "Balcony", color: "#7fc27f" },
+					] as { key: PresetKey; label: string; color: string }[]
+				).map((b) => (
+					<button
+						key={b.key}
+						onClick={() => setActivePreset(b.key)}
+						style={{
+							background: activePreset === b.key ? b.color : "rgba(30,20,10,0.75)",
+							color: "#fff",
+							border: "none",
+							padding: "8px 16px",
+							borderRadius: 999,
+							fontSize: 13,
+							fontWeight: 600,
+							cursor: "pointer",
+							boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
+						}}
+					>
+						{b.label}
+					</button>
+				))}
+			</div>
+
+			<MonitorPopup open={popupOpen} onClose={() => setPopupOpen(false)} />
 			<LoaderOverlay />
 		</div>
 	);
