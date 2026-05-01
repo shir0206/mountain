@@ -1,6 +1,12 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useMemo, useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Float } from "@react-three/drei";
+import {
+	OrbitControls,
+	useGLTF,
+	Float,
+	BakeShadows,
+	useProgress,
+} from "@react-three/drei";
 import type { GLTF, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 
@@ -345,968 +351,1108 @@ const BOOKCASE_SCALE = 0.01;
 const BOOKCASE_ANGLE = Math.PI * 1.5;
 
 interface ModelConfig {
-  path: string;
-  label: string;
-  position: [number, number, number];
-  scale: number | [number, number, number];
-  floatSpeed: number;
-  floatIntensity: number;
-  rotationY?: number;
+	path: string;
+	label: string;
+	position: [number, number, number];
+	scale: number | [number, number, number];
+	floatSpeed: number;
+	floatIntensity: number;
+	rotationY?: number;
 }
 
 const MODEL_CONFIG: ModelConfig[] = [
-  {
-    path: "models/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
-    label: "Mountain Peak",
-    position: [0, MOUNTAIN_Y, 0],
-    scale: MOUNTAIN_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/pergola.glb",
-    label: "Glass Terrace",
-    position: [PERGOLA_X, PERGOLA_Y, PERGOLA_Z],
-    scale: [PERGOLA_SCALE * 0.8, PERGOLA_SCALE * 0.5, PERGOLA_SCALE * 1.2],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PERGOLA_ANGLE,
-  },
+	{
+		path: "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
+		label: "Mountain Peak",
+		position: [0, MOUNTAIN_Y, 0],
+		scale: MOUNTAIN_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/pergola.glb",
+		label: "Glass Terrace",
+		position: [PERGOLA_X, PERGOLA_Y, PERGOLA_Z],
+		scale: [PERGOLA_SCALE * 0.8, PERGOLA_SCALE * 0.5, PERGOLA_SCALE * 1.2],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PERGOLA_ANGLE,
+	},
 
-  {
-    path: "models/jenson_extending_dining_table_solid_oak.glb",
-    label: "Desk",
-    position: [DESK_X, DESK_Y, DESK_Z],
-    scale: [DESK_SCALE * 1.8, DESK_SCALE * 0.9, DESK_SCALE * 1.2],
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+	{
+		path: "models_optimized/jenson_extending_dining_table_solid_oak.glb",
+		label: "Desk",
+		position: [DESK_X, DESK_Y, DESK_Z],
+		scale: [DESK_SCALE * 1.8, DESK_SCALE * 0.9, DESK_SCALE * 1.2],
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
 
-  {
-    path: "models/harvey_swivel_chair_mineral_blue.glb",
-    label: "Chair",
-    position: [OFFICE_CHAIR_X, OFFICE_CHAIR_Y, OFFICE_CHAIR_Z],
-    scale: OFFICE_CHAIR_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: Math.PI,
-  },
+	{
+		path: "models_optimized/harvey_swivel_chair_mineral_blue.glb",
+		label: "Chair",
+		position: [OFFICE_CHAIR_X, OFFICE_CHAIR_Y, OFFICE_CHAIR_Z],
+		scale: OFFICE_CHAIR_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: Math.PI,
+	},
 
-  {
-    path: "models/monitor.glb",
-    label: "Monitor Left",
-    position: [MONITOR_A_X, MONITOR_A_Y, MONITOR_A_Z],
-    scale: 1.2,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MONITOR_A_ANGLE,
-  },
-  {
-    path: "models/monitor.glb",
-    label: "Monitor Right",
-    position: [MONITOR_B_X, MONITOR_B_Y, MONITOR_B_Z],
-    scale: 1.2,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MONITOR_B_ANGLE,
-  },
-  {
-    path: "models/monitor.glb",
-    label: "Monitor Right",
-    position: [MONITOR_C_X, MONITOR_C_Y, MONITOR_C_Z],
-    scale: 1.2,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MONITOR_C_ANGLE,
-  },
+	{
+		path: "models_optimized/monitor.glb",
+		label: "Monitor Left",
+		position: [MONITOR_A_X, MONITOR_A_Y, MONITOR_A_Z],
+		scale: 1.2,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: MONITOR_A_ANGLE,
+	},
+	{
+		path: "models_optimized/monitor.glb",
+		label: "Monitor Right",
+		position: [MONITOR_B_X, MONITOR_B_Y, MONITOR_B_Z],
+		scale: 1.2,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: MONITOR_B_ANGLE,
+	},
+	{
+		path: "models_optimized/monitor.glb",
+		label: "Monitor Right",
+		position: [MONITOR_C_X, MONITOR_C_Y, MONITOR_C_Z],
+		scale: 1.2,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: MONITOR_C_ANGLE,
+	},
 
-  {
-    path: "models/alexandra_cardenas_livecoding_d5.glb",
-    label: "alexandra_cardenas_livecoding_d5.glb",
-    position: [MONITOR_CODE_X, MONITOR_CODE_Y, MONITOR_CODE_Z],
-    scale: MONITOR_CODE_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MONITOR_CODE_ANGLE,
-  },
-  {
-    path: "models/mac_keyboard.glb",
-    label: "Keyboard",
-    position: [KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z],
-    scale: 0.007,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/mousepad.glb",
-    label: "pad",
-    position: [PAD_X, PAD_Y, PAD_Z],
-    scale: [PAD_SCALE * 0.9, PAD_SCALE, PAD_SCALE * 1.2],
+	{
+		path: "models_optimized/alexandra_cardenas_livecoding_d5.glb",
+		label: "alexandra_cardenas_livecoding_d5.glb",
+		position: [MONITOR_CODE_X, MONITOR_CODE_Y, MONITOR_CODE_Z],
+		scale: MONITOR_CODE_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: MONITOR_CODE_ANGLE,
+	},
+	{
+		path: "models_optimized/mac_keyboard.glb",
+		label: "Keyboard",
+		position: [KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z],
+		scale: 0.007,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/mousepad.glb",
+		label: "pad",
+		position: [PAD_X, PAD_Y, PAD_Z],
+		scale: [PAD_SCALE * 0.9, PAD_SCALE, PAD_SCALE * 1.2],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PAD_ANGLE,
-  },
-  {
-    path: "models/lowpoly_laptop_closed.glb",
-    label: "Laptop",
-    position: [LAPTOP_X, LAPTOP_Y, LAPTOP_Z],
-    scale: 1.8,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/the_serpent_-_tret030.glb",
-    label: "DESK_LAMP",
-    position: [DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z],
-    scale: DESK_LAMP_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: DESK_LAMP_ANGLE,
-  },
-  {
-    path: "models/imac_magic_mouse.glb",
-    label: "mouse",
-    position: [MOUSE_X, MOUSE_Y, MOUSE_Z],
-    scale: 1.5,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/mug.glb",
-    label: "Mug",
-    position: [MUG_X, MUG_Y, MUG_Z],
-    scale: MUG_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MUG_ANGLE,
-  },
-  {
-    path: "models/unhyun__straw_mat_a.glb",
-    label: "COASTER",
-    position: [COASTER_X, COASTER_Y, COASTER_Z],
-    scale: COASTER_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: COASTER_ANGLE,
-  },
-  {
-    path: "models/rug.glb",
-    label: "rug office",
-    position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
-    scale: [RUG_OFFICE_SCALE * 1.85, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 2.5],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: RUG_OFFICE_ANGLE,
-  },
-  {
-    path: "models/alexandra_cardenas_code.glb",
-    label: "TV_CODE",
-    position: [TV_CODE_X, TV_CODE_Y, TV_CODE_Z],
-    scale: TV_CODE_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: TV_CODE_ANGLE,
-  },
-  {
-    path: "models/tv_with_a_wall_mount.glb",
-    label: "TV",
-    position: [TV_X, TV_Y, TV_Z],
-    scale: TV_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: TV_ANGLE,
-  },
-  {
-    path: "models/ipad_air4.glb",
-    label: "tablet",
-    position: [TABLET_X, TABLET_Y, TABLET_Z],
-    scale: TABLET_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: TABLET_ANGLE,
-  },
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PAD_ANGLE,
+	},
+	{
+		path: "models_optimized/lowpoly_laptop_closed.glb",
+		label: "Laptop",
+		position: [LAPTOP_X, LAPTOP_Y, LAPTOP_Z],
+		scale: 1.8,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/the_serpent_-_tret030.glb",
+		label: "DESK_LAMP",
+		position: [DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z],
+		scale: DESK_LAMP_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: DESK_LAMP_ANGLE,
+	},
+	{
+		path: "models_optimized/imac_magic_mouse.glb",
+		label: "mouse",
+		position: [MOUSE_X, MOUSE_Y, MOUSE_Z],
+		scale: 1.5,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/mug.glb",
+		label: "Mug",
+		position: [MUG_X, MUG_Y, MUG_Z],
+		scale: MUG_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: MUG_ANGLE,
+	},
+	{
+		path: "models_optimized/unhyun__straw_mat_a.glb",
+		label: "COASTER",
+		position: [COASTER_X, COASTER_Y, COASTER_Z],
+		scale: COASTER_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: COASTER_ANGLE,
+	},
+	{
+		path: "models_optimized/rug.glb",
+		label: "rug office",
+		position: [RUG_OFFICE_X, RUG_OFFICE_Y, RUG_OFFICE_Z],
+		scale: [RUG_OFFICE_SCALE * 1.85, RUG_OFFICE_SCALE, RUG_OFFICE_SCALE * 2.5],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: RUG_OFFICE_ANGLE,
+	},
+	{
+		path: "models_optimized/alexandra_cardenas_code.glb",
+		label: "TV_CODE",
+		position: [TV_CODE_X, TV_CODE_Y, TV_CODE_Z],
+		scale: TV_CODE_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: TV_CODE_ANGLE,
+	},
+	{
+		path: "models_optimized/tv_with_a_wall_mount.glb",
+		label: "TV",
+		position: [TV_X, TV_Y, TV_Z],
+		scale: TV_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: TV_ANGLE,
+	},
+	{
+		path: "models_optimized/ipad_air4.glb",
+		label: "tablet",
+		position: [TABLET_X, TABLET_Y, TABLET_Z],
+		scale: TABLET_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: TABLET_ANGLE,
+	},
 
-  {
-    path: "models/bush_square.glb",
-    label: "square",
-    position: [PLANT_SQUARE_X, PLANT_SQUARE_Y, PLANT_SQUARE_Z],
-    scale: [
-      PLANT_SQUARE_SCALE * 1.5,
-      PLANT_SQUARE_SCALE * 3,
-      PLANT_SQUARE_SCALE * 3.5,
-    ],
+	{
+		path: "models_optimized/bush_square.glb",
+		label: "square",
+		position: [PLANT_SQUARE_X, PLANT_SQUARE_Y, PLANT_SQUARE_Z],
+		scale: [
+			PLANT_SQUARE_SCALE * 1.5,
+			PLANT_SQUARE_SCALE * 3,
+			PLANT_SQUARE_SCALE * 3.5,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SQUARE_ANGLE,
-  },
-  {
-    path: "models/bush_square.glb",
-    label: "square",
-    position: [PLANT_SQUARE_B_X, PLANT_SQUARE_Y, PLANT_SQUARE_B_Z],
-    scale: [
-      PLANT_SQUARE_SCALE * 1.5,
-      PLANT_SQUARE_SCALE * 3,
-      PLANT_SQUARE_SCALE * 3.5,
-    ],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SQUARE_ANGLE,
+	},
+	{
+		path: "models_optimized/bush_square.glb",
+		label: "square",
+		position: [PLANT_SQUARE_B_X, PLANT_SQUARE_Y, PLANT_SQUARE_B_Z],
+		scale: [
+			PLANT_SQUARE_SCALE * 1.5,
+			PLANT_SQUARE_SCALE * 3,
+			PLANT_SQUARE_SCALE * 3.5,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SQUARE_B_ANGLE,
-  },
-  {
-    path: "models/bush_square.glb",
-    label: "square",
-    position: [PLANT_SQUARE_C_X, PLANT_SQUARE_Y, PLANT_SQUARE_C_Z],
-    scale: [
-      PLANT_SQUARE_SCALE * 1.5,
-      PLANT_SQUARE_SCALE * 3,
-      PLANT_SQUARE_SCALE * 5,
-    ],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SQUARE_B_ANGLE,
+	},
+	{
+		path: "models_optimized/bush_square.glb",
+		label: "square",
+		position: [PLANT_SQUARE_C_X, PLANT_SQUARE_Y, PLANT_SQUARE_C_Z],
+		scale: [
+			PLANT_SQUARE_SCALE * 1.5,
+			PLANT_SQUARE_SCALE * 3,
+			PLANT_SQUARE_SCALE * 5,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SQUARE_C_ANGLE,
-  },
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SQUARE_C_ANGLE,
+	},
 
-  {
-    path: "models/green_creeper_plant.glb",
-    label: "creeper",
-    position: [
-      PLANT_CREEPER_LEFT_X,
-      PLANT_CREEPER_LEFT_Y,
-      PLANT_CREEPER_LEFT_Z,
-    ],
-    scale: [
-      PLANT_CREEPER_LEFT_SCALE * 1.8,
-      PLANT_CREEPER_LEFT_SCALE * 1.2,
-      PLANT_CREEPER_LEFT_SCALE * 1.2,
-    ],
+	{
+		path: "models_optimized/green_creeper_plant.glb",
+		label: "creeper",
+		position: [
+			PLANT_CREEPER_LEFT_X,
+			PLANT_CREEPER_LEFT_Y,
+			PLANT_CREEPER_LEFT_Z,
+		],
+		scale: [
+			PLANT_CREEPER_LEFT_SCALE * 1.8,
+			PLANT_CREEPER_LEFT_SCALE * 1.2,
+			PLANT_CREEPER_LEFT_SCALE * 1.2,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CREEPER_LEFT_ANGLE,
-  },
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CREEPER_LEFT_ANGLE,
+	},
 
-  {
-    path: "models/green_creeper_plant.glb",
-    label: "creeper",
-    position: [
-      PLANT_CREEPER_RIGHT_X,
-      PLANT_CREEPER_RIGHT_Y,
-      PLANT_CREEPER_RIGHT_Z,
-    ],
-    scale: [
-      PLANT_CREEPER_RIGHT_SCALE * 1.3,
-      PLANT_CREEPER_RIGHT_SCALE * 1.7,
-      PLANT_CREEPER_RIGHT_SCALE * 2,
-    ],
+	{
+		path: "models_optimized/green_creeper_plant.glb",
+		label: "creeper",
+		position: [
+			PLANT_CREEPER_RIGHT_X,
+			PLANT_CREEPER_RIGHT_Y,
+			PLANT_CREEPER_RIGHT_Z,
+		],
+		scale: [
+			PLANT_CREEPER_RIGHT_SCALE * 1.3,
+			PLANT_CREEPER_RIGHT_SCALE * 1.7,
+			PLANT_CREEPER_RIGHT_SCALE * 2,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CREEPER_RIGHT_ANGLE,
-  },
-  {
-    path: "models/irvin_floor_lamp_natural_wood_and_white.glb",
-    label: "FLOOR_LAMP",
-    position: [FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z],
-    scale: FLOOR_LAMP_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: FLOOR_LAMP_ANGLE,
-  },
-  {
-    path: "models/Untitled.glb",
-    label: "Armchair",
-    position: [ARMCHAIR_X, ARMCHAIR_Y, ARMCHAIR_Z],
-    scale: ARMCHAIR_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: ARMCHAIR_ANGLE,
-  },
-  {
-    path: "models/dylan_2_seater_sofa_mineral_blue.glb",
-    label: "sofa",
-    position: [SOFA_X, SOFA_Y, SOFA_Z],
-    scale: [SOFA_SCALE * 1.3, SOFA_SCALE, SOFA_SCALE],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: SOFA_ANGLE,
-  },
-  {
-    path: "models/pillow_test.glb",
-    label: "pillow",
-    position: [PILLOW_X, PILLOW_Y, PILLOW_Z],
-    scale: PILLOW_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PILLOW_ANGLE,
-  },
-  {
-    path: "models/edelweiss_round_table_ash_and_white.glb",
-    label: "coffee table",
-    position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
-    scale: [
-      COFFEE_TABLE_SCALE * 1.1,
-      COFFEE_TABLE_SCALE * 0.4,
-      COFFEE_TABLE_SCALE * 1.3,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CREEPER_RIGHT_ANGLE,
+	},
+	{
+		path: "models_optimized/irvin_floor_lamp_natural_wood_and_white.glb",
+		label: "FLOOR_LAMP",
+		position: [FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z],
+		scale: FLOOR_LAMP_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: FLOOR_LAMP_ANGLE,
+	},
+	{
+		path: "models_optimized/Untitled.glb",
+		label: "Armchair",
+		position: [ARMCHAIR_X, ARMCHAIR_Y, ARMCHAIR_Z],
+		scale: ARMCHAIR_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: ARMCHAIR_ANGLE,
+	},
+	{
+		path: "models_optimized/dylan_2_seater_sofa_mineral_blue.glb",
+		label: "sofa",
+		position: [SOFA_X, SOFA_Y, SOFA_Z],
+		scale: [SOFA_SCALE * 1.3, SOFA_SCALE, SOFA_SCALE],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: SOFA_ANGLE,
+	},
+	{
+		path: "models_optimized/pillow_test.glb",
+		label: "pillow",
+		position: [PILLOW_X, PILLOW_Y, PILLOW_Z],
+		scale: PILLOW_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PILLOW_ANGLE,
+	},
+	{
+		path: "models_optimized/edelweiss_round_table_ash_and_white.glb",
+		label: "coffee table",
+		position: [COFFEE_TABLE_X, COFFEE_TABLE_Y, COFFEE_TABLE_Z],
+		scale: [
+			COFFEE_TABLE_SCALE * 1.1,
+			COFFEE_TABLE_SCALE * 0.4,
+			COFFEE_TABLE_SCALE * 1.3,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
 
-  {
-    path: "models/rug.glb",
-    label: "rug meeting",
-    position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
-    scale: [
-      RUG_MEETING_SCALE * 1.8,
-      RUG_MEETING_SCALE,
-      RUG_MEETING_SCALE * 1.6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+	{
+		path: "models_optimized/rug.glb",
+		label: "rug meeting",
+		position: [RUG_MEETING_X, RUG_MEETING_Y, RUG_MEETING_Z],
+		scale: [
+			RUG_MEETING_SCALE * 1.8,
+			RUG_MEETING_SCALE,
+			RUG_MEETING_SCALE * 1.6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
 
-  {
-    path: "models/edelweiss_bar_table_ash_and_white.glb",
-    label: "bar table",
-    position: [BAR_TABLE_X, BAR_TABLE_Y, BAR_TABLE_Z],
-    scale: BAR_TABLE_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/set_of_2_edelweiss_bar_chairs_white.glb",
-    label: "bar chair first",
-    position: [BAR_CHAIR_FIRST_X, BAR_CHAIR_FIRST_Y, BAR_CHAIR_FIRST_Z],
-    scale: BAR_CHAIR_FIRST_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: BAR_CHAIR_FIRST_ANGLE,
-  },
+	{
+		path: "models_optimized/edelweiss_bar_table_ash_and_white.glb",
+		label: "bar table",
+		position: [BAR_TABLE_X, BAR_TABLE_Y, BAR_TABLE_Z],
+		scale: BAR_TABLE_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/set_of_2_edelweiss_bar_chairs_white.glb",
+		label: "bar chair first",
+		position: [BAR_CHAIR_FIRST_X, BAR_CHAIR_FIRST_Y, BAR_CHAIR_FIRST_Z],
+		scale: BAR_CHAIR_FIRST_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: BAR_CHAIR_FIRST_ANGLE,
+	},
 
-  {
-    path: "models/set_of_2_edelweiss_bar_chairs_white.glb",
-    label: "bar chair second",
-    position: [BAR_CHAIR_SECOND_X, BAR_CHAIR_SECOND_Y, BAR_CHAIR_SECOND_Z],
-    scale: BAR_CHAIR_SECOND_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: BAR_CHAIR_SECOND_ANGLE,
-  },
-  {
-    path: "models/shoe_cabinet.glb",
-    label: "shelf",
-    position: [SHELF_X, SHELF_Y, SHELF_Z],
-    scale: [SHELF_SCALE * 2.5, SHELF_SCALE * 0.7, SHELF_SCALE * 1.2],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: 0, //SHELF_ANGLE,
-  },
+	{
+		path: "models_optimized/set_of_2_edelweiss_bar_chairs_white.glb",
+		label: "bar chair second",
+		position: [BAR_CHAIR_SECOND_X, BAR_CHAIR_SECOND_Y, BAR_CHAIR_SECOND_Z],
+		scale: BAR_CHAIR_SECOND_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: BAR_CHAIR_SECOND_ANGLE,
+	},
+	{
+		path: "models_optimized/shoe_cabinet.glb",
+		label: "shelf",
+		position: [SHELF_X, SHELF_Y, SHELF_Z],
+		scale: [SHELF_SCALE * 2.5, SHELF_SCALE * 0.7, SHELF_SCALE * 1.2],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: 0, //SHELF_ANGLE,
+	},
 
-  {
-    path: "models/mud_material.glb",
-    label: "mud",
-    position: [MUD_X, MUD_Y, MUD_Z],
-    scale: [MUD_SCALE * 3, MUD_SCALE, MUD_SCALE * 0.5],
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/wooden_fence.glb",
-    label: "wooden_fence a",
-    position: [WOODEN_FENCE_A_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
-    scale: [
-      WOODEN_FENCE_SCALE * 2,
-      WOODEN_FENCE_SCALE * 0.6,
-      WOODEN_FENCE_SCALE * 6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: WOODEN_FENCE_ANGLE,
-  },
-  {
-    path: "models/wooden_fence.glb",
-    label: "wooden_fence a",
-    position: [WOODEN_FENCE_B_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
-    scale: [
-      WOODEN_FENCE_SCALE * 2,
-      WOODEN_FENCE_SCALE * 0.6,
-      WOODEN_FENCE_SCALE * 6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: WOODEN_FENCE_ANGLE,
-  },
-  {
-    path: "models/wooden_fence.glb",
-    label: "wooden_fence a",
-    position: [WOODEN_FENCE_C_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
-    scale: [
-      WOODEN_FENCE_SCALE * 2,
-      WOODEN_FENCE_SCALE * 0.6,
-      WOODEN_FENCE_SCALE * 6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: WOODEN_FENCE_ANGLE,
-  },
-  {
-    path: "models/wooden_fence.glb",
-    label: "wooden_fence a",
-    position: [WOODEN_FENCE_D_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
-    scale: [
-      WOODEN_FENCE_SCALE * 2,
-      WOODEN_FENCE_SCALE * 0.6,
-      WOODEN_FENCE_SCALE * 6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: WOODEN_FENCE_ANGLE,
-  },
-  {
-    path: "models/wooden_fence.glb",
-    label: "wooden_fence a",
-    position: [WOODEN_FENCE_E_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
-    scale: [
-      WOODEN_FENCE_SCALE * 2,
-      WOODEN_FENCE_SCALE * 0.6,
-      WOODEN_FENCE_SCALE * 6,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: WOODEN_FENCE_ANGLE,
-  },
+	{
+		path: "models_optimized/mud_material.glb",
+		label: "mud",
+		position: [MUD_X, MUD_Y, MUD_Z],
+		scale: [MUD_SCALE * 3, MUD_SCALE, MUD_SCALE * 0.5],
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/wooden_fence.glb",
+		label: "wooden_fence a",
+		position: [WOODEN_FENCE_A_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+		scale: [
+			WOODEN_FENCE_SCALE * 2,
+			WOODEN_FENCE_SCALE * 0.6,
+			WOODEN_FENCE_SCALE * 6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: WOODEN_FENCE_ANGLE,
+	},
+	{
+		path: "models_optimized/wooden_fence.glb",
+		label: "wooden_fence a",
+		position: [WOODEN_FENCE_B_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+		scale: [
+			WOODEN_FENCE_SCALE * 2,
+			WOODEN_FENCE_SCALE * 0.6,
+			WOODEN_FENCE_SCALE * 6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: WOODEN_FENCE_ANGLE,
+	},
+	{
+		path: "models_optimized/wooden_fence.glb",
+		label: "wooden_fence a",
+		position: [WOODEN_FENCE_C_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+		scale: [
+			WOODEN_FENCE_SCALE * 2,
+			WOODEN_FENCE_SCALE * 0.6,
+			WOODEN_FENCE_SCALE * 6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: WOODEN_FENCE_ANGLE,
+	},
+	{
+		path: "models_optimized/wooden_fence.glb",
+		label: "wooden_fence a",
+		position: [WOODEN_FENCE_D_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+		scale: [
+			WOODEN_FENCE_SCALE * 2,
+			WOODEN_FENCE_SCALE * 0.6,
+			WOODEN_FENCE_SCALE * 6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: WOODEN_FENCE_ANGLE,
+	},
+	{
+		path: "models_optimized/wooden_fence.glb",
+		label: "wooden_fence a",
+		position: [WOODEN_FENCE_E_X, WOODEN_FENCE_Y, WOODEN_FENCE_Z],
+		scale: [
+			WOODEN_FENCE_SCALE * 2,
+			WOODEN_FENCE_SCALE * 0.6,
+			WOODEN_FENCE_SCALE * 6,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: WOODEN_FENCE_ANGLE,
+	},
 
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
-    label: "jungle geranium",
-    position: [PLANT_GERANIUM_A_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_A_Z],
-    scale: PLANT_GERANIUM_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_GERANIUM_A_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
-    label: "jungle geranium",
-    position: [PLANT_GERANIUM_B_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_B_Z],
-    scale: PLANT_GERANIUM_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_GERANIUM_B_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
-    label: "jungle geranium",
-    position: [PLANT_GERANIUM_C_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_C_Z],
-    scale: PLANT_GERANIUM_C_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_GERANIUM_C_ANGLE,
-  },
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
+		label: "jungle geranium",
+		position: [PLANT_GERANIUM_A_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_A_Z],
+		scale: PLANT_GERANIUM_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_GERANIUM_A_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
+		label: "jungle geranium",
+		position: [PLANT_GERANIUM_B_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_B_Z],
+		scale: PLANT_GERANIUM_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_GERANIUM_B_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
+		label: "jungle geranium",
+		position: [PLANT_GERANIUM_C_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_C_Z],
+		scale: PLANT_GERANIUM_C_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_GERANIUM_C_ANGLE,
+	},
 
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
-    label: "jungle geranium",
-    position: [PLANT_GERANIUM_D_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_D_Z],
-    scale: PLANT_GERANIUM_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_GERANIUM_D_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_310.glb",
-    label: "jungle geranium",
-    position: [PLANT_GERANIUM_E_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_E_Z],
-    scale: PLANT_GERANIUM_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_GERANIUM_E_ANGLE,
-  },
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
+		label: "jungle geranium",
+		position: [PLANT_GERANIUM_D_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_D_Z],
+		scale: PLANT_GERANIUM_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_GERANIUM_D_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
+		label: "jungle geranium",
+		position: [PLANT_GERANIUM_E_X, PLANT_GERANIUM_Y, PLANT_GERANIUM_E_Z],
+		scale: PLANT_GERANIUM_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_GERANIUM_E_ANGLE,
+	},
 
-  {
-    path: "models/realistic_hd_windmill_palm_1625.glb",
-    label: "jungle PALM",
-    position: [PLANT_PALM_A_X, PLANT_PALM_Y, PLANT_PALM_A_Z],
-    scale: PLANT_PALM_A_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_PALM_A_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_windmill_palm_1625.glb",
-    label: "jungle PALM",
-    position: [PLANT_PALM_B_X, PLANT_PALM_Y, PLANT_PALM_B_Z],
-    scale: PLANT_PALM_B_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_PALM_B_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_large-leaved_lupine_318.glb",
-    label: "jungle LUPINE",
-    position: [PLANT_LUPINE_A_X, PLANT_LUPINE_Y, PLANT_LUPINE_A_Z],
-    scale: PLANT_LUPINE_A_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_LUPINE_A_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_large-leaved_lupine_318.glb",
-    label: "jungle LUPINE",
-    position: [PLANT_LUPINE_B_X, PLANT_LUPINE_Y, PLANT_LUPINE_B_Z],
-    scale: [
-      PLANT_LUPINE_B_SCALE * 1.2,
-      PLANT_LUPINE_B_SCALE * 0.8,
-      PLANT_LUPINE_B_SCALE * 1.2,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_LUPINE_B_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_large-leaved_lupine_318.glb",
-    label: "jungle LUPINE",
-    position: [PLANT_LUPINE_C_X, PLANT_LUPINE_Y, PLANT_LUPINE_C_Z],
-    scale: [
-      PLANT_LUPINE_C_SCALE * 1.2,
-      PLANT_LUPINE_C_SCALE * 0.8,
-      PLANT_LUPINE_C_SCALE * 1.2,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_LUPINE_C_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_large-leaved_lupine_318.glb",
-    label: "jungle LUPINE",
-    position: [PLANT_LUPINE_D_X, PLANT_LUPINE_Y, PLANT_LUPINE_D_Z],
-    scale: [
-      PLANT_LUPINE_D_SCALE * 1.2,
-      PLANT_LUPINE_D_SCALE * 0.8,
-      PLANT_LUPINE_D_SCALE * 1.2,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_LUPINE_D_ANGLE,
-  },
+	{
+		path: "models_optimized/realistic_hd_windmill_palm_1625.glb",
+		label: "jungle PALM",
+		position: [PLANT_PALM_A_X, PLANT_PALM_Y, PLANT_PALM_A_Z],
+		scale: PLANT_PALM_A_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_PALM_A_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_windmill_palm_1625.glb",
+		label: "jungle PALM",
+		position: [PLANT_PALM_B_X, PLANT_PALM_Y, PLANT_PALM_B_Z],
+		scale: PLANT_PALM_B_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_PALM_B_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
+		label: "jungle LUPINE",
+		position: [PLANT_LUPINE_A_X, PLANT_LUPINE_Y, PLANT_LUPINE_A_Z],
+		scale: PLANT_LUPINE_A_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_LUPINE_A_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
+		label: "jungle LUPINE",
+		position: [PLANT_LUPINE_B_X, PLANT_LUPINE_Y, PLANT_LUPINE_B_Z],
+		scale: [
+			PLANT_LUPINE_B_SCALE * 1.2,
+			PLANT_LUPINE_B_SCALE * 0.8,
+			PLANT_LUPINE_B_SCALE * 1.2,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_LUPINE_B_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
+		label: "jungle LUPINE",
+		position: [PLANT_LUPINE_C_X, PLANT_LUPINE_Y, PLANT_LUPINE_C_Z],
+		scale: [
+			PLANT_LUPINE_C_SCALE * 1.2,
+			PLANT_LUPINE_C_SCALE * 0.8,
+			PLANT_LUPINE_C_SCALE * 1.2,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_LUPINE_C_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
+		label: "jungle LUPINE",
+		position: [PLANT_LUPINE_D_X, PLANT_LUPINE_Y, PLANT_LUPINE_D_Z],
+		scale: [
+			PLANT_LUPINE_D_SCALE * 1.2,
+			PLANT_LUPINE_D_SCALE * 0.8,
+			PLANT_LUPINE_D_SCALE * 1.2,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_LUPINE_D_ANGLE,
+	},
 
-  {
-    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
-    label: "jungle SNOWFLAKE",
-    position: [PLANT_SNOWFLAKE_A_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_A_Z],
-    scale: [
-      PLANT_SNOWFLAKE_A_SCALE * 1.4,
-      PLANT_SNOWFLAKE_A_SCALE * 0.9,
-      PLANT_SNOWFLAKE_A_SCALE * 1.4,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SNOWFLAKE_A_ANGLE,
-  },
-  {
-    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
-    label: "jungle SNOWFLAKE",
-    position: [PLANT_SNOWFLAKE_B_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_B_Z],
-    scale: [
-      PLANT_SNOWFLAKE_B_SCALE * 1.4,
-      PLANT_SNOWFLAKE_B_SCALE * 0.7,
-      PLANT_SNOWFLAKE_B_SCALE * 1.4,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SNOWFLAKE_B_ANGLE,
-  },
+	{
+		path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
+		label: "jungle SNOWFLAKE",
+		position: [PLANT_SNOWFLAKE_A_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_A_Z],
+		scale: [
+			PLANT_SNOWFLAKE_A_SCALE * 1.4,
+			PLANT_SNOWFLAKE_A_SCALE * 0.9,
+			PLANT_SNOWFLAKE_A_SCALE * 1.4,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SNOWFLAKE_A_ANGLE,
+	},
+	{
+		path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
+		label: "jungle SNOWFLAKE",
+		position: [PLANT_SNOWFLAKE_B_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_B_Z],
+		scale: [
+			PLANT_SNOWFLAKE_B_SCALE * 1.4,
+			PLANT_SNOWFLAKE_B_SCALE * 0.7,
+			PLANT_SNOWFLAKE_B_SCALE * 1.4,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SNOWFLAKE_B_ANGLE,
+	},
 
-  {
-    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
-    label: "jungle SNOWFLAKE",
-    position: [PLANT_SNOWFLAKE_C_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_C_Z],
-    scale: [
-      PLANT_SNOWFLAKE_C_SCALE * 1.4,
-      PLANT_SNOWFLAKE_C_SCALE * 0.9,
-      PLANT_SNOWFLAKE_C_SCALE * 1.4,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SNOWFLAKE_C_ANGLE,
-  },
-  {
-    path: "models/dwarf_snowflake_mock_orange_flowers_spring.glb",
-    label: "jungle SNOWFLAKE",
-    position: [PLANT_SNOWFLAKE_D_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_D_Z],
-    scale: [
-      PLANT_SNOWFLAKE_D_SCALE * 1.4,
-      PLANT_SNOWFLAKE_D_SCALE * 0.9,
-      PLANT_SNOWFLAKE_D_SCALE * 1.4,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SNOWFLAKE_D_ANGLE,
-  },
+	{
+		path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
+		label: "jungle SNOWFLAKE",
+		position: [PLANT_SNOWFLAKE_C_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_C_Z],
+		scale: [
+			PLANT_SNOWFLAKE_C_SCALE * 1.4,
+			PLANT_SNOWFLAKE_C_SCALE * 0.9,
+			PLANT_SNOWFLAKE_C_SCALE * 1.4,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SNOWFLAKE_C_ANGLE,
+	},
+	{
+		path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
+		label: "jungle SNOWFLAKE",
+		position: [PLANT_SNOWFLAKE_D_X, PLANT_SNOWFLAKE_Y, PLANT_SNOWFLAKE_D_Z],
+		scale: [
+			PLANT_SNOWFLAKE_D_SCALE * 1.4,
+			PLANT_SNOWFLAKE_D_SCALE * 0.9,
+			PLANT_SNOWFLAKE_D_SCALE * 1.4,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SNOWFLAKE_D_ANGLE,
+	},
 
-  {
-    path: "models/croton_leaf_plants.glb",
-    label: "jungle CROTON",
-    position: [PLANT_CROTON_A_X, PLANT_CROTON_Y, PLANT_CROTON_A_Z],
-    scale: PLANT_CROTON_A_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CROTON_A_ANGLE,
-  },
-  {
-    path: "models/croton_leaf_plants.glb",
-    label: "jungle CROTON",
-    position: [PLANT_CROTON_B_X, PLANT_CROTON_Y, PLANT_CROTON_B_Z],
-    scale: PLANT_CROTON_B_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CROTON_B_ANGLE,
-  },
-  {
-    path: "models/croton_leaf_plants.glb",
-    label: "jungle CROTON",
-    position: [PLANT_CROTON_C_X, PLANT_CROTON_Y, PLANT_CROTON_C_Z],
-    scale: PLANT_CROTON_C_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CROTON_C_ANGLE,
-  },
-  {
-    path: "models/croton_leaf_plants.glb",
-    label: "jungle CROTON",
-    position: [PLANT_CROTON_D_X, PLANT_CROTON_Y, PLANT_CROTON_D_Z],
-    scale: PLANT_CROTON_D_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_CROTON_D_ANGLE,
-  },
-  {
-    path: "models/wisteria_sinensis005.glb",
-    label: "jungle SINENSIS",
-    position: [PLANT_SINENSIS_A_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_A_Z],
-    scale: [
-      PLANT_SINENSIS_A_SCALE,
-      PLANT_SINENSIS_A_SCALE * 0.8,
-      PLANT_SINENSIS_A_SCALE,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SINENSIS_A_ANGLE,
-  },
-  {
-    path: "models/wisteria_sinensis005.glb",
-    label: "jungle SINENSIS",
-    position: [PLANT_SINENSIS_B_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_B_Z],
-    scale: [
-      PLANT_SINENSIS_B_SCALE,
-      PLANT_SINENSIS_B_SCALE * 0.9,
-      PLANT_SINENSIS_B_SCALE,
-    ],
+	{
+		path: "models_optimized/croton_leaf_plants.glb",
+		label: "jungle CROTON",
+		position: [PLANT_CROTON_A_X, PLANT_CROTON_Y, PLANT_CROTON_A_Z],
+		scale: PLANT_CROTON_A_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CROTON_A_ANGLE,
+	},
+	{
+		path: "models_optimized/croton_leaf_plants.glb",
+		label: "jungle CROTON",
+		position: [PLANT_CROTON_B_X, PLANT_CROTON_Y, PLANT_CROTON_B_Z],
+		scale: PLANT_CROTON_B_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CROTON_B_ANGLE,
+	},
+	{
+		path: "models_optimized/croton_leaf_plants.glb",
+		label: "jungle CROTON",
+		position: [PLANT_CROTON_C_X, PLANT_CROTON_Y, PLANT_CROTON_C_Z],
+		scale: PLANT_CROTON_C_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CROTON_C_ANGLE,
+	},
+	{
+		path: "models_optimized/croton_leaf_plants.glb",
+		label: "jungle CROTON",
+		position: [PLANT_CROTON_D_X, PLANT_CROTON_Y, PLANT_CROTON_D_Z],
+		scale: PLANT_CROTON_D_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_CROTON_D_ANGLE,
+	},
+	{
+		path: "models_optimized/wisteria_sinensis005.glb",
+		label: "jungle SINENSIS",
+		position: [PLANT_SINENSIS_A_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_A_Z],
+		scale: [
+			PLANT_SINENSIS_A_SCALE,
+			PLANT_SINENSIS_A_SCALE * 0.8,
+			PLANT_SINENSIS_A_SCALE,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SINENSIS_A_ANGLE,
+	},
+	{
+		path: "models_optimized/wisteria_sinensis005.glb",
+		label: "jungle SINENSIS",
+		position: [PLANT_SINENSIS_B_X, PLANT_SINENSIS_Y, PLANT_SINENSIS_B_Z],
+		scale: [
+			PLANT_SINENSIS_B_SCALE,
+			PLANT_SINENSIS_B_SCALE * 0.9,
+			PLANT_SINENSIS_B_SCALE,
+		],
 
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_SINENSIS_B_ANGLE,
-  },
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_SINENSIS_B_ANGLE,
+	},
 
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
-    label: "jungle BUSH",
-    position: [PLANT_BUSH_A_X, PLANT_BUSH_Y, PLANT_BUSH_A_Z],
-    scale: [
-      PLANT_BUSH_A_SCALE * 1.2,
-      PLANT_BUSH_A_SCALE,
-      PLANT_BUSH_A_SCALE * 1.3,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_BUSH_A_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
-    label: "jungle BUSH",
-    position: [PLANT_BUSH_B_X, PLANT_BUSH_Y, PLANT_BUSH_B_Z],
-    scale: [
-      PLANT_BUSH_B_SCALE * 1.1,
-      PLANT_BUSH_B_SCALE,
-      PLANT_BUSH_B_SCALE * 1.1,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_BUSH_B_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
-    label: "jungle BUSH",
-    position: [PLANT_BUSH_C_X, PLANT_BUSH_Y, PLANT_BUSH_C_Z],
-    scale: [
-      PLANT_BUSH_C_SCALE * 1.2,
-      PLANT_BUSH_C_SCALE,
-      PLANT_BUSH_C_SCALE * 1.3,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_BUSH_C_ANGLE,
-  },
-  {
-    path: "models/realistic_hd_chinese_jungle_geranium_710.glb",
-    label: "jungle BUSH",
-    position: [PLANT_BUSH_D_X, PLANT_BUSH_Y, PLANT_BUSH_D_Z],
-    scale: [
-      PLANT_BUSH_D_SCALE * 1.2,
-      PLANT_BUSH_D_SCALE,
-      PLANT_BUSH_D_SCALE * 1.3,
-    ],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: PLANT_BUSH_D_ANGLE,
-  },
-  {
-    path: "models/free_pothos_potted_plant_-_money_plant.glb",
-    label: "plant_money",
-    position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
-    scale: PLANT_MONEY_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/jenson_sideboard_solid_oak.glb",
-    label: "bookcase",
-    position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
-    scale: [BOOKCASE_SCALE * 2.4, BOOKCASE_SCALE, BOOKCASE_SCALE * 1.5],
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: BOOKCASE_ANGLE,
-  },
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
+		label: "jungle BUSH",
+		position: [PLANT_BUSH_A_X, PLANT_BUSH_Y, PLANT_BUSH_A_Z],
+		scale: [
+			PLANT_BUSH_A_SCALE * 1.2,
+			PLANT_BUSH_A_SCALE,
+			PLANT_BUSH_A_SCALE * 1.3,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_BUSH_A_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
+		label: "jungle BUSH",
+		position: [PLANT_BUSH_B_X, PLANT_BUSH_Y, PLANT_BUSH_B_Z],
+		scale: [
+			PLANT_BUSH_B_SCALE * 1.1,
+			PLANT_BUSH_B_SCALE,
+			PLANT_BUSH_B_SCALE * 1.1,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_BUSH_B_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
+		label: "jungle BUSH",
+		position: [PLANT_BUSH_C_X, PLANT_BUSH_Y, PLANT_BUSH_C_Z],
+		scale: [
+			PLANT_BUSH_C_SCALE * 1.2,
+			PLANT_BUSH_C_SCALE,
+			PLANT_BUSH_C_SCALE * 1.3,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_BUSH_C_ANGLE,
+	},
+	{
+		path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
+		label: "jungle BUSH",
+		position: [PLANT_BUSH_D_X, PLANT_BUSH_Y, PLANT_BUSH_D_Z],
+		scale: [
+			PLANT_BUSH_D_SCALE * 1.2,
+			PLANT_BUSH_D_SCALE,
+			PLANT_BUSH_D_SCALE * 1.3,
+		],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: PLANT_BUSH_D_ANGLE,
+	},
+	{
+		path: "models_optimized/free_pothos_potted_plant_-_money_plant.glb",
+		label: "plant_money",
+		position: [PLANT_MONEY_X, PLANT_MONEY_Y, PLANT_MONEY_Z],
+		scale: PLANT_MONEY_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/jenson_sideboard_solid_oak.glb",
+		label: "bookcase",
+		position: [BOOKCASE_X, BOOKCASE_Y, BOOKCASE_Z],
+		scale: [BOOKCASE_SCALE * 2.4, BOOKCASE_SCALE, BOOKCASE_SCALE * 1.5],
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: BOOKCASE_ANGLE,
+	},
 
-  {
-    path: "models/fruit_basket.glb",
-    label: "ORANGE_FLOWERS",
-    position: [FRUITS_X, FRUITS_Y, FRUITS_Z],
-    scale: FRUITS_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
-  {
-    path: "models/teapot.glb",
-    label: "ORANGE_FLOWERS",
-    position: [TEA_X, TEA_Y, TEA_Z],
-    scale: TEA_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: TEA_ANGLE,
-  },
+	{
+		path: "models_optimized/fruit_basket.glb",
+		label: "ORANGE_FLOWERS",
+		position: [FRUITS_X, FRUITS_Y, FRUITS_Z],
+		scale: FRUITS_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
+	{
+		path: "models_optimized/teapot.glb",
+		label: "ORANGE_FLOWERS",
+		position: [TEA_X, TEA_Y, TEA_Z],
+		scale: TEA_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+		rotationY: TEA_ANGLE,
+	},
 
-  {
-    path: "models/nespresso_machine_2.glb",
-    label: "ORANGE_FLOWERS",
-    position: [COFFEE_X, COFFEE_Y, COFFEE_Z],
-    scale: COFFEE_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-  },
+	{
+		path: "models_optimized/nespresso_machine_2.glb",
+		label: "ORANGE_FLOWERS",
+		position: [COFFEE_X, COFFEE_Y, COFFEE_Z],
+		scale: COFFEE_SCALE,
+		floatSpeed: 0,
+		floatIntensity: 0,
+	},
 ];
 
+// Draco decoder needed for the optimized GLBs (geometry compressed with Draco).
+// Google CDN ships wasm decoder; drei reads this path via setDecoderPath.
+useGLTF.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+
 MODEL_CONFIG.forEach(({ path }) => {
-  const model = import.meta.env.BASE_URL + path;
-  useGLTF.preload(model);
+	const model = import.meta.env.BASE_URL + path;
+	useGLTF.preload(model);
 });
 
 // ─── Individual model loader ──────────────────────────────────────────────────
 function Model({
-  path,
-  position,
-  scale,
-  floatSpeed,
-  floatIntensity,
-  rotationY = 0,
+	path,
+	position,
+	scale,
+	floatSpeed,
+	floatIntensity,
+	rotationY = 0,
 }: Omit<ModelConfig, "label">) {
-  const url = import.meta.env.BASE_URL + path;
+	const url = import.meta.env.BASE_URL + path;
 
-  const { scene } = useGLTF(url) as GLTF & { scene: THREE.Group };
-  const cloned = scene.clone(true);
+	const { scene } = useGLTF(url) as GLTF & { scene: THREE.Group };
+	const cloned = useMemo(() => {
+		const c = scene.clone(true);
+		c.traverse((obj) => {
+			const mesh = obj as THREE.Mesh;
+			if ((mesh as THREE.Mesh).isMesh) {
+				mesh.castShadow = true;
+				mesh.receiveShadow = true;
+				// Crisp textures on distant/large surfaces — kills pixelation.
+				const mat = mesh.material as THREE.MeshStandardMaterial | THREE.MeshStandardMaterial[];
+				const mats = Array.isArray(mat) ? mat : [mat];
+				mats.forEach((m) => {
+					if (!m) return;
+					const maps: (THREE.Texture | null | undefined)[] = [
+						m.map,
+						m.normalMap,
+						m.roughnessMap,
+						m.metalnessMap,
+						m.aoMap,
+						m.emissiveMap,
+					];
+					maps.forEach((t) => {
+						if (!t) return;
+						t.anisotropy = 16;
+						t.minFilter = THREE.LinearMipmapLinearFilter;
+						t.magFilter = THREE.LinearFilter;
+						t.generateMipmaps = true;
+						t.needsUpdate = true;
+					});
+				});
+			}
+		});
+		return c;
+	}, [scene]);
 
-  return (
-    <Float
-      speed={floatSpeed}
-      floatIntensity={floatIntensity}
-      rotationIntensity={floatSpeed > 0 ? 0.05 : 0}
-    >
-      <primitive
-        object={cloned}
-        position={position}
-        scale={scale}
-        rotation-y={rotationY}
-      />
-    </Float>
-  );
+	return (
+		<Float
+			speed={floatSpeed}
+			floatIntensity={floatIntensity}
+			rotationIntensity={floatSpeed > 0 ? 0.05 : 0}
+		>
+			<primitive
+				object={cloned}
+				position={position}
+				scale={scale}
+				rotation-y={rotationY}
+			/>
+		</Float>
+	);
 }
 
-// ─── Loading fallback ─────────────────────────────────────────────────────────
-function Placeholder({ position }: { position: [number, number, number] }) {
-  return (
-    <mesh position={position}>
-      <boxGeometry args={[0.6, 0.6, 0.6]} />
-      <meshStandardMaterial color="#fff" wireframe />
-    </mesh>
-  );
+// ─── Full-screen loader overlay ───────────────────────────────────────────────
+// Fades out only when all GLBs are ready, so nothing pops in.
+function LoaderOverlay() {
+	const { active, progress } = useProgress();
+	const [hidden, setHidden] = useState(false);
+
+	useEffect(() => {
+		if (!active && progress >= 100) {
+			const t = setTimeout(() => setHidden(true), 450);
+			return () => clearTimeout(t);
+		}
+	}, [active, progress]);
+
+	if (hidden) return null;
+
+	return (
+		<div
+			style={{
+				position: "fixed",
+				inset: 0,
+				background: "#f5ead6",
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				justifyContent: "center",
+				zIndex: 10,
+				opacity: !active && progress >= 100 ? 0 : 1,
+				transition: "opacity 400ms ease",
+				pointerEvents: !active && progress >= 100 ? "none" : "auto",
+				fontFamily: "system-ui, sans-serif",
+				color: "#7a5a2e",
+			}}
+		>
+			<div
+				style={{
+					width: 220,
+					height: 4,
+					background: "#e6d5a8",
+					borderRadius: 2,
+					overflow: "hidden",
+				}}
+			>
+				<div
+					style={{
+						width: `${progress}%`,
+						height: "100%",
+						background: "#c68a3a",
+						transition: "width 200ms ease",
+					}}
+				/>
+			</div>
+			<div style={{ marginTop: 12, fontSize: 13, letterSpacing: 0.5 }}>
+				{Math.round(progress)}%
+			</div>
+		</div>
+	);
 }
 
 // ─── Lighting ─────────────────────────────────────────────────────────────────
-// Crisp alpine atmosphere — thin cold air, bright directional sun, blue shadows.
-function AlpineLighting() {
-  return (
-    <>
-      {/* Cold-sky ambient fill */}
-      <ambientLight color="#dedede" intensity={0.9} />
-      <hemisphereLight args={["#dedede", "#dedede", 1.6]} />
+// Post-rain summer atmosphere — bright cloudy sky, warm sun aimed at pergola,
+// two soft warm interior lamps. Every light that matters casts shadows.
+function PostRainSummerLighting() {
+	// Directional sun needs an explicit target object so it behaves like a
+	// natural spotlight pointing at the pergola area.
+	const sunTarget = useMemo(() => {
+		const o = new THREE.Object3D();
+		o.position.set(PERGOLA_X, PERGOLA_Y + 8, PERGOLA_Z);
+		return o;
+	}, []);
 
-      {/* High-altitude sun — sharp, slightly warm white */}
-      <directionalLight
-        color="#dedede"
-        intensity={2.2}
-        position={[12, 20, 8]}
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-camera-near={0.01}
-        shadow-camera-far={80}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
-      />
+	return (
+		<>
+			{/* Humid post-rain ambient — warm, low */}
+			<ambientLight color='#ffe6c2' intensity={0.35} />
 
-      {/* Cool fill light from opposite side — blue alpine shadow */}
-      <directionalLight
-        color="#dedede"
-        intensity={0.6}
-        position={[-10, 6, -12]}
-        castShadow={false}
-      />
+			{/* Bright cloudy sky + warm earth bounce */}
+			<hemisphereLight args={["#fff1d6", "#b89878", 0.9]} />
 
-      {/* Subtle warm bounce from below (snow reflection) */}
-      <directionalLight
-        color="#dedede"
-        intensity={0.35}
-        position={[0, -8, 0]}
-        castShadow={false}
-      />
-    </>
-  );
+			{/* Warm sun — behind far side of mountain, aimed down at pergola.
+			    Acts like a natural spotlight via the target object. */}
+			<primitive object={sunTarget} />
+			<directionalLight
+				color='#ffd9a0'
+				intensity={3.0}
+				position={[PERGOLA_X - 45, PERGOLA_Y + 55, PERGOLA_Z - 40]}
+				target={sunTarget}
+				castShadow
+				shadow-mapSize-width={2048}
+				shadow-mapSize-height={2048}
+				shadow-bias={-0.0005}
+				shadow-normalBias={0.02}
+				shadow-camera-near={0.5}
+				shadow-camera-far={140}
+				shadow-camera-left={-22}
+				shadow-camera-right={22}
+				shadow-camera-top={22}
+				shadow-camera-bottom={-22}
+			/>
+
+			{/* Desk lamp — warm, low, casts shadows */}
+			<pointLight
+				color='#ffb870'
+				intensity={6}
+				distance={4}
+				decay={2}
+				position={[DESK_LAMP_X, DESK_LAMP_Y + 0.2, DESK_LAMP_Z]}
+				castShadow
+				shadow-mapSize-width={1024}
+				shadow-mapSize-height={1024}
+				shadow-bias={-0.0005}
+			/>
+
+			{/* Coffee-table / floor lamp — warm, low, casts shadows */}
+			<pointLight
+				color='#ffb870'
+				intensity={7}
+				distance={5}
+				decay={2}
+				position={[FLOOR_LAMP_X, FLOOR_LAMP_Y + 2.2, FLOOR_LAMP_Z]}
+				castShadow
+				shadow-mapSize-width={1024}
+				shadow-mapSize-height={1024}
+				shadow-bias={-0.0005}
+			/>
+		</>
+	);
 }
 
 // ─── Camera tracker ──────────────────────────────────────────────────────────
 // Logs camera position + OrbitControls target to devtools on every change.
 function CameraTracker({
-  controlsRef,
+	controlsRef,
 }: {
-  controlsRef: React.RefObject<OrbitControlsImpl | null>;
+	controlsRef: React.RefObject<OrbitControlsImpl | null>;
 }) {
-  const { camera } = useThree();
-  const lastPos = useRef(new THREE.Vector3());
-  const lastTarget = useRef(new THREE.Vector3());
+	const { camera } = useThree();
+	const lastPos = useRef(new THREE.Vector3());
+	const lastTarget = useRef(new THREE.Vector3());
 
-  useFrame(() => {
-    const pos = camera.position;
-    const target = controlsRef.current?.target ?? new THREE.Vector3();
+	useFrame(() => {
+		const pos = camera.position;
+		const target = controlsRef.current?.target ?? new THREE.Vector3();
 
-    const posChanged =
-      Math.abs(pos.x - lastPos.current.x) > 0.01 ||
-      Math.abs(pos.y - lastPos.current.y) > 0.01 ||
-      Math.abs(pos.z - lastPos.current.z) > 0.01;
+		const posChanged =
+			Math.abs(pos.x - lastPos.current.x) > 0.01 ||
+			Math.abs(pos.y - lastPos.current.y) > 0.01 ||
+			Math.abs(pos.z - lastPos.current.z) > 0.01;
 
-    const targetChanged =
-      Math.abs(target.x - lastTarget.current.x) > 0.01 ||
-      Math.abs(target.y - lastTarget.current.y) > 0.01 ||
-      Math.abs(target.z - lastTarget.current.z) > 0.01;
+		const targetChanged =
+			Math.abs(target.x - lastTarget.current.x) > 0.01 ||
+			Math.abs(target.y - lastTarget.current.y) > 0.01 ||
+			Math.abs(target.z - lastTarget.current.z) > 0.01;
 
-    if (posChanged || targetChanged) {
-      console.log("%c[Camera]", "color:#dedede;font-weight:bold", {
-        position: {
-          x: +pos.x.toFixed(2),
-          y: +pos.y.toFixed(2),
-          z: +pos.z.toFixed(2),
-        },
-        target: {
-          x: +target.x.toFixed(2),
-          y: +target.y.toFixed(2),
-          z: +target.z.toFixed(2),
-        },
-      });
-      lastPos.current.copy(pos);
-      lastTarget.current.copy(target);
-    }
-  });
+		if (posChanged || targetChanged) {
+			console.log("%c[Camera]", "color:#dedede;font-weight:bold", {
+				position: {
+					x: +pos.x.toFixed(2),
+					y: +pos.y.toFixed(2),
+					z: +pos.z.toFixed(2),
+				},
+				target: {
+					x: +target.x.toFixed(2),
+					y: +target.y.toFixed(2),
+					z: +target.z.toFixed(2),
+				},
+			});
+			lastPos.current.copy(pos);
+			lastTarget.current.copy(target);
+		}
+	});
 
-  return null;
+	return null;
+}
+
+// ─── Static-shadow freezer ───────────────────────────────────────────────────
+// One-shot bake: disable per-frame shadow map updates once everything is loaded.
+// Shadows stay correct (scene is static) but cost zero per frame afterwards.
+function ShadowFreezer() {
+	const { gl } = useThree();
+	useEffect(() => {
+		gl.shadowMap.autoUpdate = true;
+		gl.shadowMap.needsUpdate = true;
+		const t = setTimeout(() => {
+			gl.shadowMap.autoUpdate = false;
+		}, 600);
+		return () => clearTimeout(t);
+	}, [gl]);
+	return null;
 }
 
 // ─── Scene ────────────────────────────────────────────────────────────────────
 function Scene() {
-  const controlsRef = useRef<OrbitControlsImpl>(null);
+	const controlsRef = useRef<OrbitControlsImpl>(null);
 
-  return (
-    <>
-      <AlpineLighting />
-      <CameraTracker controlsRef={controlsRef} />
+	return (
+		<>
+			<PostRainSummerLighting />
+			<CameraTracker controlsRef={controlsRef} />
 
-      {MODEL_CONFIG.map((config) => (
-        <Suspense
-          key={config.position.join(",")}
-          fallback={<Placeholder position={config.position} />}
-        >
-          <Model
-            path={config.path}
-            position={config.position}
-            scale={config.scale}
-            floatSpeed={config.floatSpeed}
-            floatIntensity={config.floatIntensity}
-            rotationY={config.rotationY}
-          />
-        </Suspense>
-      ))}
+			{/* Single Suspense boundary — nothing renders until ALL models ready */}
+			<Suspense fallback={null}>
+				{MODEL_CONFIG.map((config) => (
+					<Model
+						key={config.position.join(",")}
+						path={config.path}
+						position={config.position}
+						scale={config.scale}
+						floatSpeed={config.floatSpeed}
+						floatIntensity={config.floatIntensity}
+						rotationY={config.rotationY}
+					/>
+				))}
+				<BakeShadows />
+				<ShadowFreezer />
+			</Suspense>
 
-      <OrbitControls
-        ref={controlsRef}
-        makeDefault
-        enableDamping
-        dampingFactor={0.05}
-        minDistance={0}
-        maxDistance={80}
-        //  target={[50, -30, -20]}
-        // target={[1, -30, -15]}
-        // target={[30, -40, -30]}
-        target={[-8.27, -34, -3.16]}
-      />
-    </>
-  );
+			<OrbitControls
+				ref={controlsRef}
+				makeDefault
+				enableDamping
+				dampingFactor={0.05}
+				minDistance={0}
+				maxDistance={80}
+				//  target={[50, -30, -20]}
+				// target={[1, -30, -15]}
+				// target={[30, -40, -30]}
+				target={[-8.27, -34, -3.16]}
+			/>
+		</>
+	);
 }
 
 // ─── World (root export) ──────────────────────────────────────────────────────
 // Camera: pulled back and slightly low so the mountain fills the frame,
 // with the glass terrace + desk visible at the summit.
 export default function World() {
-  return (
-    <div style={{ width: "100vw", height: "100vh", background: "#fff" }}>
-      <Canvas
-        camera={{
-          position: [0, 4, 55], // deep inside the mountain base, looking up
-          fov: 20,
-          near: 0.1,
-          far: 600,
-        }}
-        gl={{ antialias: true, toneMapping: 3 /* ACESFilmic */ }}
-        shadows
-        onCreated={({ gl }) => {
-          gl.setClearColor("#fff");
-        }}
-      >
-        <Scene />
-      </Canvas>
-    </div>
-  );
+	return (
+		<div
+			style={{
+				position: "relative",
+				width: "100vw",
+				height: "100vh",
+				background: "#f5ead6",
+			}}
+		>
+			<Canvas
+				camera={{
+					position: [0, 4, 55], // deep inside the mountain base, looking up
+					fov: 20,
+					near: 0.1,
+					far: 600,
+				}}
+				gl={{
+					antialias: true,
+					toneMapping: 3 /* ACESFilmic */,
+					powerPreference: "high-performance",
+				}}
+				dpr={[1, 2]}
+				shadows='soft'
+				onCreated={({ gl }) => {
+					gl.setClearColor("#f5ead6");
+				}}
+			>
+				<Scene />
+			</Canvas>
+			<LoaderOverlay />
+		</div>
+	);
 }
