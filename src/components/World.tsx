@@ -1998,43 +1998,7 @@ function Scene({
 					/>
 				))}
 
-				{/* Button 1 — Workstation (floats above desk corner, near laptop) */}
-				<SceneButton3D
-					position={[DESK_X + 1.4, DESK_Y + 1.2, DESK_Z + 0.6]}
-					color='#e88a3a'
-					label='Workstation'
-					onClick={() => setActivePreset("workstation")}
-					size={0.12}
-				/>
-
-				{/* Button 2 — Meeting area (above coffee table) */}
-				<SceneButton3D
-					position={[COFFEE_TABLE_X, COFFEE_TABLE_Y + 0.6, COFFEE_TABLE_Z]}
-					color='#6aa5d8'
-					label='Meeting Area'
-					onClick={() => setActivePreset("meeting")}
-					size={0.12}
-				/>
-
-				{/* Button 3 — Balcony (above bar table + mini plant) */}
-				<SceneButton3D
-					position={[BAR_TABLE_X, BAR_TABLE_Y + 2.3, BAR_TABLE_Z]}
-					color='#7fc27f'
-					label='Balcony'
-					onClick={() => setActivePreset("balcony")}
-					size={0.12}
-				/>
-
-				{/* Button 4 — Garden (above mud bed, outdoor greenery) */}
-				<SceneButton3D
-					position={[MUD_X, MUD_Y + 2, MUD_Z - 0.4]}
-					color='#8dbf6a'
-					label='Garden'
-					onClick={() => setActivePreset("garden")}
-					size={0.12}
-				/>
-
-				{/* Button 5 — Monitor popup trigger, placed near keyboard with hotspot cue */}
+				{/* Button — Monitor popup trigger, placed near keyboard with hotspot cue */}
 				<SceneButton3D
 					position={[KEYBOARD_X, KEYBOARD_Y + 0.35, KEYBOARD_Z]}
 					color='#e84a6a'
