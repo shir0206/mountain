@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "build": "tsc -b && vite build && touch dist/.nojekyll",
-    "deploy": "touch dist/.nojekyll && gh-pages -d dist --dotfiles"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
