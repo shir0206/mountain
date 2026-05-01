@@ -1995,7 +1995,7 @@ function IntroAnimation({
 // ─── Scene ────────────────────────────────────────────────────────────────────
 function Scene({
 	activePreset,
-	setActivePreset,
+	setActivePreset: _setActivePreset,
 	onOpenPopup,
 	introComplete,
 	onIntroComplete,
