@@ -239,12 +239,6 @@ const MONITOR_C_Y = DESK_Y + 0.62;
 const MONITOR_C_Z = DESK_Z - 1.35;
 const MONITOR_C_ANGLE = -Math.PI * 0.1;
 
-const MONITOR_CODE_X = MONITOR_C_X + 2;
-const MONITOR_CODE_Y = MONITOR_C_Y + 1;
-const MONITOR_CODE_Z = MONITOR_C_Z + 1;
-const MONITOR_CODE_SCALE = 0.5;
-const MONITOR_CODE_ANGLE = -Math.PI * 0.1;
-
 const KEYBOARD_X = DESK_X;
 const KEYBOARD_Y = DESK_Y + 0.98;
 const KEYBOARD_Z = DESK_Z + 0.5;
@@ -459,15 +453,6 @@ const MODEL_CONFIG: ModelConfig[] = [
     rotationY: MONITOR_C_ANGLE,
   },
 
-  {
-    path: "models_optimized/alexandra_cardenas_livecoding_d5.glb",
-    label: "alexandra_cardenas_livecoding_d5.glb",
-    position: [MONITOR_CODE_X, MONITOR_CODE_Y, MONITOR_CODE_Z],
-    scale: MONITOR_CODE_SCALE,
-    floatSpeed: 0,
-    floatIntensity: 0,
-    rotationY: MONITOR_CODE_ANGLE,
-  },
   {
     path: "models_optimized/mac_keyboard.glb",
     label: "Keyboard",
@@ -712,7 +697,7 @@ const MODEL_CONFIG: ModelConfig[] = [
     path: "models_optimized/edelweiss_bar_table_ash_and_white.glb",
     label: "bar table",
     position: [BAR_TABLE_X, BAR_TABLE_Y, BAR_TABLE_Z],
-    scale: BAR_TABLE_SCALE,
+    scale: [BAR_TABLE_SCALE * 1.2, BAR_TABLE_SCALE, BAR_TABLE_SCALE * 1.2],
     floatSpeed: 0,
     floatIntensity: 0,
   },
@@ -1160,6 +1145,12 @@ MODEL_CONFIG.forEach(({ path }) => {
   useGLTF.preload(model);
 });
 
+// Preload the code GLB used on monitors (not in MODEL_CONFIG — rendered via CodeOnMonitors)
+useGLTF.preload(
+  import.meta.env.BASE_URL +
+    "models_optimized/alexandra_cardenas_livecoding_d5.glb"
+);
+
 // ─── Individual model loader ──────────────────────────────────────────────────
 function Model({
   path,
@@ -1222,6 +1213,119 @@ function Model({
         rotation-y={rotationY}
       />
     </Float>
+  );
+}
+
+// ─── Code split across 3 monitors ────────────────────────────────────────────
+// Loads the livecoding GLB once and renders 3 clipped copies — one per monitor.
+// Each copy shows a vertical third of the code mesh using clipping planes.
+function CodeOnMonitors() {
+  const url =
+    import.meta.env.BASE_URL +
+    "models_optimized/alexandra_cardenas_livecoding_d5.glb";
+  const { scene } = useGLTF(url) as GLTF & { scene: THREE.Group };
+
+  // Compute bounding box once to determine vertical thirds.
+  const { sections } = useMemo(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    const minY = box.min.y;
+    const maxY = box.max.y;
+    const third = (maxY - minY) / 3;
+
+    // Each section: [clipMin, clipMax] in local Y
+    return {
+      sections: [
+        { clipMin: minY + third * 2, clipMax: maxY }, // top third
+        { clipMin: minY + third, clipMax: minY + third * 2 }, // middle third
+        { clipMin: minY, clipMax: minY + third }, // bottom third
+      ],
+    };
+  }, [scene]);
+
+  // Monitor positions + rotations for A, B, C
+  const monitors: {
+    pos: [number, number, number];
+    rotY: number;
+    section: (typeof sections)[number];
+  }[] = useMemo(
+    () => [
+      {
+        pos: [MONITOR_A_X + 0.05, MONITOR_A_Y + 0.55, MONITOR_A_Z - 0.02],
+        rotY: MONITOR_A_ANGLE,
+        section: sections[0],
+      },
+      {
+        pos: [MONITOR_B_X + 0.05, MONITOR_B_Y + 0.55, MONITOR_B_Z - 0.02],
+        rotY: MONITOR_B_ANGLE,
+        section: sections[1],
+      },
+      {
+        pos: [MONITOR_C_X + 0.05, MONITOR_C_Y + 0.55, MONITOR_C_Z - 0.02],
+        rotY: MONITOR_C_ANGLE,
+        section: sections[2],
+      },
+    ],
+    [sections]
+  );
+
+  return (
+    <>
+      {monitors.map((m, i) => (
+        <CodeSection
+          key={i}
+          scene={scene}
+          position={m.pos}
+          rotationY={m.rotY}
+          clipMin={m.section.clipMin}
+          clipMax={m.section.clipMax}
+        />
+      ))}
+    </>
+  );
+}
+
+function CodeSection({
+  scene,
+  position,
+  rotationY,
+  clipMin,
+  clipMax,
+}: {
+  scene: THREE.Group;
+  position: [number, number, number];
+  rotationY: number;
+  clipMin: number;
+  clipMax: number;
+}) {
+  const cloned = useMemo(() => {
+    const c = scene.clone(true);
+    // Two clipping planes: cut below clipMin, cut above clipMax
+    const planeBottom = new THREE.Plane(new THREE.Vector3(0, 1, 0), -clipMin);
+    const planeTop = new THREE.Plane(new THREE.Vector3(0, -1, 0), clipMax);
+    const planes = [planeBottom, planeTop];
+
+    c.traverse((obj) => {
+      const mesh = obj as THREE.Mesh;
+      if (mesh.isMesh) {
+        // Clone material to avoid shared clipping state
+        const mat = (mesh.material as THREE.Material).clone();
+        mat.clippingPlanes = planes;
+        mat.clipShadows = true;
+        mesh.material = mat;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+      }
+    });
+    return c;
+  }, [scene, clipMin, clipMax]);
+
+  return (
+    <primitive
+      object={cloned}
+      position={position}
+      scale={0.45}
+      rotation-y={rotationY}
+    />
   );
 }
 
@@ -1450,9 +1554,9 @@ interface CameraPreset {
 
 const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
   workstation: {
-    // Pulled back-right of desk, slightly above chair height, looking at monitors.
-    position: [DESK_X + 4.5, DESK_Y + 2.2, DESK_Z + 4],
-    target: [DESK_X - 2.5, DESK_Y + 0.6, DESK_Z - 0.8],
+    // Pulled back and elevated — desk/monitors in foreground, mountain landscape visible behind.
+    position: [DESK_X + 7, DESK_Y + 4.5, DESK_Z + 7],
+    target: [DESK_X - 2, DESK_Y + 0.2, DESK_Z - 2],
   },
   meeting: {
     // Close/intimate: sofa + coffee-table + TV + floor lamp in frame.
@@ -1460,10 +1564,8 @@ const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
     target: [COFFEE_TABLE_X - 1.2, COFFEE_TABLE_Y + 0.8, COFFEE_TABLE_Z],
   },
   balcony: {
-    // Aligned with bar table + mini plant: camera sits opposite the bar,
-    // framing the bar chairs, mini plant and the outdoor mountain view beyond.
-    position: [BAR_TABLE_X + 3.5, BAR_TABLE_Y + 2, BAR_TABLE_Z + 3.5],
-    target: [BAR_TABLE_X + 0.5, BAR_TABLE_Y + 0.8, BAR_TABLE_Z - 4],
+    position: [-3.1, -33.43, -10.73],
+    target: [0, -33.8, -15.6],
   },
   garden: {
     // Wide outdoor framing over the mud bed, plants, fence and surrounding
@@ -1725,15 +1827,137 @@ function MonitorPopup({
   );
 }
 
+// ─── Intro animation ─────────────────────────────────────────────────────────
+// Cinematic fly-through: smooth Catmull-Rom orbit around mountain peak →
+// transition to meeting area → pause → fly to workspace (landscape view).
+// ~12 seconds total.
+
+// Orbit control points for CatmullRomCurve3 (camera sweeps around peak).
+const ORBIT_POINTS: [number, number, number][] = [
+  [-32.5, -18.37, -0.07],
+  [-25, -20, 14],
+  [-14, -21.5, 24],
+  [4, -20, 30],
+  [16.37, -19.86, 28.95],
+];
+// Target stays fixed on mountain/pergola area during orbit.
+const ORBIT_TARGET: [number, number, number] = [7.35, -34.2, -12.3];
+
+// Timing phases (seconds)
+const ORBIT_DURATION = 6; // smooth spline orbit
+const ORBIT_TO_MEETING = 2; // transition from orbit end → meeting
+const MEETING_DWELL = 1.5; // pause at meeting
+const MEETING_TO_WORKSPACE = 2.5; // transition from meeting → workspace
+const INTRO_DURATION =
+  ORBIT_DURATION + ORBIT_TO_MEETING + MEETING_DWELL + MEETING_TO_WORKSPACE;
+
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function IntroAnimation({
+  controlsRef,
+  onComplete,
+}: {
+  controlsRef: React.RefObject<OrbitControlsImpl | null>;
+  onComplete: () => void;
+}) {
+  const { camera } = useThree();
+  const { active, progress } = useProgress();
+  const startedRef = useRef(false);
+  const elapsedRef = useRef(0);
+  const doneRef = useRef(false);
+
+  // Pre-build the Catmull-Rom spline for the orbit phase (once).
+  const orbitCurve = useMemo(() => {
+    const pts = ORBIT_POINTS.map((p) => new THREE.Vector3(...p));
+    return new THREE.CatmullRomCurve3(pts, false, "catmullrom", 0.5);
+  }, []);
+
+  // Only start once loading finishes
+  useEffect(() => {
+    if (!active && progress >= 100 && !startedRef.current) {
+      startedRef.current = true;
+      if (controlsRef.current) controlsRef.current.enabled = false;
+      // Set camera to first point on spline
+      const startPos = orbitCurve.getPointAt(0);
+      camera.position.copy(startPos);
+      camera.lookAt(...ORBIT_TARGET);
+    }
+  }, [active, progress, camera, controlsRef, orbitCurve]);
+
+  useFrame((_, delta) => {
+    if (!startedRef.current || doneRef.current) return;
+
+    elapsedRef.current += delta;
+    const elapsed = Math.min(elapsedRef.current, INTRO_DURATION);
+
+    let pos: THREE.Vector3;
+    let tgt: THREE.Vector3;
+
+    if (elapsed <= ORBIT_DURATION) {
+      // ── Phase 1: Catmull-Rom orbit around mountain peak ──
+      const t = easeInOutCubic(elapsed / ORBIT_DURATION);
+      pos = orbitCurve.getPointAt(t);
+      tgt = new THREE.Vector3(...ORBIT_TARGET);
+    } else if (elapsed <= ORBIT_DURATION + ORBIT_TO_MEETING) {
+      // ── Phase 2: Transition from orbit end → meeting ──
+      const segElapsed = elapsed - ORBIT_DURATION;
+      const t = easeInOutCubic(segElapsed / ORBIT_TO_MEETING);
+      const fromPos = orbitCurve.getPointAt(1);
+      const toPos = new THREE.Vector3(...CAMERA_PRESETS.meeting.position);
+      pos = new THREE.Vector3().lerpVectors(fromPos, toPos, t);
+      const fromTgt = new THREE.Vector3(...ORBIT_TARGET);
+      const toTgt = new THREE.Vector3(...CAMERA_PRESETS.meeting.target);
+      tgt = new THREE.Vector3().lerpVectors(fromTgt, toTgt, t);
+    } else if (elapsed <= ORBIT_DURATION + ORBIT_TO_MEETING + MEETING_DWELL) {
+      // ── Phase 3: Dwell at meeting ──
+      pos = new THREE.Vector3(...CAMERA_PRESETS.meeting.position);
+      tgt = new THREE.Vector3(...CAMERA_PRESETS.meeting.target);
+    } else {
+      // ── Phase 4: Meeting → workspace (landscape view) ──
+      const segElapsed =
+        elapsed - ORBIT_DURATION - ORBIT_TO_MEETING - MEETING_DWELL;
+      const t = easeInOutCubic(segElapsed / MEETING_TO_WORKSPACE);
+      const fromPos = new THREE.Vector3(...CAMERA_PRESETS.meeting.position);
+      const toPos = new THREE.Vector3(...CAMERA_PRESETS.workstation.position);
+      pos = new THREE.Vector3().lerpVectors(fromPos, toPos, t);
+      const fromTgt = new THREE.Vector3(...CAMERA_PRESETS.meeting.target);
+      const toTgt = new THREE.Vector3(...CAMERA_PRESETS.workstation.target);
+      tgt = new THREE.Vector3().lerpVectors(fromTgt, toTgt, t);
+    }
+
+    camera.position.copy(pos);
+    if (controlsRef.current) {
+      controlsRef.current.target.copy(tgt);
+      controlsRef.current.update();
+    } else {
+      camera.lookAt(tgt);
+    }
+
+    if (elapsed >= INTRO_DURATION) {
+      doneRef.current = true;
+      if (controlsRef.current) controlsRef.current.enabled = true;
+      onComplete();
+    }
+  });
+
+  return null;
+}
+
 // ─── Scene ────────────────────────────────────────────────────────────────────
 function Scene({
   activePreset,
   setActivePreset,
   onOpenPopup,
+  introComplete,
+  onIntroComplete,
 }: {
   activePreset: PresetKey;
   setActivePreset: (p: PresetKey) => void;
   onOpenPopup: () => void;
+  introComplete: boolean;
+  onIntroComplete: () => void;
 }) {
   const controlsRef = useRef<OrbitControlsImpl>(null);
 
@@ -1741,7 +1965,15 @@ function Scene({
     <>
       <PostRainSummerLighting />
       <CameraTracker controlsRef={controlsRef} />
-      <CameraRig activePreset={activePreset} controlsRef={controlsRef} />
+      {introComplete && (
+        <CameraRig activePreset={activePreset} controlsRef={controlsRef} />
+      )}
+      {!introComplete && (
+        <IntroAnimation
+          controlsRef={controlsRef}
+          onComplete={onIntroComplete}
+        />
+      )}
 
       {/* Single Suspense boundary — nothing renders until ALL models ready */}
       <Suspense fallback={null}>
@@ -1806,6 +2038,8 @@ function Scene({
           hotspot
         />
 
+        <CodeOnMonitors />
+
         <ShaderWarmup />
         <BakeShadows />
         <Preload all />
@@ -1829,6 +2063,7 @@ function Scene({
 export default function World() {
   const [activePreset, setActivePreset] = useState<PresetKey>(INITIAL_PRESET);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
 
   return (
     <div
@@ -1855,12 +2090,15 @@ export default function World() {
         shadows="soft"
         onCreated={({ gl }) => {
           gl.setClearColor("#f5ead6");
+          gl.localClippingEnabled = true;
         }}
       >
         <Scene
           activePreset={activePreset}
           setActivePreset={setActivePreset}
           onOpenPopup={() => setPopupOpen(true)}
+          introComplete={introComplete}
+          onIntroComplete={() => setIntroComplete(true)}
         />
       </Canvas>
 
