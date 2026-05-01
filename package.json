@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "build": "tsc -b && vite build && touch dist/.nojekyll",
+    "deploy": "touch dist/.nojekyll && gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
