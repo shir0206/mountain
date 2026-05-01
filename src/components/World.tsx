@@ -1111,7 +1111,7 @@ const MODEL_CONFIG: ModelConfig[] = [
 ];
 
 MODEL_CONFIG.forEach(({ path }) => {
-  const model = import.meta.env.BASE_URL + path;
+  const model = import.meta.env.BASE_URL + "public/" + path;
   useGLTF.preload(model);
 });
 
