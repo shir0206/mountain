@@ -335,11 +335,11 @@ const SOFA_Z = COFFEE_TABLE_Z + 0.2;
 const SOFA_SCALE = 0.01;
 const SOFA_ANGLE = Math.PI / 2;
 
-const PILLOW_X = SOFA_X - 0.1;
-const PILLOW_Y = SOFA_Y + 0.13;
-const PILLOW_Z = SOFA_Z - 0.6;
+const PILLOW_X = SOFA_X - 0.05;
+const PILLOW_Y = SOFA_Y + 0.1;
+const PILLOW_Z = SOFA_Z - 0.5;
 const PILLOW_SCALE = 0.0007;
-const PILLOW_ANGLE = -Math.PI / 4;
+const PILLOW_ANGLE = Math.PI / 2.2;
 
 const RUG_MEETING_X = COFFEE_TABLE_X - 0.5;
 const RUG_MEETING_Y = COFFEE_TABLE_Y + 0.01;
@@ -1166,6 +1166,9 @@ function Model({
 	const isEmissiveText = path === "models_optimized/welcome_text.glb";
 
 	const { scene } = useGLTF(url) as GLTF & { scene: THREE.Group };
+	const isMountain =
+		path === "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb";
+
 	const cloned = useMemo(() => {
 		const c = scene.clone(true);
 		c.traverse((obj) => {
@@ -1173,7 +1176,7 @@ function Model({
 			if ((mesh as THREE.Mesh).isMesh) {
 				mesh.castShadow = !skipShadows;
 				mesh.receiveShadow = !skipShadows;
-				// Crisp textures on distant/large surfaces — kills pixelation.
+
 				const mat = mesh.material as
 					| THREE.MeshStandardMaterial
 					| THREE.MeshStandardMaterial[];
@@ -1181,11 +1184,16 @@ function Model({
 				mats.forEach((m) => {
 					if (!m) return;
 					// TV text glows as if the screen is on
-				if (isEmissiveText) {
-					m.emissive = new THREE.Color("#a8d4ff");
-					m.emissiveIntensity = 3.5;
-					m.toneMapped = false;
-				}
+					if (isEmissiveText) {
+						m.emissive = new THREE.Color("#a8d4ff");
+						m.emissiveIntensity = 3.5;
+						m.toneMapped = false;
+					}
+
+					// Background skybox in mountain GLB — blur it so it looks
+					// like a soft distant backdrop without looking pixelated.
+					const isBackground = isMountain && m.name === "Material.001";
+
 					const maps: (THREE.Texture | null | undefined)[] = [
 						m.map,
 						m.normalMap,
@@ -1196,10 +1204,20 @@ function Model({
 					];
 					maps.forEach((t) => {
 						if (!t) return;
-						t.anisotropy = 16;
-						t.minFilter = THREE.LinearMipmapLinearFilter;
-						t.magFilter = THREE.LinearFilter;
-						t.generateMipmaps = true;
+						if (isBackground) {
+							// Force lower mip level → natural GPU blur
+							t.anisotropy = 1;
+							t.minFilter = THREE.LinearMipmapLinearFilter;
+							t.magFilter = THREE.LinearFilter;
+							t.generateMipmaps = true;
+							// Positive bias = sample coarser mip = blurrier
+							(t as any).bias = 1.5;
+						} else {
+							t.anisotropy = 16;
+							t.minFilter = THREE.LinearMipmapLinearFilter;
+							t.magFilter = THREE.LinearFilter;
+							t.generateMipmaps = true;
+						}
 						t.needsUpdate = true;
 					});
 				});
@@ -1409,37 +1427,58 @@ function PostRainSummerLighting() {
 
 	return (
 		<>
-			{/* Humid post-rain ambient — warm, brighter to restore color */}
-			<ambientLight color='#fff1d6' intensity={0.75} />
+			{/* Humid post-rain ambient — warm, slightly reduced so shadows read */}
+			<ambientLight color='#fff1d6' intensity={0.55} />
 
 			{/* Bright cloudy sky + warm earth bounce */}
-			<hemisphereLight args={["#fff4dc", "#b89878", 1.6]} />
+			<hemisphereLight args={["#fff4dc", "#b89878", 1.2]} />
 
-			{/* Warm sun — behind far side of mountain, aimed down at pergola.
-			    Acts like a natural spotlight via the target object. */}
+			{/* Primary sun — positioned above the initial camera point,
+			    shining down toward the pergola. Casts shadows on pergola floor
+			    and mountain surface below. */}
 			<primitive object={sunTarget} />
 			<directionalLight
+				color='#fff8e8'
+				intensity={4}
+				position={[-19.95, -5, -1.54]}
+				target={sunTarget}
+				castShadow
+				shadow-mapSize-width={2048}
+				shadow-mapSize-height={2048}
+				shadow-bias={-0.0004}
+				shadow-normalBias={0.03}
+				shadow-camera-near={1}
+				shadow-camera-far={120}
+				shadow-camera-left={-35}
+				shadow-camera-right={35}
+				shadow-camera-top={35}
+				shadow-camera-bottom={-35}
+			/>
+
+			{/* Secondary warm sun — wider angle, covers mountain slopes for
+			    visible shadows on the terrain. */}
+			<directionalLight
 				color='#ffe3b8'
-				intensity={4.5}
+				intensity={2.5}
 				position={[PERGOLA_X - 45, PERGOLA_Y + 55, PERGOLA_Z - 40]}
 				target={sunTarget}
 				castShadow
-				shadow-mapSize-width={1024}
-				shadow-mapSize-height={1024}
-				shadow-bias={-0.0005}
-				shadow-normalBias={0.02}
-				shadow-camera-near={0.5}
-				shadow-camera-far={80}
-				shadow-camera-left={-22}
-				shadow-camera-right={22}
-				shadow-camera-top={22}
-				shadow-camera-bottom={-22}
+				shadow-mapSize-width={2048}
+				shadow-mapSize-height={2048}
+				shadow-bias={-0.0003}
+				shadow-normalBias={0.04}
+				shadow-camera-near={1}
+				shadow-camera-far={150}
+				shadow-camera-left={-50}
+				shadow-camera-right={50}
+				shadow-camera-top={50}
+				shadow-camera-bottom={-50}
 			/>
 
 			{/* Soft opposite fill — lifts crushed shadows on turquoise chairs */}
 			<directionalLight
 				color='#dfeaff'
-				intensity={0.9}
+				intensity={0.6}
 				position={[PERGOLA_X + 30, PERGOLA_Y + 40, PERGOLA_Z + 30]}
 			/>
 
@@ -1452,16 +1491,15 @@ function PostRainSummerLighting() {
 				position={[DESK_LAMP_X, DESK_LAMP_Y + 0.2, DESK_LAMP_Z]}
 			/>
 
-		{/* Coffee-table / floor lamp — warm, low. No shadow for same reason. */}
-		<pointLight
-			color='#ffb870'
-			intensity={7}
-			distance={5}
-			decay={2}
-			position={[FLOOR_LAMP_X, FLOOR_LAMP_Y + 2.2, FLOOR_LAMP_Z]}
-		/>
-
-	</>
+			{/* Coffee-table / floor lamp — warm, low. No shadow for same reason. */}
+			<pointLight
+				color='#ffb870'
+				intensity={7}
+				distance={5}
+				decay={2}
+				position={[FLOOR_LAMP_X, FLOOR_LAMP_Y + 2.2, FLOOR_LAMP_Z]}
+			/>
+		</>
 	);
 }
 
@@ -1843,14 +1881,14 @@ function MonitorPopup({
 
 // Orbit control points for CatmullRomCurve3 (camera sweeps around peak).
 const ORBIT_POINTS: [number, number, number][] = [
-	[-32.5, -18.37, -0.07],
+	[-19.95, -25.03, -1.54],
 	[-25, -20, 14],
 	[-14, -21.5, 24],
 	[4, -20, 30],
 	[16.37, -19.86, 28.95],
 ];
 // Target stays fixed on mountain/pergola area during orbit.
-const ORBIT_TARGET: [number, number, number] = [7.35, -34.2, -12.3];
+const ORBIT_TARGET: [number, number, number] = [4, -33.98, -5.7];
 
 // Timing phases (seconds)
 const ORBIT_DURATION = 6; // smooth spline orbit
