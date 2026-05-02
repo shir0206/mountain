@@ -82,23 +82,32 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .about-container {
+    padding: var(--space-lg) var(--space-md);
+  }
+
   .about-content {
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
     align-items: center;
   }
 
   .profile-image-wrapper {
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
   }
 
   .about-title {
     text-align: center;
   }
 
+  .about-text {
+    gap: var(--space-md);
+    padding-top: 0;
+  }
+
   .text-paragraph {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     text-align: center;
   }
 }

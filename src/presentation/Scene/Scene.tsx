@@ -1,14 +1,14 @@
-import { Suspense, useRef, useState, type ReactNode } from "react";
+import { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
-import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
-import { BROWSER_MODE } from "../../context/portfolio/types";
-import { ErrorBoundary } from "../../shared/components/ErrorBoundary/ErrorBoundary";
-
 import type { PresetKey } from "./types";
-import { CAMERA_PRESETS, INITIAL_PRESET, PRESET_BUTTONS } from "./config/cameraPresets";
+import {
+	CAMERA_PRESETS,
+	INITIAL_PRESET,
+	PRESET_BUTTONS,
+} from "./config/cameraPresets";
 import { SCENE_OBJECTS } from "./config/sceneObjects";
 import { KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z } from "./config/positions";
 
@@ -23,28 +23,17 @@ import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
 import { IntroAnimation } from "./IntroAnimation/IntroAnimation";
 import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
 
-// Browser position (above keyboard) — passed to render-prop so Scene stays
-// agnostic of the portfolio feature (DDD: Scene ↔ Browser never import each other)
-const BROWSER_POSITION: [number, number, number] = [
-	KEYBOARD_X,
-	KEYBOARD_Y + 1.5,
-	KEYBOARD_Z,
-];
-
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
 	activePreset,
 	introComplete,
 	onIntroComplete,
-	renderPortfolio,
 }: {
 	activePreset: PresetKey;
 	introComplete: boolean;
 	onIntroComplete: () => void;
-	renderPortfolio?: (position: [number, number, number]) => ReactNode;
 }) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
-	const { browserMode } = usePortfolioContext();
 	const openPortfolio = useOpenPortfolio();
 
 	return (
@@ -83,14 +72,6 @@ function SceneInner({
 					hotspot
 				/>
 
-				{/* Portfolio UI rendered via render-prop — keeps Scene free of
-				    Browser imports. App composes the two features. */}
-				{renderPortfolio && browserMode !== BROWSER_MODE.CLOSED && (
-					<ErrorBoundary componentName="Portfolio">
-						{renderPortfolio(BROWSER_POSITION)}
-					</ErrorBoundary>
-				)}
-
 				<CodeOnMonitors />
 
 				<ShaderWarmup />
@@ -111,11 +92,7 @@ function SceneInner({
 }
 
 // ─── Scene (root export — replaces World) ─────────────────────────────────────
-interface SceneProps {
-	renderPortfolio?: (position: [number, number, number]) => ReactNode;
-}
-
-export default function Scene({ renderPortfolio }: SceneProps = {}) {
+export default function Scene() {
 	const { cameraPreset: activePreset, changeCameraPreset } =
 		useChangeCameraPreset();
 	const [introComplete, setIntroComplete] = useState(false);
@@ -152,7 +129,6 @@ export default function Scene({ renderPortfolio }: SceneProps = {}) {
 					activePreset={activePreset}
 					introComplete={introComplete}
 					onIntroComplete={() => setIntroComplete(true)}
-					renderPortfolio={renderPortfolio}
 				/>
 			</Canvas>
 

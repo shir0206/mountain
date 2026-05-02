@@ -11,9 +11,11 @@ function App() {
       <DeviceProvider>
         <SceneProvider>
           <PortfolioProvider>
-            {/* App composes Scene + Browser so neither feature imports the
-                other. Scene renders the portfolio via render-prop. */}
-            <Scene renderPortfolio={(position) => <Browser position={position} />} />
+            {/* Scene is pure 3D. Browser lives at DOM root so its
+                react-dom portal (#browser-root) works — r3f's reconciler
+                cannot host DOM portals returned from inside <Canvas>. */}
+            <Scene />
+            <Browser />
           </PortfolioProvider>
         </SceneProvider>
       </DeviceProvider>

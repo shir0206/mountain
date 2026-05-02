@@ -1,47 +1,59 @@
 /**
- * Pure scoring: given a scroll container and candidate section ids,
- * return the section with the greatest visible portion (≥50%).
- * Returns null when no section meets the threshold.
+ * Trigger-line active section detection.
+ *
+ * A single horizontal "trigger line" sits just below the sticky nav
+ * (containerTop + offset + bias). The active section is the LAST section
+ * whose top has crossed that line. This works correctly even for sections
+ * taller than the viewport (e.g. the Service grid), which the previous
+ * percentage-of-height approach silently skipped.
  */
 export interface ComputeActiveSectionParams {
   container: HTMLElement;
   sectionIds: readonly string[];
-  threshold?: number;
+  /** Pixel offset from container top for the sticky nav. Default 56. */
+  offset?: number;
+  /** Extra pixels past the nav to start counting a section as active. Default 8. */
+  bias?: number;
 }
+
+const DEFAULT_OFFSET = 56;
+const DEFAULT_BIAS = 8;
 
 export const computeActiveSection = ({
   container,
   sectionIds,
-  threshold = 50,
+  offset = DEFAULT_OFFSET,
+  bias = DEFAULT_BIAS,
 }: ComputeActiveSectionParams): string | null => {
-  const containerRect = container.getBoundingClientRect();
-  const containerTop = containerRect.top;
-  const containerBottom = containerRect.bottom;
+  if (sectionIds.length === 0) return null;
 
-  let maxVisibleSection: string | null = null;
-  let maxVisiblePercentage = 0;
+  const containerRect = container.getBoundingClientRect();
+  const triggerLine = containerRect.top + offset + bias;
+
+  // If user has scrolled (nearly) to the bottom, force-select the last section.
+  // Otherwise a short final section can never satisfy the trigger-line rule.
+  const atBottom =
+    container.scrollTop + container.clientHeight >=
+    container.scrollHeight - 2;
+  if (atBottom) return sectionIds[sectionIds.length - 1] ?? null;
+
+  let active: string | null = null;
 
   for (const sectionId of sectionIds) {
     const element = document.getElementById(sectionId);
     if (!element) continue;
 
-    const elementRect = element.getBoundingClientRect();
-    const elementHeight = elementRect.height;
-    if (elementHeight <= 0) continue;
+    const rect = element.getBoundingClientRect();
+    if (rect.height <= 0) continue;
 
-    const visibleTop = Math.max(elementRect.top, containerTop);
-    const visibleBottom = Math.min(elementRect.bottom, containerBottom);
-    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-    const visiblePercentage = (visibleHeight / elementHeight) * 100;
-
-    if (
-      visiblePercentage >= threshold &&
-      visiblePercentage > maxVisiblePercentage
-    ) {
-      maxVisibleSection = sectionId;
-      maxVisiblePercentage = visiblePercentage;
+    if (rect.top <= triggerLine) {
+      active = sectionId;
+    } else {
+      // Sections are in DOM order; first one past the line ends the walk.
+      break;
     }
   }
 
-  return maxVisibleSection;
+  // Before any section crosses the line (e.g. top of page), fall back to first.
+  return active ?? sectionIds[0] ?? null;
 };

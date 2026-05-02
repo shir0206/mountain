@@ -70,12 +70,24 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .contact-container {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .contact-content {
+    gap: var(--space-lg);
+  }
+
   .contact-subtitle {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .contact-list {
+    gap: var(--space-md);
   }
 
   .contact-link {
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
   }
 }
