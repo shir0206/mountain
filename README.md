@@ -1,73 +1,72 @@
-# React + TypeScript + Vite
+# Mountain — 3D Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive 3D mountain scene (React + Vite + react-three-fiber) with an in-scene browser portfolio UI.
 
-Currently, two official plugins are available:
+## Tech
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 18 + TypeScript
+- Vite
+- `@react-three/fiber`, `@react-three/drei`, `three`
+- ESLint, Yarn
 
-## React Compiler
+## Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn dev      # start dev server
+yarn lint     # eslint
+yarn build    # tsc -b && vite build (outputs to dist/)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Architecture (DDD-aligned, feature-based)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── main.tsx / App.tsx           # composition root
+│
+├── context/                     # cross-feature state (split per domain)
+│   ├── scene/                   # runIntro, cameraPreset (+ PresetKey canonical)
+│   ├── portfolio/               # browserMode, visibleSectionIds, language,
+│   │                            # useTranslation (context-aware hook)
+│   └── device/                  # DeviceContext (DeviceType re-exported from shared)
+│
+├── shared/                      # leaf — imports nothing from context/ or presentation/
+│   ├── components/              # ErrorBoundary, Icon
+│   ├── i18n/                    # translations, LanguageType, getText()
+│   └── device/                  # detectDevice(), breakpoints, DEVICE/DeviceType
+│
+└── presentation/                # UI features
+    ├── Scene/                   # EVERYTHING 3D (Canvas, Model, CameraRig, …)
+    │   ├── config/              # cameraPresets, sceneObjects, positions, …
+    │   ├── adapters/            # Position3D → three.js types
+    │   ├── hooks/               # useOpenPortfolio, useChangeCameraPreset, …
+    │   └── <Component>/         # one folder per component (.tsx + .css + types.ts)
+    │
+    └── Browser/                 # EVERYTHING portfolio UI
+        ├── Navigation/
+        │   ├── hooks/           # useScrollNavigation, useScreenVisibility, …
+        │   ├── services/        # computeActiveSection (pure)
+        │   └── LanguageSwitcher/
+        └── Sections/            # Overview, About, Service, Contact
+            └── Contact/
+                ├── services/    # generate*Link, meetingScheduler, phoneValidator
+                └── hooks/
+```
+
+### Dependency rules
+
+```
+presentation/  → context/ + shared/
+context/       → shared/ only
+shared/        → (leaf, imports nothing from the above)
+Scene/ ⟷ Browser/                (never — composed in App.tsx via render-prop)
+```
+
+- `Scene` and `Browser` never import from each other. `App.tsx` composes them
+  by passing `renderPortfolio={(pos) => <Browser position={pos} />}` to `Scene`.
+- Types that are shared state (`PresetKey`, `SectionIdType`, `DeviceType`,
+  `BROWSER_MODE`) live in their context/shared module; presentation re-exports
+  them for import-path stability.
+
+### Deployment
+
+See `deploy.md`.

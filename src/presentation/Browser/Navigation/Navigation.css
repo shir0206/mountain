@@ -1,0 +1,133 @@
+.navigation {
+  position: fixed;
+  width: 100%;
+  background: var(--color-cream-alt);
+  border-bottom: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+  margin-top: -1px;
+  z-index: 2;
+
+  &.is-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.navigation-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navigation-links {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.navigation-link {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--color-sage);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: color var(--transition-base), transform var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--color-sage);
+    transition: width var(--transition-base), background var(--transition-base);
+  }
+
+  &:hover {
+    color: var(--color-sage);
+    transform: translateY(-1px);
+
+    &::after {
+      width: 60%;
+      background: var(--color-sage);
+    }
+  }
+
+  &.active {
+    color: var(--color-sage-deep);
+
+    &::after {
+      width: 80%;
+      background: var(--color-sage);
+      height: 1.5px;
+    }
+
+    &:hover::after {
+      width: 80%;
+      background: var(--color-sage);
+    }
+  }
+}
+
+.navigation-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navigation {
+    height: 36px;
+    width: 100%;
+  }
+
+  .navigation-container {
+    padding: 0 var(--space-md);
+  }
+
+  .navigation-links {
+    gap: 0;
+  }
+
+  .navigation-link {
+    font-size: var(--font-size-sm);
+    padding: var(--space-xs) var(--space-sm);
+    text-transform: capitalize;
+
+    &::after {
+      bottom: 0;
+    }
+
+    &:hover {
+      color: var(--color-sage);
+      transform: none;
+
+      &::after {
+        width: 0;
+      }
+    }
+
+    &.active::after {
+      width: 60%;
+      height: 1.5px;
+    }
+
+    &.active:hover::after {
+      width: 80%;
+    }
+  }
+}

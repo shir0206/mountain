@@ -1,0 +1,71 @@
+:root {
+  /* Brand */
+  --color-sage: #a8b3a5;
+  --color-sage-strong: #7fa573;
+  --color-sage-deep: #2d3319;
+  --color-blush: #e2c4c1;
+
+  /* Surfaces */
+  --color-cream: #f5f5f0;
+  --color-cream-alt: #f6f7f3;
+  --color-surface: #ffffff;
+  --color-surface-glass: rgba(236, 237, 238, 0.75);
+  --color-surface-glass-header: rgba(236, 237, 238, 0.7);
+  --color-border: rgba(120, 128, 97, 0.15);
+  --color-border-soft: #e0e0e0;
+
+  /* Text */
+  --color-text: #1f2937;
+  --color-text-strong: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-subtle: #72757e;
+
+  /* Traffic lights */
+  --color-close: #ff605c;
+  --color-minimize: #ffbd44;
+  --color-maximize: #00ca4e;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  --font-size-sm: 1rem; /* 16 */
+  --font-size-md: 1.25rem; /* 20 */
+  --font-size-lg: 1.5rem; /* 24 */
+  --font-size-xl: 1.75rem; /* 28 */
+  --font-size-3xl: 3rem; /* 48 */
+  --font-size-4xl: 3.5rem; /* 56 */
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --line-height-base: 1.6;
+
+  /* Spacing (rem, 4px base) */
+  --space-xs: 0.25rem; /* 4 */
+  --space-sm: 0.5rem; /* 8 */
+  --space-md: 1rem; /* 16 */
+  --space-lg: 1.5rem; /* 24 */
+  --space-xl: 2.5rem; /* 40 */
+  --space-2xl: 3.75rem; /* 60 */
+  --space-3xl: 5rem; /* 80 */
+
+  /* Radius */
+  --radius-sm: 0.25rem; /* 4 */
+  --radius-md: 0.5rem; /* 8 */
+  --radius-lg: 0.75rem; /* 12 */
+  --radius-xl: 1rem; /* 16 */
+  --radius-pill: 50%;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 60px rgba(5, 9, 4, 0.15);
+  --shadow-dropdown: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Motion */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+}

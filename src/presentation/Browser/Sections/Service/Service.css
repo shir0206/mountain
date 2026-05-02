@@ -1,0 +1,133 @@
+.service-container {
+  width: 100%;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-xl);
+}
+
+.service-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-strong);
+  align-self: start;
+}
+
+.service-grid {
+  margin: var(--space-md) 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: 1400px;
+  width: 100%;
+}
+
+.service-card {
+  background: var(--color-surface);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base) cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+
+  & svg {
+    animation: draw 3s ease-in-out forwards;
+  }
+}
+
+.card-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin-bottom: var(--space-sm);
+
+  & svg {
+    fill: var(--color-surface);
+    stroke: var(--color-sage-strong);
+    stroke-dasharray: 2000;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 2000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.card-icon {
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-base);
+}
+
+.service-card:hover .card-icon {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.4;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.card-description {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .service-container {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .service-title {
+    text-align: center;
+    width: 100%;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: 0 var(--space-xl);
+  }
+
+  .service-card {
+    padding: var(--space-lg);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .card-description {
+    font-size: var(--font-size-md);
+  }
+}
