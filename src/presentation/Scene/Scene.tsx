@@ -1,15 +1,19 @@
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
-import type { PresetKey } from "./types";
+import { EXPERIENCE_PROFILE, type ExperienceProfile, type PresetKey } from "./types";
 import {
 	CAMERA_PRESETS,
 	INITIAL_PRESET,
 	PRESET_BUTTONS,
 } from "./config/cameraPresets";
-import { SCENE_OBJECTS } from "./config/sceneObjects";
+import {
+	EXPERIENCE_BUDGETS,
+	getLowerProfile,
+} from "./config/experienceProfiles";
+import { getSceneObjectsForProfile } from "./config/sceneObjectPolicy";
 import { KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z } from "./config/positions";
 
 import { useOpenPortfolio } from "./hooks/useOpenPortfolio";
@@ -22,32 +26,52 @@ import { CameraTracker, CameraRig } from "./CameraRig/CameraRig";
 import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
 import { IntroAnimation } from "./IntroAnimation/IntroAnimation";
 import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
+import { AdaptiveProfile } from "./AdaptiveProfile/AdaptiveProfile";
 import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
 import { BROWSER_MODE } from "../../context/portfolio/types";
+import { useDeviceContext } from "../../context/device/useDeviceContext";
 
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
 	activePreset,
 	introComplete,
 	onIntroComplete,
+	profile,
+	onProfileChange,
 }: {
 	activePreset: PresetKey;
 	introComplete: boolean;
 	onIntroComplete: () => void;
+	profile: ExperienceProfile;
+	onProfileChange: (profile: ExperienceProfile) => void;
 }) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 	const openPortfolio = useOpenPortfolio();
 	const { browserMode } = usePortfolioContext();
+	const budget = EXPERIENCE_BUDGETS[profile];
 	const isBrowserOpen = browserMode !== BROWSER_MODE.CLOSED;
+	const sceneObjects = getSceneObjectsForProfile(profile);
+	const shouldRunRealtimeIntro = budget.enableIntroAnimation;
+
+	useEffect(() => {
+		if (!shouldRunRealtimeIntro && !introComplete) {
+			onIntroComplete();
+		}
+	}, [introComplete, onIntroComplete, shouldRunRealtimeIntro]);
 
 	return (
 		<>
-			<Lighting />
+			<Lighting profile={profile} />
 			<CameraTracker controlsRef={controlsRef} />
+			<AdaptiveProfile
+				profile={profile}
+				introComplete={introComplete}
+				onProfileChange={onProfileChange}
+			/>
 			{introComplete && (
 				<CameraRig activePreset={activePreset} controlsRef={controlsRef} />
 			)}
-			{!introComplete && (
+			{!introComplete && shouldRunRealtimeIntro && (
 				<IntroAnimation
 					controlsRef={controlsRef}
 					onComplete={onIntroComplete}
@@ -56,13 +80,14 @@ function SceneInner({
 
 			{/* Single Suspense boundary — nothing renders until ALL models ready */}
 			<Suspense fallback={null}>
-				{SCENE_OBJECTS.map((config) => (
+				{sceneObjects.map((config) => (
 					<Model
 						key={config.position.join(",")}
 						path={config.path}
 						position={config.position}
 						scale={config.scale}
 						rotationY={config.rotationY}
+						profile={profile}
 					/>
 				))}
 
@@ -79,7 +104,7 @@ function SceneInner({
 				<CodeOnMonitors />
 
 				<ShaderWarmup />
-				<BakeShadows />
+				{budget.shadowMode !== "none" && <BakeShadows />}
 				<Preload all />
 			</Suspense>
 
@@ -100,6 +125,25 @@ export default function Scene() {
 	const { cameraPreset: activePreset, changeCameraPreset } =
 		useChangeCameraPreset();
 	const [introComplete, setIntroComplete] = useState(false);
+	const { profile: defaultProfile, setProfile: setContextProfile } =
+		useDeviceContext();
+	const [profile, setProfile] = useState<ExperienceProfile>(defaultProfile);
+	const budget = EXPERIENCE_BUDGETS[profile];
+
+	useEffect(() => {
+		setContextProfile(profile);
+	}, [profile, setContextProfile]);
+
+	const handleProfileChange = (nextProfile: ExperienceProfile) => {
+		setProfile((current) => {
+			if (current === nextProfile) return current;
+			const lower = getLowerProfile(current);
+			if (lower === nextProfile || current === EXPERIENCE_PROFILE.FULL) {
+				return nextProfile;
+			}
+			return current;
+		});
+	};
 
 	return (
 		<div
@@ -118,12 +162,15 @@ export default function Scene() {
 					far: 600,
 				}}
 				gl={{
-					antialias: true,
+					antialias: budget.antialias,
 					toneMapping: 3 /* ACESFilmic */,
-					powerPreference: "high-performance",
+					powerPreference:
+						profile === EXPERIENCE_PROFILE.CINEMATIC
+							? "default"
+							: "high-performance",
 				}}
-				dpr={[1, 2]}
-				shadows='soft'
+				dpr={[1, budget.maxDpr]}
+				shadows={budget.shadowMode === "none" ? false : "soft"}
 				onCreated={({ gl }) => {
 					gl.setClearColor("#f5ead6");
 					gl.localClippingEnabled = true;
@@ -133,6 +180,8 @@ export default function Scene() {
 					activePreset={activePreset}
 					introComplete={introComplete}
 					onIntroComplete={() => setIntroComplete(true)}
+					profile={profile}
+					onProfileChange={handleProfileChange}
 				/>
 			</Canvas>
 

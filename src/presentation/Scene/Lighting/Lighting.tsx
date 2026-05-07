@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
+import { EXPERIENCE_PROFILE, type ExperienceProfile } from "../types";
+import { EXPERIENCE_BUDGETS } from "../config/experienceProfiles";
 
 import {
 	PERGOLA_X, PERGOLA_Y, PERGOLA_Z,
@@ -9,7 +11,7 @@ import {
 
 // Post-rain summer atmosphere — bright cloudy sky, warm sun aimed at pergola,
 // two soft warm interior lamps. Every light that matters casts shadows.
-export function Lighting() {
+export function Lighting({ profile }: { profile: ExperienceProfile }) {
 	// Directional sun needs an explicit target object so it behaves like a
 	// natural spotlight pointing at the pergola area.
 	const sunTarget = useMemo(() => {
@@ -17,6 +19,9 @@ export function Lighting() {
 		o.position.set(PERGOLA_X, PERGOLA_Y + 8, PERGOLA_Z);
 		return o;
 	}, []);
+	const budget = EXPERIENCE_BUDGETS[profile];
+	const castPrimaryShadows = budget.shadowMode !== "none";
+	const castSecondaryShadows = budget.shadowMode === "full";
 
 	return (
 		<>
@@ -35,9 +40,9 @@ export function Lighting() {
 				intensity={4}
 				position={[-19.95, -5, -1.54]}
 				target={sunTarget}
-				castShadow
-				shadow-mapSize-width={2048}
-				shadow-mapSize-height={2048}
+				castShadow={castPrimaryShadows}
+				shadow-mapSize-width={budget.shadowMapSize}
+				shadow-mapSize-height={budget.shadowMapSize}
 				shadow-bias={-0.0004}
 				shadow-normalBias={0.03}
 				shadow-camera-near={1}
@@ -52,12 +57,12 @@ export function Lighting() {
 			    visible shadows on the terrain. */}
 			<directionalLight
 				color='#ffe3b8'
-				intensity={2.5}
+				intensity={profile === EXPERIENCE_PROFILE.CINEMATIC ? 1.8 : 2.5}
 				position={[PERGOLA_X - 45, PERGOLA_Y + 55, PERGOLA_Z - 40]}
 				target={sunTarget}
-				castShadow
-				shadow-mapSize-width={2048}
-				shadow-mapSize-height={2048}
+				castShadow={castSecondaryShadows}
+				shadow-mapSize-width={budget.shadowMapSize}
+				shadow-mapSize-height={budget.shadowMapSize}
 				shadow-bias={-0.0003}
 				shadow-normalBias={0.04}
 				shadow-camera-near={1}

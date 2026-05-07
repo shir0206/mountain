@@ -3,6 +3,10 @@
 // PresetKey is canonical in context/scene (shared state); re-exported here so
 // Scene presentation modules keep their current import paths.
 export { type PresetKey } from "../../context/scene/types";
+export {
+	type ExperienceProfile,
+	EXPERIENCE_PROFILE,
+} from "../../context/device/types";
 
 /**
  * Position/target value object. Raw 3-tuple kept for config ergonomics;

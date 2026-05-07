@@ -18,6 +18,7 @@ export function CameraTracker({
 	const lastTarget = useRef(new THREE.Vector3());
 
 	useFrame(() => {
+		if (!import.meta.env.DEV) return;
 		const position = camera.position;
 		const target = controlsRef.current?.target ?? new THREE.Vector3();
 
