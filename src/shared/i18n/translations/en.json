@@ -1,0 +1,155 @@
+{
+  "browser": {
+    "windowControls": {
+      "close": "Close window",
+      "minimize": "Minimize window",
+      "maximize": "Maximize window"
+    },
+    "title": "shir.z / workspace"
+  },
+  "navigation": {
+    "overview": "Home",
+    "about": "About",
+    "service": "Services",
+    "process": "Process",
+    "ai": "AI",
+    "contact": "Contact",
+    "cta": "Say hi"
+  },
+  "hero": {
+    "name": "Shir Zabolotny",
+    "titleLine": "Frontend that",
+    "titleEmphasis": "feels right.",
+    "sub": "I build interfaces that are not only functional but clear, thoughtful, and pleasant to use. I pay attention to spacing, hierarchy, and flow so things feel natural and easy.",
+    "actions": [
+      {
+        "label": "Let's work together",
+        "href": "#contact",
+        "style": "primary"
+      },
+      { "label": "See what I do", "href": "#service", "style": "ghost" }
+    ]
+  },
+  "about": {
+    "label": "About me",
+    "title": "Creative thinking,\n<em>built into code</em>",
+    "paragraphs": [
+      "With a Masters in Information Systems and experience in tech companies, I shaped my skills around building things that hold up in real systems.",
+      "What truly guides my work is a <strong>visual and intuitive sense</strong>, how things should look, behave, and feel. I have an artistic eye, and I naturally notice composition, balance, and flow.",
+      "I like going deep into systems, understanding <strong>how everything connects</strong>, so decisions made early do not turn into friction later. I am also <strong>easy to work with</strong>: I ask questions, I listen, and I care about making things clear."
+    ],
+    "photoHint": "Add your photo here"
+  },
+  "service": {
+    "label": "How it's like working together",
+    "title": "How it's like\n<em>working together</em>",
+    "cardsLabel": "What I can help with",
+    "cards": [
+      {
+        "num": "01",
+        "name": "Frontend Development",
+        "desc": "Clean, scalable interfaces built for real-world use."
+      },
+      {
+        "num": "02",
+        "name": "Architecture & Systems",
+        "desc": "Component architecture and state flow designed for long-term growth."
+      },
+      {
+        "num": "03",
+        "name": "UI Implementation",
+        "desc": "Pixel-perfect, responsive implementation from design to browser."
+      },
+      {
+        "num": "04",
+        "name": "Collaboration",
+        "desc": "Thinking alongside designers, product, and founders."
+      }
+    ],
+    "processLabel": "The process",
+    "processTitle": "How I work",
+    "processIntro": "A clear process removes uncertainty. Here is how a typical engagement unfolds.",
+    "steps": [
+      {
+        "icon": "search",
+        "name": "Understanding",
+        "desc": "What you're building and how everything connects."
+      },
+      {
+        "icon": "lightbulb",
+        "name": "Clarifying",
+        "desc": "Mapping decisions, removing confusion before code is written."
+      },
+      {
+        "icon": "code",
+        "name": "Building",
+        "desc": "Implementing with attention to structure, reusability, and edge cases."
+      },
+      {
+        "icon": "sparkles",
+        "name": "Refining",
+        "desc": "Tuning spacing, interactions, and details until everything feels right."
+      },
+      {
+        "icon": "loop",
+        "name": "Iterating",
+        "desc": "Improving based on feedback, usage, or new ideas."
+      }
+    ]
+  },
+  "ai": {
+    "label": "AI perspective",
+    "title": "Why not just\n<em>use AI?</em>",
+    "introText": "AI is powerful. It writes code fast, builds components, and solves problems in seconds. We use it too.",
+    "introSub": "But speed isn't the same as direction.",
+    "pillars": [
+      {
+        "icon": "link",
+        "title": "Continuity",
+        "text": "Great products feel like one mind built them. Same logic. Same tone. Same patterns.",
+        "items": [
+          "AI generates <em>pieces</em>",
+          "A professional <em>connects</em> them"
+        ]
+      },
+      {
+        "icon": "zap",
+        "title": "Anticipation",
+        "text": "Users don't follow perfect paths. They hesitate, get confused, hit edge cases.",
+        "items": [
+          "AI responds to <em>prompts</em>",
+          "A professional <em>sees</em> problems before they happen"
+        ]
+      },
+      {
+        "icon": "target",
+        "title": "Intent",
+        "text": "AI assembles what looks right. A professional builds what feels right.",
+        "items": [
+          "Not just working <em>parts</em>",
+          "But decisions that serve a clear <em>purpose</em>"
+        ]
+      }
+    ],
+    "footerText": "AI saves time. A professional makes sure time is spent on the <em>right</em> thing."
+  },
+  "contact": {
+    "title": "Say\nhello.",
+    "sub": "Working on something and want it to feel clearer, more polished, or easier to move forward? Even a short conversation can bring direction.",
+    "email": "shir.zabolotny@gmail.com",
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "submit": "Send message",
+      "successMsg": "Thank you! I will be in touch soon."
+    }
+  },
+  "footer": {
+    "name": "Shir <em>Zabolotny</em>",
+    "copy": "© {year} Shir Zabolotny · Frontend Developer"
+  }
+}
