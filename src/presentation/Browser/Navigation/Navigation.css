@@ -1,6 +1,6 @@
 .navigation {
   position: sticky;
-  top: 0;
+  top: -1px;
   width: 100%;
   height: 64px;
   display: flex;
@@ -192,7 +192,7 @@
 
 .mobile-link {
   font-size: 1.1rem;
-  color: var(--color-sage);
+  color: var(--color-ink);
   letter-spacing: 0.05em;
 }
 
