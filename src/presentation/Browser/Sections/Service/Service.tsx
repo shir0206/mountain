@@ -3,13 +3,11 @@ import React from "react";
 import "./Service.css";
 
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
-import { Icon, type IconName } from "../../../../shared/components/Icon/Icon";
-
-interface ServiceCard {
-	title: string;
-	description: string;
-	icon: IconName;
-}
+import { ReactComponent as CodeIcon } from "../../../../assets/icons/process/code.svg";
+import { ReactComponent as LightbulbIcon } from "../../../../assets/icons/process/lightbulb.svg";
+import { ReactComponent as LoopIcon } from "../../../../assets/icons/process/loop.svg";
+import { ReactComponent as SearchIcon } from "../../../../assets/icons/process/search.svg";
+import { ReactComponent as SparklesIcon } from "../../../../assets/icons/process/sparkles.svg";
 
 interface ServiceProps {
 	isVisible: boolean;
@@ -18,53 +16,70 @@ interface ServiceProps {
 
 const Service: React.FC<ServiceProps> = () => {
 	const { t } = useTranslation();
-
-	const serviceData: ServiceCard[] = [
-		{
-			title: t.service.cards.architecture.title,
-			description: t.service.cards.architecture.description,
-			icon: "structure",
-		},
-		{
-			title: t.service.cards.implementation.title,
-			description: t.service.cards.implementation.description,
-			icon: "code",
-		},
-		{
-			title: t.service.cards.communication.title,
-			description: t.service.cards.communication.description,
-			icon: "dialog",
-		},
-		{
-			title: t.service.cards.design.title,
-			description: t.service.cards.design.description,
-			icon: "monitors",
-		},
-		{
-			title: t.service.cards.testing.title,
-			description: t.service.cards.testing.description,
-			icon: "test",
-		},
-		{
-			title: t.service.cards.mentorship.title,
-			description: t.service.cards.mentorship.description,
-			icon: "checklist",
-		},
-	];
+	const processIcons: Record<
+		string,
+		React.ComponentType<React.SVGProps<SVGSVGElement>>
+	> = {
+		search: SearchIcon,
+		lightbulb: LightbulbIcon,
+		code: CodeIcon,
+		sparkles: SparklesIcon,
+		loop: LoopIcon,
+	};
 
 	return (
-		<div className='service-container'>
-			<h2 className='service-title'>{t.service.title}</h2>
-			<div className='service-grid'>
-				{serviceData.map((item, index) => (
-					<article key={index} className='service-card'>
-						<div className='card-icon-wrapper'>
-							<Icon name={item.icon} size={64} className='card-icon' />
+		<div className="service-section">
+			<div className="service-container">
+				<p className="section-label reveal">{t.service.label}</p>
+				<h2
+					className="section-title reveal reveal-d1"
+					dangerouslySetInnerHTML={{ __html: t.service.title.replace(/\n/g, "<br/>") }}
+				/>
+
+				{/* Cards Grid */}
+				<p className="section-label together-cards-label reveal">
+					{t.service.cardsLabel}
+				</p>
+				<div className="cards-grid">
+					{t.service.cards.map((card, i) => (
+						<div key={i} className={`service-card reveal reveal-d${Math.min(i + 1, 4)}`}>
+							<div className="service-card-inner">
+								<span className="service-num">{card.num}</span>
+								<h3 className="service-name">{card.name}</h3>
+								<p className="service-desc">{card.desc}</p>
+							</div>
 						</div>
-						<h3 className='card-title'>{item.title}</h3>
-						<p className='card-description'>{item.description}</p>
-					</article>
-				))}
+					))}
+				</div>
+
+				{/* Process Timeline */}
+				<p className="section-label reveal">{t.service.processLabel}</p>
+				<h3
+					className="process-title section-title reveal reveal-d1"
+					dangerouslySetInnerHTML={{ __html: t.service.processTitle }}
+				/>
+				<p className="process-intro reveal reveal-d2">{t.service.processIntro}</p>
+				<div className="process-list">
+					{t.service.steps.map((step, i) => (
+						<div key={i} className={`process-item reveal reveal-d${Math.min(i + 1, 4)}`}>
+							<div className="process-dot-wrap">
+								<div className="process-dot" />
+							</div>
+							<div className="process-content">
+								<div className="process-num">
+									{(() => {
+										const ProcessIcon = processIcons[step.icon];
+										return ProcessIcon ? (
+											<ProcessIcon className="process-icon" />
+										) : null;
+									})()}
+								</div>
+								<h4 className="process-name">{step.name}</h4>
+								<p className="process-desc">{step.desc}</p>
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

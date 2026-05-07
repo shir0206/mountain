@@ -299,7 +299,6 @@
 
 @media (max-width: 480px) {
 	.browser-shell-root .browser-container {
-		&.is-open,
 		&.is-maximized {
 			width: 100vw;
 			width: 100svw;
@@ -311,6 +310,19 @@
 			outline: none;
 			display: flex;
 			flex-direction: column;
+		}
+
+		&.is-open {
+			width: min(520px, 96vw);
+			width: min(520px, 96svw);
+			height: min(56svh, 420px);
+			max-height: min(56svh, 420px);
+			border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+			outline: 1px solid var(--color-border);
+			display: flex;
+			flex-direction: column;
+			margin-top: auto;
+			transform: translateY(0);
 		}
 
 		&.is-open .browser-drag-handle,
@@ -339,6 +351,23 @@
 		}
 	}
 }
+
+/* Scroll reveal animations */
+.reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
 
 /* Respect reduced motion: keep fades, drop transforms. */
 @media (prefers-reduced-motion: reduce) {

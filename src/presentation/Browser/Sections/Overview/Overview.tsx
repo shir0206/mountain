@@ -2,7 +2,6 @@ import React from "react";
 
 import "./Overview.css";
 
-import { ReactComponent as Branch } from "../../../../assets/images/branch.svg";
 import { SECTION_IDS } from "../../types";
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
 import { useScrollNavigation } from "../../Navigation/hooks/useScrollNavigation";
@@ -18,46 +17,36 @@ const Overview: React.FC<OverviewProps> = ({ containerRef }) => {
 		containerRef: containerRef || { current: null },
 	});
 
-	function parseBoldText(text: string): React.ReactNode[] {
-		return text.split("**").map((part, index) => {
-			const isBold = index % 2 === 1;
+	const handleActionClick = (href: string) => {
+		const id = Object.values(SECTION_IDS).find((v) => v === href.replace("#", ""));
+		if (id) {
+			scrollToSection(id);
+		}
+	};
 
-			return isBold ? (
-				<strong key={index}>{part}</strong>
-			) : (
-				<span key={index}>{part}</span>
-			);
-		});
-	}
 	return (
-		<div className='overview-content'>
-			<h1 className='overview-name'>{t.overview.name}</h1>
-			<div>
-				<p className='overview-subtitle'>{t.overview.subtitle}</p>
-				<div className='overview-skills'>
-					<span>{t.overview.skills.architecture}</span>
-					<span className='skill-dot skill-dot-left'>●</span>
-					<span>{t.overview.skills.design}</span>
-					<span className='skill-dot skill-dot-right'>●</span>
-					<span>{t.overview.skills.userExperience}</span>
+		<section className="hero">
+			<div className="hero-inner">
+				<p className="hero-name">{t.hero.name}</p>
+				<h1 className="hero-title">
+					{t.hero.titleLine}
+					<br />
+					<em>{t.hero.titleEmphasis}</em>
+				</h1>
+				<p className="hero-sub">{t.hero.sub}</p>
+				<div className="hero-actions">
+					{t.hero.actions.map((action, i) => (
+						<button
+							key={i}
+							className={action.style === "primary" ? "btn-primary" : "btn-ghost"}
+							onClick={() => handleActionClick(action.href)}
+						>
+							{action.label}
+						</button>
+					))}
 				</div>
 			</div>
-			<div className='background-branch-wrapper'>
-				<Branch aria-hidden className='background-branch branch-left' />
-				<Branch aria-hidden className='background-branch branch-right' />
-			</div>
-			<div className='overview-quote-wrapper'>
-				<p className='overview-quote'>{t.overview.hook}</p>
-				<p className='overview-quote'>{parseBoldText(t.overview.quote)}</p>
-			</div>
-			<p className='overview-cta'>{t.overview.cta}</p>
-			<button
-				className='overview-link'
-				onClick={() => scrollToSection(SECTION_IDS.CONTACT)}
-			>
-				{t.overview.link}
-			</button>
-		</div>
+		</section>
 	);
 };
 

@@ -1,0 +1,30 @@
+.browser-footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-sm);
+	padding: var(--space-xl) var(--space-lg);
+	border-top: 1px solid var(--color-line);
+	background: var(--color-bg-soft);
+	text-align: center;
+}
+
+.footer-name {
+	font-family: var(--font-display);
+	font-size: clamp(1.1rem, 2vw, 1.4rem);
+	font-weight: 400;
+	color: var(--color-ink);
+	letter-spacing: 0.02em;
+}
+
+.footer-name em {
+	font-style: normal;
+	color: var(--color-caramel);
+}
+
+.footer-copy {
+	font-family: var(--font-body);
+	font-size: 0.8rem;
+	color: var(--color-ink-light);
+	margin: 0;
+}

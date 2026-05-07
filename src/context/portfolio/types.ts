@@ -17,6 +17,7 @@ export const SECTION_IDS = {
   OVERVIEW: "overview",
   ABOUT: "about",
   SERVICE: "service",
+  AI: "ai",
   CONTACT: "contact",
 } as const;
 

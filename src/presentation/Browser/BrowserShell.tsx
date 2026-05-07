@@ -5,10 +5,12 @@ import { useSceneContext } from "../../context/scene/useSceneContext";
 import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
 import { useTranslation } from "../../context/portfolio/useTranslation";
 import Navigation from "./Navigation/Navigation";
+import Footer from "./Footer/Footer";
 import { SECTIONS } from "./browserConfig";
 import type { SectionIdType } from "./types";
 import WebsiteSection from "./Sections/WebsiteSection/WebsiteSection";
 import { BrowserHeader } from "./BrowserHeader/BrowserHeader";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 interface BrowserShellProps {
 	contentRef: RefObject<HTMLDivElement | null>;
@@ -26,6 +28,7 @@ export function BrowserShell({
 	const { browserMode, language } = usePortfolioContext();
 	const { runIntro } = useSceneContext();
 	const { t } = useTranslation();
+	useScrollReveal(contentRef, !runIntro);
 
 	return (
 		<div
@@ -57,6 +60,7 @@ export function BrowserShell({
 								containerRef={contentRef}
 							/>
 						))}
+						<Footer />
 					</>
 				)}
 			</div>

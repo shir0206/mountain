@@ -103,27 +103,29 @@ export function SceneButton3D({
 				</mesh>
 			)}
 
-			<Html
-				center
-				distanceFactor={8}
-				position={[0, size * 2.2, 0]}
-				style={{
-					pointerEvents: "none",
-					fontFamily: "system-ui, sans-serif",
-					fontSize: 14,
-					fontWeight: 600,
-					color: "#fff",
-					background: "rgba(30,20,10,0.75)",
-					padding: "4px 10px",
-					borderRadius: 999,
-					whiteSpace: "nowrap",
-					opacity: hovered ? 1 : 0.85,
-					transition: "opacity 180ms ease",
-					userSelect: "none",
-				}}
-			>
-				{label}
-			</Html>
+			{label && (
+				<Html
+					center
+					distanceFactor={8}
+					position={[0, size * 2.2, 0]}
+					style={{
+						pointerEvents: "none",
+						fontFamily: "system-ui, sans-serif",
+						fontSize: 14,
+						fontWeight: 600,
+						color: "#fff",
+						background: "rgba(30,20,10,0.75)",
+						padding: "4px 10px",
+						borderRadius: 999,
+						whiteSpace: "nowrap",
+						opacity: hovered ? 1 : 0.85,
+						transition: "opacity 180ms ease",
+						userSelect: "none",
+					}}
+				>
+					{label}
+				</Html>
+			)}
 		</group>
 	);
 }

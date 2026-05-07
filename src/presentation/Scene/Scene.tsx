@@ -22,6 +22,8 @@ import { CameraTracker, CameraRig } from "./CameraRig/CameraRig";
 import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
 import { IntroAnimation } from "./IntroAnimation/IntroAnimation";
 import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
+import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
+import { BROWSER_MODE } from "../../context/portfolio/types";
 
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
@@ -35,6 +37,8 @@ function SceneInner({
 }) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 	const openPortfolio = useOpenPortfolio();
+	const { browserMode } = usePortfolioContext();
+	const isBrowserOpen = browserMode !== BROWSER_MODE.CLOSED;
 
 	return (
 		<>
@@ -66,7 +70,7 @@ function SceneInner({
 				<SceneButton3D
 					position={[KEYBOARD_X, KEYBOARD_Y + 0.35, KEYBOARD_Z]}
 					color='#e84a6a'
-					label='Open'
+					label={isBrowserOpen ? "" : "Open"}
 					onClick={openPortfolio}
 					size={0.08}
 					hotspot

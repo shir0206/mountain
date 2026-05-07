@@ -2,7 +2,6 @@ import React from "react";
 
 import "./About.css";
 
-import { ReactComponent as Circle } from "../../../../assets/images/circle.svg";
 import imagePath from "../../../../assets/images/shirzabolotny.png?url";
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
 
@@ -15,21 +14,26 @@ const About: React.FC<AboutProps> = () => {
 	const { t } = useTranslation();
 
 	return (
-		<div className='about-container'>
-			<h2 className='about-title'>{t.aboutMe.title}</h2>
-
-			<div className='about-content'>
-				<div className='profile-image-wrapper'>
-					<Circle className='background-circle' aria-hidden />
-					<img src={imagePath} alt='Profile' className='profile-image' />
+		<div className="about-section">
+			<div className="about-grid">
+				<div className="about-photo-wrap reveal">
+					<div className="about-photo">
+						<img src={imagePath} alt="Shir Zabolotny" />
+					</div>
 				</div>
-
-				<div className='about-text'>
-					<p className='text-paragraph'>{t.aboutMe.paragraph1}</p>
-
-					<p className='text-paragraph'>{t.aboutMe.paragraph2}</p>
-
-					<p className='text-paragraph'>{t.aboutMe.paragraph3}</p>
+				<div className="about-body">
+					<p className="section-label reveal">{t.about.label}</p>
+					<h2
+						className="section-title reveal reveal-d1"
+						dangerouslySetInnerHTML={{ __html: t.about.title.replace(/\n/g, "<br/>") }}
+					/>
+					{t.about.paragraphs.map((p, i) => (
+						<p
+							key={i}
+							className={`about-paragraph reveal reveal-d${Math.min(i + 2, 4)}`}
+							dangerouslySetInnerHTML={{ __html: p }}
+						/>
+					))}
 				</div>
 			</div>
 		</div>
