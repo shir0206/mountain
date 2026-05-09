@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mountain Loader</title>
+		<style>
+
+			@property --c {
+				syntax: "<color>";
+				inherits: true;
+				initial-value: #3d6b35;
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				background: #000;
+			}
+
+			.loader {
+				--rx: -38deg;
+				--ry: 40deg;
+				--rz: 0deg;
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+				overflow: hidden;
+				background: #0d1117;
+				box-shadow: 0 0 18px rgba(33, 150, 243, 0.12),
+					inset 0 0 12px rgba(0, 0, 0, 0.6);
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				perspective: 240px;
+				contain: layout style;
+			}
+
+			.loader::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				pointer-events: none;
+				z-index: 10;
+			}
+
+			.bars {
+				position: relative;
+				width: 2px;
+				height: 100%;
+				transform-style: preserve-3d;
+				transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+			}
+
+			.bar {
+				position: absolute;
+				bottom: 39px;
+				left: -3px;
+				width: 6px;
+				transform-origin: bottom center;
+				transform-style: preserve-3d;
+				will-change: transform;
+				contain: layout style;
+				
+			}
+
+			/* Fixed heights per ring */
+			.bar-ext {
+				height: 72px;
+			}
+			.bar-sec {
+				height: 65px;
+			}
+			.bar-outer {
+				height: 59px;
+			}
+			.bar-mid {
+				height: 38px;
+			}
+			.bar-inner {
+				height: 23px;
+			}
+			.bar-core {
+				height: 14px;
+			}
+
+			/* Each face of the cube */
+			.face {
+				position: absolute;
+				width: 6px;
+				height: 100%;
+				left: 50%;
+				margin-left: -3px;
+				backface-visibility: hidden;
+				background: var(--c);
+			}
+
+			.face-front {
+				transform: rotateY(0deg) translateZ(3px);
+				filter: brightness(1);
+			}
+			.face-left {
+				transform: rotateY(270deg) translateZ(3px);
+				filter: brightness(0.7);
+			}
+
+			/* Cap on top of each bar */
+			.bar::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				width: 6px;
+				height: 6px;
+				margin-left: -3px;
+				transform: rotateX(90deg) translateZ(0px) translateY(-3px);
+				transform-origin: center top;
+				background: var(--c);
+				filter: brightness(1.1);
+			}
+
+			/* ===== POSITIONING: CIRCULAR GRID ===== */
+
+			/* Sec ring: 23 bars, r=36px */
+			.bs1 {
+				transform: translateX(0px) translateZ(-36px);
+			}
+			.bs2 {
+				transform: translateX(10px) translateZ(-35px);
+			}
+			.bs3 {
+				transform: translateX(19px) translateZ(-31px);
+			}
+			.bs4 {
+				transform: translateX(26px) translateZ(-25px);
+			}
+			.bs5 {
+				transform: translateX(32px) translateZ(-17px);
+			}
+			.bs6 {
+				transform: translateX(35px) translateZ(-7px);
+			}
+			.bs7 {
+				transform: translateX(36px) translateZ(2px);
+			}
+			.bs8 {
+				transform: translateX(34px) translateZ(12px);
+			}
+			.bs9 {
+				transform: translateX(29px) translateZ(21px);
+			}
+			.bs10 {
+				transform: translateX(23px) translateZ(28px);
+			}
+			.bs11 {
+				transform: translateX(14px) translateZ(33px);
+			}
+			.bs12 {
+				transform: translateX(5px) translateZ(36px);
+			}
+			.bs13 {
+				transform: translateX(-5px) translateZ(36px);
+			}
+			.bs14 {
+				transform: translateX(-14px) translateZ(33px);
+			}
+			.bs15 {
+				transform: translateX(-23px) translateZ(28px);
+			}
+			.bs16 {
+				transform: translateX(-29px) translateZ(21px);
+			}
+			.bs26 {
+				transform: translateX(-34px) translateZ(12px);
+			}
+			.bs27 {
+				transform: translateX(-36px) translateZ(2px);
+			}
+			.bs28 {
+				transform: translateX(-35px) translateZ(-7px);
+			}
+			.bs29 {
+				transform: translateX(-32px) translateZ(-17px);
+			}
+			.bs30 {
+				transform: translateX(-26px) translateZ(-25px);
+			}
+			.bs31 {
+				transform: translateX(-19px) translateZ(-31px);
+			}
+			.bs32 {
+				transform: translateX(-10px) translateZ(-35px);
+			}
+
+			/* Outer ring: 24 bars, r=27px */
+			.bo1 {
+				transform: translateX(0px) translateZ(-27px);
+			}
+			.bo2 {
+				transform: translateX(7px) translateZ(-26px);
+			}
+			.bo3 {
+				transform: translateX(14px) translateZ(-23px);
+			}
+			.bo4 {
+				transform: translateX(19px) translateZ(-19px);
+			}
+			.bo5 {
+				transform: translateX(23px) translateZ(-14px);
+			}
+			.bo6 {
+				transform: translateX(26px) translateZ(-7px);
+			}
+			.bo7 {
+				transform: translateX(27px) translateZ(0px);
+			}
+			.bo8 {
+				transform: translateX(26px) translateZ(7px);
+			}
+			.bo9 {
+				transform: translateX(23px) translateZ(14px);
+			}
+			.bo10 {
+				transform: translateX(19px) translateZ(19px);
+			}
+			.bo11 {
+				transform: translateX(14px) translateZ(23px);
+			}
+			.bo12 {
+				transform: translateX(7px) translateZ(26px);
+			}
+			.bo13 {
+				transform: translateX(0px) translateZ(27px);
+			}
+			.bo14 {
+				transform: translateX(-7px) translateZ(26px);
+			}
+			.bo15 {
+				transform: translateX(-14px) translateZ(23px);
+			}
+			.bo16 {
+				transform: translateX(-19px) translateZ(19px);
+			}
+			.bo17 {
+				transform: translateX(-23px) translateZ(14px);
+			}
+			.bo18 {
+				transform: translateX(-26px) translateZ(7px);
+			}
+			.bo19 {
+				transform: translateX(-27px) translateZ(0px);
+			}
+			.bo20 {
+				transform: translateX(-26px) translateZ(-7px);
+			}
+			.bo21 {
+				transform: translateX(-23px) translateZ(-14px);
+			}
+			.bo22 {
+				transform: translateX(-19px) translateZ(-19px);
+			}
+			.bo23 {
+				transform: translateX(-14px) translateZ(-23px);
+			}
+			.bo24 {
+				transform: translateX(-7px) translateZ(-26px);
+			}
+
+			/* Mid ring: 16 bars, r=18px */
+			.bm1 {
+				transform: translateX(0px) translateZ(-18px);
+			}
+			.bm2 {
+				transform: translateX(7px) translateZ(-17px);
+			}
+			.bm3 {
+				transform: translateX(13px) translateZ(-13px);
+			}
+			.bm4 {
+				transform: translateX(17px) translateZ(-7px);
+			}
+			.bm5 {
+				transform: translateX(18px) translateZ(0px);
+			}
+			.bm6 {
+				transform: translateX(17px) translateZ(7px);
+			}
+			.bm7 {
+				transform: translateX(13px) translateZ(13px);
+			}
+			.bm8 {
+				transform: translateX(7px) translateZ(17px);
+			}
+			.bm9 {
+				transform: translateX(0px) translateZ(18px);
+			}
+			.bm10 {
+				transform: translateX(-7px) translateZ(17px);
+			}
+			.bm11 {
+				transform: translateX(-13px) translateZ(13px);
+			}
+			.bm12 {
+				transform: translateX(-17px) translateZ(7px);
+			}
+			.bm13 {
+				transform: translateX(-18px) translateZ(0px);
+			}
+			.bm14 {
+				transform: translateX(-17px) translateZ(-7px);
+			}
+			.bm15 {
+				transform: translateX(-13px) translateZ(-13px);
+			}
+			.bm16 {
+				transform: translateX(-7px) translateZ(-17px);
+			}
+
+			/* Inner ring: 8 bars, r=9px */
+			.bi1 {
+				transform: translateX(0px) translateZ(-9px);
+			}
+			.bi2 {
+				transform: translateX(6px) translateZ(-6px);
+			}
+			.bi3 {
+				transform: translateX(9px) translateZ(0px);
+			}
+			.bi4 {
+				transform: translateX(6px) translateZ(6px);
+			}
+			.bi5 {
+				transform: translateX(0px) translateZ(9px);
+			}
+			.bi6 {
+				transform: translateX(-6px) translateZ(6px);
+			}
+			.bi7 {
+				transform: translateX(-9px) translateZ(0px);
+			}
+			.bi8 {
+				transform: translateX(-6px) translateZ(-6px);
+			}
+
+			/* Core: 1 bar at center */
+			.bc1 {
+				transform: translateX(0px) translateZ(0px);
+			}
+
+			/* ===== ANIMATION ASSIGNMENTS ===== */
+			.bs1 {
+				animation: s1 5s ease-in-out infinite;
+				animation-delay: -0.242s;
+			}
+			.bs2 {
+				animation: s2 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bs3 {
+				animation: s3 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs4 {
+				animation: s4 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs5 {
+				animation: s5 5s ease-in-out infinite;
+				animation-delay: -0.171s;
+			}
+			.bs6 {
+				animation: s6 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs7 {
+				animation: s7 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs8 {
+				animation: s8 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bs9 {
+				animation: s9 5s ease-in-out infinite;
+				animation-delay: -0.242s;
+			}
+			.bs10 {
+				animation: s10 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bs11 {
+				animation: s11 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs12 {
+				animation: s12 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs13 {
+				animation: s13 5s ease-in-out infinite;
+				animation-delay: -0.171s;
+			}
+			.bs14 {
+				animation: s14 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs15 {
+				animation: s15 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs16 {
+				animation: s16 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bs26 {
+				animation: s26 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bs27 {
+				animation: s27 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs28 {
+				animation: s28 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs29 {
+				animation: s29 5s ease-in-out infinite;
+				animation-delay: -0.171s;
+			}
+			.bs30 {
+				animation: s30 5s ease-in-out infinite;
+				animation-delay: -0.177s;
+			}
+			.bs31 {
+				animation: s31 5s ease-in-out infinite;
+				animation-delay: -0.192s;
+			}
+			.bs32 {
+				animation: s32 5s ease-in-out infinite;
+				animation-delay: -0.214s;
+			}
+			.bo1 {
+				animation: b1 5s ease-in-out infinite;
+				animation-delay: -0.182s;
+			}
+			.bo2 {
+				animation: b2 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo3 {
+				animation: b3 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo4 {
+				animation: b4 5s ease-in-out infinite;
+				animation-delay: -0.129s;
+			}
+			.bo5 {
+				animation: b5 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo6 {
+				animation: b6 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo7 {
+				animation: b7 5s ease-in-out infinite;
+				animation-delay: -0.182s;
+			}
+			.bo8 {
+				animation: b8 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo9 {
+				animation: b9 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo10 {
+				animation: b10 5s ease-in-out infinite;
+				animation-delay: -0.129s;
+			}
+			.bo11 {
+				animation: b11 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo12 {
+				animation: b12 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo13 {
+				animation: b13 5s ease-in-out infinite;
+				animation-delay: -0.182s;
+			}
+			.bo14 {
+				animation: b14 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo15 {
+				animation: b15 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo16 {
+				animation: b16 5s ease-in-out infinite;
+				animation-delay: -0.129s;
+			}
+			.bo17 {
+				animation: b17 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo18 {
+				animation: b18 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo19 {
+				animation: b19 5s ease-in-out infinite;
+				animation-delay: -0.182s;
+			}
+			.bo20 {
+				animation: b20 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bo21 {
+				animation: b21 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo22 {
+				animation: b22 5s ease-in-out infinite;
+				animation-delay: -0.129s;
+			}
+			.bo23 {
+				animation: b23 5s ease-in-out infinite;
+				animation-delay: -0.136s;
+			}
+			.bo24 {
+				animation: b24 5s ease-in-out infinite;
+				animation-delay: -0.155s;
+			}
+			.bm1 {
+				animation: m1 5s ease-in-out infinite;
+				animation-delay: -0.121s;
+			}
+			.bm2 {
+				animation: m2 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm3 {
+				animation: m3 5s ease-in-out infinite;
+				animation-delay: -0.086s;
+			}
+			.bm4 {
+				animation: m4 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm5 {
+				animation: m5 5s ease-in-out infinite;
+				animation-delay: -0.121s;
+			}
+			.bm6 {
+				animation: m6 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm7 {
+				animation: m7 5s ease-in-out infinite;
+				animation-delay: -0.086s;
+			}
+			.bm8 {
+				animation: m8 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm9 {
+				animation: m9 5s ease-in-out infinite;
+				animation-delay: -0.121s;
+			}
+			.bm10 {
+				animation: m10 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm11 {
+				animation: m11 5s ease-in-out infinite;
+				animation-delay: -0.086s;
+			}
+			.bm12 {
+				animation: m12 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm13 {
+				animation: m13 5s ease-in-out infinite;
+				animation-delay: -0.121s;
+			}
+			.bm14 {
+				animation: m14 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bm15 {
+				animation: m15 5s ease-in-out infinite;
+				animation-delay: -0.086s;
+			}
+			.bm16 {
+				animation: m16 5s ease-in-out infinite;
+				animation-delay: -0.096s;
+			}
+			.bi1 {
+				animation: i1 5s ease-in-out infinite;
+				animation-delay: -0.061s;
+			}
+			.bi2 {
+				animation: i2 5s ease-in-out infinite;
+				animation-delay: -0.043s;
+			}
+			.bi3 {
+				animation: i3 5s ease-in-out infinite;
+				animation-delay: -0.061s;
+			}
+			.bi4 {
+				animation: i4 5s ease-in-out infinite;
+				animation-delay: -0.043s;
+			}
+			.bi5 {
+				animation: i5 5s ease-in-out infinite;
+				animation-delay: -0.061s;
+			}
+			.bi6 {
+				animation: i6 5s ease-in-out infinite;
+				animation-delay: -0.043s;
+			}
+			.bi7 {
+				animation: i7 5s ease-in-out infinite;
+				animation-delay: -0.061s;
+			}
+			.bi8 {
+				animation: i8 5s ease-in-out infinite;
+				animation-delay: -0.043s;
+			}
+			.bc1 {
+				animation: c1 5s ease-in-out infinite;
+				animation-delay: 0s;
+			}
+
+			/* ===== TERRAIN KEYFRAMES ===== */
+			/* Color map sampled from original gradient:
+			   h=0.03:#1f7ca6  h=0.04:#217b9f  h=0.05:#237a99  h=0.06:#257992
+			   h=0.07:#26788b  h=0.08:#287785  h=0.2:#3d6b35   h=0.21:#3e6d36
+			   h=0.22:#406e37  h=0.23:#417038  h=0.24:#437139   h=0.25:#44733a
+			   h=0.26:#46743b  h=0.28:#49773d  h=0.3:#4c7b40    h=0.32:#4e7e42
+			   h=0.34:#518144  h=0.35:#538245  h=0.38:#578748   h=0.4:#5a8a4a
+			   h=0.42:#5e8c4e  h=0.44:#638e53  h=0.45:#658f55   h=0.48:#6b935b
+			   h=0.5:#6f955f   h=0.52:#749764  h=0.55:#7a9a6a   h=0.58:#7d9873
+			   h=0.62:#81957f  h=0.7:#8a9098   h=0.71:#878d95   h=0.72:#848a92
+			   h=0.73:#81878f  h=0.74:#7e848c  h=0.75:#7b828a   h=0.76:#777f87
+			   h=0.77:#747c84  h=0.78:#717981   h=0.8:#6b737b   h=0.82:#6b737b
+			   h=0.84:#6b737b  h=0.85:#6b737b  h=0.88:#6b737b   h=0.92:#6b737b
+			   h=0.94:#8c9298  h=0.95:#9da2a7  h=0.96:#aeb2b6   h=0.97:#bec1c4
+			   h=0.98:#cfd1d3  h=1.0:#f0f0f0
+			*/
+
+			@keyframes s1 {
+				0%, 100% { scale: 1 0.82 1; --c: #6b737b; }
+				33.33% { scale: 1 0.45 1; --c: #658f55; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes s2 {
+				0%, 100% { scale: 1 0.94 1; --c: #8c9298; }
+				33.33% { scale: 1 0.48 1; --c: #6b935b; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes s3 {
+				0%, 100% { scale: 1 0.96 1; --c: #aeb2b6; }
+				33.33% { scale: 1 0.72 1; --c: #848a92; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes s4 {
+				0%, 100% { scale: 1 0.98 1; --c: #cfd1d3; }
+				33.33% { scale: 1 0.8 1; --c: #6b737b; }
+				66.66% { scale: 1 0.4 1; --c: #5a8a4a; }
+			}
+			@keyframes s5 {
+				0%, 100% { scale: 1 0.97 1; --c: #bec1c4; }
+				33.33% { scale: 1 1 1; --c: #f0f0f0; }
+				66.66% { scale: 1 0.48 1; --c: #6b935b; }
+			}
+			@keyframes s6 {
+				0%, 100% { scale: 1 0.95 1; --c: #9da2a7; }
+				33.33% { scale: 1 0.72 1; --c: #848a92; }
+				66.66% { scale: 1 0.52 1; --c: #749764; }
+			}
+			@keyframes s7 {
+				0%, 100% { scale: 1 0.84 1; --c: #6b737b; }
+				33.33% { scale: 1 0.55 1; --c: #7a9a6a; }
+				66.66% { scale: 1 0.55 1; --c: #7a9a6a; }
+			}
+			@keyframes s8 {
+				0%, 100% { scale: 1 0.77 1; --c: #747c84; }
+				33.33% { scale: 1 0.45 1; --c: #658f55; }
+				66.66% { scale: 1 0.5 1; --c: #6f955f; }
+			}
+			@keyframes s9 {
+				0%, 100% { scale: 1 0.72 1; --c: #848a92; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.44 1; --c: #638e53; }
+			}
+			@keyframes s10 {
+				0%, 100% { scale: 1 0.35 1; --c: #538245; }
+				33.33% { scale: 1 0.32 1; --c: #4e7e42; }
+				66.66% { scale: 1 0.42 1; --c: #5e8c4e; }
+			}
+			@keyframes s11 {
+				0%, 100% { scale: 1 0.26 1; --c: #46743b; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.4 1; --c: #5a8a4a; }
+			}
+			@keyframes s12 {
+				0%, 100% { scale: 1 0.28 1; --c: #49773d; }
+				33.33% { scale: 1 0.28 1; --c: #49773d; }
+				66.66% { scale: 1 0.38 1; --c: #578748; }
+			}
+			@keyframes s13 {
+				0%, 100% { scale: 1 0.03 1; --c: #1f7ca6; }
+				33.33% { scale: 1 0.06 1; --c: #257992; }
+				66.66% { scale: 1 0.04 1; --c: #217b9f; }
+			}
+			@keyframes s14 {
+				0%, 100% { scale: 1 0.25 1; --c: #44733a; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.05 1; --c: #237a99; }
+			}
+			@keyframes s15 {
+				0%, 100% { scale: 1 0.32 1; --c: #4e7e42; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.32 1; --c: #4e7e42; }
+			}
+			@keyframes s16 {
+				0%, 100% { scale: 1 0.3 1; --c: #4c7b40; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.3 1; --c: #4c7b40; }
+			}
+			@keyframes s26 {
+				0%, 100% { scale: 1 0.28 1; --c: #49773d; }
+				33.33% { scale: 1 0.03 1; --c: #1f7ca6; }
+				66.66% { scale: 1 0.42 1; --c: #5e8c4e; }
+			}
+			@keyframes s27 {
+				0%, 100% { scale: 1 0.26 1; --c: #46743b; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes s28 {
+				0%, 100% { scale: 1 0.24 1; --c: #437139; }
+				33.33% { scale: 1 0.03 1; --c: #1f7ca6; }
+				66.66% { scale: 1 0.48 1; --c: #6b935b; }
+			}
+			@keyframes s29 {
+				0%, 100% { scale: 1 0.24 1; --c: #437139; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.5 1; --c: #6f955f; }
+			}
+			@keyframes s30 {
+				0%, 100% { scale: 1 0.32 1; --c: #4e7e42; }
+				33.33% { scale: 1 0.32 1; --c: #4e7e42; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes s31 {
+				0%, 100% { scale: 1 0.38 1; --c: #578748; }
+				33.33% { scale: 1 0.38 1; --c: #578748; }
+				66.66% { scale: 1 0.4 1; --c: #5a8a4a; }
+			}
+			@keyframes s32 {
+				0%, 100% { scale: 1 0.75 1; --c: #7b828a; }
+				33.33% { scale: 1 0.42 1; --c: #5e8c4e; }
+				66.66% { scale: 1 0.22 1; --c: #406e37; }
+			}
+
+			@keyframes b1 {
+				0%, 100% { scale: 1 0.78 1; --c: #717981; }
+				33.33% { scale: 1 0.58 1; --c: #7d9873; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes b2 {
+				0%, 100% { scale: 1 0.82 1; --c: #6b737b; }
+				33.33% { scale: 1 0.62 1; --c: #81957f; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes b3 {
+				0%, 100% { scale: 1 0.85 1; --c: #6b737b; }
+				33.33% { scale: 1 0.82 1; --c: #6b737b; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes b4 {
+				0%, 100% { scale: 1 0.92 1; --c: #6b737b; }
+				33.33% { scale: 1 0.88 1; --c: #6b737b; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes b5 {
+				0%, 100% { scale: 1 0.85 1; --c: #6b737b; }
+				33.33% { scale: 1 0.92 1; --c: #6b737b; }
+				66.66% { scale: 1 0.5 1; --c: #6f955f; }
+			}
+			@keyframes b6 {
+				0%, 100% { scale: 1 0.82 1; --c: #6b737b; }
+				33.33% { scale: 1 0.85 1; --c: #6b737b; }
+				66.66% { scale: 1 0.52 1; --c: #749764; }
+			}
+			@keyframes b7 {
+				0%, 100% { scale: 1 0.78 1; --c: #717981; }
+				33.33% { scale: 1 0.78 1; --c: #717981; }
+				66.66% { scale: 1 0.48 1; --c: #6b935b; }
+			}
+			@keyframes b8 {
+				0%, 100% { scale: 1 0.74 1; --c: #7e848c; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.48 1; --c: #6b935b; }
+			}
+			@keyframes b9 {
+				0%, 100% { scale: 1 0.4 1; --c: #5a8a4a; }
+				33.33% { scale: 1 0.28 1; --c: #49773d; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes b10 {
+				0%, 100% { scale: 1 0.35 1; --c: #538245; }
+				33.33% { scale: 1 0.25 1; --c: #44733a; }
+				66.66% { scale: 1 0.42 1; --c: #5e8c4e; }
+			}
+			@keyframes b11 {
+				0%, 100% { scale: 1 0.3 1; --c: #4c7b40; }
+				33.33% { scale: 1 0.28 1; --c: #49773d; }
+				66.66% { scale: 1 0.04 1; --c: #217b9f; }
+			}
+			@keyframes b12 {
+				0%, 100% { scale: 1 0.23 1; --c: #417038; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes b13 {
+				0%, 100% { scale: 1 0.03 1; --c: #1f7ca6; }
+				33.33% { scale: 1 0.32 1; --c: #4e7e42; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes b14 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.06 1; --c: #257992; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes b15 {
+				0%, 100% { scale: 1 0.28 1; --c: #49773d; }
+				33.33% { scale: 1 0.07 1; --c: #26788b; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes b16 {
+				0%, 100% { scale: 1 0.26 1; --c: #46743b; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.25 1; --c: #44733a; }
+			}
+			@keyframes b17 {
+				0%, 100% { scale: 1 0.24 1; --c: #437139; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.28 1; --c: #49773d; }
+			}
+			@keyframes b18 {
+				0%, 100% { scale: 1 0.22 1; --c: #406e37; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.32 1; --c: #4e7e42; }
+			}
+			@keyframes b19 {
+				0%, 100% { scale: 1 0.22 1; --c: #406e37; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.38 1; --c: #578748; }
+			}
+			@keyframes b20 {
+				0%, 100% { scale: 1 0.23 1; --c: #417038; }
+				33.33% { scale: 1 0.06 1; --c: #257992; }
+				66.66% { scale: 1 0.4 1; --c: #5a8a4a; }
+			}
+			@keyframes b21 {
+				0%, 100% { scale: 1 0.3 1; --c: #4c7b40; }
+				33.33% { scale: 1 0.42 1; --c: #5e8c4e; }
+				66.66% { scale: 1 0.42 1; --c: #5e8c4e; }
+			}
+			@keyframes b22 {
+				0%, 100% { scale: 1 0.35 1; --c: #538245; }
+				33.33% { scale: 1 0.48 1; --c: #6b935b; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes b23 {
+				0%, 100% { scale: 1 0.4 1; --c: #5a8a4a; }
+				33.33% { scale: 1 0.52 1; --c: #749764; }
+				66.66% { scale: 1 0.38 1; --c: #578748; }
+			}
+			@keyframes b24 {
+				0%, 100% { scale: 1 0.74 1; --c: #7e848c; }
+				33.33% { scale: 1 0.55 1; --c: #7a9a6a; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+
+			@keyframes m1 {
+				0%, 100% { scale: 1 0.73 1; --c: #81878f; }
+				33.33% { scale: 1 0.52 1; --c: #749764; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes m2 {
+				0%, 100% { scale: 1 0.76 1; --c: #777f87; }
+				33.33% { scale: 1 0.42 1; --c: #5e8c4e; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes m3 {
+				0%, 100% { scale: 1 0.77 1; --c: #747c84; }
+				33.33% { scale: 1 0.38 1; --c: #578748; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes m4 {
+				0%, 100% { scale: 1 0.76 1; --c: #777f87; }
+				33.33% { scale: 1 0.38 1; --c: #578748; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes m5 {
+				0%, 100% { scale: 1 0.73 1; --c: #81878f; }
+				33.33% { scale: 1 0.32 1; --c: #4e7e42; }
+				66.66% { scale: 1 0.5 1; --c: #6f955f; }
+			}
+			@keyframes m6 {
+				0%, 100% { scale: 1 0.71 1; --c: #878d95; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.48 1; --c: #6b935b; }
+			}
+			@keyframes m7 {
+				0%, 100% { scale: 1 0.35 1; --c: #538245; }
+				33.33% { scale: 1 0.28 1; --c: #49773d; }
+				66.66% { scale: 1 0.45 1; --c: #658f55; }
+			}
+			@keyframes m8 {
+				0%, 100% { scale: 1 0.28 1; --c: #49773d; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes m9 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes m10 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.04 1; --c: #217b9f; }
+			}
+			@keyframes m11 {
+				0%, 100% { scale: 1 0.21 1; --c: #3e6d36; }
+				33.33% { scale: 1 0.03 1; --c: #1f7ca6; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes m12 {
+				0%, 100% { scale: 1 0.22 1; --c: #406e37; }
+				33.33% { scale: 1 0.05 1; --c: #237a99; }
+				66.66% { scale: 1 0.3 1; --c: #4c7b40; }
+			}
+			@keyframes m13 {
+				0%, 100% { scale: 1 0.24 1; --c: #437139; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.35 1; --c: #538245; }
+			}
+			@keyframes m14 {
+				0%, 100% { scale: 1 0.28 1; --c: #49773d; }
+				33.33% { scale: 1 0.45 1; --c: #658f55; }
+				66.66% { scale: 1 0.35 1; --c: #538245; }
+			}
+			@keyframes m15 {
+				0%, 100% { scale: 1 0.35 1; --c: #538245; }
+				33.33% { scale: 1 0.48 1; --c: #6b935b; }
+				66.66% { scale: 1 0.38 1; --c: #578748; }
+			}
+			@keyframes m16 {
+				0%, 100% { scale: 1 0.71 1; --c: #878d95; }
+				33.33% { scale: 1 0.5 1; --c: #6f955f; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+
+			@keyframes i1 {
+				0%, 100% { scale: 1 0.38 1; --c: #578748; }
+				33.33% { scale: 1 0.35 1; --c: #538245; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes i2 {
+				0%, 100% { scale: 1 0.72 1; --c: #848a92; }
+				33.33% { scale: 1 0.32 1; --c: #4e7e42; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes i3 {
+				0%, 100% { scale: 1 0.38 1; --c: #578748; }
+				33.33% { scale: 1 0.3 1; --c: #4c7b40; }
+				66.66% { scale: 1 0.42 1; --c: #5e8c4e; }
+			}
+			@keyframes i4 {
+				0%, 100% { scale: 1 0.34 1; --c: #518144; }
+				33.33% { scale: 1 0.03 1; --c: #1f7ca6; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes i5 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.04 1; --c: #217b9f; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes i6 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.48 1; --c: #6b935b; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+			@keyframes i7 {
+				0%, 100% { scale: 1 0.3 1; --c: #4c7b40; }
+				33.33% { scale: 1 0.5 1; --c: #6f955f; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+			@keyframes i8 {
+				0%, 100% { scale: 1 0.34 1; --c: #518144; }
+				33.33% { scale: 1 0.38 1; --c: #578748; }
+				66.66% { scale: 1 0.2 1; --c: #3d6b35; }
+			}
+
+			@keyframes c1 {
+				0%, 100% { scale: 1 0.04 1; --c: #217b9f; }
+				33.33% { scale: 1 0.42 1; --c: #5e8c4e; }
+				66.66% { scale: 1 0.08 1; --c: #287785; }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loader">
+			<div class="bars">
+				<!-- Sec ring: 23 bars, r=36px -->
+				<div class="bar bar-sec bs1">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs2">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs3">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs4">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs5">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs6">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs7">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs8">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs9">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs10">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs11">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs12">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs13">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs14">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs15">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs16">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs26">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs27">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs28">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs29">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs30">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs31">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-sec bs32">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<!-- Outer ring: 24 bars, r=27px -->
+				<div class="bar bar-outer bo1">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo2">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo3">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo4">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo5">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo6">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo7">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo8">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo9">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo10">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo11">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo12">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo13">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo14">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo15">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo16">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo17">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo18">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo19">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo20">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo21">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo22">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo23">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-outer bo24">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<!-- Mid ring: 16 bars, r=18px -->
+				<div class="bar bar-mid bm1">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm2">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm3">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm4">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm5">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm6">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm7">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm8">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm9">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm10">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm11">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm12">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm13">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm14">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm15">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-mid bm16">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<!-- Inner ring: 8 bars, r=9px -->
+				<div class="bar bar-inner bi1">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi2">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi3">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi4">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi5">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi6">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi7">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<div class="bar bar-inner bi8">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+				<!-- Core: 1 bar -->
+				<div class="bar bar-core bc1">
+					<div class="face face-front"></div>
+					<div class="face face-left"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
