@@ -3,6 +3,7 @@ import React from "react";
 import "./Footer.css";
 
 import { useTranslation } from "../../../context/portfolio/useTranslation";
+import { parseEmphasis } from "../../../shared/utils/parseEmphasis";
 
 const Footer: React.FC = () => {
 	const { t } = useTranslation();
@@ -10,10 +11,9 @@ const Footer: React.FC = () => {
 
 	return (
 		<footer className='browser-footer'>
-			<div
-				className='footer-name'
-				dangerouslySetInnerHTML={{ __html: t.footer.name }}
-			/>
+			<div className='footer-name'>
+				{parseEmphasis(t.footer.name)}
+			</div>
 			<p className='footer-copy'>{t.footer.copy.replace("{year}", year)}</p>
 		</footer>
 	);

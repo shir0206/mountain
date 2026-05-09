@@ -32,10 +32,11 @@ export const Contact: React.FC<ContactProps> = () => {
 			<div className="contact-container">
 				<div className="contact-grid">
 					<div className="contact-left reveal">
-						<h2
-							className="contact-title"
-							dangerouslySetInnerHTML={{ __html: t.contact.title.replace(/\n/g, "<br/>") }}
-						/>
+						<h2 className="contact-title">
+							{t.contact.titleLine}
+							<br />
+							{t.contact.titleLine2}
+						</h2>
 						<p className="contact-sub">{t.contact.sub}</p>
 						<a className="contact-email-link" href={`mailto:${t.contact.email}`}>
 							<svg

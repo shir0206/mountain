@@ -52,8 +52,8 @@
 	margin-bottom: 28px;
 }
 
-.ai-section .section-title em {
-	font-style: italic;
+.ai-section .section-title strong {
+	font-weight: inherit;
 	color: var(--color-caramel);
 }
 
@@ -143,9 +143,9 @@
 	color: rgba(237, 232, 224, 0.58);
 }
 
-.ai-pillar-item em {
+.ai-pillar-item strong {
 	color: var(--color-caramel-light);
-	font-style: normal;
+	font-weight: inherit;
 }
 
 /* ─── Footer ─── */
@@ -166,8 +166,8 @@
 	line-height: 1.5;
 }
 
-.ai-footer-text em {
-	font-style: normal;
+.ai-footer-text strong {
+	font-weight: inherit;
 	color: var(--color-caramel-light);
 }
 

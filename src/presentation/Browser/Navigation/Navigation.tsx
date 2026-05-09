@@ -4,6 +4,8 @@ import "./Navigation.css";
 
 import { useTranslation } from "../../../context/portfolio/useTranslation";
 import { usePortfolioContext } from "../../../context/portfolio/usePortfolioContext";
+import { useDeviceContext } from "../../../context/device/useDeviceContext";
+import { DEVICE } from "../../../context/device/types";
 import { LANGUAGE } from "../../../shared/i18n/language";
 import { SECTION_IDS, type SectionIdType } from "../types";
 import { useScrollNavigation } from "./hooks/useScrollNavigation";
@@ -21,6 +23,8 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
   const { t, language } = useTranslation();
   const { setLanguage } = usePortfolioContext();
+  const { device } = useDeviceContext();
+  const isMobile = device === DEVICE.MOBILE;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Navigation items based on sections
@@ -45,7 +49,15 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
     <nav className={`navigation ${isScrolled ? "is-scrolled" : ""}`}>
       <div className="navigation-container">
         <div className="nav-logo">
-          Shir <em>&middot;</em> Zabolotny
+          {isMobile ? (
+            <>
+              {t.navigation.logoShort} <em>{t.navigation.logoSeparator}</em> {t.navigation.logoShortLastName}
+            </>
+          ) : (
+            <>
+              {t.navigation.logo} <em>{t.navigation.logoSeparator}</em> {t.navigation.logoLastName}
+            </>
+          )}
         </div>
         <ul className="nav-links desktop-links">
           {navigationItems.map((item) => (
