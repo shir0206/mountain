@@ -3,6 +3,7 @@ import React from "react";
 import "./AI.css";
 
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
+import { parseEmphasis } from "../../../../shared/utils/parseEmphasis";
 import { ReactComponent as LinkIcon } from "../../../../assets/icons/ai/link.svg";
 import { ReactComponent as TargetIcon } from "../../../../assets/icons/ai/target.svg";
 import { ReactComponent as ZapIcon } from "../../../../assets/icons/ai/zap.svg";
@@ -25,10 +26,11 @@ const AI: React.FC<AIProps> = () => {
 		<section className="ai-section">
 			<div className="ai-container">
 				<p className="section-label reveal">{t.ai.label}</p>
-				<h2
-					className="section-title reveal reveal-d1"
-					dangerouslySetInnerHTML={{ __html: t.ai.title.replace(/\n/g, "<br/>") }}
-				/>
+				<h2 className="section-title reveal reveal-d1">
+					{t.ai.titleLine}
+					<br />
+					<strong>{t.ai.titleEmphasis}</strong>
+				</h2>
 
 				<div className="ai-intro reveal reveal-d2">
 					<p className="ai-intro-text">{t.ai.introText}</p>
@@ -48,11 +50,9 @@ const AI: React.FC<AIProps> = () => {
 							<p className="ai-pillar-text">{pillar.text}</p>
 							<div className="ai-pillar-items">
 								{pillar.items.map((item, j) => (
-									<p
-										key={j}
-										className="ai-pillar-item"
-										dangerouslySetInnerHTML={{ __html: item }}
-									/>
+									<p key={j} className="ai-pillar-item">
+										{parseEmphasis(item)}
+									</p>
 								))}
 							</div>
 						</div>
@@ -60,10 +60,9 @@ const AI: React.FC<AIProps> = () => {
 				</div>
 
 				<div className="ai-footer reveal">
-					<p
-						className="ai-footer-text"
-						dangerouslySetInnerHTML={{ __html: t.ai.footerText }}
-					/>
+					<p className="ai-footer-text">
+						{parseEmphasis(t.ai.footerText)}
+					</p>
 				</div>
 			</div>
 		</section>

@@ -4,6 +4,7 @@ import "./About.css";
 
 import imagePath from "../../../../assets/images/shirzabolotny.png?url";
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
+import { parseEmphasis } from "../../../../shared/utils/parseEmphasis";
 
 interface AboutProps {
 	isVisible: boolean;
@@ -23,16 +24,18 @@ const About: React.FC<AboutProps> = () => {
 				</div>
 				<div className="about-body">
 					<p className="section-label reveal">{t.about.label}</p>
-					<h2
-						className="section-title reveal reveal-d1"
-						dangerouslySetInnerHTML={{ __html: t.about.title.replace(/\n/g, "<br/>") }}
-					/>
+					<h2 className="section-title reveal reveal-d1">
+						{t.about.titleLine}
+						<br />
+						<strong>{t.about.titleEmphasis}</strong>
+					</h2>
 					{t.about.paragraphs.map((p, i) => (
 						<p
 							key={i}
 							className={`about-paragraph reveal reveal-d${Math.min(i + 2, 4)}`}
-							dangerouslySetInnerHTML={{ __html: p }}
-						/>
+						>
+							{parseEmphasis(p)}
+						</p>
 					))}
 				</div>
 			</div>

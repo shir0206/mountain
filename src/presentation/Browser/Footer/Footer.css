@@ -17,8 +17,8 @@
 	letter-spacing: 0.02em;
 }
 
-.footer-name em {
-	font-style: normal;
+.footer-name strong {
+	font-weight: inherit;
 	color: var(--color-caramel);
 }
 

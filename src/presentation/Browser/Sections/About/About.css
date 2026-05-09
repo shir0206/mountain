@@ -76,8 +76,8 @@
 	margin-bottom: 28px;
 }
 
-.about-body .section-title em {
-	font-style: italic;
+.about-body .section-title strong {
+	font-weight: inherit;
 	color: var(--color-caramel);
 }
 

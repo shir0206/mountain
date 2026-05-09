@@ -42,6 +42,11 @@ export interface TextStructure {
     ai: string;
     contact: string;
     cta: string;
+    logo: string;
+    logoSeparator: string;
+    logoLastName: string;
+    logoShort: string;
+    logoShortLastName: string;
   };
   hero: {
     name: string;
@@ -52,13 +57,15 @@ export interface TextStructure {
   };
   about: {
     label: string;
-    title: string;
+    titleLine: string;
+    titleEmphasis: string;
     paragraphs: string[];
     photoHint: string;
   };
   service: {
     label: string;
-    title: string;
+    titleLine: string;
+    titleEmphasis: string;
     cardsLabel: string;
     cards: ServiceCard[];
     processLabel: string;
@@ -68,14 +75,16 @@ export interface TextStructure {
   };
   ai: {
     label: string;
-    title: string;
+    titleLine: string;
+    titleEmphasis: string;
     introText: string;
     introSub: string;
     pillars: AIPillar[];
     footerText: string;
   };
   contact: {
-    title: string;
+    titleLine: string;
+    titleLine2: string;
     sub: string;
     email: string;
     form: {

@@ -1,8 +1,11 @@
 import { Suspense, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import * as THREE from "three";
 
+import { useDeviceContext } from "../../context/device/useDeviceContext";
+import { DEVICE } from "../../context/device/types";
 import type { PresetKey } from "./types";
 import {
 	CAMERA_PRESETS,
@@ -24,15 +27,28 @@ import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
 import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
 import { BROWSER_MODE } from "../../context/portfolio/types";
 
+// ─── Responsive FOV (adjusts camera FOV based on device) ──────────────────────
+function ResponsiveFov({ isMobile }: { isMobile: boolean }) {
+	const { camera } = useThree();
+	const fov = isMobile ? 55 : 35;
+	if ((camera as THREE.PerspectiveCamera).fov !== fov) {
+		(camera as THREE.PerspectiveCamera).fov = fov;
+		camera.updateProjectionMatrix();
+	}
+	return null;
+}
+
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
 	activePreset,
 	introComplete,
 	onIntroComplete,
+	isMobile,
 }: {
 	activePreset: PresetKey;
 	introComplete: boolean;
 	onIntroComplete: () => void;
+	isMobile: boolean;
 }) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 	const openPortfolio = useOpenPortfolio();
@@ -41,6 +57,7 @@ function SceneInner({
 
 	return (
 		<>
+			<ResponsiveFov isMobile={isMobile} />
 			<Lighting />
 			<CameraTracker controlsRef={controlsRef} />
 			{introComplete && (
@@ -67,7 +84,7 @@ function SceneInner({
 
 				{/* Button — opens Browser component */}
 				<SceneButton3D
-					position={[KEYBOARD_X, KEYBOARD_Y + 0.35, KEYBOARD_Z]}
+					position={[KEYBOARD_X + 0.8, KEYBOARD_Y + 0.35, KEYBOARD_Z - 0.1]}
 					color='#e84a6a'
 					label={isBrowserOpen ? "" : "Open"}
 					onClick={openPortfolio}
@@ -99,6 +116,8 @@ export default function Scene() {
 	const { cameraPreset: activePreset, changeCameraPreset } =
 		useChangeCameraPreset();
 	const [introComplete, setIntroComplete] = useState(false);
+	const { device } = useDeviceContext();
+	const isMobile = device === DEVICE.MOBILE;
 
 	return (
 		<div
@@ -112,7 +131,7 @@ export default function Scene() {
 			<Canvas
 				camera={{
 					position: CAMERA_PRESETS[INITIAL_PRESET].position,
-					fov: 35,
+					fov: isMobile ? 55 : 35,
 					near: 0.1,
 					far: 600,
 				}}
@@ -121,7 +140,7 @@ export default function Scene() {
 					toneMapping: 3 /* ACESFilmic */,
 					powerPreference: "high-performance",
 				}}
-				dpr={[1, 2]}
+				dpr={isMobile ? [1, 1.5] : [1, 2]}
 				shadows='soft'
 				onCreated={({ gl }) => {
 					gl.setClearColor("#f5ead6");
@@ -132,6 +151,7 @@ export default function Scene() {
 					activePreset={activePreset}
 					introComplete={introComplete}
 					onIntroComplete={() => setIntroComplete(true)}
+					isMobile={isMobile}
 				/>
 			</Canvas>
 
@@ -171,7 +191,6 @@ export default function Scene() {
 					</button>
 				))}
 			</div>
-
 		</div>
 	);
 }

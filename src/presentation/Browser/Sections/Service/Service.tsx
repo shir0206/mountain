@@ -31,12 +31,11 @@ const Service: React.FC<ServiceProps> = () => {
     <div className="service-section">
       <div className="service-container">
         <p className="section-label reveal">{t.service.label}</p>
-        <h2
-          className="section-title reveal reveal-d1"
-          dangerouslySetInnerHTML={{
-            __html: t.service.title.replace(/\n/g, "<br/>"),
-          }}
-        />
+        <h2 className="section-title reveal reveal-d1">
+          {t.service.titleLine}
+          <br />
+          <strong>{t.service.titleEmphasis}</strong>
+        </h2>
 
         {/* Cards Grid */}
         <div className="cards-grid">
@@ -55,10 +54,9 @@ const Service: React.FC<ServiceProps> = () => {
         </div>
 
         {/* Process Timeline */}
-        <h3
-          className="process-title section-title reveal reveal-d1"
-          dangerouslySetInnerHTML={{ __html: t.service.processTitle }}
-        />
+        <h3 className="process-title section-title reveal reveal-d1">
+          {t.service.processTitle}
+        </h3>
         <p className="process-intro reveal reveal-d2">
           {t.service.processIntro}
         </p>
