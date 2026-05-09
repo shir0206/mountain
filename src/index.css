@@ -13,7 +13,10 @@ html {
 
 body {
   margin: 0;
-  font: var(--font-weight-regular) 1rem/var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-regular) 1rem / var(--line-height-base)
+    var(--font-sans);
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 #root {
