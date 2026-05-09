@@ -16,7 +16,6 @@ import { useOpenPortfolio } from "./hooks/useOpenPortfolio";
 import { useChangeCameraPreset } from "./hooks/useChangeCameraPreset";
 import { Model } from "./Model/Model";
 import { CodeOnMonitors } from "./CodeOnMonitors/CodeOnMonitors";
-import { LoaderOverlay } from "./LoaderOverlay/LoaderOverlay";
 import { Lighting } from "./Lighting/Lighting";
 import { CameraTracker, CameraRig } from "./CameraRig/CameraRig";
 import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
@@ -173,7 +172,6 @@ export default function Scene() {
 				))}
 			</div>
 
-			<LoaderOverlay />
 		</div>
 	);
 }
