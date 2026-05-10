@@ -11,6 +11,7 @@ import {
 const initialState: SceneState = {
   runIntro: true,
   cameraPreset: INITIAL_PRESET,
+  sceneReady: false,
 };
 
 function reducer(state: SceneState, action: SceneAction): SceneState {
@@ -19,6 +20,8 @@ function reducer(state: SceneState, action: SceneAction): SceneState {
       return { ...state, runIntro: action.runIntro };
     case "SET_CAMERA_PRESET":
       return { ...state, cameraPreset: action.preset };
+    case "SET_SCENE_READY":
+      return { ...state, sceneReady: action.ready };
     default:
       return state;
   }
@@ -37,9 +40,13 @@ export const SceneProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatch({ type: "SET_CAMERA_PRESET", preset });
   }, []);
 
+  const setSceneReady = useCallback((ready: boolean) => {
+    dispatch({ type: "SET_SCENE_READY", ready });
+  }, []);
+
   const value = useMemo(
-    () => ({ ...state, setRunIntro, setCameraPreset }),
-    [state, setRunIntro, setCameraPreset]
+    () => ({ ...state, setRunIntro, setCameraPreset, setSceneReady }),
+    [state, setRunIntro, setCameraPreset, setSceneReady]
   );
 
   return (

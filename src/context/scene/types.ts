@@ -8,13 +8,16 @@ export const INITIAL_PRESET: PresetKey = "workstation";
 export interface SceneState {
   runIntro: boolean;
   cameraPreset: PresetKey;
+  sceneReady: boolean;
 }
 
 export type SceneAction =
   | { type: "SET_RUN_INTRO"; runIntro: boolean }
-  | { type: "SET_CAMERA_PRESET"; preset: PresetKey };
+  | { type: "SET_CAMERA_PRESET"; preset: PresetKey }
+  | { type: "SET_SCENE_READY"; ready: boolean };
 
 export interface SceneContextType extends SceneState {
   setRunIntro: (runIntro: boolean) => void;
   setCameraPreset: (preset: PresetKey) => void;
+  setSceneReady: (ready: boolean) => void;
 }
