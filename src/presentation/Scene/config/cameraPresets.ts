@@ -5,9 +5,6 @@ import {
   COFFEE_TABLE_X,
   COFFEE_TABLE_Y,
   COFFEE_TABLE_Z,
-  MUD_X,
-  MUD_Y,
-  MUD_Z,
 } from "./positions";
 import { INITIAL_PRESET } from "../../../context/scene/types";
 import type { CameraPreset, PresetKey } from "../types";

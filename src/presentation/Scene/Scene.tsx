@@ -1,9 +1,7 @@
 import { Suspense, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import * as THREE from "three";
-
 import { useDeviceContext } from "../../context/device/useDeviceContext";
 import { DEVICE } from "../../context/device/types";
 import type { PresetKey } from "./types";
@@ -28,23 +26,11 @@ import { SceneReadyGate } from "./SceneReadyGate/SceneReadyGate";
 import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
 import { BROWSER_MODE } from "../../context/portfolio/types";
 
-// ─── Responsive FOV (adjusts camera FOV based on device) ──────────────────────
-function ResponsiveFov({ isMobile }: { isMobile: boolean }) {
-  const { camera } = useThree();
-  const fov = isMobile ? 55 : 35;
-  if ((camera as THREE.PerspectiveCamera).fov !== fov) {
-    (camera as THREE.PerspectiveCamera).fov = fov;
-    camera.updateProjectionMatrix();
-  }
-  return null;
-}
-
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
   activePreset,
   introComplete,
   onIntroComplete,
-  isMobile,
 }: {
   activePreset: PresetKey;
   introComplete: boolean;
@@ -58,7 +44,6 @@ function SceneInner({
 
   return (
     <>
-      <ResponsiveFov isMobile={isMobile} />
       <Lighting />
       <CameraTracker controlsRef={controlsRef} />
       <SceneReadyGate />
