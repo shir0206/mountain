@@ -72,10 +72,10 @@ function SceneInner({
         {/* Button — opens Browser component */}
         <SceneButton3D
           position={[KEYBOARD_X + 0.8, KEYBOARD_Y + 0.35, KEYBOARD_Z - 0.1]}
-          color="#e84a6a"
+          color="#137f7f"
           label={isBrowserOpen ? "" : "Open"}
           onClick={openPortfolio}
-          size={0.08}
+          size={0.1}
           hotspot
         />
 
@@ -112,7 +112,7 @@ export default function Scene() {
         position: "relative",
         width: "100vw",
         height: "100vh",
-        background: "#f5ead6",
+        background: "#0d1117",
       }}
     >
       <Canvas
