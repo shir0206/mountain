@@ -1,6 +1,11 @@
 import { Suspense, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
+import {
+  OrbitControls,
+  BakeShadows,
+  Preload,
+  AdaptiveDpr,
+} from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useDeviceContext } from "../../context/device/useDeviceContext";
 import { DEVICE } from "../../context/device/types";
@@ -122,7 +127,7 @@ export default function Scene() {
   const { cameraPreset: activePreset, changeCameraPreset } =
     useChangeCameraPreset();
   const [introComplete, setIntroComplete] = useState(false);
-  const { device } = useDeviceContext();
+  const { device, renderSettings } = useDeviceContext();
   const isMobile = device === DEVICE.MOBILE;
 
   return (
@@ -139,19 +144,20 @@ export default function Scene() {
           position: CAMERA_PRESETS[INITIAL_PRESET].position,
           fov: isMobile ? 55 : 35,
           near: 0.1,
-          far: 600,
+          far: renderSettings.farPlane,
         }}
         gl={{
-          antialias: true,
+          antialias: renderSettings.antialias,
           toneMapping: 3 /* ACESFilmic */,
-          powerPreference: "high-performance",
+          powerPreference: renderSettings.powerPreference,
         }}
-        dpr={isMobile ? [1, 1.5] : [1, 2]}
-        shadows="soft"
+        dpr={renderSettings.dpr}
+        shadows={renderSettings.shadows}
         onCreated={({ gl }) => {
           gl.localClippingEnabled = true;
         }}
       >
+        <AdaptiveDpr pixelated />
         <SceneInner
           activePreset={activePreset}
           introComplete={introComplete}

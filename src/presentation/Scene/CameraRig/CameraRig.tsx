@@ -9,10 +9,9 @@ import { CAMERA_PRESETS, INITIAL_PRESET } from "../config/cameraPresets";
 // Module-scoped fallback — avoids allocating new Vector3 every frame
 const _zeroTarget = new THREE.Vector3();
 
-// ─── Camera tracker ──────────────────────────────────────────────────────────
-// Logs camera position + OrbitControls target to devtools on every change.
-// Only active in development builds.
-export function CameraTracker({
+// ─── Camera tracker (inner) ──────────────────────────────────────────────────
+// Throttled to 4 Hz. Only mounted in dev builds (see wrapper below).
+function CameraTrackerDev({
   controlsRef,
 }: {
   controlsRef: React.RefObject<OrbitControlsImpl | null>;
@@ -20,9 +19,11 @@ export function CameraTracker({
   const { camera } = useThree();
   const lastPosition = useRef(new THREE.Vector3());
   const lastTarget = useRef(new THREE.Vector3());
+  const lastLogTime = useRef(0);
 
-  useFrame(() => {
-    if (import.meta.env.PROD) return; // no-op in production
+  useFrame(({ clock }) => {
+    // Throttle to 4 Hz (every 0.25 s) — avoids console spam + main-thread pressure
+    if (clock.elapsedTime - lastLogTime.current < 0.25) return;
 
     const position = camera.position;
     const target = controlsRef.current?.target ?? _zeroTarget;
@@ -38,6 +39,7 @@ export function CameraTracker({
       Math.abs(target.z - lastTarget.current.z) > 0.01;
 
     if (positionChanged || targetChanged) {
+      lastLogTime.current = clock.elapsedTime;
       console.log("%c[Camera]", "color:#dedede;font-weight:bold", {
         position: {
           x: +position.x.toFixed(2),
@@ -56,6 +58,15 @@ export function CameraTracker({
   });
 
   return null;
+}
+
+// ─── Camera tracker (public) ─────────────────────────────────────────────────
+// Stripped entirely in production — no hooks, no useFrame, no component tree.
+export function CameraTracker(props: {
+  controlsRef: React.RefObject<OrbitControlsImpl | null>;
+}) {
+  if (!import.meta.env.DEV) return null;
+  return <CameraTrackerDev {...props} />;
 }
 
 // ─── Camera rig ──────────────────────────────────────────────────────────────
