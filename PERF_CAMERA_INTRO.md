@@ -453,11 +453,11 @@ Goal: keep spikes at 2000-2200ms range, then smooth sailing.
 
 - [x] Hoist Vector3 allocations to module scope in `IntroAnimation.tsx`
 - [x] Use `getPointAt(t, targetVec)` form to avoid allocation
-- [ ] Consider precomputing entire intro path (720 samples)
+- [x] Precompute entire intro path (720 samples) — zero per-frame math
 - [x] Disable OrbitControls damping during intro
 - [x] Add `frameloop="demand"` + `invalidate()` pattern after intro
 - [x] Gate `CameraTracker` behind dev mode during intro
-- [ ] Consider progressive Suspense boundaries (mountain first, furniture second)
-- [ ] Force `gl.compile(scene, camera)` in ShaderWarmup if stutter persists
-- [ ] Defer non-critical effects until `introComplete`
-- [ ] Profile texture upload spike at Suspense resolve — consider staggering
+- [x] Progressive Suspense boundaries (mountain first, furniture second)
+- [x] Force `gl.compile(scene, camera)` in ShaderWarmup
+- [x] Defer non-critical effects (`SceneButton3D`, `BakeShadows`) until `introComplete`
+- [x] Texture upload spike staggered via progressive Suspense tiers
