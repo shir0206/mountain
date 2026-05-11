@@ -10,7 +10,10 @@ import {
   INITIAL_PRESET,
   PRESET_BUTTONS,
 } from "./config/cameraPresets";
-import { SCENE_OBJECTS } from "./config/sceneObjects";
+import {
+  SCENE_OBJECTS_PRIMARY,
+  SCENE_OBJECTS_SECONDARY,
+} from "./config/sceneObjects";
 import { KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z } from "./config/positions";
 
 import { useOpenPortfolio } from "./hooks/useOpenPortfolio";
@@ -57,9 +60,9 @@ function SceneInner({
         />
       )}
 
-      {/* Single Suspense boundary — nothing renders until ALL models ready */}
+      {/* Tier 1: mountain, pergola, mud, fences — visible during intro orbit */}
       <Suspense fallback={null}>
-        {SCENE_OBJECTS.map((config) => (
+        {SCENE_OBJECTS_PRIMARY.map((config) => (
           <Model
             key={config.position.join(",")}
             path={config.path}
@@ -68,21 +71,38 @@ function SceneInner({
             rotationY={config.rotationY}
           />
         ))}
+      </Suspense>
 
-        {/* Button — opens Browser component */}
-        <SceneButton3D
-          position={[KEYBOARD_X + 0.8, KEYBOARD_Y + 0.35, KEYBOARD_Z - 0.1]}
-          color="#137f7f"
-          label={isBrowserOpen ? "" : "Open"}
-          onClick={openPortfolio}
-          size={0.1}
-          hotspot
-        />
-
+      {/* Tier 2: furniture, plants, decorations — GPU-uploaded after tier 1,
+           staggering the texture upload spike at Suspense resolve */}
+      <Suspense fallback={null}>
+        {SCENE_OBJECTS_SECONDARY.map((config) => (
+          <Model
+            key={config.position.join(",")}
+            path={config.path}
+            position={config.position}
+            scale={config.scale}
+            rotationY={config.rotationY}
+          />
+        ))}
         <ShaderWarmup />
-        <BakeShadows />
         <Preload all />
       </Suspense>
+
+      {/* Non-critical effects deferred until intro completes */}
+      {introComplete && (
+        <>
+          <SceneButton3D
+            position={[KEYBOARD_X + 0.8, KEYBOARD_Y + 0.35, KEYBOARD_Z - 0.1]}
+            color="#137f7f"
+            label={isBrowserOpen ? "" : "Open"}
+            onClick={openPortfolio}
+            size={0.1}
+            hotspot
+          />
+          <BakeShadows />
+        </>
+      )}
 
       <OrbitControls
         ref={controlsRef}
