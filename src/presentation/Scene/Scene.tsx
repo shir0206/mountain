@@ -1,5 +1,5 @@
 import { Suspense, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, BakeShadows, Preload } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useDeviceContext } from "../../context/device/useDeviceContext";
@@ -16,7 +16,6 @@ import { KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z } from "./config/positions";
 import { useOpenPortfolio } from "./hooks/useOpenPortfolio";
 import { useChangeCameraPreset } from "./hooks/useChangeCameraPreset";
 import { Model } from "./Model/Model";
-import { CodeOnMonitors } from "./CodeOnMonitors/CodeOnMonitors";
 import { Lighting } from "./Lighting/Lighting";
 import { CameraTracker, CameraRig } from "./CameraRig/CameraRig";
 import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
@@ -38,6 +37,7 @@ function SceneInner({
   isMobile: boolean;
 }) {
   const controlsRef = useRef<OrbitControlsImpl>(null);
+  const { invalidate } = useThree();
   const openPortfolio = useOpenPortfolio();
   const { browserMode } = usePortfolioContext();
   const isBrowserOpen = browserMode !== BROWSER_MODE.CLOSED;
@@ -79,8 +79,6 @@ function SceneInner({
           hotspot
         />
 
-        <CodeOnMonitors />
-
         <ShaderWarmup />
         <BakeShadows />
         <Preload all />
@@ -93,6 +91,7 @@ function SceneInner({
         dampingFactor={0.05}
         minDistance={0}
         maxDistance={80}
+        onChange={() => invalidate()}
       />
     </>
   );
@@ -130,7 +129,6 @@ export default function Scene() {
         dpr={isMobile ? [1, 1.5] : [1, 2]}
         shadows="soft"
         onCreated={({ gl }) => {
-          gl.setClearColor("#f5ead6");
           gl.localClippingEnabled = true;
         }}
       >
