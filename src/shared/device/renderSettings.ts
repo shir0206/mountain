@@ -2,7 +2,8 @@ import { DEVICE_TIER, type DeviceTier } from "./types";
 
 export interface RenderSettings {
   dpr: [number, number];
-  shadows: false | "soft";
+  shadows: false | true | "soft";
+  shadowMapSize: number;
   antialias: boolean;
   postprocessing: boolean;
   particles: number;
@@ -15,6 +16,7 @@ const TIER_SETTINGS: Record<DeviceTier, RenderSettings> = {
   [DEVICE_TIER.WEAK_MOBILE]: {
     dpr: [1, 1],
     shadows: false,
+    shadowMapSize: 0,
     antialias: false,
     postprocessing: false,
     particles: 20,
@@ -24,17 +26,8 @@ const TIER_SETTINGS: Record<DeviceTier, RenderSettings> = {
   },
   [DEVICE_TIER.MOBILE]: {
     dpr: [1, 1],
-    shadows: false,
-    antialias: false,
-    postprocessing: false,
-    particles: 100,
-    textureSize: 1024,
-    farPlane: 300,
-    powerPreference: "default",
-  },
-  [DEVICE_TIER.TABLET]: {
-    dpr: [1, 1.5],
-    shadows: false,
+    shadows: true,
+    shadowMapSize: 512,
     antialias: false,
     postprocessing: false,
     particles: 100,
@@ -45,6 +38,7 @@ const TIER_SETTINGS: Record<DeviceTier, RenderSettings> = {
   [DEVICE_TIER.DESKTOP]: {
     dpr: [1, 2],
     shadows: "soft",
+    shadowMapSize: 2048,
     antialias: true,
     postprocessing: true,
     particles: 1000,

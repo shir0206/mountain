@@ -21,9 +21,8 @@ export function isMobileDevice(
 
 /**
  * Detect device tier using hardware heuristics.
- * - WEAK_MOBILE: old iPhones, budget Androids (≤4 cores AND ≤4 GB RAM)
- * - MOBILE: modern phones
- * - TABLET: tablets (iPad detected via UA + wide viewport)
+ * - WEAK_MOBILE: old iPhones (≤4 cores), budget Androids (≤4 cores)
+ * - MOBILE: modern phones / tablets
  * - DESKTOP: everything else
  */
 export function detectDeviceTier(
@@ -33,17 +32,11 @@ export function detectDeviceTier(
   const isMobile = isMobileDevice(userAgent, viewportWidth);
   if (!isMobile) return DEVICE_TIER.DESKTOP;
 
-  // Tablet heuristic: iPad UA or mobile UA with wide viewport
-  const isTablet =
-    /iPad/i.test(userAgent) || (isMobile && viewportWidth >= 768);
-  if (isTablet) return DEVICE_TIER.TABLET;
-
-  // Hardware heuristics for weak vs normal mobile
   const cores = navigator.hardwareConcurrency || 2;
-  const memory =
-    (navigator as unknown as { deviceMemory?: number }).deviceMemory || 2; // Chrome-only, fallback 2
+  const isOldIOS = /iPhone/i.test(userAgent) && cores <= 4;
+  const isBudgetAndroid = /Android/i.test(userAgent) && cores <= 4;
 
-  if (cores <= 4 && memory <= 4) return DEVICE_TIER.WEAK_MOBILE;
+  if (isOldIOS || isBudgetAndroid) return DEVICE_TIER.WEAK_MOBILE;
   return DEVICE_TIER.MOBILE;
 }
 
@@ -58,7 +51,6 @@ export function detectDevice(): DeviceDetectionResult {
     type,
     tier,
     isMobile,
-    isDesktop: !isMobile,
     userAgent,
     viewportWidth,
   };

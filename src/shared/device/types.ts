@@ -17,7 +17,6 @@ export interface DeviceDetectionResult {
   type: DeviceType;
   tier: DeviceTier;
   isMobile: boolean;
-  isDesktop: boolean;
   userAgent: string;
   viewportWidth: number;
 }
