@@ -4,7 +4,10 @@ import type { GLTF } from "three-stdlib";
 import * as THREE from "three";
 
 import type { SceneObject } from "../types";
-import { SCENE_OBJECTS } from "../config/sceneObjects";
+import {
+  SCENE_OBJECTS_PRIMARY,
+  SCENE_OBJECTS_SECONDARY,
+} from "../config/sceneObjects";
 import { applyMaterialPolicy } from "./applyMaterialPolicy";
 
 // Draco decoder needed for the optimized GLBs (geometry compressed with Draco).
@@ -12,10 +15,25 @@ useGLTF.setDecoderPath(
   "https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
 );
 
-SCENE_OBJECTS.forEach(({ path }) => {
-  const model = import.meta.env.BASE_URL + path;
-  useGLTF.preload(model);
+// Only preload primary models (mountain, pergola, mud, fences) eagerly.
+// Secondary models load via Suspense — avoids GPU texture upload spike during intro.
+SCENE_OBJECTS_PRIMARY.forEach(({ path }) => {
+  useGLTF.preload(import.meta.env.BASE_URL + path);
 });
+
+// Defer secondary preloads to after initial paint via idle callback.
+if (typeof window !== "undefined") {
+  const idlePreload = () => {
+    SCENE_OBJECTS_SECONDARY.forEach(({ path }) => {
+      useGLTF.preload(import.meta.env.BASE_URL + path);
+    });
+  };
+  if ("requestIdleCallback" in window) {
+    (window as any).requestIdleCallback(idlePreload);
+  } else {
+    setTimeout(idlePreload, 100);
+  }
+}
 
 export function Model({
   path,

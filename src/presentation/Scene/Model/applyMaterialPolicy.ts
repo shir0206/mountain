@@ -25,6 +25,11 @@ export function applyMaterialPolicy(root: THREE.Object3D, path: string): void {
 		mesh.castShadow = !skipShadows;
 		mesh.receiveShadow = !skipShadows;
 
+		// Mountain must not cast shadows — prevents black self-shadow artifacts
+		if (isMountain) {
+			mesh.castShadow = false;
+		}
+
 		const meshMaterial = mesh.material as
 			| THREE.MeshStandardMaterial
 			| THREE.MeshStandardMaterial[];

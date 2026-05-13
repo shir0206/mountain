@@ -18,9 +18,9 @@ export const DeviceProvider: React.FC<{ children: React.ReactNode }> = ({
       device,
       setDevice,
       tier: detection.tier,
-      renderSettings: getRenderSettings(detection.tier),
+      renderSettings: getRenderSettings(detection.tier, detection.nativeDpr),
     }),
-    [device, detection.tier]
+    [device, detection.tier, detection.nativeDpr]
   );
 
   return (

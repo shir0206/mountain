@@ -153,11 +153,12 @@ export default function Scene() {
         }}
         dpr={renderSettings.dpr}
         shadows={renderSettings.shadows}
+        frameloop="always"
         onCreated={({ gl }) => {
           gl.localClippingEnabled = true;
         }}
       >
-        <AdaptiveDpr pixelated />
+        <AdaptiveDpr />
         <SceneInner
           activePreset={activePreset}
           introComplete={introComplete}
