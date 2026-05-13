@@ -19,4 +19,6 @@ export interface DeviceDetectionResult {
   isMobile: boolean;
   userAgent: string;
   viewportWidth: number;
+  nativeDpr: number;
+  gpuRenderer: string;
 }

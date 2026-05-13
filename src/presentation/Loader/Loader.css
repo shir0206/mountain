@@ -90,20 +90,22 @@
   contain: layout style;
 }
 
-.loader-bar-ext {
-  height: 72px;
-}
+/*
+  Ring layout — 4 rings, evenly spaced at 12 px:
+    Sec ring   — 23 bars, r = 36 px, h = 65 px  [terrain 1: snowy ridge + river]
+    Outer ring — 16 bars, r = 24 px, h = 50 px  [terrain 2: high snowy mountain + lake]
+    Inner ring —  8 bars, r = 12 px, h = 32 px  [terrain 3: hills + river]
+    Core       —  1 bar,  r =  0 px, h = 14 px  [terrain 3: centre]
+  Total: 48 bars  (was 57)
+*/
 .loader-bar-sec {
   height: 65px;
 }
 .loader-bar-outer {
-  height: 59px;
-}
-.loader-bar-mid {
-  height: 38px;
+  height: 50px;
 }
 .loader-bar-inner {
-  height: 23px;
+  height: 32px;
 }
 .loader-bar-core {
   height: 14px;
@@ -143,7 +145,10 @@
   filter: brightness(1.1);
 }
 
-/* Sec ring positions */
+/* ─────────────────────────────────────────────────────────
+   SEC RING — 23 bars, r = 36 px
+   Positions unchanged from original.
+───────────────────────────────────────────────────────── */
 .lbs1 {
   transform: translateX(0px) translateZ(-36px);
 }
@@ -214,162 +219,125 @@
   transform: translateX(-10px) translateZ(-35px);
 }
 
-/* Outer ring positions */
+/* ─────────────────────────────────────────────────────────
+   OUTER RING — 16 bars, r = 24 px
+   22.5° steps: X = round(24·sinθ), Z = round(−24·cosθ)
+───────────────────────────────────────────────────────── */
+/* θ =   0° */
 .lbo1 {
-  transform: translateX(0px) translateZ(-27px);
+  transform: translateX(0px) translateZ(-24px);
 }
+/* θ =  22° */
 .lbo2 {
-  transform: translateX(7px) translateZ(-26px);
+  transform: translateX(9px) translateZ(-22px);
 }
+/* θ =  45° */
 .lbo3 {
-  transform: translateX(14px) translateZ(-23px);
+  transform: translateX(17px) translateZ(-17px);
 }
+/* θ =  67° */
 .lbo4 {
-  transform: translateX(19px) translateZ(-19px);
+  transform: translateX(22px) translateZ(-9px);
 }
+/* θ =  90° */
 .lbo5 {
-  transform: translateX(23px) translateZ(-14px);
+  transform: translateX(24px) translateZ(0px);
 }
+/* θ = 112° */
 .lbo6 {
-  transform: translateX(26px) translateZ(-7px);
+  transform: translateX(22px) translateZ(9px);
 }
+/* θ = 135° */
 .lbo7 {
-  transform: translateX(27px) translateZ(0px);
+  transform: translateX(17px) translateZ(17px);
 }
+/* θ = 157° */
 .lbo8 {
-  transform: translateX(26px) translateZ(7px);
+  transform: translateX(9px) translateZ(22px);
 }
+/* θ = 180° */
 .lbo9 {
-  transform: translateX(23px) translateZ(14px);
+  transform: translateX(0px) translateZ(24px);
 }
+/* θ = 202° */
 .lbo10 {
-  transform: translateX(19px) translateZ(19px);
+  transform: translateX(-9px) translateZ(22px);
 }
+/* θ = 225° */
 .lbo11 {
-  transform: translateX(14px) translateZ(23px);
+  transform: translateX(-17px) translateZ(17px);
 }
+/* θ = 247° */
 .lbo12 {
-  transform: translateX(7px) translateZ(26px);
+  transform: translateX(-22px) translateZ(9px);
 }
+/* θ = 270° */
 .lbo13 {
-  transform: translateX(0px) translateZ(27px);
+  transform: translateX(-24px) translateZ(0px);
 }
+/* θ = 292° */
 .lbo14 {
-  transform: translateX(-7px) translateZ(26px);
+  transform: translateX(-22px) translateZ(-9px);
 }
+/* θ = 315° */
 .lbo15 {
-  transform: translateX(-14px) translateZ(23px);
+  transform: translateX(-17px) translateZ(-17px);
 }
+/* θ = 337° */
 .lbo16 {
-  transform: translateX(-19px) translateZ(19px);
-}
-.lbo17 {
-  transform: translateX(-23px) translateZ(14px);
-}
-.lbo18 {
-  transform: translateX(-26px) translateZ(7px);
-}
-.lbo19 {
-  transform: translateX(-27px) translateZ(0px);
-}
-.lbo20 {
-  transform: translateX(-26px) translateZ(-7px);
-}
-.lbo21 {
-  transform: translateX(-23px) translateZ(-14px);
-}
-.lbo22 {
-  transform: translateX(-19px) translateZ(-19px);
-}
-.lbo23 {
-  transform: translateX(-14px) translateZ(-23px);
-}
-.lbo24 {
-  transform: translateX(-7px) translateZ(-26px);
+  transform: translateX(-9px) translateZ(-22px);
 }
 
-/* Mid ring positions */
-.lbm1 {
-  transform: translateX(0px) translateZ(-18px);
-}
-.lbm2 {
-  transform: translateX(7px) translateZ(-17px);
-}
-.lbm3 {
-  transform: translateX(13px) translateZ(-13px);
-}
-.lbm4 {
-  transform: translateX(17px) translateZ(-7px);
-}
-.lbm5 {
-  transform: translateX(18px) translateZ(0px);
-}
-.lbm6 {
-  transform: translateX(17px) translateZ(7px);
-}
-.lbm7 {
-  transform: translateX(13px) translateZ(13px);
-}
-.lbm8 {
-  transform: translateX(7px) translateZ(17px);
-}
-.lbm9 {
-  transform: translateX(0px) translateZ(18px);
-}
-.lbm10 {
-  transform: translateX(-7px) translateZ(17px);
-}
-.lbm11 {
-  transform: translateX(-13px) translateZ(13px);
-}
-.lbm12 {
-  transform: translateX(-17px) translateZ(7px);
-}
-.lbm13 {
-  transform: translateX(-18px) translateZ(0px);
-}
-.lbm14 {
-  transform: translateX(-17px) translateZ(-7px);
-}
-.lbm15 {
-  transform: translateX(-13px) translateZ(-13px);
-}
-.lbm16 {
-  transform: translateX(-7px) translateZ(-17px);
-}
-
-/* Inner ring positions */
+/* ─────────────────────────────────────────────────────────
+   INNER RING — 8 bars, r = 12 px
+   45° steps: X = round(12·sinθ), Z = round(−12·cosθ)
+   12·sin45° = 8.49 ≈ 9;  12·cos45° = 8.49 ≈ 9
+───────────────────────────────────────────────────────── */
+/* θ =   0° */
 .lbi1 {
-  transform: translateX(0px) translateZ(-9px);
+  transform: translateX(0px) translateZ(-12px);
 }
+/* θ =  45° */
 .lbi2 {
-  transform: translateX(6px) translateZ(-6px);
+  transform: translateX(9px) translateZ(-9px);
 }
+/* θ =  90° */
 .lbi3 {
-  transform: translateX(9px) translateZ(0px);
+  transform: translateX(12px) translateZ(0px);
 }
+/* θ = 135° */
 .lbi4 {
-  transform: translateX(6px) translateZ(6px);
+  transform: translateX(9px) translateZ(9px);
 }
+/* θ = 180° */
 .lbi5 {
-  transform: translateX(0px) translateZ(9px);
+  transform: translateX(0px) translateZ(12px);
 }
+/* θ = 225° */
 .lbi6 {
-  transform: translateX(-6px) translateZ(6px);
+  transform: translateX(-9px) translateZ(9px);
 }
+/* θ = 270° */
 .lbi7 {
-  transform: translateX(-9px) translateZ(0px);
+  transform: translateX(-12px) translateZ(0px);
 }
+/* θ = 315° */
 .lbi8 {
-  transform: translateX(-6px) translateZ(-6px);
+  transform: translateX(-9px) translateZ(-9px);
 }
 
-/* Core position */
+/* ─────────────────────────────────────────────────────────
+   CORE — 1 bar, r = 0
+───────────────────────────────────────────────────────── */
 .lbc1 {
   transform: translateX(0px) translateZ(0px);
 }
 
-/* Animation assignments */
+/* ═══════════════════════════════════════════════════════
+   ANIMATION ASSIGNMENTS
+═══════════════════════════════════════════════════════ */
+
+/* Sec ring */
 .lbs1 {
   animation: ls1 5s ease-in-out infinite;
   animation-delay: -0.242s;
@@ -463,207 +431,127 @@
   animation-delay: -0.214s;
 }
 
+/*
+  Outer ring — terrain 2 (high snowy mountain + lake)
+  16 bars at r=24. Pick 16 evenly-spaced keyframes from original 24 lb* set.
+  Mapping: lbo1→lb1, lbo2→lb3, lbo3→lb5, lbo4→lb6, lbo5→lb7, lbo6→lb8,
+           lbo7→lb9, lbo8→lb11, lbo9→lb13, lbo10→lb14, lbo11→lb15,
+           lbo12→lb17, lbo13→lb19, lbo14→lb20, lbo15→lb22, lbo16→lb24
+*/
 .lbo1 {
   animation: lb1 5s ease-in-out infinite;
   animation-delay: -0.182s;
 }
 .lbo2 {
-  animation: lb2 5s ease-in-out infinite;
-  animation-delay: -0.155s;
+  animation: lb3 5s ease-in-out infinite;
+  animation-delay: -0.162s;
 }
 .lbo3 {
-  animation: lb3 5s ease-in-out infinite;
-  animation-delay: -0.136s;
+  animation: lb5 5s ease-in-out infinite;
+  animation-delay: -0.143s;
 }
 .lbo4 {
-  animation: lb4 5s ease-in-out infinite;
-  animation-delay: -0.129s;
-}
-.lbo5 {
-  animation: lb5 5s ease-in-out infinite;
+  animation: lb6 5s ease-in-out infinite;
   animation-delay: -0.136s;
 }
-.lbo6 {
-  animation: lb6 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo7 {
+.lbo5 {
   animation: lb7 5s ease-in-out infinite;
-  animation-delay: -0.182s;
+  animation-delay: -0.143s;
 }
-.lbo8 {
+.lbo6 {
   animation: lb8 5s ease-in-out infinite;
   animation-delay: -0.155s;
 }
-.lbo9 {
+.lbo7 {
   animation: lb9 5s ease-in-out infinite;
   animation-delay: -0.136s;
 }
-.lbo10 {
-  animation: lb10 5s ease-in-out infinite;
-  animation-delay: -0.129s;
-}
-.lbo11 {
+.lbo8 {
   animation: lb11 5s ease-in-out infinite;
-  animation-delay: -0.136s;
+  animation-delay: -0.143s;
 }
-.lbo12 {
-  animation: lb12 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo13 {
+.lbo9 {
   animation: lb13 5s ease-in-out infinite;
   animation-delay: -0.182s;
 }
-.lbo14 {
+.lbo10 {
   animation: lb14 5s ease-in-out infinite;
   animation-delay: -0.155s;
 }
-.lbo15 {
+.lbo11 {
   animation: lb15 5s ease-in-out infinite;
   animation-delay: -0.136s;
 }
-.lbo16 {
-  animation: lb16 5s ease-in-out infinite;
-  animation-delay: -0.129s;
-}
-.lbo17 {
+.lbo12 {
   animation: lb17 5s ease-in-out infinite;
-  animation-delay: -0.136s;
+  animation-delay: -0.143s;
 }
-.lbo18 {
-  animation: lb18 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo19 {
+.lbo13 {
   animation: lb19 5s ease-in-out infinite;
   animation-delay: -0.182s;
 }
-.lbo20 {
+.lbo14 {
   animation: lb20 5s ease-in-out infinite;
   animation-delay: -0.155s;
 }
-.lbo21 {
-  animation: lb21 5s ease-in-out infinite;
-  animation-delay: -0.136s;
-}
-.lbo22 {
+.lbo15 {
   animation: lb22 5s ease-in-out infinite;
-  animation-delay: -0.129s;
-}
-.lbo23 {
-  animation: lb23 5s ease-in-out infinite;
   animation-delay: -0.136s;
 }
-.lbo24 {
+.lbo16 {
   animation: lb24 5s ease-in-out infinite;
-  animation-delay: -0.155s;
+  animation-delay: -0.162s;
 }
 
-.lbm1 {
+/*
+  Inner ring — terrain 3 (hills + river)
+  8 bars at r=12. Pick 8 evenly-spaced from original 16 lm* set:
+  lm1 lm3 lm5 lm7 lm9 lm11 lm13 lm15
+*/
+.lbi1 {
   animation: lm1 5s ease-in-out infinite;
   animation-delay: -0.121s;
 }
-.lbm2 {
-  animation: lm2 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbm3 {
+.lbi2 {
   animation: lm3 5s ease-in-out infinite;
-  animation-delay: -0.086s;
-}
-.lbm4 {
-  animation: lm4 5s ease-in-out infinite;
   animation-delay: -0.096s;
 }
-.lbm5 {
+.lbi3 {
   animation: lm5 5s ease-in-out infinite;
-  animation-delay: -0.121s;
-}
-.lbm6 {
-  animation: lm6 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbm7 {
-  animation: lm7 5s ease-in-out infinite;
   animation-delay: -0.086s;
 }
-.lbm8 {
-  animation: lm8 5s ease-in-out infinite;
+.lbi4 {
+  animation: lm7 5s ease-in-out infinite;
   animation-delay: -0.096s;
 }
-.lbm9 {
+.lbi5 {
   animation: lm9 5s ease-in-out infinite;
   animation-delay: -0.121s;
 }
-.lbm10 {
-  animation: lm10 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbm11 {
-  animation: lm11 5s ease-in-out infinite;
-  animation-delay: -0.086s;
-}
-.lbm12 {
-  animation: lm12 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbm13 {
-  animation: lm13 5s ease-in-out infinite;
-  animation-delay: -0.121s;
-}
-.lbm14 {
-  animation: lm14 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbm15 {
-  animation: lm15 5s ease-in-out infinite;
-  animation-delay: -0.086s;
-}
-.lbm16 {
-  animation: lm16 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-
-.lbi1 {
-  animation: li1 5s ease-in-out infinite;
-  animation-delay: -0.061s;
-}
-.lbi2 {
-  animation: li2 5s ease-in-out infinite;
-  animation-delay: -0.043s;
-}
-.lbi3 {
-  animation: li3 5s ease-in-out infinite;
-  animation-delay: -0.061s;
-}
-.lbi4 {
-  animation: li4 5s ease-in-out infinite;
-  animation-delay: -0.043s;
-}
-.lbi5 {
-  animation: li5 5s ease-in-out infinite;
-  animation-delay: -0.061s;
-}
 .lbi6 {
-  animation: li6 5s ease-in-out infinite;
-  animation-delay: -0.043s;
+  animation: lm11 5s ease-in-out infinite;
+  animation-delay: -0.096s;
 }
 .lbi7 {
-  animation: li7 5s ease-in-out infinite;
-  animation-delay: -0.061s;
+  animation: lm13 5s ease-in-out infinite;
+  animation-delay: -0.086s;
 }
 .lbi8 {
-  animation: li8 5s ease-in-out infinite;
-  animation-delay: -0.043s;
+  animation: lm15 5s ease-in-out infinite;
+  animation-delay: -0.096s;
 }
 
+/* Core */
 .lbc1 {
   animation: lc1 5s ease-in-out infinite;
   animation-delay: 0s;
 }
 
-/* Keyframes - Sec ring */
+/* ═══════════════════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════════════════ */
+
+/* ── Sec ring (terrain 1: snowy ridge + river) ── */
 @keyframes ls1 {
   0%,
   100% {
@@ -1010,7 +898,7 @@
   }
 }
 
-/* Keyframes - Outer ring */
+/* ── Outer ring (terrain 2: high snowy mountain + lake) ── */
 @keyframes lb1 {
   0%,
   100% {
@@ -1020,21 +908,6 @@
   33.33% {
     scale: 1 0.58 1;
     --c: #7d9873;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes lb2 {
-  0%,
-  100% {
-    scale: 1 0.82 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.62 1;
-    --c: #81957f;
   }
   66.66% {
     scale: 1 0.08 1;
@@ -1054,21 +927,6 @@
   66.66% {
     scale: 1 0.2 1;
     --c: #3d6b35;
-  }
-}
-@keyframes lb4 {
-  0%,
-  100% {
-    scale: 1 0.92 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.88 1;
-    --c: #6b737b;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
   }
 }
 @keyframes lb5 {
@@ -1146,21 +1004,6 @@
     --c: #658f55;
   }
 }
-@keyframes lb10 {
-  0%,
-  100% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  33.33% {
-    scale: 1 0.25 1;
-    --c: #44733a;
-  }
-  66.66% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-}
 @keyframes lb11 {
   0%,
   100% {
@@ -1174,21 +1017,6 @@
   66.66% {
     scale: 1 0.04 1;
     --c: #217b9f;
-  }
-}
-@keyframes lb12 {
-  0%,
-  100% {
-    scale: 1 0.23 1;
-    --c: #417038;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
   }
 }
 @keyframes lb13 {
@@ -1236,21 +1064,6 @@
     --c: #3d6b35;
   }
 }
-@keyframes lb16 {
-  0%,
-  100% {
-    scale: 1 0.26 1;
-    --c: #46743b;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.25 1;
-    --c: #44733a;
-  }
-}
 @keyframes lb17 {
   0%,
   100% {
@@ -1264,21 +1077,6 @@
   66.66% {
     scale: 1 0.28 1;
     --c: #49773d;
-  }
-}
-@keyframes lb18 {
-  0%,
-  100% {
-    scale: 1 0.22 1;
-    --c: #406e37;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
   }
 }
 @keyframes lb19 {
@@ -1311,21 +1109,6 @@
     --c: #5a8a4a;
   }
 }
-@keyframes lb21 {
-  0%,
-  100% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  33.33% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-  66.66% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-}
 @keyframes lb22 {
   0%,
   100% {
@@ -1339,21 +1122,6 @@
   66.66% {
     scale: 1 0.45 1;
     --c: #658f55;
-  }
-}
-@keyframes lb23 {
-  0%,
-  100% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-  33.33% {
-    scale: 1 0.52 1;
-    --c: #749764;
-  }
-  66.66% {
-    scale: 1 0.38 1;
-    --c: #578748;
   }
 }
 @keyframes lb24 {
@@ -1372,7 +1140,7 @@
   }
 }
 
-/* Keyframes - Mid ring */
+/* ── Inner ring keyframes (terrain 3: hills + river) — original lm* ── */
 @keyframes lm1 {
   0%,
   100% {
@@ -1382,21 +1150,6 @@
   33.33% {
     scale: 1 0.52 1;
     --c: #749764;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes lm2 {
-  0%,
-  100% {
-    scale: 1 0.76 1;
-    --c: #777f87;
-  }
-  33.33% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
   }
   66.66% {
     scale: 1 0.08 1;
@@ -1418,21 +1171,6 @@
     --c: #3d6b35;
   }
 }
-@keyframes lm4 {
-  0%,
-  100% {
-    scale: 1 0.76 1;
-    --c: #777f87;
-  }
-  33.33% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
 @keyframes lm5 {
   0%,
   100% {
@@ -1446,21 +1184,6 @@
   66.66% {
     scale: 1 0.5 1;
     --c: #6f955f;
-  }
-}
-@keyframes lm6 {
-  0%,
-  100% {
-    scale: 1 0.71 1;
-    --c: #878d95;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
   }
 }
 @keyframes lm7 {
@@ -1478,21 +1201,6 @@
     --c: #658f55;
   }
 }
-@keyframes lm8 {
-  0%,
-  100% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
 @keyframes lm9 {
   0%,
   100% {
@@ -1506,21 +1214,6 @@
   66.66% {
     scale: 1 0.08 1;
     --c: #287785;
-  }
-}
-@keyframes lm10 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
   }
 }
 @keyframes lm11 {
@@ -1538,21 +1231,6 @@
     --c: #3d6b35;
   }
 }
-@keyframes lm12 {
-  0%,
-  100% {
-    scale: 1 0.22 1;
-    --c: #406e37;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-}
 @keyframes lm13 {
   0%,
   100% {
@@ -1562,21 +1240,6 @@
   33.33% {
     scale: 1 0.04 1;
     --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-}
-@keyframes lm14 {
-  0%,
-  100% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  33.33% {
-    scale: 1 0.45 1;
-    --c: #658f55;
   }
   66.66% {
     scale: 1 0.35 1;
@@ -1598,145 +1261,8 @@
     --c: #578748;
   }
 }
-@keyframes lm16 {
-  0%,
-  100% {
-    scale: 1 0.71 1;
-    --c: #878d95;
-  }
-  33.33% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
 
-/* Keyframes - Inner ring */
-@keyframes li1 {
-  0%,
-  100% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  33.33% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes li2 {
-  0%,
-  100% {
-    scale: 1 0.72 1;
-    --c: #848a92;
-  }
-  33.33% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes li3 {
-  0%,
-  100% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-}
-@keyframes li4 {
-  0%,
-  100% {
-    scale: 1 0.34 1;
-    --c: #518144;
-  }
-  33.33% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes li5 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes li6 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  33.33% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes li7 {
-  0%,
-  100% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  33.33% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes li8 {
-  0%,
-  100% {
-    scale: 1 0.34 1;
-    --c: #518144;
-  }
-  33.33% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-
-/* Keyframes - Core */
+/* ── Core (terrain 3 centre) ── */
 @keyframes lc1 {
   0%,
   100% {

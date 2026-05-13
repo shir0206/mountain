@@ -3,7 +3,6 @@ import type { Position3D } from "../types";
 // Intro animation orbit control points
 export const ORBIT_POINTS: Position3D[] = [
   [-28, -20, -5],
-  [-26, -20, 14],
   [-14, -20, 24],
   [4, -20, 30],
   [16.37, -19.86, 28.95],
