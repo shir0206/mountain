@@ -1,24 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export function useHtmlReady<T extends HTMLElement>() {
-  const ref = useRef<T | null>(null);
-  const [ready, setReady] = useState(false);
+	const [ready, setReady] = useState(false);
+	const nodeRef = useRef<T | null>(null);
 
-  useEffect(() => {
-    let raf: number;
+	const ref = useCallback((node: T | null) => {
+		nodeRef.current = node;
+		if (node) setReady(true);
+	}, []);
 
-    const check = () => {
-      if (ref.current) {
-        setReady(true);
-      } else {
-        raf = requestAnimationFrame(check);
-      }
-    };
-
-    check();
-
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  return { ref, ready };
+	return { ref, nodeRef, ready };
 }

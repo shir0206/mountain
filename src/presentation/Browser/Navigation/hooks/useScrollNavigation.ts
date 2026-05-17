@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { SECTION_IDS, type SectionIdType } from "../../types";
 import { computeActiveSection } from "../services/computeActiveSection";
@@ -35,17 +35,18 @@ export const useScrollNavigation = ({
   );
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const activeSectionRef = useRef(activeSection);
+
+  const updateActiveSection = useCallback((section: string) => {
+    activeSectionRef.current = section;
+    setActiveSection(section);
+  }, []);
+
   const { scrollToSection, isScrollingRef } = useNavigateToSection({
     containerRef,
-    onNavigate: (sectionId) => setActiveSection(sectionId),
+    onNavigate: updateActiveSection,
     offset: NAV_OFFSET,
   });
-
-  // Keep latest active in a ref so scroll handler doesn't re-subscribe on change.
-  const activeSectionRef = useRef(activeSection);
-  useEffect(() => {
-    activeSectionRef.current = activeSection;
-  }, [activeSection]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -65,7 +66,7 @@ export const useScrollNavigation = ({
         offset: NAV_OFFSET,
       });
       if (next && next !== activeSectionRef.current) {
-        setActiveSection(next);
+        updateActiveSection(next);
       }
     };
 
@@ -82,7 +83,7 @@ export const useScrollNavigation = ({
       container.removeEventListener("scroll", handleScroll);
       if (rafId !== null) window.cancelAnimationFrame(rafId);
     };
-  }, [containerRef, sectionIds, isScrollingRef]);
+  }, [containerRef, sectionIds, isScrollingRef, updateActiveSection]);
 
   return { activeSection, isScrolled, scrollToSection };
 };

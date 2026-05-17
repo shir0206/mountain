@@ -1,10 +1,14 @@
-import { useRef, useEffect } from "react";
+import { useRef, useCallback, forwardRef, useImperativeHandle } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 
 import type { PresetKey } from "../types";
 import { CAMERA_PRESETS, INITIAL_PRESET } from "../config/cameraPresets";
+
+export interface CameraRigHandle {
+  transitionTo: (preset: PresetKey) => void;
+}
 
 // Module-scoped fallback — avoids allocating new Vector3 every frame
 const _zeroTarget = new THREE.Vector3();
@@ -72,42 +76,44 @@ export function CameraTracker(props: {
 // ─── Camera rig ──────────────────────────────────────────────────────────────
 // Smoothly lerps camera position + OrbitControls target toward active preset.
 // Disables user input + damping during transition to avoid fighting the lerp.
-export function CameraRig({
-  activePreset,
-  controlsRef,
-}: {
-  activePreset: PresetKey;
-  controlsRef: React.RefObject<OrbitControlsImpl | null>;
-}) {
+export const CameraRig = forwardRef<
+  CameraRigHandle,
+  { controlsRef: React.RefObject<OrbitControlsImpl | null> }
+>(function CameraRig({ controlsRef }, ref) {
   const { camera, invalidate } = useThree();
   const desiredPos = useRef(new THREE.Vector3());
   const desiredTarget = useRef(new THREE.Vector3());
   const animating = useRef(false);
 
-  // On preset change → set new desired pose and start animating.
-  useEffect(() => {
-    const p = CAMERA_PRESETS[activePreset];
-    desiredPos.current.set(...p.position);
-    desiredTarget.current.set(...p.target);
-    animating.current = true;
-    if (controlsRef.current) {
-      controlsRef.current.enabled = false;
-    }
-    invalidate();
-  }, [activePreset, controlsRef, invalidate]);
+  const transitionTo = useCallback(
+    (preset: PresetKey) => {
+      const p = CAMERA_PRESETS[preset];
+      desiredPos.current.set(...p.position);
+      desiredTarget.current.set(...p.target);
+      animating.current = true;
+      if (controlsRef.current) {
+        controlsRef.current.enabled = false;
+      }
+      invalidate();
+    },
+    [controlsRef, invalidate]
+  );
 
-  // Initial snap (before first user interaction).
-  useEffect(() => {
-    const p = CAMERA_PRESETS[INITIAL_PRESET];
-    camera.position.set(...p.position);
-    if (controlsRef.current) {
-      controlsRef.current.target.set(...p.target);
-      controlsRef.current.update();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useImperativeHandle(ref, () => ({ transitionTo }), [transitionTo]);
+
+  // Initial snap (before first user interaction) — runs on first frame.
+  const snappedRef = useRef(false);
 
   useFrame(() => {
+    if (!snappedRef.current) {
+      snappedRef.current = true;
+      const p = CAMERA_PRESETS[INITIAL_PRESET];
+      camera.position.set(...p.position);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(...p.target);
+        controlsRef.current.update();
+      }
+    }
     if (!animating.current) return;
     const controls = controlsRef.current;
     camera.position.lerp(desiredPos.current, 0.08);
@@ -133,4 +139,4 @@ export function CameraRig({
   });
 
   return null;
-}
+});

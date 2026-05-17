@@ -1,6 +1,4 @@
-import { useEffect, useRef } from "react";
 import { useProgress } from "@react-three/drei";
-import { useSceneContext } from "../../context/scene/useSceneContext";
 import "./Loader.css";
 
 function Bar({ cls }: { cls: string }) {
@@ -12,21 +10,8 @@ function Bar({ cls }: { cls: string }) {
   );
 }
 
-interface LoaderProps {
-  onLoaded: () => void;
-}
-
-export function Loader({ onLoaded }: LoaderProps) {
+export function Loader() {
   const { progress } = useProgress();
-  const { sceneReady } = useSceneContext();
-  const calledRef = useRef(false);
-
-  useEffect(() => {
-    if (sceneReady && !calledRef.current) {
-      calledRef.current = true;
-      onLoaded();
-    }
-  }, [sceneReady, onLoaded]);
 
   return (
     <div className="loader-screen">
