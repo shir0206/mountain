@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
 
 interface Props {
   children: ReactNode;
@@ -34,12 +35,21 @@ export class ErrorBoundary extends Component<Props, State> {
     );
   }
 
+  private handleDismiss = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
   public render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      return null;
+
+      const rawMessage = this.state.error
+        ? `${this.state.error.message}\n\n${this.state.error.stack ?? ""}`
+        : "An unknown error occurred";
+
+      return <ErrorModal message={rawMessage} onClose={this.handleDismiss} />;
     }
 
     return this.props.children;

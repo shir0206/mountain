@@ -1,8 +1,7 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useCallback, forwardRef, useImperativeHandle } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
-import { useSceneContext } from "../../../context/scene/useSceneContext";
 
 import { CAMERA_PRESETS } from "../config/cameraPresets";
 import {
@@ -24,28 +23,32 @@ function easeInOutCubic(progress: number) {
 // 12 seconds × 60 fps = 720 samples. Trade ~50 KB memory for zero per-frame math.
 const INTRO_SAMPLES = 720;
 
+export interface IntroAnimationHandle {
+  start: () => void;
+}
+
 // Cinematic fly-through: smooth Catmull-Rom orbit around mountain peak →
 // transition to meeting area → pause → fly to workspace (landscape view).
 // ~12 seconds total.  Entire path precomputed — useFrame is just an index lookup.
-export function IntroAnimation({
-  controlsRef,
-  onComplete,
-}: {
-  controlsRef: React.RefObject<OrbitControlsImpl | null>;
-  onComplete: () => void;
-}) {
+export const IntroAnimation = forwardRef<
+  IntroAnimationHandle,
+  {
+    controlsRef: React.RefObject<OrbitControlsImpl | null>;
+    onComplete: () => void;
+  }
+>(function IntroAnimation({ controlsRef, onComplete }, ref) {
   const { camera, invalidate, set } = useThree();
-  const { sceneReady } = useSceneContext();
   const startedRef = useRef(false);
   const elapsedRef = useRef(0);
   const doneRef = useRef(false);
 
   // Pre-build the Catmull-Rom spline for the orbit phase (once).
+  // Use "centripetal" with tension 0 to eliminate overshoot on 2-point curves.
   const orbitCurve = useMemo(() => {
     const orbitVectors = ORBIT_POINTS.map(
       (point) => new THREE.Vector3(...point)
     );
-    return new THREE.CatmullRomCurve3(orbitVectors, false, "catmullrom", 0.5);
+    return new THREE.CatmullRomCurve3(orbitVectors, false, "centripetal", 0);
   }, []);
 
   // ── Precompute entire intro path (720 samples) ──
@@ -72,12 +75,19 @@ export function IntroAnimation({
         orbitCurve.getPointAt(progress, pos);
         tgt.set(...ORBIT_TARGET);
       } else if (elapsed <= ORBIT_DURATION + ORBIT_TO_MEETING) {
-        // Phase 2: Transition from orbit end → meeting
+        // Phase 2: Transition from orbit end → meeting (arc above mountain)
         const segmentElapsed = elapsed - ORBIT_DURATION;
         const progress = easeInOutCubic(segmentElapsed / ORBIT_TO_MEETING);
         orbitCurve.getPointAt(1, fromPos);
         toPos.set(...CAMERA_PRESETS.meeting.position);
-        pos.lerpVectors(fromPos, toPos, progress);
+        // Quadratic bezier with midpoint above the peak to avoid clipping
+        const midX = (fromPos.x + toPos.x) / 2;
+        const midZ = (fromPos.z + toPos.z) / 2;
+        const midY = Math.min(fromPos.y, toPos.y) + 6; // lift above peak
+        const oneMinusT = 1 - progress;
+        pos.x = oneMinusT * oneMinusT * fromPos.x + 2 * oneMinusT * progress * midX + progress * progress * toPos.x;
+        pos.y = oneMinusT * oneMinusT * fromPos.y + 2 * oneMinusT * progress * midY + progress * progress * toPos.y;
+        pos.z = oneMinusT * oneMinusT * fromPos.z + 2 * oneMinusT * progress * midZ + progress * progress * toPos.z;
         fromTgt.set(...ORBIT_TARGET);
         toTgt.set(...CAMERA_PRESETS.meeting.target);
         tgt.lerpVectors(fromTgt, toTgt, progress);
@@ -105,21 +115,23 @@ export function IntroAnimation({
     return { positions, targets };
   }, [orbitCurve]);
 
-  // Start once scene is fully ready (assets + shaders + GPU flush)
-  useEffect(() => {
-    if (sceneReady && !startedRef.current) {
-      startedRef.current = true;
-      elapsedRef.current = 0;
-      if (controlsRef.current) {
-        controlsRef.current.enabled = false;
-        controlsRef.current.enableDamping = false; // avoid damping fighting lerp
-      }
-      // Snap camera to first precomputed sample
-      camera.position.copy(introPath.positions[0]);
-      camera.lookAt(...ORBIT_TARGET);
-      invalidate();
+  // Imperative start — called by SceneReadyGate's onReady callback,
+  // removing the need for a useEffect watching sceneReady state.
+  const start = useCallback(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    elapsedRef.current = 0;
+    if (controlsRef.current) {
+      controlsRef.current.enabled = false;
+      controlsRef.current.enableDamping = false; // avoid damping fighting lerp
     }
-  }, [sceneReady, camera, controlsRef, introPath, invalidate]);
+    // Snap camera to first precomputed sample
+    camera.position.copy(introPath.positions[0]);
+    camera.lookAt(...ORBIT_TARGET);
+    invalidate();
+  }, [camera, controlsRef, introPath, invalidate]);
+
+  useImperativeHandle(ref, () => ({ start }), [start]);
 
   // ── Per-frame: pure index lookup, zero math ──
   useFrame((_, delta) => {
@@ -152,4 +164,4 @@ export function IntroAnimation({
   });
 
   return null;
-}
+});

@@ -1,5 +1,6 @@
 import * as P from "./positions";
 import type { SceneObject } from "../types";
+import { shouldKeepOnMobile } from "./sceneDensity";
 
 export const SCENE_OBJECTS: SceneObject[] = [
   {
@@ -617,8 +618,8 @@ export const SCENE_OBJECTS: SceneObject[] = [
 
 // ── Progressive Suspense tiers ────────────────────────────────────────────────
 // Tier 1: models visible during intro orbit (mountain, structure, ground).
-// Tier 2: furniture, plants, decorations — loaded & GPU-uploaded after tier 1,
-// which staggers the texture upload spike at Suspense resolve.
+// Tier 2: near furniture visible right after intro completes.
+// Tier 3: decorative plants/bushes far from camera — true lazy load (no preload).
 const PRIMARY_LABELS = new Set([
   "Mountain Peak",
   "Glass Terrace",
@@ -626,10 +627,41 @@ const PRIMARY_LABELS = new Set([
   "wooden_fence a",
 ]);
 
+const TERTIARY_LABELS = new Set([
+  "jungle geranium",
+  "jungle PALM",
+  "jungle LUPINE",
+  "jungle SNOWFLAKE",
+  "jungle CROTON",
+  "jungle SINENSIS",
+  "jungle BUSH",
+  "creeper",
+  "square",
+]);
+
 export const SCENE_OBJECTS_PRIMARY = SCENE_OBJECTS.filter((obj) =>
   PRIMARY_LABELS.has(obj.label)
 );
 
 export const SCENE_OBJECTS_SECONDARY = SCENE_OBJECTS.filter(
-  (obj) => !PRIMARY_LABELS.has(obj.label)
+  (obj) => !PRIMARY_LABELS.has(obj.label) && !TERTIARY_LABELS.has(obj.label)
 );
+
+export const SCENE_OBJECTS_TERTIARY = SCENE_OBJECTS.filter((obj) =>
+  TERTIARY_LABELS.has(obj.label)
+);
+
+// ── Mobile-reduced lists ─────────────────────────────────────────────────────
+// Thin out repeated decorative objects to cut ~40-60 MB on mobile devices.
+function filterForMobile(objects: SceneObject[]): SceneObject[] {
+  const labelCount = new Map<string, number>();
+  return objects.filter((obj) => {
+    const idx = labelCount.get(obj.label) ?? 0;
+    labelCount.set(obj.label, idx + 1);
+    return shouldKeepOnMobile(obj.label, idx);
+  });
+}
+
+export const SCENE_OBJECTS_PRIMARY_MOBILE = filterForMobile(SCENE_OBJECTS_PRIMARY);
+export const SCENE_OBJECTS_SECONDARY_MOBILE = filterForMobile(SCENE_OBJECTS_SECONDARY);
+export const SCENE_OBJECTS_TERTIARY_MOBILE = filterForMobile(SCENE_OBJECTS_TERTIARY);
