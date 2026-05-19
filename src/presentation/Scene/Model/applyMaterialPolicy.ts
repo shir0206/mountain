@@ -6,14 +6,29 @@ import {
 	NO_SHADOW_PATHS,
 } from "../config/renderPolicy";
 
+export type TextureTier = "primary" | "secondary" | "tertiary";
+
+/** Textures deferred for lazy GPU upload (secondary/tertiary tiers). */
+const pendingTextures: THREE.Texture[] = [];
+
+/** Returns and clears the pending texture queue. */
+export function drainPendingTextures(): THREE.Texture[] {
+	return pendingTextures.splice(0, pendingTextures.length);
+}
+
 /**
  * Applies the scene-wide material policy to a freshly cloned GLTF scene:
  *  - shadow casting/receiving per NO_SHADOW_PATHS
  *  - emissive "screen-on" effect for the welcome text GLB
  *  - soft-blurred background skybox for the mountain GLB
  *  - anisotropy / mipmap defaults on all textures
+ *  - deferred GPU upload for secondary/tertiary tiers (lazy loading)
  */
-export function applyMaterialPolicy(root: THREE.Object3D, path: string): void {
+export function applyMaterialPolicy(
+	root: THREE.Object3D,
+	path: string,
+	tier: TextureTier = "primary"
+): void {
 	const skipShadows = NO_SHADOW_PATHS.has(path);
 	const isEmissiveText = path === EMISSIVE_TEXT_PATH;
 	const isMountain = path === MOUNTAIN_PATH;
@@ -24,6 +39,11 @@ export function applyMaterialPolicy(root: THREE.Object3D, path: string): void {
 
 		mesh.castShadow = !skipShadows;
 		mesh.receiveShadow = !skipShadows;
+
+		// Mountain must not cast shadows — prevents black self-shadow artifacts
+		if (isMountain) {
+			mesh.castShadow = false;
+		}
 
 		const meshMaterial = mesh.material as
 			| THREE.MeshStandardMaterial
@@ -59,13 +79,23 @@ export function applyMaterialPolicy(root: THREE.Object3D, path: string): void {
 					texture.magFilter = THREE.LinearFilter;
 					texture.generateMipmaps = true;
 					(texture as unknown as { bias: number }).bias = 1.5;
-				} else {
+					texture.needsUpdate = true;
+				} else if (tier === "primary") {
 					texture.anisotropy = 16;
 					texture.minFilter = THREE.LinearMipmapLinearFilter;
 					texture.magFilter = THREE.LinearFilter;
 					texture.generateMipmaps = true;
+					texture.needsUpdate = true;
+				} else {
+					// Deferred: cheap initial state — no mipmaps, low anisotropy.
+					// Full quality applied later via drainPendingTextures().
+					texture.anisotropy = 1;
+					texture.minFilter = THREE.LinearFilter;
+					texture.magFilter = THREE.LinearFilter;
+					texture.generateMipmaps = false;
+					texture.needsUpdate = true;
+					pendingTextures.push(texture);
 				}
-				texture.needsUpdate = true;
 			});
 		});
 	});

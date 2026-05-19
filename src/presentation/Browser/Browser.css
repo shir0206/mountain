@@ -129,6 +129,8 @@
 /* Portal-hosted modes: centered floating modal / near full-screen */
 .browser-shell-root .browser-container {
   box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
 
   &.is-open {
     width: min(960px, 92vw);
@@ -157,18 +159,13 @@
 /* Browser Header */
 .browser-header {
   width: 100%;
-  height: 8px;
   padding: var(--space-md) var(--space-lg);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface-glass-header);
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-/* Mobile drag-handle affordance (decorative) */
-.browser-drag-handle {
-  display: none;
+  flex: 0 0 auto;
 }
 
 .window-controls {
@@ -224,8 +221,8 @@
 /* Browser Content */
 .browser-content {
   background: var(--color-surface);
-  height: min(600px, 70vh);
-  height: min(600px, 70svh);
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
@@ -257,9 +254,6 @@
   }
 }
 
-.browser-container.is-maximized .browser-content {
-  height: 100%;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -318,25 +312,6 @@
       outline: 1px solid var(--color-border);
       display: flex;
       flex-direction: column;
-    }
-
-    &.is-open .browser-drag-handle,
-    &.is-maximized .browser-drag-handle {
-      display: block;
-      width: 40px;
-      height: 12px;
-      margin: var(--space-sm) auto var(--space-xs);
-      border-radius: var(--radius-pill);
-      background: var(--color-border);
-      flex: 0 0 auto;
-    }
-
-    &.is-open .browser-header,
-    &.is-maximized .browser-header {
-      position: absolute;
-      top: 0;
-      z-index: 1;
-      flex: 0 0 auto;
     }
 
     &.is-open .browser-content,

@@ -3,7 +3,6 @@ import { type RefObject } from "react";
 import { LANGUAGE } from "../../shared/i18n/language";
 import { useSceneContext } from "../../context/scene/useSceneContext";
 import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
-import { useTranslation } from "../../context/portfolio/useTranslation";
 import Navigation from "./Navigation/Navigation";
 import Footer from "./Footer/Footer";
 import { SECTIONS } from "./browserConfig";
@@ -14,20 +13,19 @@ import { useScrollReveal } from "./hooks/useScrollReveal";
 
 interface BrowserShellProps {
 	contentRef: RefObject<HTMLDivElement | null>;
+	onContentMount: (node: HTMLDivElement | null) => void;
 	setSectionRef: (id: string) => (el: HTMLDivElement | null) => void;
 	visibleSectionIds: Set<SectionIdType>;
-	titleId?: string;
 }
 
 export function BrowserShell({
 	contentRef,
+	onContentMount,
 	setSectionRef,
 	visibleSectionIds,
-	titleId,
 }: BrowserShellProps) {
 	const { browserMode, language } = usePortfolioContext();
 	const { runIntro } = useSceneContext();
-	const { t } = useTranslation();
 	useScrollReveal(contentRef, !runIntro);
 
 	return (
@@ -35,17 +33,11 @@ export function BrowserShell({
 			className={`browser-container is-${browserMode}`}
 			onClick={(event) => event.stopPropagation()}
 		>
-			{titleId && (
-				<h2 id={titleId} className='browser-visually-hidden'>
-					{t.browser.title}
-				</h2>
-			)}
-			<div className='browser-drag-handle' aria-hidden='true' />
 			<BrowserHeader />
 
 			<div
 				className={`browser-content${language === LANGUAGE.HE ? " rtl" : ""}`}
-				ref={contentRef}
+				ref={onContentMount}
 			>
 				{!runIntro && (
 					<>

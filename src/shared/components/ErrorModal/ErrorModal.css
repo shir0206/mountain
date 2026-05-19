@@ -1,0 +1,86 @@
+.error-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 17, 20, 0.6);
+  backdrop-filter: blur(8px) saturate(120%);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  cursor: pointer;
+}
+
+.error-modal-overlay[data-visible='true'] {
+  opacity: 1;
+}
+
+.error-modal {
+  position: relative;
+  max-width: 560px;
+  width: 90vw;
+  max-height: 70vh;
+  background: rgba(30, 32, 36, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-m, 12px);
+  box-shadow: var(--shadow-lg, 0 16px 48px rgba(0, 0, 0, 0.4));
+  padding: var(--space-l, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m, 1rem);
+  cursor: default;
+  transform: scale(0.96) translateY(8px);
+  opacity: 0;
+  transition:
+    opacity 220ms ease-out,
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.error-modal-overlay[data-visible='true'] .error-modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.error-modal__title {
+  margin: 0;
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--text-lg, 1.25rem);
+  font-weight: var(--weight-semibold, 600);
+  color: #f87171;
+}
+
+.error-modal__body {
+  flex: 1;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-s, 6px);
+  padding: var(--space-m, 1rem);
+}
+
+.error-modal__message {
+  margin: 0;
+  font-family: var(--font-system, monospace);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.error-modal__close {
+  align-self: flex-end;
+  padding: var(--space-xs, 0.5rem) var(--space-m, 1rem);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-s, 6px);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--text-sm, 0.875rem);
+  cursor: pointer;
+  transition: background var(--motion-fast, 0.2s) ease;
+}
+
+.error-modal__close:hover {
+  background: rgba(255, 255, 255, 0.14);
+}

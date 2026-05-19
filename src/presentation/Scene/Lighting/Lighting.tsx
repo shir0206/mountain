@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 
+import { useDeviceContext } from "../../../context/device/useDeviceContext";
 import {
 	PERGOLA_X, PERGOLA_Y, PERGOLA_Z,
 	DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z,
@@ -10,6 +11,9 @@ import {
 // Post-rain summer atmosphere — bright cloudy sky, warm sun aimed at pergola,
 // two soft warm interior lamps. Every light that matters casts shadows.
 export function Lighting() {
+	const { renderSettings } = useDeviceContext();
+	const shadowMapSize = renderSettings.shadowMapSize;
+
 	// Directional sun needs an explicit target object so it behaves like a
 	// natural spotlight pointing at the pergola area.
 	const sunTarget = useMemo(() => {
@@ -36,8 +40,8 @@ export function Lighting() {
 				position={[-19.95, -5, -1.54]}
 				target={sunTarget}
 				castShadow
-				shadow-mapSize-width={2048}
-				shadow-mapSize-height={2048}
+				shadow-mapSize-width={shadowMapSize}
+				shadow-mapSize-height={shadowMapSize}
 				shadow-bias={-0.0004}
 				shadow-normalBias={0.03}
 				shadow-camera-near={1}
@@ -56,8 +60,8 @@ export function Lighting() {
 				position={[PERGOLA_X - 45, PERGOLA_Y + 55, PERGOLA_Z - 40]}
 				target={sunTarget}
 				castShadow
-				shadow-mapSize-width={2048}
-				shadow-mapSize-height={2048}
+				shadow-mapSize-width={shadowMapSize}
+				shadow-mapSize-height={shadowMapSize}
 				shadow-bias={-0.0003}
 				shadow-normalBias={0.04}
 				shadow-camera-near={1}

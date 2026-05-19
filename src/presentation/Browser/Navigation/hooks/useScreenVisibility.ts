@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { SECTIONS } from "../../browserConfig";
 import { type SectionIdType } from "../../types";
@@ -83,7 +83,12 @@ export function useSectionVisibility(
   ready: boolean,
   config: Partial<SectionVisibilityConfig> = {}
 ) {
-  const mergedConfig = { ...DEFAULT_CONFIG, ...config };
+  const { threshold = DEFAULT_CONFIG.threshold, passive = DEFAULT_CONFIG.passive } = config;
+
+  const mergedConfig = useMemo(
+    () => ({ threshold, passive }),
+    [threshold, passive]
+  );
 
   const [visibleSections, setVisibleSections] = useState<Set<SectionIdType>>(
     () => new Set([SECTIONS[0].id])
@@ -114,9 +119,9 @@ export function useSectionVisibility(
   );
 
   useEffect(() => {
-    if (!ready || !contentRef.current) return;
-
     const container = contentRef.current;
+    if (!ready || !container) return;
+
     const handleScroll = createScrollHandler(
       container,
       sectionRefs,
@@ -131,7 +136,7 @@ export function useSectionVisibility(
     handleScroll();
 
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [ready, markVisible, mergedConfig, contentRef]);
+  }, [ready, contentRef, markVisible, mergedConfig]);
 
   return {
     visibleSections,
