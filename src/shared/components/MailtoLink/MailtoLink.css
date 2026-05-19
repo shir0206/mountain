@@ -1,0 +1,16 @@
+.mailto-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	text-decoration: none;
+	pointer-events: auto;
+	transition: opacity 0.2s ease;
+}
+
+.mailto-link:hover {
+	opacity: 1;
+}
+
+.mailto-link-icon {
+	flex-shrink: 0;
+}

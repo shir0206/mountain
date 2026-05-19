@@ -1,0 +1,46 @@
+.contact-pill {
+  position: fixed;
+  bottom: var(--contact-pill-bottom-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 88vw;
+  height: 44px;
+  padding: 0;
+  background: var(--surface-glass-nav);
+  backdrop-filter: blur(var(--blur-nav));
+  -webkit-backdrop-filter: blur(var(--blur-nav));
+  border: 1px solid var(--border-glass-nav);
+  border-radius: var(--radius-nav);
+  box-shadow: var(--shadow-nav);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--transition-fast);
+}
+
+.contact-pill:hover {
+  background: var(--surface-glass-nav-active);
+}
+
+.contact-pill:active {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.contact-pill__icon {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-pill__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+}

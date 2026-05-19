@@ -164,5 +164,36 @@
 	"footer": {
 		"name": "Shir **Zabolotny**",
 		"copy": "© {year} Shir Zabolotny · מפתחת Frontend"
+	},
+	"overlay": {
+		"identity": {
+			"name": "שיר זבולוטני",
+			"email": "shir.zabolotny@gmail.com",
+			"emailSubject": "היי שיר!"
+		},
+		"welcome": {
+			"title": "ברוכים הבאים.",
+			"subtitle": "לחקור, להתחבר, לשתף פעולה"
+		},
+		"dragHint": {
+			"title": "גררו כדי להסתכל סביב",
+			"subtitle": "חקרו את המרחב בחופשיות"
+		},
+		"portalCta": {
+			"label": "פתיחת האתר"
+		},
+		"exploreBar": {
+			"ariaLabel": "ניווט במרחב התלת-ממדי",
+			"areas": [
+				{ "label": "סביבת עבודה", "subtitle": "ריכוז" },
+				{ "label": "אזור פגישות", "subtitle": "שיתוף פעולה" },
+				{ "label": "מרפסת", "subtitle": "חשיבה" },
+				{ "label": "פסגה", "subtitle": "השראה" }
+			]
+		},
+		"contactPill": {
+			"ariaLabel": "שליחת מייל ל-hello@shirz.dev",
+			"email": "hello@shirz.dev"
+		}
 	}
 }

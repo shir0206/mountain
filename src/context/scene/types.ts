@@ -9,15 +9,21 @@ export interface SceneState {
   runIntro: boolean;
   cameraPreset: PresetKey;
   sceneReady: boolean;
+  introComplete: boolean;
 }
 
 export type SceneAction =
   | { type: "SET_RUN_INTRO"; runIntro: boolean }
   | { type: "SET_CAMERA_PRESET"; preset: PresetKey }
-  | { type: "SET_SCENE_READY"; ready: boolean };
+  | { type: "SET_SCENE_READY"; ready: boolean }
+  | { type: "SET_INTRO_COMPLETE"; complete: boolean };
 
 export interface SceneContextType extends SceneState {
   setRunIntro: (runIntro: boolean) => void;
   setCameraPreset: (preset: PresetKey) => void;
   setSceneReady: (ready: boolean) => void;
+  setIntroComplete: (complete: boolean) => void;
+  /** Trigger a smooth camera transition to a preset (set by Scene once CameraRig mounts) */
+  transitionToPreset: (preset: PresetKey) => void;
+  setTransitionFn: (fn: (preset: PresetKey) => void) => void;
 }

@@ -27,7 +27,7 @@ export function useUploadTexturesOnIdle(enabled: boolean) {
       // Process in batches across multiple idle callbacks
       let idx = 0;
 
-      function uploadNextBatch(_deadline?: IdleDeadline) {
+      function uploadNextBatch() {
         if (cancelled) return;
 
         const end = Math.min(idx + BATCH_SIZE, textures.length);

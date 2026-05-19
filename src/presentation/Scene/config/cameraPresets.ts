@@ -14,7 +14,7 @@ export { INITIAL_PRESET };
 export const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
   workstation: {
     position: [DESK_X + 7, DESK_Y + 4.5, DESK_Z + 7],
-    target: [DESK_X - 2, DESK_Y + 0.2, DESK_Z - 2],
+    target: [DESK_X, DESK_Y + 0.2, DESK_Z - 0.5],
   },
   meeting: {
     position: [COFFEE_TABLE_X + 3, COFFEE_TABLE_Y + 1.8, COFFEE_TABLE_Z + 3.2],

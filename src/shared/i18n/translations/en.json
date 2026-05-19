@@ -160,5 +160,36 @@
 	"footer": {
 		"name": "Shir **Zabolotny**",
 		"copy": "© {year} Shir Zabolotny · Frontend Developer"
+	},
+	"overlay": {
+		"identity": {
+			"name": "Shir Zabolotny",
+			"email": "shir.zabolotny@gmail.com",
+			"emailSubject": "Hey Shir!"
+		},
+		"welcome": {
+			"title": "Welcome.",
+			"subtitle": "Explore, connect, collaborate"
+		},
+		"dragHint": {
+			"title": "Drag to look around",
+			"subtitle": "Explore the space freely"
+		},
+		"portalCta": {
+			"label": "Open Website"
+		},
+		"exploreBar": {
+			"ariaLabel": "Navigate 3D space",
+			"areas": [
+				{ "label": "Workspace", "subtitle": "Concentrate" },
+				{ "label": "Meeting Area", "subtitle": "Collaborate" },
+				{ "label": "Balcony", "subtitle": "Think" },
+				{ "label": "Peak", "subtitle": "Inspiration" }
+			]
+		},
+		"contactPill": {
+			"ariaLabel": "Send email to hello@shirz.dev",
+			"email": "hello@shirz.dev"
+		}
 	}
 }

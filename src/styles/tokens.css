@@ -78,10 +78,27 @@
   --radius-xl: 1rem; /* 16 */
   --radius-pill: 999px;
 
+  /* Glass surfaces */
+  --surface-glass-dark: rgba(40, 36, 30, 0.72);
+  /* Glass nav surfaces */
+  --surface-glass-nav: rgba(255, 255, 255, 0.12);
+  --surface-glass-nav-active: rgba(255, 255, 255, 0.22);
+  --border-glass-nav: rgba(255, 255, 255, 0.25);
+  --blur-nav: 20px;
+  --radius-nav: 20px;
+  --nav-icon-size: 28px;
+  --nav-btn-min-width: 72px;
+  --nav-padding: 12px 16px;
+  --nav-btn-padding: 12px 16px;
+  --nav-gap: 6px;
+  --nav-bottom-offset: 64px;
+  --contact-pill-bottom-offset: 12px;
+
   /* Shadow */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.07);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 20px 60px rgba(5, 9, 4, 0.15);
+  --shadow-nav: 0 4px 24px rgba(0, 0, 0, 0.25);
   --shadow-dropdown: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.1);
 
   /* Motion */

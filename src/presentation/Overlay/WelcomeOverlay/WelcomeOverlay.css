@@ -1,0 +1,76 @@
+.welcome-overlay {
+	position: fixed;
+	top: 16%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 25;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.8s ease;
+}
+
+.welcome-overlay-in {
+	opacity: 1;
+}
+
+.welcome-overlay-out {
+	opacity: 0;
+}
+
+.welcome-overlay-title {
+	font-family: var(--font-display);
+	font-size: var(--font-size-4xl);
+	font-weight: 400;
+	color: #fff;
+	margin: 0 0 -8px;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 1.5);
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
+}
+
+.welcome-overlay-subtitle {
+	font-family: var(--font-display);
+	font-size: var(--font-size-3xl);
+	font-weight: 500;
+	color: white;
+	margin: 0;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 1.5);
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
+}
+
+.welcome-overlay-in .welcome-overlay-subtitle {
+	animation: typewriter-subtitle 0.8s steps(29) 0.8s forwards;
+}
+
+.welcome-overlay-in .welcome-overlay-title {
+	animation: typewriter-title 0.5s steps(8) 0.3s forwards;
+}
+
+.welcome-overlay-subtitle em {
+	font-style: italic;
+}
+
+@keyframes typewriter-title {
+	from {
+		width: 0;
+	}
+	to {
+		width: 8ch;
+	}
+}
+
+@keyframes typewriter-subtitle {
+	from {
+		width: 0;
+	}
+	to {
+		width: 29ch;
+	}
+}
