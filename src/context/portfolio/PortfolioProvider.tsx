@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useReducer } from "react";
+import React, { useCallback, useMemo, useReducer } from "react";
 
-import { isRTL, LANGUAGE } from "../../shared/i18n/language";
+import { LANGUAGE } from "../../shared/i18n/language";
 import type { LanguageType } from "../../shared/i18n/types";
 import { PortfolioContext } from "./PortfolioContext";
 import {
@@ -36,14 +36,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("lang", state.language);
-    document.documentElement.setAttribute(
-      "dir",
-      isRTL(state.language) ? "rtl" : "ltr"
-    );
-  }, [state.language]);
 
   const setBrowserMode = useCallback(
     (

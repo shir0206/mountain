@@ -9,7 +9,8 @@ export function useScrollReveal(
   ready: boolean
 ) {
   useEffect(() => {
-    if (!ready || !containerRef.current) return;
+    const container = containerRef.current;
+    if (!ready || !container) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -20,10 +21,10 @@ export function useScrollReveal(
           }
         });
       },
-      { threshold: 0.1, root: containerRef.current }
+      { threshold: 0.1, root: container }
     );
 
-    containerRef.current
+    container
       .querySelectorAll(".reveal")
       .forEach((el) => observer.observe(el));
 

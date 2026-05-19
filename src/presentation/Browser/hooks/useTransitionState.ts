@@ -1,9 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef } from "react";
 
 export type TransitionState = "entering" | "entered" | "exiting" | "exited";
 
 const ENTER_DURATION_MS = 260;
 const EXIT_DURATION_MS = 200;
+
+type Action =
+	| { type: "ACTIVATE" }
+	| { type: "DEACTIVATE" }
+	| { type: "ADVANCE"; to: TransitionState };
+
+function reducer(state: TransitionState, action: Action): TransitionState {
+	switch (action.type) {
+		case "ACTIVATE":
+			return "entering";
+		case "DEACTIVATE":
+			return state === "exited" ? "exited" : "exiting";
+		case "ADVANCE":
+			return action.to;
+	}
+}
 
 /**
  * Drives CSS `data-state` attributes for mount/unmount choreography
@@ -21,7 +37,8 @@ export function useTransitionState(active: boolean): {
 	state: TransitionState;
 	shouldRender: boolean;
 } {
-	const [state, setState] = useState<TransitionState>(
+	const [state, dispatch] = useReducer(
+		reducer,
 		active ? "entered" : "exited"
 	);
 	const exitTimer = useRef<number | null>(null);
@@ -33,10 +50,10 @@ export function useTransitionState(active: boolean): {
 				window.clearTimeout(exitTimer.current);
 				exitTimer.current = null;
 			}
-			setState("entering");
+			dispatch({ type: "ACTIVATE" });
 			enterRaf.current = window.requestAnimationFrame(() => {
 				enterRaf.current = window.requestAnimationFrame(() => {
-					setState("entered");
+					dispatch({ type: "ADVANCE", to: "entered" });
 				});
 			});
 		} else {
@@ -44,9 +61,9 @@ export function useTransitionState(active: boolean): {
 				window.cancelAnimationFrame(enterRaf.current);
 				enterRaf.current = null;
 			}
-			setState((prev) => (prev === "exited" ? "exited" : "exiting"));
+			dispatch({ type: "DEACTIVATE" });
 			exitTimer.current = window.setTimeout(() => {
-				setState("exited");
+				dispatch({ type: "ADVANCE", to: "exited" });
 				exitTimer.current = null;
 			}, EXIT_DURATION_MS);
 		}

@@ -14,18 +14,12 @@ import { useTransitionState } from "./hooks/useTransitionState";
 import { useEscapeKey } from "./hooks/useEscapeKey";
 import { useFocusTrap } from "./hooks/useFocusTrap";
 
-interface BrowserProps {
-	// Retained for API compat; no longer used (Browser lives at DOM root).
-	position?: [number, number, number];
-}
 
-const DIALOG_TITLE_ID = "browser-dialog-title";
-
-export default function Browser(_props: BrowserProps) {
+export default function Browser() {
 	const { browserMode } = usePortfolioContext();
 	const closePortfolio = useClosePortfolio();
 
-	const { ref: contentRef, ready } = useHtmlReady<HTMLDivElement>();
+	const { ref: onContentMount, nodeRef: contentRef, ready } = useHtmlReady<HTMLDivElement>();
 	const { setSectionRef, visibleSections } = useSectionVisibility(
 		contentRef,
 		ready
@@ -92,14 +86,13 @@ export default function Browser(_props: BrowserProps) {
 				data-state={portalState}
 				role='dialog'
 				aria-modal={isModalMode}
-				aria-labelledby={DIALOG_TITLE_ID}
 				ref={dialogRef}
 			>
 				<BrowserShell
 					contentRef={contentRef}
+					onContentMount={onContentMount}
 					setSectionRef={setSectionRef}
 					visibleSectionIds={visibleSections}
-					titleId={DIALOG_TITLE_ID}
 				/>
 			</div>
 		</>,

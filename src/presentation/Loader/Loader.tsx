@@ -1,6 +1,4 @@
-import { useEffect, useRef } from "react";
 import { useProgress } from "@react-three/drei";
-import { useSceneContext } from "../../context/scene/useSceneContext";
 import "./Loader.css";
 
 function Bar({ cls }: { cls: string }) {
@@ -12,27 +10,14 @@ function Bar({ cls }: { cls: string }) {
   );
 }
 
-interface LoaderProps {
-  onLoaded: () => void;
-}
-
-export function Loader({ onLoaded }: LoaderProps) {
+export function Loader() {
   const { progress } = useProgress();
-  const { sceneReady } = useSceneContext();
-  const calledRef = useRef(false);
-
-  useEffect(() => {
-    if (sceneReady && !calledRef.current) {
-      calledRef.current = true;
-      onLoaded();
-    }
-  }, [sceneReady, onLoaded]);
 
   return (
     <div className="loader-screen">
       <div className="loader-mountain">
         <div className="loader-bars">
-          {/* Sec ring */}
+          {/* Sec ring — 23 bars, r=36px [terrain 1: snowy ridge + river] */}
           <Bar cls="loader-bar-sec lbs1" />
           <Bar cls="loader-bar-sec lbs2" />
           <Bar cls="loader-bar-sec lbs3" />
@@ -56,7 +41,7 @@ export function Loader({ onLoaded }: LoaderProps) {
           <Bar cls="loader-bar-sec lbs30" />
           <Bar cls="loader-bar-sec lbs31" />
           <Bar cls="loader-bar-sec lbs32" />
-          {/* Outer ring */}
+          {/* Outer ring — 16 bars, r=24px [terrain 2: high snowy mountain + lake] */}
           <Bar cls="loader-bar-outer lbo1" />
           <Bar cls="loader-bar-outer lbo2" />
           <Bar cls="loader-bar-outer lbo3" />
@@ -73,32 +58,7 @@ export function Loader({ onLoaded }: LoaderProps) {
           <Bar cls="loader-bar-outer lbo14" />
           <Bar cls="loader-bar-outer lbo15" />
           <Bar cls="loader-bar-outer lbo16" />
-          <Bar cls="loader-bar-outer lbo17" />
-          <Bar cls="loader-bar-outer lbo18" />
-          <Bar cls="loader-bar-outer lbo19" />
-          <Bar cls="loader-bar-outer lbo20" />
-          <Bar cls="loader-bar-outer lbo21" />
-          <Bar cls="loader-bar-outer lbo22" />
-          <Bar cls="loader-bar-outer lbo23" />
-          <Bar cls="loader-bar-outer lbo24" />
-          {/* Mid ring */}
-          <Bar cls="loader-bar-mid lbm1" />
-          <Bar cls="loader-bar-mid lbm2" />
-          <Bar cls="loader-bar-mid lbm3" />
-          <Bar cls="loader-bar-mid lbm4" />
-          <Bar cls="loader-bar-mid lbm5" />
-          <Bar cls="loader-bar-mid lbm6" />
-          <Bar cls="loader-bar-mid lbm7" />
-          <Bar cls="loader-bar-mid lbm8" />
-          <Bar cls="loader-bar-mid lbm9" />
-          <Bar cls="loader-bar-mid lbm10" />
-          <Bar cls="loader-bar-mid lbm11" />
-          <Bar cls="loader-bar-mid lbm12" />
-          <Bar cls="loader-bar-mid lbm13" />
-          <Bar cls="loader-bar-mid lbm14" />
-          <Bar cls="loader-bar-mid lbm15" />
-          <Bar cls="loader-bar-mid lbm16" />
-          {/* Inner ring */}
+          {/* Inner ring — 8 bars, r=12px [terrain 3: hills + river] */}
           <Bar cls="loader-bar-inner lbi1" />
           <Bar cls="loader-bar-inner lbi2" />
           <Bar cls="loader-bar-inner lbi3" />
@@ -107,7 +67,7 @@ export function Loader({ onLoaded }: LoaderProps) {
           <Bar cls="loader-bar-inner lbi6" />
           <Bar cls="loader-bar-inner lbi7" />
           <Bar cls="loader-bar-inner lbi8" />
-          {/* Core */}
+          {/* Core — r=0px */}
           <Bar cls="loader-bar-core lbc1" />
         </div>
       </div>
