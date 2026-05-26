@@ -1,13 +1,17 @@
 // ─── Scene object positions ──────────────────────────────────────────────────
 // All spatial constants for 3D objects in the scene.
 
-export const MOUNTAIN_SCALE = 80;
-export const MOUNTAIN_Y = -50;
+// export const MOUNTAIN_SCALE = 80;
+// export const MOUNTAIN_Y = -50;
+// export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
+
+export const MOUNTAIN_SCALE = 0.15;
+export const MOUNTAIN_Y = -10;
 export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
 export const PERGOLA_X = 8;
-export const PERGOLA_Y = PEAK_WORLD_Y;
-export const PERGOLA_Z = -15;
+export const PERGOLA_Y = PEAK_WORLD_Y - 10;
+export const PERGOLA_Z = 10;
 export const PERGOLA_SCALE = 0.05;
 export const PERGOLA_ANGLE = Math.PI;
 
@@ -224,7 +228,7 @@ export const MUG_X = DESK_X + 0.3;
 export const MUG_Y = DESK_Y + 0.05;
 export const MUG_Z = DESK_Z - 2.6;
 export const MUG_SCALE = 0.02;
-export const MUG_ANGLE = Math.PI * 1.9;
+export const MUG_ANGLE = -Math.PI * 1.5;
 
 export const COASTER_X = MUG_X - 0.28;
 export const COASTER_Y = MUG_Y;
@@ -232,14 +236,19 @@ export const COASTER_Z = MUG_Z - 0.1;
 export const COASTER_SCALE = 0.15;
 export const COASTER_ANGLE = Math.PI * 0.8;
 
-export const OFFICE_CHAIR_X = DESK_X + 1.5;
+export const OFFICE_CHAIR_X = DESK_X + 1.4;
 export const OFFICE_CHAIR_Y = DESK_Y - 1;
 export const OFFICE_CHAIR_Z = DESK_Z - 1;
 export const OFFICE_CHAIR_SCALE = 0.015;
-export const OFFICE_CHAIR_ANGLE = Math.PI * 1.5;
+export const OFFICE_CHAIR_ANGLE = Math.PI * 1.6;
+
+export const PLANT_X = PERGOLA_X - 1;
+export const PLANT_Y = PERGOLA_Y + 0.01;
+export const PLANT_Z = PERGOLA_Z + 1;
+export const PLANT_SCALE = 1.5;
 
 export const COFFEE_TABLE_X = PERGOLA_X - 4;
-export const COFFEE_TABLE_Y = PERGOLA_Y + 0.1;
+export const COFFEE_TABLE_Y = PERGOLA_Y + 0.01;
 export const COFFEE_TABLE_Z = PERGOLA_Z + 4;
 export const COFFEE_TABLE_SCALE = 2;
 

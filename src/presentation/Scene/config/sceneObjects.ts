@@ -4,7 +4,8 @@ import { shouldKeepOnMobile } from "./sceneDensity";
 
 export const SCENE_OBJECTS: SceneObject[] = [
   {
-    path: "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
+    //path: "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
+    path: "models/mountain_terrain_-_haytor_dartmoor_national_park (1).glb",
     label: "Mountain Peak",
     position: [0, P.MOUNTAIN_Y, 0],
     scale: P.MOUNTAIN_SCALE,
@@ -18,7 +19,6 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    //  path: "models/office_chair_v2.glb",
     path: "models/office_chair_cream.glb",
     label: "Chair",
     position: [P.OFFICE_CHAIR_X, P.OFFICE_CHAIR_Y, P.OFFICE_CHAIR_Z],
@@ -244,6 +244,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
       P.RUG_MEETING_SCALE * 1.25,
     ],
   },
+
   {
     path: "models_optimized/desk.glb",
     label: "Wall Desk",
@@ -598,12 +599,12 @@ export const SCENE_OBJECTS: SceneObject[] = [
   //   ],
   //   rotationY: P.PLANT_BUSH_D_ANGLE,
   // },
-  // {
-  //   path: "models_optimized/free_pothos_potted_plant_-_money_plant.glb",
-  //   label: "plant_money",
-  //   position: [P.PLANT_MONEY_X, P.PLANT_MONEY_Y, P.PLANT_MONEY_Z],
-  //   scale: P.PLANT_MONEY_SCALE,
-  // },
+  {
+    path: "models/free_dyspis_lutescens_-_potted_palm.glb",
+    label: "plant",
+    position: [P.PLANT_X, P.PLANT_Y, P.PLANT_Z],
+    scale: P.PLANT_SCALE,
+  },
   // ── COMMENTED OUT FOR PERF TEST: misc ───────────────────────────────────────
   // {
   //   path: "models_optimized/jenson_sideboard_solid_oak.glb",
