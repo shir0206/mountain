@@ -5,12 +5,8 @@ export const MOUNTAIN_SCALE = 80;
 export const MOUNTAIN_Y = -50;
 export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
-export const TERRACE_X = -5;
-export const TERRACE_Y = PEAK_WORLD_Y - 0.5;
-export const TERRACE_Z = -8;
-
 export const PERGOLA_X = 8;
-export const PERGOLA_Y = PEAK_WORLD_Y - 11;
+export const PERGOLA_Y = PEAK_WORLD_Y;
 export const PERGOLA_Z = -15;
 export const PERGOLA_SCALE = 0.05;
 export const PERGOLA_ANGLE = Math.PI;
@@ -36,27 +32,6 @@ export const BAR_CHAIR_SECOND_Y = BAR_TABLE_Y;
 export const BAR_CHAIR_SECOND_Z = BAR_TABLE_Z;
 export const BAR_CHAIR_SECOND_SCALE = 0.01;
 export const BAR_CHAIR_SECOND_ANGLE = Math.PI / 2;
-
-export const SHELF_X = TERRACE_X + 9.5;
-export const SHELF_Y = TERRACE_Y - 2.7;
-export const SHELF_Z = TERRACE_Z - 4;
-export const SHELF_SCALE = 1.8;
-
-export const FRUITS_X = SHELF_X + 1.2;
-export const FRUITS_Y = SHELF_Y + 0.83;
-export const FRUITS_Z = SHELF_Z;
-export const FRUITS_SCALE = 1.7;
-
-export const TEA_X = SHELF_X - 0.1;
-export const TEA_Y = SHELF_Y + 0.85;
-export const TEA_Z = SHELF_Z;
-export const TEA_SCALE = 1.4;
-export const TEA_ANGLE = Math.PI / 2;
-
-export const COFFEE_X = SHELF_X - 1;
-export const COFFEE_Y = SHELF_Y + 0.8;
-export const COFFEE_Z = SHELF_Z;
-export const COFFEE_SCALE = 35;
 
 export const MUD_X = PERGOLA_X - 4;
 export const MUD_Y = PERGOLA_Y + 7.82;
@@ -184,14 +159,70 @@ export const PLANT_BUSH_B_ANGLE = -Math.PI * 1.5;
 export const PLANT_BUSH_C_ANGLE = Math.PI * 1.75;
 export const PLANT_BUSH_D_ANGLE = Math.PI * 1.85;
 
-export const DESK_X = PERGOLA_X + 1.85;
-export const DESK_Y = PERGOLA_Y + 7.8;
-export const DESK_Z = PERGOLA_Z + 3.5;
-export const DESK_SCALE = 0.015;
+export const DESK_X = PERGOLA_X - 13.82;
+export const DESK_Y = PERGOLA_Y + 1;
+export const DESK_Z = PERGOLA_Z + 4.05;
+export const DESK_SCALE = 1.75;
 
-export const MUG_X = DESK_X + 2;
-export const MUG_Y = DESK_Y + 0.98;
-export const MUG_Z = DESK_Z + 0.25;
+export const SHELF_X = PERGOLA_X - 14.4;
+export const SHELF_Y = PERGOLA_Y + 2;
+export const SHELF_Z = PERGOLA_Z + 6.7;
+export const SHELF_SCALE = 0.7;
+
+// CENTRAL MONITOR (relative to desk)
+export const MONITOR_B_SCALE = 1.65;
+export const MONITOR_B_X = DESK_X - 0.5;
+export const MONITOR_B_Y = DESK_Y - 0.45;
+export const MONITOR_B_Z = DESK_Z + 3;
+export const MONITOR_B_ANGLE = Math.PI * 0.5;
+
+// LEFT MONITOR
+export const MONITOR_A_SCALE = 1.65;
+export const MONITOR_A_X = MONITOR_B_X + 1.23;
+export const MONITOR_A_Y = MONITOR_B_Y;
+export const MONITOR_A_Z = MONITOR_B_Z + 1.05;
+export const MONITOR_A_ANGLE = MONITOR_B_ANGLE + Math.PI * 0.08;
+
+// RIGHT MONITOR
+export const MONITOR_C_SCALE = 1.65;
+export const MONITOR_C_X = MONITOR_B_X - 1.16;
+export const MONITOR_C_Y = MONITOR_B_Y;
+export const MONITOR_C_Z = MONITOR_B_Z - 1.4;
+export const MONITOR_C_ANGLE = MONITOR_B_ANGLE - Math.PI * 0.1;
+
+export const KEYBOARD_X = DESK_X + 0.6;
+export const KEYBOARD_Y = DESK_Y + 0.05;
+export const KEYBOARD_Z = DESK_Z - 0.8;
+export const KEYBOARD_SCALE = 0.01;
+export const KEYBOARD_ANGLE = Math.PI * -1.5;
+
+export const PAD_X = DESK_X;
+export const PAD_Y = DESK_Y - 1.1;
+export const PAD_Z = DESK_Z - 0.6;
+export const PAD_SCALE = 0.4;
+export const PAD_ANGLE = Math.PI * 1.5;
+
+export const LAPTOP_X = DESK_X + 0.2;
+export const LAPTOP_Y = DESK_Y + 0.05;
+export const LAPTOP_Z = DESK_Z + 0.4;
+export const LAPTOP_SCALE = 2;
+export const LAPTOP_ANGLE = Math.PI * 1.5;
+
+export const DESK_LAMP_X = DESK_X - 0.1;
+export const DESK_LAMP_Y = DESK_Y + 0.45;
+export const DESK_LAMP_Z = DESK_Z + 1;
+export const DESK_LAMP_SCALE = 0.8;
+export const DESK_LAMP_ANGLE = Math.PI;
+
+export const MOUSE_X = DESK_X + 0.3;
+export const MOUSE_Y = DESK_Y + 0.05;
+export const MOUSE_Z = DESK_Z - 1.6;
+export const MOUSE_SCALE = 1.6;
+export const MOUSE_ANGLE = Math.PI * 1.5;
+
+export const MUG_X = DESK_X + 0.3;
+export const MUG_Y = DESK_Y + 0.05;
+export const MUG_Z = DESK_Z - 2.6;
 export const MUG_SCALE = 0.02;
 export const MUG_ANGLE = Math.PI * 1.9;
 
@@ -201,57 +232,19 @@ export const COASTER_Z = MUG_Z - 0.1;
 export const COASTER_SCALE = 0.15;
 export const COASTER_ANGLE = Math.PI * 0.8;
 
-export const MONITOR_A_X = DESK_X - 3.47;
-export const MONITOR_A_Y = DESK_Y + 0.62;
-export const MONITOR_A_Z = DESK_Z + 0.4;
-export const MONITOR_A_ANGLE = Math.PI * 0.08;
-
-export const MONITOR_B_X = DESK_X - 2.7;
-export const MONITOR_B_Y = DESK_Y + 0.62;
-export const MONITOR_B_Z = DESK_Z - 0.5;
-export const MONITOR_B_ANGLE = 0;
-
-export const MONITOR_C_X = DESK_X - 1.67;
-export const MONITOR_C_Y = DESK_Y + 0.62;
-export const MONITOR_C_Z = DESK_Z - 1.35;
-export const MONITOR_C_ANGLE = -Math.PI * 0.1;
-
-export const KEYBOARD_X = DESK_X;
-export const KEYBOARD_Y = DESK_Y + 0.98;
-export const KEYBOARD_Z = DESK_Z + 0.5;
-
-export const PAD_X = DESK_X;
-export const PAD_Y = DESK_Y - 1.1;
-export const PAD_Z = DESK_Z - 0.6;
-export const PAD_SCALE = 0.4;
-export const PAD_ANGLE = Math.PI * 1.5;
-
-export const LAPTOP_X = DESK_X - 1;
-export const LAPTOP_Y = DESK_Y + 1;
-export const LAPTOP_Z = DESK_Z;
-
-export const DESK_LAMP_X = DESK_X - 1.5;
-export const DESK_LAMP_Y = DESK_Y + 1.38;
-export const DESK_LAMP_Z = DESK_Z - 0.4;
-export const DESK_LAMP_SCALE = 0.8;
-export const DESK_LAMP_ANGLE = -Math.PI * 1.5;
-
-export const MOUSE_X = DESK_X + 0.6;
-export const MOUSE_Y = DESK_Y + 0.98;
-export const MOUSE_Z = DESK_Z + 0.3;
-
-export const OFFICE_CHAIR_X = DESK_X;
-export const OFFICE_CHAIR_Y = DESK_Y + 0.02;
-export const OFFICE_CHAIR_Z = DESK_Z + 1.0;
+export const OFFICE_CHAIR_X = DESK_X + 1.5;
+export const OFFICE_CHAIR_Y = DESK_Y - 1;
+export const OFFICE_CHAIR_Z = DESK_Z - 1;
 export const OFFICE_CHAIR_SCALE = 0.015;
+export const OFFICE_CHAIR_ANGLE = Math.PI * 1.5;
 
-export const COFFEE_TABLE_X = PERGOLA_X - 8;
-export const COFFEE_TABLE_Y = PERGOLA_Y + 7.8;
-export const COFFEE_TABLE_Z = TERRACE_Z - 1;
-export const COFFEE_TABLE_SCALE = 0.01;
+export const COFFEE_TABLE_X = PERGOLA_X - 4;
+export const COFFEE_TABLE_Y = PERGOLA_Y + 0.1;
+export const COFFEE_TABLE_Z = PERGOLA_Z + 4;
+export const COFFEE_TABLE_SCALE = 2;
 
 export const TABLET_X = COFFEE_TABLE_X - 0.2;
-export const TABLET_Y = COFFEE_TABLE_Y + 0.3;
+export const TABLET_Y = COFFEE_TABLE_Y + 0.8;
 export const TABLET_Z = COFFEE_TABLE_Z + 0.2;
 export const TABLET_SCALE = 1.5;
 export const TABLET_ANGLE = Math.PI * 1.5;
@@ -300,34 +293,59 @@ export const FLOOR_LAMP_Z = COFFEE_TABLE_Z + 1.8;
 export const FLOOR_LAMP_SCALE = 0.01;
 export const FLOOR_LAMP_ANGLE = Math.PI;
 
-export const ARMCHAIR_X = COFFEE_TABLE_X + 0.2;
-export const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
-export const ARMCHAIR_Z = COFFEE_TABLE_Z + 1.6;
-export const ARMCHAIR_SCALE = 0.012;
-export const ARMCHAIR_ANGLE = Math.PI;
+const ARMCHAIR_RADIUS = 1.5;
+const ARMCHAIR_Y = COFFEE_TABLE_Y + 0.01;
+const ARMCHAIR_SCALE = 0.0175;
 
-export const SOFA_X = COFFEE_TABLE_X - 1.25;
-export const SOFA_Y = COFFEE_TABLE_Y + 0.01;
-export const SOFA_Z = COFFEE_TABLE_Z + 0.2;
-export const SOFA_SCALE = 0.01;
-export const SOFA_ANGLE = Math.PI / 2;
+// A
+export const ARMCHAIR_A_X =
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.1) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_A_Y = ARMCHAIR_Y;
+export const ARMCHAIR_A_Z =
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.1) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_A_SCALE = ARMCHAIR_SCALE;
+export const ARMCHAIR_A_ANGLE = Math.PI * 1.4;
 
-export const PILLOW_X = SOFA_X - 0.05;
-export const PILLOW_Y = SOFA_Y + 0.1;
-export const PILLOW_Z = SOFA_Z - 0.5;
-export const PILLOW_SCALE = 0.0007;
-export const PILLOW_ANGLE = Math.PI / 2.2;
+// B
+export const ARMCHAIR_B_X =
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.5) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_B_Y = ARMCHAIR_Y;
+export const ARMCHAIR_B_Z =
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.5) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_B_SCALE = ARMCHAIR_SCALE;
+export const ARMCHAIR_B_ANGLE = Math.PI * 1;
 
-export const RUG_MEETING_X = COFFEE_TABLE_X - 0.5;
+// C
+export const ARMCHAIR_C_X =
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.9) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_C_Y = ARMCHAIR_Y;
+export const ARMCHAIR_C_Z =
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.9) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_C_SCALE = ARMCHAIR_SCALE;
+export const ARMCHAIR_C_ANGLE = Math.PI * 0.6;
+
+// D
+export const ARMCHAIR_D_X =
+  COFFEE_TABLE_X + Math.cos(Math.PI * 1.3) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_D_Y = ARMCHAIR_Y;
+export const ARMCHAIR_D_Z =
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 1.3) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_D_SCALE = ARMCHAIR_SCALE;
+export const ARMCHAIR_D_ANGLE = Math.PI * 0.2;
+
+// E
+export const ARMCHAIR_E_X =
+  COFFEE_TABLE_X + Math.cos(Math.PI * 1.7) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_E_Y = ARMCHAIR_Y;
+export const ARMCHAIR_E_Z =
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 1.7) * ARMCHAIR_RADIUS;
+export const ARMCHAIR_E_SCALE = ARMCHAIR_SCALE;
+export const ARMCHAIR_E_ANGLE = Math.PI * 1.8;
+
+export const RUG_MEETING_X = COFFEE_TABLE_X;
 export const RUG_MEETING_Y = COFFEE_TABLE_Y + 0.01;
-export const RUG_MEETING_Z = COFFEE_TABLE_Z + 0.5;
+export const RUG_MEETING_Z = COFFEE_TABLE_Z;
 export const RUG_MEETING_SCALE = 2.2;
-
-export const RUG_OFFICE_X = DESK_X - 0.1;
-export const RUG_OFFICE_Y = DESK_Y + 0.02;
-export const RUG_OFFICE_Z = DESK_Z + 0.8;
-export const RUG_OFFICE_SCALE = 2;
-export const RUG_OFFICE_ANGLE = Math.PI / 2;
 
 export const BOOKCASE_X = DESK_X + 2.1;
 export const BOOKCASE_Y = DESK_Y;
