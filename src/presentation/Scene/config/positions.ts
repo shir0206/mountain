@@ -5,13 +5,16 @@
 // export const MOUNTAIN_Y = -50;
 // export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
-export const MOUNTAIN_SCALE = 0.15;
+export const MOUNTAIN_SCALE = 0.2;
 export const MOUNTAIN_Y = -10;
+export const MOUNTAIN_Z = 0;
+export const MOUNTAIN_X = 0;
+export const MOUNTAIN_ANGLE = Math.PI * 1.5;
 export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
-export const PERGOLA_X = 8;
-export const PERGOLA_Y = PEAK_WORLD_Y - 10;
-export const PERGOLA_Z = 10;
+export const PERGOLA_X = 15;
+export const PERGOLA_Y = PEAK_WORLD_Y - 8.5;
+export const PERGOLA_Z = -8;
 export const PERGOLA_SCALE = 0.05;
 export const PERGOLA_ANGLE = Math.PI;
 

@@ -7,8 +7,9 @@ export const SCENE_OBJECTS: SceneObject[] = [
     //path: "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
     path: "models/mountain_terrain_-_haytor_dartmoor_national_park (1).glb",
     label: "Mountain Peak",
-    position: [0, P.MOUNTAIN_Y, 0],
+    position: [P.MOUNTAIN_X, P.MOUNTAIN_Y, P.MOUNTAIN_Z],
     scale: P.MOUNTAIN_SCALE,
+    rotationY: P.MOUNTAIN_ANGLE,
   },
   {
     path: "models/pegrola_-_micha.xml.glb",
