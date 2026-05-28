@@ -43,6 +43,7 @@ import { SceneReadyGate } from "./SceneReadyGate/SceneReadyGate";
 import { MemoryMonitor } from "./Model/MemoryMonitor";
 import { PortalButton3D } from "./PortalButton3D/PortalButton3D";
 import { useSceneContext } from "../../context/scene/useSceneContext";
+import { SceneBackground } from "./SceneBackground/SceneBackground";
 
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
 function SceneInner({
@@ -80,6 +81,7 @@ function SceneInner({
 
 	return (
 		<>
+			<SceneBackground />
 			<Lighting />
 			<CameraTracker controlsRef={controlsRef} />
 			<SceneReadyGate onReady={handleSceneReady} />
@@ -205,7 +207,6 @@ export default function Scene({
 				position: "relative",
 				width: "100vw",
 				height: "100vh",
-				background: "#0d1117",
 			}}
 		>
 			<Canvas
