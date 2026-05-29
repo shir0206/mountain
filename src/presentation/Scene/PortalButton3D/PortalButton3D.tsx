@@ -186,202 +186,208 @@ const rayFragmentShader = `
 `;
 
 export function PortalButton3D() {
-	const { setBrowserMode } = usePortfolioContext();
-	const { setRunIntro } = useSceneContext();
+  const { setBrowserMode } = usePortfolioContext();
+  const { setRunIntro } = useSceneContext();
 
-	const onClick = useCallback(() => {
-		setBrowserMode(BROWSER_MODE.OPEN);
-		setRunIntro(false);
-	}, [setBrowserMode, setRunIntro]);
+  const onClick = useCallback(() => {
+    setBrowserMode(BROWSER_MODE.OPEN);
+    setRunIntro(false);
+  }, [setBrowserMode, setRunIntro]);
 
-	const groupRef = useRef<THREE.Group>(null);
-	const ringRef = useRef<THREE.Mesh>(null);
-	const orbRef = useRef<THREE.Mesh>(null);
-	const orbMatRef = useRef<THREE.ShaderMaterial>(null);
-	const atmoMatRef = useRef<THREE.ShaderMaterial>(null);
-	const coreRef = useRef<THREE.PointLight>(null);
-	const [oriented, setOriented] = useState(false);
-	const { camera } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+  const orbRef = useRef<THREE.Mesh>(null);
+  const orbMatRef = useRef<THREE.ShaderMaterial>(null);
+  const atmoMatRef = useRef<THREE.ShaderMaterial>(null);
+  const coreRef = useRef<THREE.PointLight>(null);
+  const [oriented, setOriented] = useState(false);
+  const { camera } = useThree();
 
-	// Orb shader material
-	const orbUniforms = useMemo(() => ({
-		uTime: { value: 0 },
-		uColor: { value: new THREE.Color("#f9f6f1") },
-		uBreath: { value: 0 },
-	}), []);
+  // Orb shader material
+  const orbUniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uColor: { value: new THREE.Color("#f9f6f1") },
+      uBreath: { value: 0 },
+    }),
+    []
+  );
 
-	// Atmosphere shader material
-	const atmoUniforms = useMemo(() => ({
-		uTime: { value: 0 },
-		uColor: { value: new THREE.Color("#f9f6f1") },
-		uBreath: { value: 0 },
-	}), []);
+  // Atmosphere shader material
+  const atmoUniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uColor: { value: new THREE.Color("#f9f6f1") },
+      uBreath: { value: 0 },
+    }),
+    []
+  );
 
-	// Ray shader materials
-	const rayUniforms = useMemo(
-		() => ({
-			uColor: { value: new THREE.Color("#f9f6f1") },
-			uOpacity: { value: 0.6 },
-		}),
-		[]
-	);
+  // Ray shader materials
+  const rayUniforms = useMemo(
+    () => ({
+      uColor: { value: new THREE.Color("#f9f6f1") },
+      uOpacity: { value: 0.6 },
+    }),
+    []
+  );
 
-	useFrame(({ clock }) => {
-		// Orient group to face camera once
-		if (!oriented && groupRef.current) {
-			groupRef.current.lookAt(camera.position);
-			setOriented(true);
-		}
+  useFrame(({ clock }) => {
+    // Orient group to face camera once
+    if (!oriented && groupRef.current) {
+      groupRef.current.lookAt(camera.position);
+      setOriented(true);
+    }
 
-		const t = clock.getElapsedTime();
+    const t = clock.getElapsedTime();
 
-		// Breathing factor (0..1 oscillation)
-		const breath = Math.sin(t * 0.8) * 0.5 + 0.5;
+    // Breathing factor (0..1 oscillation)
+    const breath = Math.sin(t * 0.8) * 0.5 + 0.5;
 
-		// Ring slow rotation + subtle pulse
-		if (ringRef.current) {
-			ringRef.current.rotation.z = t * 0.25;
-			ringRef.current.scale.setScalar(1 + Math.sin(t * 1.0) * 0.02);
-		}
+    // Ring slow rotation + subtle pulse
+    if (ringRef.current) {
+      ringRef.current.rotation.z = t * 0.25;
+      ringRef.current.scale.setScalar(1 + Math.sin(t * 1.0) * 0.02);
+    }
 
-		// Orb breathing scale
-		if (orbRef.current) {
-			const s = 1 + breath * 0.08;
-			orbRef.current.scale.setScalar(s);
-		}
+    // Orb breathing scale
+    if (orbRef.current) {
+      const s = 1 + breath * 0.08;
+      orbRef.current.scale.setScalar(s);
+    }
 
-		// Shader uniforms
-		if (orbMatRef.current) {
-			orbMatRef.current.uniforms.uTime.value = t;
-			orbMatRef.current.uniforms.uBreath.value = breath;
-		}
-		if (atmoMatRef.current) {
-			atmoMatRef.current.uniforms.uTime.value = t;
-			atmoMatRef.current.uniforms.uBreath.value = breath;
-		}
+    // Shader uniforms
+    if (orbMatRef.current) {
+      orbMatRef.current.uniforms.uTime.value = t;
+      orbMatRef.current.uniforms.uBreath.value = breath;
+    }
+    if (atmoMatRef.current) {
+      atmoMatRef.current.uniforms.uTime.value = t;
+      atmoMatRef.current.uniforms.uBreath.value = breath;
+    }
 
-		// Core light pulse synced with breath
-		if (coreRef.current) {
-			coreRef.current.intensity = 2 + breath * 1.2;
-		}
-	});
+    // Core light pulse synced with breath
+    if (coreRef.current) {
+      coreRef.current.intensity = 2 + breath * 1.2;
+    }
+  });
 
-	return (
-		<group
-			ref={groupRef}
-			position={[P.DESK_X, P.DESK_Y + 2.5, P.DESK_Z - 0.5]}
-			scale={0.8}
-			onClick={onClick}
-			onPointerOver={() => {
-				document.body.style.cursor = "pointer";
-			}}
-			onPointerOut={() => {
-				document.body.style.cursor = "auto";
-			}}
-		>
-			{/* Gold metallic ring — Torus */}
-			<mesh ref={ringRef}>
-				<torusGeometry args={[0.5, 0.022, 16, 64]} />
-				<meshStandardMaterial
-					color='#c9a97d'
-					metalness={0.6}
-					roughness={0.15}
-					emissive='#8a6530'
-					emissiveIntensity={0.2}
-				/>
-			</mesh>
+  return (
+    <group
+      ref={groupRef}
+      position={[P.DESK_X, P.DESK_Y + 2.5, P.DESK_Z - 0.5]}
+      scale={0.8}
+      onClick={onClick}
+      onPointerOver={() => {
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = "auto";
+      }}
+    >
+      {/* Gold metallic ring — Torus */}
+      <mesh ref={ringRef}>
+        <torusGeometry args={[0.5, 0.022, 16, 64]} />
+        <meshStandardMaterial
+          color="#c9a97d"
+          metalness={0.6}
+          roughness={0.15}
+          emissive="#8a6530"
+          emissiveIntensity={0.2}
+        />
+      </mesh>
 
-			{/* Cloudy energy orb — inner */}
-			<mesh ref={orbRef}>
-				<sphereGeometry args={[0.35, 32, 32]} />
-				<shaderMaterial
-					ref={orbMatRef}
-					vertexShader={orbVertexShader}
-					fragmentShader={orbFragmentShader}
-					uniforms={orbUniforms}
-					transparent
-					depthWrite={false}
-					blending={THREE.AdditiveBlending}
-					side={THREE.DoubleSide}
-				/>
-			</mesh>
+      {/* Cloudy energy orb — inner */}
+      <mesh ref={orbRef}>
+        <sphereGeometry args={[0.35, 32, 32]} />
+        <shaderMaterial
+          ref={orbMatRef}
+          vertexShader={orbVertexShader}
+          fragmentShader={orbFragmentShader}
+          uniforms={orbUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
 
-			{/* Outer atmosphere halo — undefined cloud border */}
-			<mesh scale={1.35}>
-				<sphereGeometry args={[0.42, 32, 32]} />
-				<shaderMaterial
-					ref={atmoMatRef}
-					vertexShader={atmoVertexShader}
-					fragmentShader={atmoFragmentShader}
-					uniforms={atmoUniforms}
-					transparent
-					depthWrite={false}
-					blending={THREE.AdditiveBlending}
-					side={THREE.DoubleSide}
-				/>
-			</mesh>
+      {/* Outer atmosphere halo — undefined cloud border */}
+      <mesh scale={1.35}>
+        <sphereGeometry args={[0.42, 32, 32]} />
+        <shaderMaterial
+          ref={atmoMatRef}
+          vertexShader={atmoVertexShader}
+          fragmentShader={atmoFragmentShader}
+          uniforms={atmoUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
 
-			{/* Compass ray — horizontal */}
-			<mesh rotation={[0, 0, 0]}>
-				<planeGeometry args={[1.2, 0.025]} />
-				<shaderMaterial
-					vertexShader={rayVertexShader}
-					fragmentShader={rayFragmentShader}
-					uniforms={rayUniforms}
-					transparent
-					depthWrite={false}
-					blending={THREE.AdditiveBlending}
-					side={THREE.DoubleSide}
-				/>
-			</mesh>
+      {/* Compass ray — horizontal */}
+      <mesh rotation={[0, 0, 0]}>
+        <planeGeometry args={[1.2, 0.025]} />
+        <shaderMaterial
+          vertexShader={rayVertexShader}
+          fragmentShader={rayFragmentShader}
+          uniforms={rayUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
 
-			{/* Compass ray — vertical */}
-			<mesh rotation={[0, 0, Math.PI / 2]}>
-				<planeGeometry args={[1.2, 0.025]} />
-				<shaderMaterial
-					vertexShader={rayVertexShader}
-					fragmentShader={rayFragmentShader}
-					uniforms={rayUniforms}
-					transparent
-					depthWrite={false}
-					blending={THREE.AdditiveBlending}
-					side={THREE.DoubleSide}
-				/>
-			</mesh>
+      {/* Compass ray — vertical */}
+      <mesh rotation={[0, 0, Math.PI / 2]}>
+        <planeGeometry args={[1.2, 0.025]} />
+        <shaderMaterial
+          vertexShader={rayVertexShader}
+          fragmentShader={rayFragmentShader}
+          uniforms={rayUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
 
-			{/* Core glow sphere */}
-			<mesh>
-				<sphereGeometry args={[0.06, 16, 16]} />
-				<meshBasicMaterial color='#ffffff' />
-			</mesh>
+      {/* Core glow sphere */}
+      <mesh>
+        <sphereGeometry args={[0.06, 16, 16]} />
+        <meshBasicMaterial color="#ffffff" />
+      </mesh>
 
-			{/* Core point light */}
-			<pointLight
-				ref={coreRef}
-				color='#80eeff'
-				intensity={2}
-				distance={3}
-				decay={2}
-			/>
+      {/* Core point light */}
+      <pointLight
+        ref={coreRef}
+        color="#80eeff"
+        intensity={2}
+        distance={3}
+        decay={2}
+      />
 
-			{/* Sparkles */}
-			<Sparkles count={20} scale={1.6} size={2.5} speed={1.2} color='#f9f6f1' />
+      {/* Sparkles */}
+      <Sparkles count={20} scale={1.6} size={2.5} speed={1.2} color="#f9f6f1" />
 
-			{/* Label */}
-			<Text
-				position={[0, -0.75, 0]}
-				fontSize={0.2}
-				color='#ffffff'
-				anchorX='center'
-				anchorY='middle'
-				outlineWidth={0.0001}
-				outlineBlur={0.15}
-				outlineColor='#353535'
-				outlineOffsetY={0.01}
-				font={undefined}
-			>
-				Open Website
-			</Text>
-		</group>
-	);
+      {/* Label */}
+      <Text
+        position={[0, -1.5, 0]}
+        fontSize={0.2}
+        color="#ffffff"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.0001}
+        outlineBlur={0.15}
+        outlineColor="#353535"
+        outlineOffsetY={0.01}
+        font={undefined}
+      >
+        Open Website
+      </Text>
+    </group>
+  );
 }

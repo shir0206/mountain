@@ -1,18 +1,21 @@
 // ─── Scene object positions ──────────────────────────────────────────────────
 // All spatial constants for 3D objects in the scene.
 
-// export const MOUNTAIN_SCALE = 80;
-// export const MOUNTAIN_Y = -50;
+export const MOUNTAIN_SCALE = 50;
+export const MOUNTAIN_Y = -50;
 // export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
-export const MOUNTAIN_SCALE = 0.2;
-export const MOUNTAIN_Y = -10;
+//export const MOUNTAIN_SCALE = 0.2;
+//export const MOUNTAIN_Y = -10;
 export const MOUNTAIN_Z = 0;
 export const MOUNTAIN_X = 0;
-export const MOUNTAIN_ANGLE = Math.PI * 0.8;
+// export const MOUNTAIN_ANGLE = Math.PI * 0.8;
+export const MOUNTAIN_ANGLE = Math.PI * 1.5;
+
 export const PEAK_WORLD_Y = MOUNTAIN_Y + 0.23 * MOUNTAIN_SCALE;
 
 export const PERGOLA_X = 5;
+//export const PERGOLA_Y = PEAK_WORLD_Y - 3;
 export const PERGOLA_Y = PEAK_WORLD_Y - 3;
 export const PERGOLA_Z = -5;
 export const PERGOLA_SCALE = 0.05;
@@ -311,46 +314,46 @@ const ARMCHAIR_SCALE = 0.0175;
 
 // A
 export const ARMCHAIR_A_X =
-	COFFEE_TABLE_X + Math.cos(Math.PI * 0.1) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.1) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_A_Y = ARMCHAIR_Y;
 export const ARMCHAIR_A_Z =
-	COFFEE_TABLE_Z + Math.sin(Math.PI * 0.1) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.1) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_A_SCALE = ARMCHAIR_SCALE;
 export const ARMCHAIR_A_ANGLE = Math.PI * 1.4;
 
 // B
 export const ARMCHAIR_B_X =
-	COFFEE_TABLE_X + Math.cos(Math.PI * 0.5) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.5) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_B_Y = ARMCHAIR_Y;
 export const ARMCHAIR_B_Z =
-	COFFEE_TABLE_Z + Math.sin(Math.PI * 0.5) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.5) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_B_SCALE = ARMCHAIR_SCALE;
 export const ARMCHAIR_B_ANGLE = Math.PI * 1;
 
 // C
 export const ARMCHAIR_C_X =
-	COFFEE_TABLE_X + Math.cos(Math.PI * 0.9) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_X + Math.cos(Math.PI * 0.9) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_C_Y = ARMCHAIR_Y;
 export const ARMCHAIR_C_Z =
-	COFFEE_TABLE_Z + Math.sin(Math.PI * 0.9) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 0.9) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_C_SCALE = ARMCHAIR_SCALE;
 export const ARMCHAIR_C_ANGLE = Math.PI * 0.6;
 
 // D
 export const ARMCHAIR_D_X =
-	COFFEE_TABLE_X + Math.cos(Math.PI * 1.3) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_X + Math.cos(Math.PI * 1.3) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_D_Y = ARMCHAIR_Y;
 export const ARMCHAIR_D_Z =
-	COFFEE_TABLE_Z + Math.sin(Math.PI * 1.3) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 1.3) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_D_SCALE = ARMCHAIR_SCALE;
 export const ARMCHAIR_D_ANGLE = Math.PI * 0.2;
 
 // E
 export const ARMCHAIR_E_X =
-	COFFEE_TABLE_X + Math.cos(Math.PI * 1.7) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_X + Math.cos(Math.PI * 1.7) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_E_Y = ARMCHAIR_Y;
 export const ARMCHAIR_E_Z =
-	COFFEE_TABLE_Z + Math.sin(Math.PI * 1.7) * ARMCHAIR_RADIUS;
+  COFFEE_TABLE_Z + Math.sin(Math.PI * 1.7) * ARMCHAIR_RADIUS;
 export const ARMCHAIR_E_SCALE = ARMCHAIR_SCALE;
 export const ARMCHAIR_E_ANGLE = Math.PI * 1.8;
 

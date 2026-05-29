@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useThree } from "@react-three/fiber";
 import { EXRLoader } from "three/examples/jsm/loaders/EXRLoader.js";
 import * as THREE from "three";
-const EXR_PATH = "public/textures/champagne_castle_1_4k.exr"; //"/textures/background.exr";
+const EXR_PATH = "public/textures/background_skybox.hdr"; //"/textures/background.exr";
 
 export function SceneBackground() {
   const { scene, gl } = useThree();
