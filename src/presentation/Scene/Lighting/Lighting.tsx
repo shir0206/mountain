@@ -8,8 +8,8 @@ import {
 	FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z,
 } from "../config/positions";
 
-// Post-rain summer atmosphere — bright cloudy sky, warm sun aimed at pergola,
-// two soft warm interior lamps. Every light that matters casts shadows.
+// Mid-morning alpine summer — cool blue-sky ambient, single strong sun from upper-left,
+// mountain bounce from right, warm interior lamps as accent contrast.
 export function Lighting() {
 	const { renderSettings } = useDeviceContext();
 	const shadowMapSize = renderSettings.shadowMapSize;
@@ -24,20 +24,18 @@ export function Lighting() {
 
 	return (
 		<>
-			{/* Humid post-rain ambient — warm, slightly reduced so shadows read */}
-			<ambientLight color='#fff1d6' intensity={0.55} />
+			{/* Cool alpine sky ambient */}
+			<ambientLight color='#d0e4f4' intensity={0.4} />
 
-			{/* Bright cloudy sky + warm earth bounce */}
-			<hemisphereLight args={["#fff4dc", "#b89878", 1.2]} />
+			{/* Alpine sky dome — blue above, dry-rock ground bounce below */}
+			<hemisphereLight args={["#a8c8e8", "#8a7a5a", 0.9]} />
 
-			{/* Primary sun — positioned above the initial camera point,
-			    shining down toward the pergola. Casts shadows on pergola floor
-			    and mountain surface below. */}
+			{/* Primary sun — upper-left, ~38° elevation, mid-morning summer */}
 			<primitive object={sunTarget} />
 			<directionalLight
-				color='#fff8e8'
-				intensity={4}
-				position={[-19.95, -5, -1.54]}
+				color='#fff4e0'
+				intensity={3.5}
+				position={[-25, 20, -15]}
 				target={sunTarget}
 				castShadow
 				shadow-mapSize-width={shadowMapSize}
@@ -52,46 +50,34 @@ export function Lighting() {
 				shadow-camera-bottom={-35}
 			/>
 
-			{/* Secondary warm sun — wider angle, covers mountain slopes for
-			    visible shadows on the terrain. */}
+			{/* Mountain face bounce — cool blue-grey fill from right-back */}
 			<directionalLight
-				color='#ffe3b8'
-				intensity={2.5}
-				position={[PERGOLA_X - 45, PERGOLA_Y + 55, PERGOLA_Z - 40]}
+				color='#c8d8e8'
+				intensity={0.5}
+				position={[PERGOLA_X + 40, PERGOLA_Y + 30, PERGOLA_Z + 20]}
 				target={sunTarget}
-				castShadow
-				shadow-mapSize-width={shadowMapSize}
-				shadow-mapSize-height={shadowMapSize}
-				shadow-bias={-0.0003}
-				shadow-normalBias={0.04}
-				shadow-camera-near={1}
-				shadow-camera-far={150}
-				shadow-camera-left={-50}
-				shadow-camera-right={50}
-				shadow-camera-top={50}
-				shadow-camera-bottom={-50}
 			/>
 
-			{/* Soft opposite fill — lifts crushed shadows on turquoise chairs */}
+			{/* Sky fill — reinforces cool upper hemisphere */}
 			<directionalLight
-				color='#dfeaff'
-				intensity={0.6}
+				color='#c8ddf4'
+				intensity={0.4}
 				position={[PERGOLA_X + 30, PERGOLA_Y + 40, PERGOLA_Z + 30]}
 			/>
 
-			{/* Desk lamp — warm, low. No shadow (point-light shadow = 6 cube passes). */}
+			{/* Desk lamp — warm point, accent contrast against cool ambient */}
 			<pointLight
 				color='#ffb870'
-				intensity={6}
+				intensity={4}
 				distance={4}
 				decay={2}
 				position={[DESK_LAMP_X, DESK_LAMP_Y + 0.2, DESK_LAMP_Z]}
 			/>
 
-			{/* Coffee-table / floor lamp — warm, low. No shadow for same reason. */}
+			{/* Floor lamp — warm point */}
 			<pointLight
 				color='#ffb870'
-				intensity={7}
+				intensity={5}
 				distance={5}
 				decay={2}
 				position={[FLOOR_LAMP_X, FLOOR_LAMP_Y + 2.2, FLOOR_LAMP_Z]}
