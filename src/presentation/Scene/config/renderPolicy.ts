@@ -12,6 +12,11 @@ export const NO_SHADOW_PATHS = new Set<string>([
 	"models_optimized/free_pothos_potted_plant_-_money_plant.glb",
 ]);
 
+// Pergola / furniture with wood surfaces — override roughness & metalness.
+export const WOOD_MATERIAL_PATHS = new Set<string>([
+	"models_optimized/pergola.glb",
+]);
+
 export const EMISSIVE_TEXT_PATH = "models_optimized/welcome_text.glb";
 export const MOUNTAIN_PATH =
 	"models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb";

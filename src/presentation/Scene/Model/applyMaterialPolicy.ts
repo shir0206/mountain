@@ -4,6 +4,7 @@ import {
 	MOUNTAIN_PATH,
 	MOUNTAIN_BACKGROUND_MATERIAL,
 	NO_SHADOW_PATHS,
+	WOOD_MATERIAL_PATHS,
 } from "../config/renderPolicy";
 
 export type TextureTier = "primary" | "secondary" | "tertiary";
@@ -32,6 +33,7 @@ export function applyMaterialPolicy(
 	const skipShadows = NO_SHADOW_PATHS.has(path);
 	const isEmissiveText = path === EMISSIVE_TEXT_PATH;
 	const isMountain = path === MOUNTAIN_PATH;
+	const isWood = WOOD_MATERIAL_PATHS.has(path);
 
 	root.traverse((child) => {
 		const mesh = child as THREE.Mesh;
@@ -53,6 +55,12 @@ export function applyMaterialPolicy(
 			: [meshMaterial];
 		materials.forEach((material) => {
 			if (!material) return;
+
+			// Wood material override — physically-based diffuse wood appearance
+			if (isWood) {
+				material.roughness = 0.55;
+				material.metalness = 0.0;
+			}
 
 			if (isEmissiveText) {
 				material.emissive = new THREE.Color("#a8d4ff");

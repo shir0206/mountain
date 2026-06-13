@@ -4,19 +4,32 @@ import { shouldKeepOnMobile } from "./sceneDensity";
 
 export const SCENE_OBJECTS: SceneObject[] = [
   {
-    //path: "models_optimized/weisse_wand_mountain_peek_2517_m_8257_ft_m.glb",
-    path: "models/mountain_terrain_-_haytor_dartmoor_national_park (1).glb",
+    //path: "models/mountain_terrain_-_haytor_dartmoor_national_park (1).glb",
+    //path: "models/big_rocks_ground.glb",
+    //path: "models/gravel.glb",
+    path: "models/mountain.glb",
     label: "Mountain Peak",
     position: [P.MOUNTAIN_X, P.MOUNTAIN_Y, P.MOUNTAIN_Z],
-    scale: [P.MOUNTAIN_SCALE, P.MOUNTAIN_SCALE * 0.4, P.MOUNTAIN_SCALE],
+    scale: [P.MOUNTAIN_SCALE, P.MOUNTAIN_SCALE * 0.7, P.MOUNTAIN_SCALE],
     rotationY: P.MOUNTAIN_ANGLE,
   },
   {
-    path: "models/pergola_new_marble_floor (1).glb",
+    path: "models/pergola_structure.glb",
     label: "Glass Terrace",
     position: [P.PERGOLA_X, P.PERGOLA_Y, P.PERGOLA_Z],
     scale: [P.PERGOLA_SCALE, P.PERGOLA_SCALE * 0.7, P.PERGOLA_SCALE],
     rotationY: P.PERGOLA_ANGLE,
+  },
+  {
+    path: "models/pergola_floor.glb",
+    label: "Pergola Floor",
+    position: [P.PERGOLA_FLOOR_X, P.PERGOLA_FLOOR_Y, P.PERGOLA_FLOOR_Z],
+    scale: [
+      P.PERGOLA_FLOOR_SCALE,
+      P.PERGOLA_FLOOR_SCALE * 4.2,
+      P.PERGOLA_FLOOR_SCALE,
+    ],
+    rotationY: P.PERGOLA_FLOOR_ANGLE,
   },
 
   {
@@ -661,6 +674,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
 const PRIMARY_LABELS = new Set([
   "Mountain Peak",
   "Glass Terrace",
+  "Pergola Floor",
   // "mud",
   // "wooden_fence a",
 ]);

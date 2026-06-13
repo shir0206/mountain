@@ -98,18 +98,18 @@ function SceneInner({
 
 			{/* Tier 1: mountain, pergola, mud, fences — visible during intro orbit */}
 			<Suspense fallback={null}>
-			{(isMobile ? SCENE_OBJECTS_PRIMARY_MOBILE : SCENE_OBJECTS_PRIMARY).map(
-				(config) => (
-					<Model
-						key={config.position.join(",")}
-						path={config.path}
-						position={config.position}
-						scale={config.scale}
-						rotationY={config.rotationY}
-						tier='primary'
-					/>
-				)
-			)}
+				{(isMobile ? SCENE_OBJECTS_PRIMARY_MOBILE : SCENE_OBJECTS_PRIMARY).map(
+					(config) => (
+						<Model
+							key={config.position.join(",")}
+							path={config.path}
+							position={config.position}
+							scale={config.scale}
+							rotationY={config.rotationY}
+							tier='primary'
+						/>
+					)
+				)}
 			</Suspense>
 
 			{/* Tier 2: near furniture — textures deferred until idle */}
@@ -151,10 +151,8 @@ function SceneInner({
 				</Suspense>
 			)}
 
-      {/* Portal button — anchored above monitors */}
-      <Suspense fallback={null}>
-        {portalVisible && <PortalButton3D />}
-      </Suspense>
+			{/* Portal button — anchored above monitors */}
+			<Suspense fallback={null}>{portalVisible && <PortalButton3D />}</Suspense>
 
 			{/* Non-critical effects deferred until intro completes */}
 			{introComplete && <BakeShadows />}
@@ -224,9 +222,10 @@ export default function Scene({
 				dpr={renderSettings.dpr}
 				shadows={renderSettings.shadows}
 				frameloop='always'
-				onCreated={({ gl }) => {
-					gl.localClippingEnabled = true;
-				}}
+			onCreated={({ gl }) => {
+				gl.localClippingEnabled = true;
+				gl.toneMappingExposure = 1.1;
+			}}
 			>
 				<AdaptiveDpr />
 				<SceneInner

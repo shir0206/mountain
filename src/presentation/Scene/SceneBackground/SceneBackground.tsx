@@ -1,31 +1,47 @@
-import { useEffect } from "react";
-import { useThree } from "@react-three/fiber";
-import { EXRLoader } from "three/examples/jsm/loaders/EXRLoader.js";
+import { useEffect, useMemo } from "react";
+import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-const EXR_PATH = "textures/background.exr";
+
+const BG_PATH = "models/ChatGPT Image Jun 13, 2026, 01_26_46 PM.png";
+const BG_FOV = 75; // wider than main camera → shows more top/bottom of panorama
 
 export function SceneBackground() {
-	const { scene, gl } = useThree();
+	const { gl, camera, size } = useThree();
+	const bgScene = useMemo(() => new THREE.Scene(), []);
+	const bgCamera = useMemo(
+		() => new THREE.PerspectiveCamera(BG_FOV, 1, 0.1, 10),
+		[]
+	);
 
 	useEffect(() => {
-		const loader = new EXRLoader();
-		const pmremGenerator = new THREE.PMREMGenerator(gl);
-		pmremGenerator.compileEquirectangularShader();
-
-		loader.load(EXR_PATH, (texture) => {
+		const loader = new THREE.TextureLoader();
+		loader.load(BG_PATH, (texture) => {
+			texture.colorSpace = THREE.SRGBColorSpace;
 			texture.mapping = THREE.EquirectangularReflectionMapping;
-			const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-
-			scene.background = envMap;
-
-			texture.dispose();
-			pmremGenerator.dispose();
+			bgScene.background = texture;
 		});
 
 		return () => {
-			scene.background = null;
+			bgScene.background = null;
 		};
-	}, [scene, gl]);
+	}, [bgScene]);
+
+	useEffect(() => {
+		gl.autoClear = false;
+		return () => {
+			gl.autoClear = true;
+		};
+	}, [gl]);
+
+	useFrame(() => {
+		bgCamera.aspect = size.width / size.height;
+		bgCamera.updateProjectionMatrix();
+		bgCamera.quaternion.copy(camera.quaternion);
+		bgCamera.position.set(0, 0, 0);
+
+		gl.clear();
+		gl.render(bgScene, bgCamera);
+	}, -1);
 
 	return null;
 }
