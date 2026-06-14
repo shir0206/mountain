@@ -294,9 +294,9 @@ export const TABLET_SCALE = 2;
 export const TABLET_ANGLE = Math.PI * 1.5;
 
 export const TV_CODE_X = TABLET_X - 0.02;
-export const TV_CODE_Y = TABLET_Y + 0.7;
+export const TV_CODE_Y = TABLET_Y + 0.01;
 export const TV_CODE_Z = TABLET_Z + 0.01;
-export const TV_CODE_SCALE = 0.2;
+export const TV_CODE_SCALE = 0.18;
 export const TV_CODE_ANGLE = Math.PI * 2;
 
 export const TV_X = PERGOLA_X - 7.75;

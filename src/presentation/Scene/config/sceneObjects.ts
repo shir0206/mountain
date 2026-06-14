@@ -102,7 +102,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    path: "models_optimized/welcome_text.glb",
+    path: "models/welcome_text_lying.glb",
     label: "TV_CODE",
     position: [P.TV_CODE_X, P.TV_CODE_Y, P.TV_CODE_Z],
     scale: P.TV_CODE_SCALE,
