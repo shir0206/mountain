@@ -4,9 +4,6 @@ import { shouldKeepOnMobile } from "./sceneDensity";
 
 export const SCENE_OBJECTS: SceneObject[] = [
   {
-    //path: "models/mountain_terrain_-_haytor_dartmoor_national_park (1).glb",
-    //path: "models/big_rocks_ground.glb",
-    //path: "models/gravel.glb",
     path: "models/mountain.glb",
     label: "Mountain Peak",
     position: [P.MOUNTAIN_X, P.MOUNTAIN_Y, P.MOUNTAIN_Z],
@@ -67,13 +64,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     scale: P.KEYBOARD_SCALE,
     rotationY: P.KEYBOARD_ANGLE,
   },
-  // {
-  //   path: "models_optimized/mousepad.glb",
-  //   label: "pad",
-  //   position: [P.PAD_X, P.PAD_Y, P.PAD_Z],
-  //   scale: [P.PAD_SCALE * 0.9, P.PAD_SCALE, P.PAD_SCALE * 1.2],
-  //   rotationY: P.PAD_ANGLE,
-  // },
+
   {
     path: "models_optimized/lowpoly_laptop_closed.glb",
     label: "Laptop",
@@ -117,13 +108,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     scale: P.TV_CODE_SCALE,
     rotationY: P.TV_CODE_ANGLE,
   },
-  {
-    path: "models_optimized/tv_with_a_wall_mount.glb",
-    label: "TV",
-    position: [P.TV_X, P.TV_Y, P.TV_Z],
-    scale: P.TV_SCALE,
-    rotationY: P.TV_ANGLE,
-  },
+
   {
     path: "models_optimized/ipad_air4.glb",
     label: "tablet",
@@ -131,70 +116,6 @@ export const SCENE_OBJECTS: SceneObject[] = [
     scale: P.TABLET_SCALE,
     rotationY: P.TABLET_ANGLE,
   },
-  // ── COMMENTED OUT FOR PERF TEST: balcony/garden plants ──────────────────────
-  // {
-  //   path: "models_optimized/bush_square.glb",
-  //   label: "square",
-  //   position: [P.PLANT_SQUARE_X, P.PLANT_SQUARE_Y, P.PLANT_SQUARE_Z],
-  //   scale: [
-  //     P.PLANT_SQUARE_SCALE * 1.5,
-  //     P.PLANT_SQUARE_SCALE * 3,
-  //     P.PLANT_SQUARE_SCALE * 3.5,
-  //   ],
-  //   rotationY: P.PLANT_SQUARE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/bush_square.glb",
-  //   label: "square",
-  //   position: [P.PLANT_SQUARE_B_X, P.PLANT_SQUARE_Y, P.PLANT_SQUARE_B_Z],
-  //   scale: [
-  //     P.PLANT_SQUARE_SCALE * 1.5,
-  //     P.PLANT_SQUARE_SCALE * 3,
-  //     P.PLANT_SQUARE_SCALE * 3.5,
-  //   ],
-  //   rotationY: P.PLANT_SQUARE_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/bush_square.glb",
-  //   label: "square",
-  //   position: [P.PLANT_SQUARE_C_X, P.PLANT_SQUARE_Y, P.PLANT_SQUARE_C_Z],
-  //   scale: [
-  //     P.PLANT_SQUARE_SCALE * 1.5,
-  //     P.PLANT_SQUARE_SCALE * 3,
-  //     P.PLANT_SQUARE_SCALE * 5,
-  //   ],
-  //   rotationY: P.PLANT_SQUARE_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/green_creeper_plant.glb",
-  //   label: "creeper",
-  //   position: [
-  //     P.PLANT_CREEPER_LEFT_X,
-  //     P.PLANT_CREEPER_LEFT_Y,
-  //     P.PLANT_CREEPER_LEFT_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_CREEPER_LEFT_SCALE * 1.8,
-  //     P.PLANT_CREEPER_LEFT_SCALE * 1.2,
-  //     P.PLANT_CREEPER_LEFT_SCALE * 1.2,
-  //   ],
-  //   rotationY: P.PLANT_CREEPER_LEFT_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/green_creeper_plant.glb",
-  //   label: "creeper",
-  //   position: [
-  //     P.PLANT_CREEPER_RIGHT_X,
-  //     P.PLANT_CREEPER_RIGHT_Y,
-  //     P.PLANT_CREEPER_RIGHT_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_CREEPER_RIGHT_SCALE * 1.3,
-  //     P.PLANT_CREEPER_RIGHT_SCALE * 1.7,
-  //     P.PLANT_CREEPER_RIGHT_SCALE * 2,
-  //   ],
-  //   rotationY: P.PLANT_CREEPER_RIGHT_ANGLE,
-  // },
   {
     path: "models_optimized/irvin_floor_lamp_natural_wood_and_white.glb",
     label: "FLOOR_LAMP",
@@ -250,6 +171,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
 
   {
     path: "models_optimized/rug_round.glb",
+
     label: "rug meeting",
     position: [P.RUG_MEETING_X, P.RUG_MEETING_Y, P.RUG_MEETING_Z],
     scale: [
@@ -271,400 +193,42 @@ export const SCENE_OBJECTS: SceneObject[] = [
     position: [P.SHELF_X, P.SHELF_Y, P.SHELF_Z],
     scale: [P.SHELF_SCALE * 1, P.SHELF_SCALE * 0.8, P.SHELF_SCALE * 1],
   },
-  // {
-  // 	path: "models/glass_cup.glb",
-  // 	label: "Stonecrop",
-  // 	position: [P.STONECROP_X, P.STONECROP_Y, P.STONECROP_Z],
-  // 	scale: [
-  // 		P.STONECROP_SCALE * 3,
-  // 		P.STONECROP_SCALE * 0.6,
-  // 		P.STONECROP_SCALE * 1.8,
-  // 	],
-  // 	rotationY: P.STONECROP_ANGLE,
-  // },
+  {
+    path: "models/pot-plant-with-mud.glb",
+    label: "Stonecrop",
+    position: [P.SHELF_PLANT_POT_X, P.SHELF_PLANT_POT_Y, P.SHELF_PLANT_POT_Z],
+    scale: [
+      P.SHELF_PLANT_POT_SCALE * 1.5,
+      P.SHELF_PLANT_POT_SCALE * 0.8,
+      P.SHELF_PLANT_POT_SCALE * 0.5,
+    ],
+    rotationY: P.SHELF_PLANT_POT_ANGLE,
+  },
+  {
+    path: "models/railing-plant-fixed.glb",
+    label: "Stonecrop",
+    position: [P.SHELF_PLANT_X, P.SHELF_PLANT_Y, P.SHELF_PLANT_Z],
+    scale: [
+      P.SHELF_PLANT_SCALE * 1.5,
+      P.SHELF_PLANT_SCALE * 0.9,
+      P.SHELF_PLANT_SCALE * 1,
+    ],
+    rotationY: P.SHELF_PLANT_ANGLE,
+  },
 
   {
-    path: "models/lilies.glb",
-    label: "lilies",
-    position: [P.FLOWER_X, P.FLOWER_Y, P.FLOWER_Z],
-    scale: P.FLOWER_SCALE, //[P.FLOWER_SCALE * 3, P.FLOWER_SCALE * 0.6, P.FLOWER_SCALE * 1.8],
-    rotationY: P.FLOWER_ANGLE,
-  },
-  // ── COMMENTED OUT FOR PERF TEST: bar area ───────────────────────────────────
-  // {
-  //   path: "models_optimized/edelweiss_bar_table_ash_and_white.glb",
-  //   label: "bar table",
-  //   position: [P.BAR_TABLE_X, P.BAR_TABLE_Y, P.BAR_TABLE_Z],
-  //   scale: [
-  //     P.BAR_TABLE_SCALE * 1.2,
-  //     P.BAR_TABLE_SCALE,
-  //     P.BAR_TABLE_SCALE * 1.2,
-  //   ],
-  // },
-  // {
-  //   path: "models_optimized/set_of_2_edelweiss_bar_chairs_white.glb",
-  //   label: "bar chair first",
-  //   position: [P.BAR_CHAIR_FIRST_X, P.BAR_CHAIR_FIRST_Y, P.BAR_CHAIR_FIRST_Z],
-  //   scale: P.BAR_CHAIR_FIRST_SCALE,
-  //   rotationY: P.BAR_CHAIR_FIRST_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/set_of_2_edelweiss_bar_chairs_white.glb",
-  //   label: "bar chair second",
-  //   position: [
-  //     P.BAR_CHAIR_SECOND_X,
-  //     P.BAR_CHAIR_SECOND_Y,
-  //     P.BAR_CHAIR_SECOND_Z,
-  //   ],
-  //   scale: P.BAR_CHAIR_SECOND_SCALE,
-  //   rotationY: P.BAR_CHAIR_SECOND_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/shoe_cabinet.glb",
-  //   label: "shelf",
-  //   position: [P.SHELF_X, P.SHELF_Y, P.SHELF_Z],
-  //   scale: [P.SHELF_SCALE * 2.5, P.SHELF_SCALE * 0.7, P.SHELF_SCALE * 1.2],
-  //   rotationY: 0,
-  // },
-  // ── COMMENTED OUT FOR PERF TEST: garden structures ──────────────────────────
-  // {
-  //   path: "models_optimized/mud_material.glb",
-  //   label: "mud",
-  //   position: [P.MUD_X, P.MUD_Y, P.MUD_Z],
-  //   scale: [P.MUD_SCALE * 3, P.MUD_SCALE, P.MUD_SCALE * 0.5],
-  // },
-  // {
-  //   path: "models_optimized/wooden_fence.glb",
-  //   label: "wooden_fence a",
-  //   position: [P.WOODEN_FENCE_A_X, P.WOODEN_FENCE_Y, P.WOODEN_FENCE_Z],
-  //   scale: [
-  //     P.WOODEN_FENCE_SCALE * 2,
-  //     P.WOODEN_FENCE_SCALE * 0.6,
-  //     P.WOODEN_FENCE_SCALE * 6,
-  //   ],
-  //   rotationY: P.WOODEN_FENCE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wooden_fence.glb",
-  //   label: "wooden_fence a",
-  //   position: [P.WOODEN_FENCE_B_X, P.WOODEN_FENCE_Y, P.WOODEN_FENCE_Z],
-  //   scale: [
-  //     P.WOODEN_FENCE_SCALE * 2,
-  //     P.WOODEN_FENCE_SCALE * 0.6,
-  //     P.WOODEN_FENCE_SCALE * 6,
-  //   ],
-  //   rotationY: P.WOODEN_FENCE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wooden_fence.glb",
-  //   label: "wooden_fence a",
-  //   position: [P.WOODEN_FENCE_C_X, P.WOODEN_FENCE_Y, P.WOODEN_FENCE_Z],
-  //   scale: [
-  //     P.WOODEN_FENCE_SCALE * 2,
-  //     P.WOODEN_FENCE_SCALE * 0.6,
-  //     P.WOODEN_FENCE_SCALE * 6,
-  //   ],
-  //   rotationY: P.WOODEN_FENCE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wooden_fence.glb",
-  //   label: "wooden_fence a",
-  //   position: [P.WOODEN_FENCE_D_X, P.WOODEN_FENCE_Y, P.WOODEN_FENCE_Z],
-  //   scale: [
-  //     P.WOODEN_FENCE_SCALE * 2,
-  //     P.WOODEN_FENCE_SCALE * 0.6,
-  //     P.WOODEN_FENCE_SCALE * 6,
-  //   ],
-  //   rotationY: P.WOODEN_FENCE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wooden_fence.glb",
-  //   label: "wooden_fence a",
-  //   position: [P.WOODEN_FENCE_E_X, P.WOODEN_FENCE_Y, P.WOODEN_FENCE_Z],
-  //   scale: [
-  //     P.WOODEN_FENCE_SCALE * 2,
-  //     P.WOODEN_FENCE_SCALE * 0.6,
-  //     P.WOODEN_FENCE_SCALE * 6,
-  //   ],
-  //   rotationY: P.WOODEN_FENCE_ANGLE,
-  // },
-  // ── COMMENTED OUT FOR PERF TEST: jungle/garden plants ───────────────────────
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
-  //   label: "jungle geranium",
-  //   position: [P.PLANT_GERANIUM_A_X, P.PLANT_GERANIUM_Y, P.PLANT_GERANIUM_A_Z],
-  //   scale: P.PLANT_GERANIUM_SCALE,
-  //   rotationY: P.PLANT_GERANIUM_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
-  //   label: "jungle geranium",
-  //   position: [P.PLANT_GERANIUM_B_X, P.PLANT_GERANIUM_Y, P.PLANT_GERANIUM_B_Z],
-  //   scale: P.PLANT_GERANIUM_SCALE,
-  //   rotationY: P.PLANT_GERANIUM_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
-  //   label: "jungle geranium",
-  //   position: [P.PLANT_GERANIUM_C_X, P.PLANT_GERANIUM_Y, P.PLANT_GERANIUM_C_Z],
-  //   scale: P.PLANT_GERANIUM_C_SCALE,
-  //   rotationY: P.PLANT_GERANIUM_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
-  //   label: "jungle geranium",
-  //   position: [P.PLANT_GERANIUM_D_X, P.PLANT_GERANIUM_Y, P.PLANT_GERANIUM_D_Z],
-  //   scale: P.PLANT_GERANIUM_SCALE,
-  //   rotationY: P.PLANT_GERANIUM_D_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_310.glb",
-  //   label: "jungle geranium",
-  //   position: [P.PLANT_GERANIUM_E_X, P.PLANT_GERANIUM_Y, P.PLANT_GERANIUM_E_Z],
-  //   scale: P.PLANT_GERANIUM_SCALE,
-  //   rotationY: P.PLANT_GERANIUM_E_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_windmill_palm_1625.glb",
-  //   label: "jungle PALM",
-  //   position: [P.PLANT_PALM_A_X, P.PLANT_PALM_Y, P.PLANT_PALM_A_Z],
-  //   scale: P.PLANT_PALM_A_SCALE,
-  //   rotationY: P.PLANT_PALM_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_windmill_palm_1625.glb",
-  //   label: "jungle PALM",
-  //   position: [P.PLANT_PALM_B_X, P.PLANT_PALM_Y, P.PLANT_PALM_B_Z],
-  //   scale: P.PLANT_PALM_B_SCALE,
-  //   rotationY: P.PLANT_PALM_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
-  //   label: "jungle LUPINE",
-  //   position: [P.PLANT_LUPINE_A_X, P.PLANT_LUPINE_Y, P.PLANT_LUPINE_A_Z],
-  //   scale: P.PLANT_LUPINE_A_SCALE,
-  //   rotationY: P.PLANT_LUPINE_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
-  //   label: "jungle LUPINE",
-  //   position: [P.PLANT_LUPINE_B_X, P.PLANT_LUPINE_Y, P.PLANT_LUPINE_B_Z],
-  //   scale: [
-  //     P.PLANT_LUPINE_B_SCALE * 1.2,
-  //     P.PLANT_LUPINE_B_SCALE * 0.8,
-  //     P.PLANT_LUPINE_B_SCALE * 1.2,
-  //   ],
-  //   rotationY: P.PLANT_LUPINE_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
-  //   label: "jungle LUPINE",
-  //   position: [P.PLANT_LUPINE_C_X, P.PLANT_LUPINE_Y, P.PLANT_LUPINE_C_Z],
-  //   scale: [
-  //     P.PLANT_LUPINE_C_SCALE * 1.2,
-  //     P.PLANT_LUPINE_C_SCALE * 0.8,
-  //     P.PLANT_LUPINE_C_SCALE * 1.2,
-  //   ],
-  //   rotationY: P.PLANT_LUPINE_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_large-leaved_lupine_318.glb",
-  //   label: "jungle LUPINE",
-  //   position: [P.PLANT_LUPINE_D_X, P.PLANT_LUPINE_Y, P.PLANT_LUPINE_D_Z],
-  //   scale: [
-  //     P.PLANT_LUPINE_D_SCALE * 1.2,
-  //     P.PLANT_LUPINE_D_SCALE * 0.8,
-  //     P.PLANT_LUPINE_D_SCALE * 1.2,
-  //   ],
-  //   rotationY: P.PLANT_LUPINE_D_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
-  //   label: "jungle SNOWFLAKE",
-  //   position: [
-  //     P.PLANT_SNOWFLAKE_A_X,
-  //     P.PLANT_SNOWFLAKE_Y,
-  //     P.PLANT_SNOWFLAKE_A_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_SNOWFLAKE_A_SCALE * 1.4,
-  //     P.PLANT_SNOWFLAKE_A_SCALE * 0.9,
-  //     P.PLANT_SNOWFLAKE_A_SCALE * 1.4,
-  //   ],
-  //   rotationY: P.PLANT_SNOWFLAKE_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
-  //   label: "jungle SNOWFLAKE",
-  //   position: [
-  //     P.PLANT_SNOWFLAKE_B_X,
-  //     P.PLANT_SNOWFLAKE_Y,
-  //     P.PLANT_SNOWFLAKE_B_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_SNOWFLAKE_B_SCALE * 1.4,
-  //     P.PLANT_SNOWFLAKE_B_SCALE * 0.7,
-  //     P.PLANT_SNOWFLAKE_B_SCALE * 1.4,
-  //   ],
-  //   rotationY: P.PLANT_SNOWFLAKE_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
-  //   label: "jungle SNOWFLAKE",
-  //   position: [
-  //     P.PLANT_SNOWFLAKE_C_X,
-  //     P.PLANT_SNOWFLAKE_Y,
-  //     P.PLANT_SNOWFLAKE_C_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_SNOWFLAKE_C_SCALE * 1.4,
-  //     P.PLANT_SNOWFLAKE_C_SCALE * 0.9,
-  //     P.PLANT_SNOWFLAKE_C_SCALE * 1.4,
-  //   ],
-  //   rotationY: P.PLANT_SNOWFLAKE_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/dwarf_snowflake_mock_orange_flowers_spring.glb",
-  //   label: "jungle SNOWFLAKE",
-  //   position: [
-  //     P.PLANT_SNOWFLAKE_D_X,
-  //     P.PLANT_SNOWFLAKE_Y,
-  //     P.PLANT_SNOWFLAKE_D_Z,
-  //   ],
-  //   scale: [
-  //     P.PLANT_SNOWFLAKE_D_SCALE * 1.4,
-  //     P.PLANT_SNOWFLAKE_D_SCALE * 0.9,
-  //     P.PLANT_SNOWFLAKE_D_SCALE * 1.4,
-  //   ],
-  //   rotationY: P.PLANT_SNOWFLAKE_D_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/croton_leaf_plants.glb",
-  //   label: "jungle CROTON",
-  //   position: [P.PLANT_CROTON_A_X, P.PLANT_CROTON_Y, P.PLANT_CROTON_A_Z],
-  //   scale: P.PLANT_CROTON_A_SCALE,
-  //   rotationY: P.PLANT_CROTON_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/croton_leaf_plants.glb",
-  //   label: "jungle CROTON",
-  //   position: [P.PLANT_CROTON_B_X, P.PLANT_CROTON_Y, P.PLANT_CROTON_B_Z],
-  //   scale: P.PLANT_CROTON_B_SCALE,
-  //   rotationY: P.PLANT_CROTON_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/croton_leaf_plants.glb",
-  //   label: "jungle CROTON",
-  //   position: [P.PLANT_CROTON_C_X, P.PLANT_CROTON_Y, P.PLANT_CROTON_C_Z],
-  //   scale: P.PLANT_CROTON_C_SCALE,
-  //   rotationY: P.PLANT_CROTON_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/croton_leaf_plants.glb",
-  //   label: "jungle CROTON",
-  //   position: [P.PLANT_CROTON_D_X, P.PLANT_CROTON_Y, P.PLANT_CROTON_D_Z],
-  //   scale: P.PLANT_CROTON_D_SCALE,
-  //   rotationY: P.PLANT_CROTON_D_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wisteria_sinensis005.glb",
-  //   label: "jungle SINENSIS",
-  //   position: [P.PLANT_SINENSIS_A_X, P.PLANT_SINENSIS_Y, P.PLANT_SINENSIS_A_Z],
-  //   scale: [
-  //     P.PLANT_SINENSIS_A_SCALE,
-  //     P.PLANT_SINENSIS_A_SCALE * 0.8,
-  //     P.PLANT_SINENSIS_A_SCALE,
-  //   ],
-  //   rotationY: P.PLANT_SINENSIS_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/wisteria_sinensis005.glb",
-  //   label: "jungle SINENSIS",
-  //   position: [P.PLANT_SINENSIS_B_X, P.PLANT_SINENSIS_Y, P.PLANT_SINENSIS_B_Z],
-  //   scale: [
-  //     P.PLANT_SINENSIS_B_SCALE,
-  //     P.PLANT_SINENSIS_B_SCALE * 0.9,
-  //     P.PLANT_SINENSIS_B_SCALE,
-  //   ],
-  //   rotationY: P.PLANT_SINENSIS_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
-  //   label: "jungle BUSH",
-  //   position: [P.PLANT_BUSH_A_X, P.PLANT_BUSH_Y, P.PLANT_BUSH_A_Z],
-  //   scale: [
-  //     P.PLANT_BUSH_A_SCALE * 1.2,
-  //     P.PLANT_BUSH_A_SCALE,
-  //     P.PLANT_BUSH_A_SCALE * 1.3,
-  //   ],
-  //   rotationY: P.PLANT_BUSH_A_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
-  //   label: "jungle BUSH",
-  //   position: [P.PLANT_BUSH_B_X, P.PLANT_BUSH_Y, P.PLANT_BUSH_B_Z],
-  //   scale: [
-  //     P.PLANT_BUSH_B_SCALE * 1.1,
-  //     P.PLANT_BUSH_B_SCALE,
-  //     P.PLANT_BUSH_B_SCALE * 1.1,
-  //   ],
-  //   rotationY: P.PLANT_BUSH_B_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
-  //   label: "jungle BUSH",
-  //   position: [P.PLANT_BUSH_C_X, P.PLANT_BUSH_Y, P.PLANT_BUSH_C_Z],
-  //   scale: [
-  //     P.PLANT_BUSH_C_SCALE * 1.2,
-  //     P.PLANT_BUSH_C_SCALE,
-  //     P.PLANT_BUSH_C_SCALE * 1.3,
-  //   ],
-  //   rotationY: P.PLANT_BUSH_C_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/realistic_hd_chinese_jungle_geranium_710.glb",
-  //   label: "jungle BUSH",
-  //   position: [P.PLANT_BUSH_D_X, P.PLANT_BUSH_Y, P.PLANT_BUSH_D_Z],
-  //   scale: [
-  //     P.PLANT_BUSH_D_SCALE * 1.2,
-  //     P.PLANT_BUSH_D_SCALE,
-  //     P.PLANT_BUSH_D_SCALE * 1.3,
-  //   ],
-  //   rotationY: P.PLANT_BUSH_D_ANGLE,
-  // },
-  {
-    path: "models/free_dyspis_lutescens_-_potted_palm.glb",
+    path: "models/blenderzelkova_schneideriana.glb",
     label: "plant",
-    position: [P.PLANT_X, P.PLANT_Y, P.PLANT_Z],
-    scale: P.PLANT_SCALE,
+    position: [P.TREE_X, P.TREE_Y, P.TREE_Z],
+    scale: P.TREE_SCALE,
+    rotationY: P.TREE_ANGLE,
   },
-  // ── COMMENTED OUT FOR PERF TEST: misc ───────────────────────────────────────
-  // {
-  //   path: "models_optimized/jenson_sideboard_solid_oak.glb",
-  //   label: "bookcase",
-  //   position: [P.BOOKCASE_X, P.BOOKCASE_Y, P.BOOKCASE_Z],
-  //   scale: [P.BOOKCASE_SCALE * 2.4, P.BOOKCASE_SCALE, P.BOOKCASE_SCALE * 1.5],
-  //   rotationY: P.BOOKCASE_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/fruit_basket.glb",
-  //   label: "ORANGE_FLOWERS",
-  //   position: [P.FRUITS_X, P.FRUITS_Y, P.FRUITS_Z],
-  //   scale: P.FRUITS_SCALE,
-  // },
-  // {
-  //   path: "models_optimized/teapot.glb",
-  //   label: "ORANGE_FLOWERS",
-  //   position: [P.TEA_X, P.TEA_Y, P.TEA_Z],
-  //   scale: P.TEA_SCALE,
-  //   rotationY: P.TEA_ANGLE,
-  // },
-  // {
-  //   path: "models_optimized/nespresso_machine_2.glb",
-  //   label: "ORANGE_FLOWERS",
-  //   position: [P.COFFEE_X, P.COFFEE_Y, P.COFFEE_Z],
-  //   scale: P.COFFEE_SCALE,
-  // },
+  {
+    path: "models/pot-plant-with-mud.glb",
+    label: "plant",
+    position: [P.TREE_POT_X, P.TREE_POT_Y, P.TREE_POT_Z],
+    scale: [P.TREE_POT_SCALE, P.TREE_POT_SCALE * 2.5, P.TREE_POT_SCALE],
+  },
 ];
 
 // ── Progressive Suspense tiers ────────────────────────────────────────────────

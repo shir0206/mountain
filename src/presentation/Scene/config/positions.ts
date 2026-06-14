@@ -184,11 +184,17 @@ export const SHELF_Y = PERGOLA_Y + 2;
 export const SHELF_Z = PERGOLA_Z + 6.7;
 export const SHELF_SCALE = 0.7;
 
-// export const STONECROP_X = SHELF_X;
-// export const STONECROP_Y = SHELF_Y;
-// export const STONECROP_Z = SHELF_Z;
-// export const STONECROP_SCALE = 0.1;
-// export const STONECROP_ANGLE = Math.PI / 2;
+export const SHELF_PLANT_X = SHELF_X + 0.2;
+export const SHELF_PLANT_Y = SHELF_Y - 1.01;
+export const SHELF_PLANT_Z = SHELF_Z + 0.7;
+export const SHELF_PLANT_SCALE = 2;
+export const SHELF_PLANT_ANGLE = Math.PI / 2;
+
+export const SHELF_PLANT_POT_X = SHELF_X + 0.2;
+export const SHELF_PLANT_POT_Y = SHELF_Y - 0.898;
+export const SHELF_PLANT_POT_Z = SHELF_Z + 0.62;
+export const SHELF_PLANT_POT_SCALE = 2;
+export const SHELF_PLANT_POT_ANGLE = Math.PI / 2;
 
 export const FLOWER_X = SHELF_X + 1;
 export const FLOWER_Y = SHELF_Y + 1;
@@ -265,10 +271,16 @@ export const OFFICE_CHAIR_Z = DESK_Z - 1;
 export const OFFICE_CHAIR_SCALE = 0.015;
 export const OFFICE_CHAIR_ANGLE = Math.PI * 1.6;
 
-export const PLANT_X = PERGOLA_X - 1;
-export const PLANT_Y = PERGOLA_Y + 0.01;
-export const PLANT_Z = PERGOLA_Z + 1;
-export const PLANT_SCALE = 1.5;
+export const TREE_POT_X = PERGOLA_X - 1;
+export const TREE_POT_Y = PERGOLA_Y - 2.18;
+export const TREE_POT_Z = PERGOLA_Z + 1;
+export const TREE_POT_SCALE = 1.5;
+
+export const TREE_X = TREE_POT_X + 0.25;
+export const TREE_Y = TREE_POT_Y + 2.2;
+export const TREE_Z = PERGOLA_Z + 0.7;
+export const TREE_SCALE = 0.25;
+export const TREE_ANGLE = -Math.PI * 1.5;
 
 export const COFFEE_TABLE_X = PERGOLA_X - 4;
 export const COFFEE_TABLE_Y = PERGOLA_Y + 0.01;
@@ -278,20 +290,20 @@ export const COFFEE_TABLE_SCALE = 2;
 export const TABLET_X = COFFEE_TABLE_X - 0.2;
 export const TABLET_Y = COFFEE_TABLE_Y + 0.8;
 export const TABLET_Z = COFFEE_TABLE_Z + 0.2;
-export const TABLET_SCALE = 1.5;
+export const TABLET_SCALE = 2;
 export const TABLET_ANGLE = Math.PI * 1.5;
+
+export const TV_CODE_X = TABLET_X - 0.02;
+export const TV_CODE_Y = TABLET_Y + 0.7;
+export const TV_CODE_Z = TABLET_Z + 0.01;
+export const TV_CODE_SCALE = 0.2;
+export const TV_CODE_ANGLE = Math.PI * 2;
 
 export const TV_X = PERGOLA_X - 7.75;
 export const TV_Y = PERGOLA_Y + 8.2;
 export const TV_Z = PERGOLA_Z + 3.4;
 export const TV_SCALE = 0.8;
 export const TV_ANGLE = Math.PI * 2;
-
-export const TV_CODE_X = TV_X - 0.02;
-export const TV_CODE_Y = TV_Y + 0.7;
-export const TV_CODE_Z = TV_Z + 0.01;
-export const TV_CODE_SCALE = 1;
-export const TV_CODE_ANGLE = Math.PI * 2;
 
 export const PLANT_SQUARE_X = PERGOLA_X - 8;
 export const PLANT_SQUARE_Y = PERGOLA_Y + 7.5;
