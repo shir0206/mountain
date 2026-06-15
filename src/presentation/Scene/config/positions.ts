@@ -223,6 +223,12 @@ export const MONITOR_C_Y = MONITOR_B_Y;
 export const MONITOR_C_Z = MONITOR_B_Z - 1.4;
 export const MONITOR_C_ANGLE = MONITOR_B_ANGLE - Math.PI * 0.1;
 
+export const CLICK_CODE_X = MONITOR_B_X + 0.1;
+export const CLICK_CODE_Y = MONITOR_B_Y;
+export const CLICK_CODE_Z = MONITOR_B_Z + 0.1;
+export const CLICK_CODE_SCALE = 0.2;
+export const CLICK_CODE_ANGLE = 0; //MONITOR_B_ANGLE - Math.PI * 0.1;
+
 export const KEYBOARD_X = DESK_X + 0.6;
 export const KEYBOARD_Y = DESK_Y + 0.05;
 export const KEYBOARD_Z = DESK_Z - 0.8;
@@ -253,16 +259,16 @@ export const MOUSE_Z = DESK_Z - 1.6;
 export const MOUSE_SCALE = 1.6;
 export const MOUSE_ANGLE = Math.PI * 1.5;
 
-export const MUG_X = DESK_X + 0.3;
-export const MUG_Y = DESK_Y + 0.05;
-export const MUG_Z = DESK_Z - 2.6;
-export const MUG_SCALE = 0.02;
-export const MUG_ANGLE = -Math.PI * 1.5;
+export const MUG_X = DESK_X - 0.5;
+export const MUG_Y = DESK_Y - 1.72;
+export const MUG_Z = DESK_Z - 2.7;
+export const MUG_SCALE = 0.07;
+export const MUG_ANGLE = Math.PI * 1.5;
 
-export const COASTER_X = MUG_X - 0.28;
-export const COASTER_Y = MUG_Y;
-export const COASTER_Z = MUG_Z - 0.1;
-export const COASTER_SCALE = 0.15;
+export const COASTER_X = MUG_X + 0.55;
+export const COASTER_Y = MUG_Y + 1.77;
+export const COASTER_Z = MUG_Z + 0.6;
+export const COASTER_SCALE = 0.2;
 export const COASTER_ANGLE = Math.PI * 0.8;
 
 export const OFFICE_CHAIR_X = DESK_X + 1.4;
@@ -331,9 +337,9 @@ export const PLANT_CREEPER_RIGHT_Z = PERGOLA_Z + 1.5;
 export const PLANT_CREEPER_RIGHT_SCALE = 0.00007;
 export const PLANT_CREEPER_RIGHT_ANGLE = Math.PI * 1.4;
 
-export const FLOOR_LAMP_X = COFFEE_TABLE_X - 1;
+export const FLOOR_LAMP_X = COFFEE_TABLE_X - 0.2;
 export const FLOOR_LAMP_Y = COFFEE_TABLE_Y + 0.01;
-export const FLOOR_LAMP_Z = COFFEE_TABLE_Z + 1.8;
+export const FLOOR_LAMP_Z = COFFEE_TABLE_Z - 1.8;
 export const FLOOR_LAMP_SCALE = 0.01;
 export const FLOOR_LAMP_ANGLE = Math.PI;
 

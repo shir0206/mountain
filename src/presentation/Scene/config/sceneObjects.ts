@@ -58,6 +58,13 @@ export const SCENE_OBJECTS: SceneObject[] = [
     rotationY: P.MONITOR_C_ANGLE,
   },
   {
+    path: "models/click_text_standing.glb",
+    label: "CODE",
+    position: [P.CLICK_CODE_X, P.CLICK_CODE_Y, P.CLICK_CODE_Z],
+    scale: P.CLICK_CODE_SCALE,
+    rotationY: P.CLICK_CODE_ANGLE,
+  },
+  {
     path: "models_optimized/mac_keyboard.glb",
     label: "Keyboard",
     position: [P.KEYBOARD_X, P.KEYBOARD_Y, P.KEYBOARD_Z],
@@ -87,7 +94,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     rotationY: P.MOUSE_ANGLE,
   },
   {
-    path: "models_optimized/mug.glb",
+    path: "models/coffee_mug_school_project.glb",
     label: "Mug",
     position: [P.MUG_X, P.MUG_Y, P.MUG_Z],
     scale: P.MUG_SCALE,
@@ -102,7 +109,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    path: "models/welcome_text_lying.glb",
+    path: "models_optimized/welcome_text.glb",
     label: "TV_CODE",
     position: [P.TV_CODE_X, P.TV_CODE_Y, P.TV_CODE_Z],
     scale: P.TV_CODE_SCALE,
@@ -182,13 +189,13 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    path: "models_optimized/desk.glb",
+    path: "models/desk_fixed.glb",
     label: "Wall Desk",
     position: [P.DESK_X, P.DESK_Y, P.DESK_Z],
     scale: [P.DESK_SCALE * 1.5, P.DESK_SCALE * 0.5, P.DESK_SCALE * 1.5],
   },
   {
-    path: "models_optimized/desk.glb",
+    path: "models/desk_fixed.glb",
     label: "Shelf Desk",
     position: [P.SHELF_X, P.SHELF_Y, P.SHELF_Z],
     scale: [P.SHELF_SCALE * 1, P.SHELF_SCALE * 0.8, P.SHELF_SCALE * 1],
