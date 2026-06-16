@@ -9,6 +9,9 @@ import { ReactComponent as MailIcon } from "../../../assets/icons/contact/mail.s
 import { ReactComponent as WhatsappIcon } from "../../../assets/icons/contact/whatsapp.svg";
 import { ReactComponent as CheckIcon } from "../../../assets/icons/language/check.svg";
 import { ReactComponent as PointerIcon } from "../../../assets/icons/overlay/pointer.svg";
+import { ReactComponent as WorkstationIcon } from "../../../assets/icons/overlay/workstation.svg";
+import { ReactComponent as MeetingIcon } from "../../../assets/icons/overlay/meeting.svg";
+import { ReactComponent as PeakIcon } from "../../../assets/icons/overlay/peak.svg";
 import { ReactComponent as ChevronDownIcon } from "../../../assets/icons/language/chevron.svg";
 import { ReactComponent as GlobeIcon } from "../../../assets/icons/language/globe.svg";
 import { ReactComponent as ChecklistIcon } from "../../../assets/icons/service/checklist.svg";
@@ -36,6 +39,9 @@ const icons = {
   globe: GlobeIcon,
   check: CheckIcon,
   pointer: PointerIcon,
+  workstation: WorkstationIcon,
+  meeting: MeetingIcon,
+  peak: PeakIcon,
 };
 
 export type IconName = keyof typeof icons;

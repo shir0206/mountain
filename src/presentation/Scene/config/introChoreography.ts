@@ -1,12 +1,12 @@
 import type { Position3D } from "../types";
 
-// Intro animation orbit control points
+// Intro animation orbit control points (sweep around peak)
 export const ORBIT_POINTS: Position3D[] = [
-	[-25.6, -31.97, 12.7],
-	[31.45, -33.51, 15.86],
+	[-2, -71, -55],
+	[25, -78, 40],
 ];
 
-export const ORBIT_TARGET: Position3D = [4, -33.98, -5.7];
+export const ORBIT_TARGET: Position3D = [-7, -86, -3.5];
 
 // Timing phases (seconds) — ~7.3s total
 export const ORBIT_DURATION = 3.5;

@@ -5,33 +5,28 @@ import type { CameraPreset, PresetKey } from "../types";
 export { INITIAL_PRESET };
 
 export const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
-  workstation: {
-    position: [DESK_X + 7, DESK_Y + 2, DESK_Z + 7],
-    target: [DESK_X, DESK_Y + 0.2, DESK_Z - 0.5],
-  },
-  meeting: {
-    position: [-3, -83, 7],
-    target: [5, -87, -6.5],
-  },
-  balcony: {
-    position: [-3.1, -33.43, -10.73],
-    target: [0, -33.8, -15.6],
-  },
-  garden: {
-    position: [-21, -10, -10],
-    target: [4, -33.98, -5.7],
-  },
+	workstation: {
+		position: [DESK_X + 7, DESK_Y + 2, DESK_Z + 7],
+		target: [DESK_X, DESK_Y + 0.2, DESK_Z - 0.5],
+	},
+	meeting: {
+		position: [-3, -83, 7],
+		target: [5, -87, -6.5],
+	},
+	peak: {
+		//position: [25, -78, 40],
+		position: [-2, -71, -55],
+		target: [-7, -86, -3.5],
+	},
 };
 
 export interface PresetButton {
-  key: PresetKey;
-  label: string;
-  color: string;
+	key: PresetKey;
+	label: string;
 }
 
 export const PRESET_BUTTONS: PresetButton[] = [
-  { key: "workstation", label: "Workstation", color: "#e88a3a" },
-  { key: "meeting", label: "Meeting", color: "#6aa5d8" },
-  { key: "balcony", label: "Balcony", color: "#7fc27f" },
-  { key: "garden", label: "Garden", color: "#8dbf6a" },
+	{ key: "workstation", label: "Workstation" },
+	{ key: "meeting", label: "Meeting" },
+	{ key: "peak", label: "Peak" },
 ];

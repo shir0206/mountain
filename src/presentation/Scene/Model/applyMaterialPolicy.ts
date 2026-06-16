@@ -3,8 +3,6 @@ import {
 	EMISSIVE_TEXT_PATH,
 	MOUNTAIN_PATH,
 	MOUNTAIN_BACKGROUND_MATERIAL,
-	NO_SHADOW_PATHS,
-	WOOD_MATERIAL_PATHS,
 } from "../config/renderPolicy";
 
 export type TextureTier = "primary" | "secondary" | "tertiary";
@@ -19,7 +17,6 @@ export function drainPendingTextures(): THREE.Texture[] {
 
 /**
  * Applies the scene-wide material policy to a freshly cloned GLTF scene:
- *  - shadow casting/receiving per NO_SHADOW_PATHS
  *  - emissive "screen-on" effect for the welcome text GLB
  *  - soft-blurred background skybox for the mountain GLB
  *  - anisotropy / mipmap defaults on all textures
@@ -30,22 +27,15 @@ export function applyMaterialPolicy(
 	path: string,
 	tier: TextureTier = "primary"
 ): void {
-	const skipShadows = NO_SHADOW_PATHS.has(path);
 	const isEmissiveText = path === EMISSIVE_TEXT_PATH;
 	const isMountain = path === MOUNTAIN_PATH;
-	const isWood = WOOD_MATERIAL_PATHS.has(path);
 
 	root.traverse((child) => {
 		const mesh = child as THREE.Mesh;
 		if (!mesh.isMesh) return;
 
-		mesh.castShadow = !skipShadows;
-		mesh.receiveShadow = !skipShadows;
-
-		// Mountain must not cast shadows — prevents black self-shadow artifacts
-		if (isMountain) {
-			mesh.castShadow = false;
-		}
+		mesh.castShadow = !isMountain;
+		mesh.receiveShadow = true;
 
 		const meshMaterial = mesh.material as
 			| THREE.MeshStandardMaterial
@@ -55,12 +45,6 @@ export function applyMaterialPolicy(
 			: [meshMaterial];
 		materials.forEach((material) => {
 			if (!material) return;
-
-			// Wood material override — physically-based diffuse wood appearance
-			if (isWood) {
-				material.roughness = 0.55;
-				material.metalness = 0.0;
-			}
 
 			if (isEmissiveText) {
 				material.emissive = new THREE.Color("#a8d4ff");

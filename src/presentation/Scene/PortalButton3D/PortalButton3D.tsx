@@ -1,6 +1,6 @@
 import { useCallback, useRef, useMemo, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Text, Sparkles } from "@react-three/drei";
+import { Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 import * as P from "../config/positions";
 import { usePortfolioContext } from "../../../context/portfolio/usePortfolioContext";

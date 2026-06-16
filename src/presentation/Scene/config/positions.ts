@@ -174,23 +174,23 @@ export const PLANT_BUSH_B_ANGLE = -Math.PI * 1.5;
 export const PLANT_BUSH_C_ANGLE = Math.PI * 1.75;
 export const PLANT_BUSH_D_ANGLE = Math.PI * 1.85;
 
-export const DESK_X = PERGOLA_X - 13.82;
+export const DESK_X = PERGOLA_X - 13.84;
 export const DESK_Y = PERGOLA_Y + 1;
 export const DESK_Z = PERGOLA_Z + 4.05;
 export const DESK_SCALE = 1.75;
 
-export const SHELF_X = PERGOLA_X - 14.4;
-export const SHELF_Y = PERGOLA_Y + 2;
+export const SHELF_X = PERGOLA_X - 14.42;
+export const SHELF_Y = PERGOLA_Y + 2.4;
 export const SHELF_Z = PERGOLA_Z + 6.7;
 export const SHELF_SCALE = 0.7;
 
 export const SHELF_PLANT_X = SHELF_X + 0.2;
-export const SHELF_PLANT_Y = SHELF_Y - 1.01;
-export const SHELF_PLANT_Z = SHELF_Z + 0.7;
+export const SHELF_PLANT_Y = SHELF_Y - 1.15;
+export const SHELF_PLANT_Z = SHELF_Z + 0.71;
 export const SHELF_PLANT_SCALE = 2;
 export const SHELF_PLANT_ANGLE = Math.PI / 2;
 
-export const SHELF_PLANT_POT_X = SHELF_X + 0.2;
+export const SHELF_PLANT_POT_X = SHELF_X + 0.18;
 export const SHELF_PLANT_POT_Y = SHELF_Y - 0.898;
 export const SHELF_PLANT_POT_Z = SHELF_Z + 0.62;
 export const SHELF_PLANT_POT_SCALE = 2;
@@ -223,11 +223,11 @@ export const MONITOR_C_Y = MONITOR_B_Y;
 export const MONITOR_C_Z = MONITOR_B_Z - 1.4;
 export const MONITOR_C_ANGLE = MONITOR_B_ANGLE - Math.PI * 0.1;
 
-export const CLICK_CODE_X = MONITOR_B_X + 0.1;
-export const CLICK_CODE_Y = MONITOR_B_Y;
-export const CLICK_CODE_Z = MONITOR_B_Z + 0.1;
-export const CLICK_CODE_SCALE = 0.2;
-export const CLICK_CODE_ANGLE = 0; //MONITOR_B_ANGLE - Math.PI * 0.1;
+export const CLICK_CODE_X = MONITOR_B_X + 0.005;
+export const CLICK_CODE_Y = MONITOR_B_Y + 1;
+export const CLICK_CODE_Z = MONITOR_B_Z - 4.25;
+export const CLICK_CODE_SCALE = 0.5;
+export const CLICK_CODE_ANGLE = MONITOR_B_ANGLE;
 
 export const KEYBOARD_X = DESK_X + 0.6;
 export const KEYBOARD_Y = DESK_Y + 0.05;
@@ -260,13 +260,13 @@ export const MOUSE_SCALE = 1.6;
 export const MOUSE_ANGLE = Math.PI * 1.5;
 
 export const MUG_X = DESK_X - 0.5;
-export const MUG_Y = DESK_Y - 1.72;
+export const MUG_Y = DESK_Y - 1.724;
 export const MUG_Z = DESK_Z - 2.7;
 export const MUG_SCALE = 0.07;
 export const MUG_ANGLE = Math.PI * 1.5;
 
 export const COASTER_X = MUG_X + 0.55;
-export const COASTER_Y = MUG_Y + 1.77;
+export const COASTER_Y = MUG_Y + 1.7675;
 export const COASTER_Z = MUG_Z + 0.6;
 export const COASTER_SCALE = 0.2;
 export const COASTER_ANGLE = Math.PI * 0.8;
@@ -303,7 +303,7 @@ export const TV_CODE_X = TABLET_X - 0.02;
 export const TV_CODE_Y = TABLET_Y + 0.01;
 export const TV_CODE_Z = TABLET_Z + 0.01;
 export const TV_CODE_SCALE = 0.18;
-export const TV_CODE_ANGLE = Math.PI * 2;
+export const TV_CODE_ANGLE = 0;
 
 export const TV_X = PERGOLA_X - 7.75;
 export const TV_Y = PERGOLA_Y + 8.2;

@@ -1,7 +1,7 @@
 // PresetKey is scene state owned by context/scene. presentation/Scene/types.ts
 // re-exports it to preserve existing import paths without crossing the
 // context → presentation dependency rule.
-export type PresetKey = "workstation" | "meeting" | "balcony" | "garden";
+export type PresetKey = "workstation" | "meeting" | "peak";
 
 export const INITIAL_PRESET: PresetKey = "workstation";
 

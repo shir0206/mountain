@@ -1,10 +1,11 @@
 import * as P from "./positions";
 import type { SceneObject } from "../types";
 import { shouldKeepOnMobile } from "./sceneDensity";
+import { MOUNTAIN_PATH } from "./renderPolicy";
 
 export const SCENE_OBJECTS: SceneObject[] = [
   {
-    path: "models/mountain.glb",
+    path: MOUNTAIN_PATH,
     label: "Mountain Peak",
     position: [P.MOUNTAIN_X, P.MOUNTAIN_Y, P.MOUNTAIN_Z],
     scale: [P.MOUNTAIN_SCALE, P.MOUNTAIN_SCALE * 0.7, P.MOUNTAIN_SCALE],
@@ -58,7 +59,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     rotationY: P.MONITOR_C_ANGLE,
   },
   {
-    path: "models/click_text_standing.glb",
+    path: "models/click_text.glb",
     label: "CODE",
     position: [P.CLICK_CODE_X, P.CLICK_CODE_Y, P.CLICK_CODE_Z],
     scale: P.CLICK_CODE_SCALE,
@@ -104,7 +105,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     path: "models_optimized/unhyun__straw_mat_a.glb",
     label: "COASTER",
     position: [P.COASTER_X, P.COASTER_Y, P.COASTER_Z],
-    scale: P.COASTER_SCALE,
+    scale: [P.COASTER_SCALE, P.COASTER_SCALE * 3, P.COASTER_SCALE],
     rotationY: P.COASTER_ANGLE,
   },
 
@@ -217,7 +218,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     position: [P.SHELF_PLANT_X, P.SHELF_PLANT_Y, P.SHELF_PLANT_Z],
     scale: [
       P.SHELF_PLANT_SCALE * 1.5,
-      P.SHELF_PLANT_SCALE * 0.9,
+      P.SHELF_PLANT_SCALE,
       P.SHELF_PLANT_SCALE * 1,
     ],
     rotationY: P.SHELF_PLANT_ANGLE,

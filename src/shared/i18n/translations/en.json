@@ -115,10 +115,7 @@
 				"icon": "link",
 				"title": "Continuity",
 				"text": "Great products feel like one mind built them. Same logic. Same tone. Same patterns.",
-				"items": [
-					"AI generates **pieces**",
-					"A professional **connects** them"
-				]
+				"items": ["AI generates **pieces**", "A professional **connects** them"]
 			},
 			{
 				"icon": "zap",
@@ -183,7 +180,6 @@
 			"areas": [
 				{ "label": "Workspace", "subtitle": "Concentrate" },
 				{ "label": "Meeting Area", "subtitle": "Collaborate" },
-				{ "label": "Balcony", "subtitle": "Think" },
 				{ "label": "Peak", "subtitle": "Inspiration" }
 			]
 		},
