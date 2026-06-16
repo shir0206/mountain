@@ -374,7 +374,7 @@ export function PortalButton3D() {
         }}
       >
         <sphereGeometry args={[2, 16, 16]} />
-        <meshBasicMaterial transparent opacity={0} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
 
       {/* Sparkles */}

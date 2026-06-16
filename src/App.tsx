@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ErrorBoundary } from "./shared/components/ErrorBoundary/ErrorBoundary";
 import { DeviceProvider } from "./context/device/DeviceProvider";
 import { SceneProvider } from "./context/scene/SceneProvider";
 import { PortfolioProvider } from "./context/portfolio/PortfolioProvider";
 import { useSceneContext } from "./context/scene/useSceneContext";
 import { usePortfolioContext } from "./context/portfolio/usePortfolioContext";
+import { useDeviceContext } from "./context/device/useDeviceContext";
 import { useTranslation } from "./context/portfolio/useTranslation";
 import { BROWSER_MODE } from "./context/portfolio/types";
+import { DEVICE } from "./shared/device/types";
 import { isRTL } from "./shared/i18n/language";
 import { Loader } from "./presentation/Loader/Loader";
 import Scene from "./presentation/Scene/Scene";
@@ -20,18 +22,19 @@ import { runOverlaySequence } from "./presentation/Overlay/overlaySequence";
 function AppContent() {
   const { sceneReady, cameraPreset, transitionToPreset } = useSceneContext();
   const { browserMode } = usePortfolioContext();
+  const { device } = useDeviceContext();
   const { language } = useTranslation();
+  const isMobile = device === DEVICE.MOBILE;
   const isBrowserOpen = browserMode !== BROWSER_MODE.CLOSED;
 
-  const [welcomeVisible, setWelcomeVisible] = useState(false);
+  const [welcomeVisible, setWelcomeVisible] = useState(isMobile);
   const [welcomeHiding, setWelcomeHiding] = useState(false);
-  const [portalVisible, setPortalVisible] = useState(false);
   const [dragHintVisible, setDragHintVisible] = useState(false);
   const cancelRef = useRef<(() => void) | null>(null);
 
   const triggerHideWelcome = useCallback(() => {
     setWelcomeHiding((prev) => {
-      if (prev) return prev; // already hiding
+      if (prev) return prev;
       return true;
     });
   }, []);
@@ -39,19 +42,11 @@ function AppContent() {
   const handleIntroComplete = useCallback(() => {
     cancelRef.current = runOverlaySequence({
       showWelcome: () => setWelcomeVisible(true),
-      showPortal: () => setPortalVisible(true),
       showDragHint: () => setDragHintVisible(true),
       hideDragHint: () => setDragHintVisible(false),
       hideWelcome: triggerHideWelcome,
     });
   }, [triggerHideWelcome]);
-
-  // Dismiss welcome on any screen interaction
-  useEffect(() => {
-    if (!welcomeVisible || welcomeHiding) return;
-    window.addEventListener("pointerdown", triggerHideWelcome, { once: true });
-    return () => window.removeEventListener("pointerdown", triggerHideWelcome);
-  }, [welcomeVisible, welcomeHiding, triggerHideWelcome]);
 
   const handleDismissWelcome = useCallback(() => {
     setWelcomeVisible(false);
@@ -62,10 +57,16 @@ function AppContent() {
     setDragHintVisible(false);
   }, []);
 
+  const handlePointerDown = useCallback(() => {
+    if (welcomeVisible && !welcomeHiding) {
+      triggerHideWelcome();
+    }
+  }, [welcomeVisible, welcomeHiding, triggerHideWelcome]);
+
   return (
-    <div className="app-root" dir={isRTL(language) ? 'rtl' : 'ltr'}>
+    <div className="app-root" dir={isRTL(language) ? 'rtl' : 'ltr'} onPointerDown={handlePointerDown}>
       {!sceneReady && <Loader />}
-      <Scene portalVisible={portalVisible} onIntroComplete={handleIntroComplete} />
+      <Scene onIntroComplete={handleIntroComplete} />
 
       {/* Overlay UI — renders above 3D canvas, below browser */}
       {sceneReady && !isBrowserOpen && (
@@ -74,6 +75,7 @@ function AppContent() {
           <WelcomeOverlay
             visible={welcomeVisible}
             hiding={welcomeHiding}
+            isMobile={isMobile}
             onDismiss={handleDismissWelcome}
           />
           {dragHintVisible && (

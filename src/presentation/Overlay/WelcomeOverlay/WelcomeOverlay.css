@@ -9,15 +9,21 @@
 	align-items: center;
 	pointer-events: none;
 	opacity: 0;
-	transition: opacity 0.8s ease;
 }
 
+/* Desktop: fade in with slide (matches DragHint style) */
 .welcome-overlay-in {
+	animation: welcomeFadeIn 0.4s ease forwards;
+}
+
+/* Mobile: show instantly, no animation */
+.welcome-overlay-instant {
 	opacity: 1;
 }
 
+/* Fade out (both mobile + desktop) */
 .welcome-overlay-out {
-	opacity: 0;
+	animation: welcomeFadeOut 0.4s ease forwards;
 }
 
 .welcome-overlay-title {
@@ -29,8 +35,6 @@
 	text-shadow: 0 2px 8px rgba(0, 0, 0, 1.5);
 	letter-spacing: 0.01em;
 	white-space: nowrap;
-	overflow: hidden;
-	width: 0;
 }
 
 .welcome-overlay-subtitle {
@@ -41,36 +45,30 @@
 	margin: 0;
 	text-shadow: 0 2px 8px rgba(0, 0, 0, 1.5);
 	white-space: nowrap;
-	overflow: hidden;
-	width: 0;
-}
-
-.welcome-overlay-in .welcome-overlay-subtitle {
-	animation: typewriter-subtitle 0.8s steps(29) 0.8s forwards;
-}
-
-.welcome-overlay-in .welcome-overlay-title {
-	animation: typewriter-title 0.5s steps(8) 0.3s forwards;
 }
 
 .welcome-overlay-subtitle em {
 	font-style: italic;
 }
 
-@keyframes typewriter-title {
+/* ─── Keyframes ─── */
+
+@keyframes welcomeFadeIn {
 	from {
-		width: 0;
+		opacity: 0;
+		transform: translate(-50%, -50%) translateY(10px);
 	}
 	to {
-		width: 8ch;
+		opacity: 1;
+		transform: translate(-50%, -50%) translateY(0);
 	}
 }
 
-@keyframes typewriter-subtitle {
+@keyframes welcomeFadeOut {
 	from {
-		width: 0;
+		opacity: 1;
 	}
 	to {
-		width: 29ch;
+		opacity: 0;
 	}
 }

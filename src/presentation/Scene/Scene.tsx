@@ -51,13 +51,11 @@ function SceneInner({
 	onIntroComplete,
 	isMobile,
 	cameraRigRef,
-	portalVisible,
 }: {
 	introComplete: boolean;
 	onIntroComplete: () => void;
 	isMobile: boolean;
 	cameraRigRef: React.RefObject<CameraRigHandle | null>;
-	portalVisible: boolean;
 }) {
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 	const introRef = useRef<IntroAnimationHandle>(null);
@@ -152,7 +150,7 @@ function SceneInner({
 			)}
 
 			{/* Portal button — anchored above monitors */}
-			<Suspense fallback={null}>{portalVisible && <PortalButton3D />}</Suspense>
+			<Suspense fallback={null}><PortalButton3D /></Suspense>
 
 			{/* Non-critical effects deferred until intro completes */}
 			{introComplete && <BakeShadows />}
@@ -174,10 +172,8 @@ function SceneInner({
 
 // ─── Scene (root export — replaces World) ─────────────────────────────────────
 export default function Scene({
-	portalVisible,
 	onIntroComplete: onIntroCompleteProp,
 }: {
-	portalVisible: boolean;
 	onIntroComplete: () => void;
 }) {
 	const { setIntroComplete, setTransitionFn } = useSceneContext();
@@ -233,7 +229,6 @@ export default function Scene({
 					onIntroComplete={handleIntroComplete}
 					isMobile={isMobile}
 					cameraRigRef={cameraRigRef}
-					portalVisible={portalVisible}
 				/>
 			</Canvas>
 		</div>
