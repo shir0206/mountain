@@ -275,15 +275,8 @@ export function PortalButton3D() {
   return (
     <group
       ref={groupRef}
-      position={[P.DESK_X, P.DESK_Y + 1.5, P.DESK_Z - 0.5]}
+      position={[P.DESK_X, P.DESK_Y + 1.5, P.DESK_Z - 0.6]}
       scale={0.8}
-      onClick={onClick}
-      onPointerOver={() => {
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        document.body.style.cursor = "auto";
-      }}
     >
       {/* Gold metallic ring — Torus */}
       <mesh ref={ringRef}>
@@ -369,6 +362,20 @@ export function PortalButton3D() {
         distance={3}
         decay={2}
       />
+
+      {/* Invisible click area */}
+      <mesh
+        onClick={onClick}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "auto";
+        }}
+      >
+        <sphereGeometry args={[2, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
 
       {/* Sparkles */}
       <Sparkles count={20} scale={1.6} size={2.5} speed={1.2} color="#f9f6f1" />

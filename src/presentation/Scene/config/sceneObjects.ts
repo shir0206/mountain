@@ -178,8 +178,9 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    path: "models_optimized/rug_round.glb",
+    //  path: "models_optimized/rug_round.glb",
 
+    path: "models/rug_round_maple_overlay.glb",
     label: "rug meeting",
     position: [P.RUG_MEETING_X, P.RUG_MEETING_Y, P.RUG_MEETING_Z],
     scale: [
@@ -225,7 +226,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
 
   {
-    path: "models/blenderzelkova_schneideriana.glb",
+    path: "models/zelkova_schneideriana_optimized.glb",
     label: "plant",
     position: [P.TREE_X, P.TREE_Y, P.TREE_Z],
     scale: P.TREE_SCALE,
