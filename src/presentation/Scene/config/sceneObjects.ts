@@ -102,10 +102,12 @@ export const SCENE_OBJECTS: SceneObject[] = [
     rotationY: P.MUG_ANGLE,
   },
   {
-    path: "models_optimized/unhyun__straw_mat_a.glb",
+    // path: "models_optimized/unhyun__straw_mat_a.glb",
+    path: "models/rug_round_maple_overlay.glb",
+
     label: "COASTER",
     position: [P.COASTER_X, P.COASTER_Y, P.COASTER_Z],
-    scale: [P.COASTER_SCALE, P.COASTER_SCALE * 3, P.COASTER_SCALE],
+    scale: [P.COASTER_SCALE, P.COASTER_SCALE * 1.2, P.COASTER_SCALE],
     rotationY: P.COASTER_ANGLE,
   },
 

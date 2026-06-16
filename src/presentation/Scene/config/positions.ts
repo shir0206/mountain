@@ -266,7 +266,7 @@ export const MUG_SCALE = 0.07;
 export const MUG_ANGLE = Math.PI * 1.5;
 
 export const COASTER_X = MUG_X + 0.55;
-export const COASTER_Y = MUG_Y + 1.7675;
+export const COASTER_Y = MUG_Y + 1.77;
 export const COASTER_Z = MUG_Z + 0.6;
 export const COASTER_SCALE = 0.2;
 export const COASTER_ANGLE = Math.PI * 0.8;
