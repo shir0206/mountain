@@ -12,7 +12,7 @@ export function ContactPill() {
       aria-label={ariaLabel}
     >
       <svg
-        className="contact-pill__icon"
+        className="contact-pill-icon"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -23,7 +23,7 @@ export function ContactPill() {
         <rect x="2" y="4" width="20" height="16" rx="2" />
         <path d="M22 7l-10 6L2 7" />
       </svg>
-      <span className="contact-pill__text">{email}</span>
+      <span className="contact-pill-text">{email}</span>
     </a>
   );
 }

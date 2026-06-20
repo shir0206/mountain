@@ -10,11 +10,11 @@ const Footer: React.FC = () => {
 	const year = new Date().getFullYear().toString();
 
 	return (
-		<footer className='browser-footer'>
-			<div className='footer-name'>
+		<footer className="footer">
+			<div className="footer-name">
 				{parseEmphasis(t.footer.name)}
 			</div>
-			<p className='footer-copy'>{t.footer.copy.replace("{year}", year)}</p>
+			<p className="footer-copy">{t.footer.copy.replace("{year}", year)}</p>
 		</footer>
 	);
 };

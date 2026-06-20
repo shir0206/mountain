@@ -8,11 +8,21 @@ export { type PresetKey } from "../../context/scene/types";
  * Position/target value object. Raw 3-tuple kept for config ergonomics;
  * convert via `Scene/adapters/toThreeTypes.ts` when a Vector3 is needed.
  */
-export type Position3D = readonly [number, number, number];
+export type PositionTuple = readonly [number, number, number];
+/** @deprecated Use PositionTuple */
+export type Position3D = PositionTuple;
+
+export interface ScenePosition {
+	X: number;
+	Y: number;
+	Z: number;
+	SCALE: number;
+	ANGLE?: number;
+}
 
 export interface CameraPreset {
-	position: Position3D;
-	target: Position3D;
+	position: PositionTuple;
+	target: PositionTuple;
 }
 
 /** Per-frame hint for the intro choreography (consumed by IntroAnimation). */
@@ -24,8 +34,8 @@ export interface IntroPhase {
 export interface SceneObject {
 	path: string;
 	label: string;
-	position: Position3D;
-	scale: number | Position3D;
+	position: PositionTuple;
+	scale: number | PositionTuple;
 	rotationY?: number;
 	noShadow?: boolean;
 }

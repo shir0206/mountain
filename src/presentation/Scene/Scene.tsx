@@ -6,7 +6,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
 	OrbitControls,
 	BakeShadows,
@@ -42,10 +42,15 @@ import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
 import { SceneReadyGate } from "./SceneReadyGate/SceneReadyGate";
 import { MemoryMonitor } from "./Model/MemoryMonitor";
 import { PortalButton3D } from "./PortalButton3D/PortalButton3D";
+import { ClickTextButton3D } from "./ClickTextButton3D/ClickTextButton3D";
 import { useSceneContext } from "../../context/scene/useSceneContext";
 import { SceneBackground } from "./SceneBackground/SceneBackground";
+import { SceneVignette } from "./SceneVignette/SceneVignette";
 
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
+// Minimum Y the camera/target can reach — just above the pergola floor (-92)
+const MIN_CAMERA_Y = -88;
+
 function SceneInner({
 	introComplete,
 	onIntroComplete,
@@ -60,8 +65,25 @@ function SceneInner({
 	const controlsRef = useRef<OrbitControlsImpl>(null);
 	const introRef = useRef<IntroAnimationHandle>(null);
 	const [tier2Ready, setTier2Ready] = useState(false);
-	const { invalidate } = useThree();
+	const { camera } = useThree();
 	useUploadTexturesOnIdle(introComplete);
+
+	// Clamp camera + target Y so user never sees below the floor (runs every frame)
+	useFrame(() => {
+		const controls = controlsRef.current;
+		let clamped = false;
+		if (camera.position.y < MIN_CAMERA_Y) {
+			camera.position.y = MIN_CAMERA_Y;
+			clamped = true;
+		}
+		if (controls && controls.target.y < MIN_CAMERA_Y) {
+			controls.target.y = MIN_CAMERA_Y;
+			clamped = true;
+		}
+		if (clamped && controls) {
+			controls.update();
+		}
+	});
 
 	// Called directly by SceneReadyGate once GPU is flushed — no useEffect needed.
 	const handleSceneReady = useCallback(() => {
@@ -106,7 +128,7 @@ function SceneInner({
 							rotationY={config.rotationY}
 							tier='primary'
 						/>
-					)
+					),
 				)}
 			</Suspense>
 
@@ -150,7 +172,12 @@ function SceneInner({
 			)}
 
 			{/* Portal button — anchored above monitors */}
-			<Suspense fallback={null}><PortalButton3D /></Suspense>
+			<Suspense fallback={null}>
+				<PortalButton3D />
+			</Suspense>
+
+			{/* Transparent click area over "click text" on tablet */}
+			<ClickTextButton3D />
 
 			{/* Non-critical effects deferred until intro completes */}
 			{introComplete && <BakeShadows />}
@@ -160,9 +187,9 @@ function SceneInner({
 				makeDefault
 				enableDamping
 				dampingFactor={0.05}
-				minDistance={0}
+				minDistance={2}
 				maxDistance={80}
-				onChange={() => invalidate()}
+				maxPolarAngle={Math.PI * 0.52}
 			/>
 
 			{import.meta.env.DEV && <MemoryMonitor />}
@@ -203,6 +230,7 @@ export default function Scene({
 				height: "100vh",
 			}}
 		>
+			<SceneVignette />
 			<Canvas
 				camera={{
 					position: CAMERA_PRESETS[INITIAL_PRESET].position,
@@ -218,10 +246,10 @@ export default function Scene({
 				dpr={renderSettings.dpr}
 				shadows={renderSettings.shadows}
 				frameloop='always'
-			onCreated={({ gl }) => {
-				gl.localClippingEnabled = true;
-				gl.toneMappingExposure = 1.1;
-			}}
+				onCreated={({ gl }) => {
+					gl.localClippingEnabled = true;
+					gl.toneMappingExposure = 1.1;
+				}}
 			>
 				<AdaptiveDpr />
 				<SceneInner

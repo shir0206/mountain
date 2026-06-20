@@ -1,58 +1,58 @@
 .identity-header {
-  position: fixed;
-  inset-block-start: 16px;
-  inset-inline-start: 16px;
-  inset-inline-end: 16px;
-  z-index: 20;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  pointer-events: none;
+	position: fixed;
+	inset-block-start: var(--space-md);
+	inset-inline-start: var(--space-md);
+	inset-inline-end: var(--space-md);
+	z-index: 20;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	pointer-events: none;
 }
 
-.identity-header__left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.identity-header-left {
+	display: flex;
+	align-items: center;
+	gap: 14px;
 }
 
-.identity-header__right {
-  pointer-events: auto;
+.identity-header-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
-.identity-header__name {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 500;
-  color: white;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  letter-spacing: 0.02em;
+.identity-header-right {
+	pointer-events: auto;
 }
 
-.identity-header__email {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 300;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+.identity-header-name {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-medium);
+	color: var(--nav-text-primary);
+	letter-spacing: -0.02em;
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+	line-height: 1.2;
+	white-space: nowrap;
+	transition: color 0.3s ease;
 }
 
-/* Language switcher overrides for overlay (white/transparent) */
-.identity-header .language-trigger {
-  color: white;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+.identity-header-email {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	font-family: var(--font-body);
+	font-size: 12px;
+	font-weight: var(--font-weight-regular);
+	color: var(--nav-icon-active);
+	white-space: nowrap;
+	transition: color 0.3s ease;
 }
 
-.identity-header .language-label {
-  color: white;
-}
-
-.identity-header .globe-icon,
-.identity-header .chevron-icon {
-  color: white;
-}
-
-.identity-header .language-dropdown {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+.identity-header-email .mailto-link-icon {
+	flex-shrink: 0;
+	color: var(--nav-icon-active);
+	transition: color 0.3s ease;
 }

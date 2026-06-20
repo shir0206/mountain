@@ -7,7 +7,7 @@ export interface HeroAction {
 }
 
 export interface ServiceCard {
-  num: string;
+  icon: string;
   name: string;
   desc: string;
 }

@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import type { CameraPreset, Position3D } from "../types";
+import type { CameraPreset, PositionTuple } from "../types";
 
-export function toVector3(p: Position3D): THREE.Vector3 {
+export function toVector3(p: PositionTuple): THREE.Vector3 {
 	return new THREE.Vector3(p[0], p[1], p[2]);
 }
 

@@ -3,6 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 import * as P from "../config/positions";
+import { CAMERA_PRESETS } from "../config/cameraPresets";
 import { usePortfolioContext } from "../../../context/portfolio/usePortfolioContext";
 import { useSceneContext } from "../../../context/scene/useSceneContext";
 import { BROWSER_MODE } from "../../../context/portfolio/types";
@@ -233,9 +234,10 @@ export function PortalButton3D() {
   );
 
   useFrame(({ clock }) => {
-    // Orient group to face camera once
+    // Orient group to face workstation camera position once
     if (!oriented && groupRef.current) {
-      groupRef.current.lookAt(camera.position);
+      const wp = CAMERA_PRESETS.workstation.position;
+      groupRef.current.lookAt(wp[0], wp[1], wp[2]);
       setOriented(true);
     }
 
@@ -275,7 +277,7 @@ export function PortalButton3D() {
   return (
     <group
       ref={groupRef}
-      position={[P.DESK_X, P.DESK_Y + 1.5, P.DESK_Z - 0.6]}
+      position={[P.DESK.X, P.DESK.Y + 1.5, P.DESK.Z - 0.6]}
       scale={0.8}
     >
       {/* Gold metallic ring — Torus */}

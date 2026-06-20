@@ -53,22 +53,22 @@
 		"cardsLabel": "What I can help with",
 		"cards": [
 			{
-				"num": "01",
+				"icon": "terminal",
 				"name": "Frontend Development",
 				"desc": "Clean, scalable interfaces built for real-world use."
 			},
 			{
-				"num": "02",
+				"icon": "structure",
 				"name": "Architecture & Systems",
 				"desc": "Component architecture and state flow designed for long-term growth."
 			},
 			{
-				"num": "03",
+				"icon": "monitors",
 				"name": "UI Implementation",
 				"desc": "Pixel-perfect, responsive implementation from design to browser."
 			},
 			{
-				"num": "04",
+				"icon": "dialog",
 				"name": "Collaboration",
 				"desc": "Thinking alongside designers, product, and founders."
 			}

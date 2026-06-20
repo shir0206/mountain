@@ -73,13 +73,13 @@ export function Loader() {
       </div>
 
       <div className="loader-progress">
-        <div className="loader-progress__track">
+        <div className="loader-progress-track">
           <div
-            className="loader-progress__fill"
+            className="loader-progress-fill"
             style={{ width: `${Math.round(progress)}%` }}
           />
         </div>
-        <span className="loader-progress__text">{Math.round(progress)}%</span>
+        <span className="loader-progress-text">{Math.round(progress)}%</span>
       </div>
     </div>
   );

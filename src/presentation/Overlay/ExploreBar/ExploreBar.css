@@ -5,16 +5,16 @@
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
-  align-items: center;
   gap: var(--nav-gap);
   width: 88vw;
+  max-width: 720px;
   padding: var(--nav-padding);
   background: var(--surface-glass-nav);
-  backdrop-filter: blur(var(--blur-nav));
-  -webkit-backdrop-filter: blur(var(--blur-nav));
-  border-radius: var(--radius-nav);
   border: 1px solid var(--border-glass-nav);
-  box-shadow: var(--shadow-nav);
+  border-radius: var(--radius-nav);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .explore-btn {
@@ -22,110 +22,112 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 10px 12px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-radius: var(--radius-m);
-  transition: background var(--transition-base);
+  gap: 8px;
   flex: 1;
-  min-width: 0;
+  min-height: 160px;
+  padding: 20px 12px 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: var(--radius-nav-item);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .explore-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
+/* Icon */
 .explore-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  transition: color var(--transition-base), transform var(--transition-fast);
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .explore-icon-svg {
-  width: 24px;
-  height: 24px;
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
 }
 
-/* OFF state */
 .explore-btn .explore-icon {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--nav-icon-inactive);
 }
 
+/* Typography — inactive */
 .explore-label {
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: var(--font-weight-regular);
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--nav-text-primary);
   white-space: nowrap;
-  transition: color var(--transition-base), opacity var(--transition-base);
-  opacity: 0.8;
+  transition: color 0.3s ease;
 }
 
 .explore-sub {
   font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: var(--font-weight-light);
-  color: var(--color-caramel-light);
+  font-size: 12px;
+  font-weight: var(--font-weight-regular);
+  color: var(--nav-text-secondary);
   white-space: nowrap;
-  transition: opacity var(--transition-base);
-  opacity: 0.7;
+  transition: color 0.3s ease;
 }
 
-/* ON state */
+/* Active state — full card */
 .explore-btn.active {
   background: var(--surface-glass-nav-active);
-  border-radius: var(--radius-m);
+  border-color: var(--border-glass-nav-active);
+  box-shadow: var(--nav-active-shadow);
 }
 
 .explore-btn.active .explore-icon {
-  color: #fff;
-  transform: scale(1.05);
+  color: var(--nav-icon-active);
+  transform: scale(1.08);
+  filter: var(--nav-icon-glow);
 }
 
 .explore-btn.active .explore-label {
-  color: #fff;
-  opacity: 1;
+  color: var(--nav-active-title);
   font-weight: var(--font-weight-medium);
 }
 
 .explore-btn.active .explore-sub {
-  opacity: 1;
-  color: var(--color-caramel-light);
+  color: var(--nav-active-subtitle);
 }
 
-/* Remove the dot indicator — reference uses bg highlight instead */
-.explore-btn.active::after {
-  display: none;
-}
-
+/* Mobile */
 @media (max-width: 768px) {
   .explore-bar {
-    padding: 8px;
-    gap: 4px;
+    width: 92vw;
+    padding: 6px;
+    gap: 6px;
     bottom: 2vh;
   }
 
   .explore-btn {
-    padding: 2.5vw 2vw;
+    min-height: 120px;
+    padding: 14px 8px 12px;
+    gap: 6px;
   }
 
   .explore-icon,
   .explore-icon-svg {
-    width: 6vw;
-    height: 6vw;
+    width: 24px;
+    height: 24px;
   }
 
   .explore-label {
-    font-size: 2.8vw;
+    font-size: 12px;
   }
 
   .explore-sub {
-    font-size: 2.4vw;
+    font-size: 10px;
   }
 }

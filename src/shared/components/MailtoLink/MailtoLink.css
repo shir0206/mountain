@@ -4,7 +4,7 @@
 	gap: 4px;
 	text-decoration: none;
 	pointer-events: auto;
-	transition: opacity 0.2s ease;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .mailto-link:hover {

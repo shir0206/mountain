@@ -31,13 +31,13 @@
   background: rgba(255, 255, 255, 0.28);
 }
 
-.contact-pill__icon {
+.contact-pill-icon {
   width: 18px;
   height: 18px;
   color: rgba(255, 255, 255, 0.8);
 }
 
-.contact-pill__text {
+.contact-pill-text {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: var(--font-weight-regular);

@@ -195,9 +195,40 @@ for (const sd of segmentData) {
     sd.positions[i + 2] -= cz;
   }
 }
-minX -= cx; maxX -= cx;
-minY -= cy; maxY -= cy;
-minZ -= cz; maxZ -= cz;
+
+// Rotate +90° around X-axis to lay flat face-up (text readable from above)
+for (const sd of segmentData) {
+  for (let i = 0; i < sd.positions.length; i += 3) {
+    const y = sd.positions[i + 1];
+    const z = sd.positions[i + 2];
+    sd.positions[i + 1] = z;
+    sd.positions[i + 2] = -y;
+  }
+}
+
+// Rotate normals the same way
+for (const sd of segmentData) {
+  for (let i = 0; i < sd.normals.length; i += 3) {
+    const y = sd.normals[i + 1];
+    const z = sd.normals[i + 2];
+    sd.normals[i + 1] = z;
+    sd.normals[i + 2] = -y;
+  }
+}
+
+// Recompute bounds after rotation
+minX = Infinity; minY = Infinity; minZ = Infinity;
+maxX = -Infinity; maxY = -Infinity; maxZ = -Infinity;
+for (const sd of segmentData) {
+  for (let i = 0; i < sd.positions.length; i += 3) {
+    minX = Math.min(minX, sd.positions[i]);
+    minY = Math.min(minY, sd.positions[i + 1]);
+    minZ = Math.min(minZ, sd.positions[i + 2]);
+    maxX = Math.max(maxX, sd.positions[i]);
+    maxY = Math.max(maxY, sd.positions[i + 1]);
+    maxZ = Math.max(maxZ, sd.positions[i + 2]);
+  }
+}
 
 // Build multi-primitive GLB
 function buildMultiMaterialGLB(segments) {
@@ -362,6 +393,6 @@ function buildMultiMaterialGLB(segments) {
 }
 
 const glb = buildMultiMaterialGLB(segmentData);
-const outPath = path.join(ROOT, "public/models_optimized/click_text.glb");
+const outPath = path.join(ROOT, "public/models_optimized/click-text.glb");
 fs.writeFileSync(outPath, glb);
 console.log(`✓ Written ${outPath} (${glb.byteLength} bytes)`);

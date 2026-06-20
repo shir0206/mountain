@@ -2,11 +2,7 @@ import { useMemo } from "react";
 import * as THREE from "three";
 
 import { useDeviceContext } from "../../../context/device/useDeviceContext";
-import {
-	PERGOLA_X, PERGOLA_Y, PERGOLA_Z,
-	DESK_LAMP_X, DESK_LAMP_Y, DESK_LAMP_Z,
-	FLOOR_LAMP_X, FLOOR_LAMP_Y, FLOOR_LAMP_Z,
-} from "../config/positions";
+import { PERGOLA, DESK_LAMP, FLOOR_LAMP } from "../config/positions";
 
 // Mid-morning alpine summer — cool blue-sky ambient, single strong sun from upper-left,
 // mountain bounce from right, warm interior lamps as accent contrast.
@@ -18,7 +14,7 @@ export function Lighting() {
 	// natural spotlight pointing at the pergola area.
 	const sunTarget = useMemo(() => {
 		const o = new THREE.Object3D();
-		o.position.set(PERGOLA_X, PERGOLA_Y + 8, PERGOLA_Z);
+		o.position.set(PERGOLA.X, PERGOLA.Y + 8, PERGOLA.Z);
 		return o;
 	}, []);
 
@@ -54,7 +50,7 @@ export function Lighting() {
 			<directionalLight
 				color='#c8d8e8'
 				intensity={0.5}
-				position={[PERGOLA_X + 40, PERGOLA_Y + 30, PERGOLA_Z + 20]}
+				position={[PERGOLA.X + 40, PERGOLA.Y + 30, PERGOLA.Z + 20]}
 				target={sunTarget}
 			/>
 
@@ -62,7 +58,7 @@ export function Lighting() {
 			<directionalLight
 				color='#c8ddf4'
 				intensity={0.4}
-				position={[PERGOLA_X + 30, PERGOLA_Y + 40, PERGOLA_Z + 30]}
+				position={[PERGOLA.X + 30, PERGOLA.Y + 40, PERGOLA.Z + 30]}
 			/>
 
 			{/* Desk lamp — warm point, accent contrast against cool ambient */}
@@ -71,7 +67,7 @@ export function Lighting() {
 				intensity={4}
 				distance={4}
 				decay={2}
-				position={[DESK_LAMP_X, DESK_LAMP_Y + 0.2, DESK_LAMP_Z]}
+				position={[DESK_LAMP.X, DESK_LAMP.Y + 0.2, DESK_LAMP.Z]}
 			/>
 
 			{/* Floor lamp — warm point */}
@@ -80,7 +76,7 @@ export function Lighting() {
 				intensity={5}
 				distance={5}
 				decay={2}
-				position={[FLOOR_LAMP_X, FLOOR_LAMP_Y + 2.2, FLOOR_LAMP_Z]}
+				position={[FLOOR_LAMP.X, FLOOR_LAMP.Y + 2.2, FLOOR_LAMP.Z]}
 			/>
 		</>
 	);

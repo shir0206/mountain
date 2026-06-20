@@ -26,12 +26,12 @@ export function ErrorModal({ message, onClose }: ErrorModalProps) {
       onClick={handleClose}
     >
       <div className="error-modal" onClick={(e) => e.stopPropagation()}>
-        <h2 className="error-modal__title">Something went wrong</h2>
-        <div className="error-modal__body">
-          <pre className="error-modal__message">{message}</pre>
+        <h2 className="error-modal-title">Something went wrong</h2>
+        <div className="error-modal-body">
+          <pre className="error-modal-message">{message}</pre>
         </div>
         {onClose && (
-          <button className="error-modal__close" onClick={handleClose}>
+          <button className="error-modal-close" onClick={handleClose}>
             Close
           </button>
         )}

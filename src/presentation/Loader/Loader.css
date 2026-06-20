@@ -49,7 +49,7 @@
   gap: 8px;
 }
 
-.loader-progress__track {
+.loader-progress-track {
   width: 180px;
   height: 3px;
   background: rgba(255, 255, 255, 0.08);
@@ -57,14 +57,14 @@
   overflow: hidden;
 }
 
-.loader-progress__fill {
+.loader-progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #3d6b35, #7a9a6a);
   border-radius: 2px;
   transition: width 300ms ease;
 }
 
-.loader-progress__text {
+.loader-progress-text {
   color: rgba(255, 255, 255, 0.4);
   font-size: 11px;
   letter-spacing: 0.5px;

@@ -3,12 +3,11 @@ import React, { useState } from "react";
 import "./Navigation.css";
 
 import { useTranslation } from "../../../context/portfolio/useTranslation";
-import { usePortfolioContext } from "../../../context/portfolio/usePortfolioContext";
 import { useDeviceContext } from "../../../context/device/useDeviceContext";
 import { DEVICE } from "../../../context/device/types";
-import { LANGUAGE } from "../../../shared/i18n/language";
 import { SECTION_IDS, type SectionIdType } from "../types";
 import { useScrollNavigation } from "./hooks/useScrollNavigation";
+import { LanguagePill } from "./LanguagePill/LanguagePill";
 
 interface NavigationItem {
   id: SectionIdType;
@@ -21,8 +20,7 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
-  const { t, language } = useTranslation();
-  const { setLanguage } = usePortfolioContext();
+  const { t } = useTranslation();
   const { device } = useDeviceContext();
   const isMobile = device === DEVICE.MOBILE;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,9 +44,9 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
   };
 
   return (
-    <nav className={`navigation ${isScrolled ? "is-scrolled" : ""}`}>
+    <nav className={`navigation ${isScrolled ? "navigation-scrolled" : ""}`}>
       <div className="navigation-container">
-        <div className="nav-logo">
+        <div className="navigation-logo">
           {isMobile ? (
             <>
               {t.navigation.logoShort} <em>{t.navigation.logoSeparator}</em> {t.navigation.logoShortLastName}
@@ -59,13 +57,13 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
             </>
           )}
         </div>
-        <ul className="nav-links desktop-links">
+        <ul className="navigation-links">
           {navigationItems.map((item) => (
             <li key={`${item.label}-${item.href}`}>
               <a
                 href={item.href}
-                className={`nav-link ${
-                  activeSection === item.id ? "active" : ""
+                className={`navigation-link ${
+                  activeSection === item.id ? "navigation-link-active" : ""
                 }`}
                 onClick={(event) => {
                   event.preventDefault();
@@ -78,31 +76,16 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
             </li>
           ))}
         </ul>
-        <div className="nav-right">
-          <div className="lang-toggle">
-            <button
-              className={`lang-btn ${language === LANGUAGE.EN ? "active" : ""}`}
-              onClick={() => setLanguage(LANGUAGE.EN)}
-              aria-label="Switch language to English"
-            >
-              EN
-            </button>
-            <button
-              className={`lang-btn ${language === LANGUAGE.HE ? "active" : ""}`}
-              onClick={() => setLanguage(LANGUAGE.HE)}
-              aria-label="Switch language to Hebrew"
-            >
-              HE
-            </button>
-          </div>
+        <div className="navigation-right">
+          <LanguagePill />
           <button
-            className="nav-cta-btn"
+            className="navigation-cta-btn"
             onClick={() => handleSectionClick(SECTION_IDS.CONTACT)}
           >
             {t.navigation.cta}
           </button>
           <button
-            className={`hamburger ${isMobileMenuOpen ? "is-open" : ""}`}
+            className={`navigation-hamburger ${isMobileMenuOpen ? "navigation-hamburger-open" : ""}`}
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
@@ -113,13 +96,13 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
           </button>
         </div>
       </div>
-      <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+      <div className={`navigation-mobile-menu ${isMobileMenuOpen ? "navigation-mobile-menu-open" : ""}`}>
         {navigationItems.map((item) => (
           <a
             key={`${item.label}-mobile-${item.href}`}
             href={item.href}
-            className={`mobile-link ${
-              activeSection === item.id ? "active" : ""
+            className={`navigation-mobile-link ${
+              activeSection === item.id ? "navigation-mobile-link-active" : ""
             }`}
             onClick={(event) => {
               event.preventDefault();
