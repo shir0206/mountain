@@ -27,7 +27,7 @@ export function useUploadTexturesOnIdle(enabled: boolean) {
       // Process in batches across multiple idle callbacks
       let idx = 0;
 
-      function uploadNextBatch(_deadline?: IdleDeadline) {
+      function uploadNextBatch() {
         if (cancelled) return;
 
         const end = Math.min(idx + BATCH_SIZE, textures.length);
@@ -61,8 +61,11 @@ export function useUploadTexturesOnIdle(enabled: boolean) {
 
 function scheduleNext(cb: (deadline?: IdleDeadline) => void) {
   if ("requestIdleCallback" in window) {
-    (window as unknown as { requestIdleCallback: (cb: (d: IdleDeadline) => void) => void })
-      .requestIdleCallback(cb);
+    (
+      window as unknown as {
+        requestIdleCallback: (cb: (d: IdleDeadline) => void) => void;
+      }
+    ).requestIdleCallback(cb);
   } else {
     setTimeout(() => cb(), 32);
   }

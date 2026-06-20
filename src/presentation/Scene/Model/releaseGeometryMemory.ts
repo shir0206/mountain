@@ -27,16 +27,26 @@ export function releaseGeometryMemory(root: THREE.Object3D): void {
     for (const key in geo.attributes) {
       const attr = geo.attributes[key] as THREE.BufferAttribute;
       if (!attr || !attr.array || attr.array.byteLength === 0) continue;
+      if (typeof attr.onUpload !== "function") continue;
       attr.onUpload(function (this: THREE.BufferAttribute) {
-        const Ctor = this.array.constructor as new (len: number) => ArrayLike<number>;
+        const Ctor = this.array.constructor as new (
+          len: number
+        ) => ArrayLike<number>;
         (this as unknown as { array: ArrayLike<number> }).array = new Ctor(0);
       });
     }
 
     // Release index buffer CPU array after GPU upload
-    if (geo.index && geo.index.array && geo.index.array.byteLength > 0) {
+    if (
+      geo.index &&
+      geo.index.array &&
+      geo.index.array.byteLength > 0 &&
+      typeof geo.index.onUpload === "function"
+    ) {
       geo.index.onUpload(function (this: THREE.BufferAttribute) {
-        const Ctor = this.array.constructor as new (len: number) => ArrayLike<number>;
+        const Ctor = this.array.constructor as new (
+          len: number
+        ) => ArrayLike<number>;
         (this as unknown as { array: ArrayLike<number> }).array = new Ctor(0);
       });
     }

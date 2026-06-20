@@ -1,105 +1,160 @@
 :root {
-  /* Caramel palette */
-  --color-caramel: #9a7b56;
-  --color-caramel-light: #c9a97d;
-  --color-sand: #d4c5b0;
-  --color-ink: #2b2925;
-  --color-ink-mid: #5a5550;
-  --color-ink-light: #9a918a;
-  --color-bg: #f9f6f1;
-  --color-bg-soft: #f2ede4;
-  --color-bg-warm: #eae3d8;
-  --color-line: #ddd7ce;
-  --color-dark-bg: #1c1a18;
-  --color-dark-soft: #252320;
-  --color-dark-line: rgba(255, 255, 255, 0.08);
+	/* Caramel palette */
+	--color-caramel: #9a7b56;
+	--color-caramel-light: #c9a97d;
+	--color-sand: #d4c5b0;
+	--color-ink: #2b2925;
+	--color-ink-mid: #5a5550;
+	--color-ink-light: #9a918a;
+	--color-bg: #f9f6f1;
+	--color-bg-soft: #f2ede4;
+	--color-bg-warm: #eae3d8;
+	--color-line: #ddd7ce;
+	--color-dark-bg: #1c1a18;
+	--color-dark-soft: #252320;
+	--color-dark-line: rgba(255, 255, 255, 0.08);
 
-  /* Legacy Brand (keep for non-browser elements) */
-  --color-sage: #a8b3a5;
-  --color-sage-strong: #7fa573;
-  --color-sage-deep: #2d3319;
-  --color-blush: #e2c4c1;
+	/* Legacy Brand (keep for non-browser elements) */
+	--color-sage: #a8b3a5;
+	--color-sage-strong: #7fa573;
+	--color-sage-deep: #2d3319;
+	--color-blush: #e2c4c1;
 
-  /* Surfaces */
-  --color-cream: #f5f5f0;
-  --color-cream-alt: #f6f7f3;
-  --color-surface: #ffffff;
-  --color-surface-glass: rgba(236, 237, 238, 0.75);
-  --color-surface-glass-header: rgba(236, 237, 238, 0.7);
-  --color-border: rgba(120, 128, 97, 0.15);
-  --color-border-soft: #e0e0e0;
+	/* Surfaces */
+	--color-cream: #f5f5f0;
+	--color-cream-alt: #f6f7f3;
+	--color-surface: #ffffff;
+	--color-surface-glass: rgba(236, 237, 238, 0.75);
+	--color-surface-glass-header: rgba(236, 237, 238, 0.7);
+	--color-border: rgba(120, 128, 97, 0.15);
+	--color-border-soft: #e0e0e0;
 
-  /* Text */
-  --color-text: #1f2937;
-  --color-text-strong: #111827;
-  --color-text-muted: #6b7280;
-  --color-text-subtle: #72757e;
+	/* Text */
+	--color-text: #1f2937;
+	--color-text-strong: #111827;
+	--color-text-muted: #6b7280;
+	--color-text-subtle: #72757e;
 
-  /* Traffic lights */
-  --color-close: #ff605c;
-  --color-minimize: #ffbd44;
-  --color-maximize: #00ca4e;
+	/* Traffic lights */
+	--color-close: #ff605c;
+	--color-minimize: #ffbd44;
+	--color-maximize: #00ca4e;
 
-  /* Typography */
-  --font-display: "Cormorant Garamond", serif;
-  --font-body: "Jost", sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+	/* Typography */
+	--font-display: "Cormorant Garamond", serif;
+	--font-body: "Jost", sans-serif;
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--font-serif: Georgia, "Times New Roman", serif;
 
-  --font-size-sm: 1rem; /* 16 */
-  --font-size-md: 1.25rem; /* 20 */
-  --font-size-lg: 1.5rem; /* 24 */
-  --font-size-xl: 1.75rem; /* 28 */
-  --font-size-3xl: 3rem; /* 48 */
-  --font-size-4xl: 3.5rem; /* 56 */
+	--font-size-sm: 1rem; /* 16 */
+	--font-size-md: 1.25rem; /* 20 */
+	--font-size-lg: 1.5rem; /* 24 */
+	--font-size-xl: 1.75rem; /* 28 */
+	--font-size-3xl: 3rem; /* 48 */
+	--font-size-4xl: 3.5rem; /* 56 */
 
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
 
-  --line-height-base: 1.6;
+	--line-height-base: 1.6;
 
-  /* Spacing (rem, 4px base) */
-  --space-xs: 0.25rem; /* 4 */
-  --space-sm: 0.5rem; /* 8 */
-  --space-md: 1rem; /* 16 */
-  --space-lg: 1.5rem; /* 24 */
-  --space-xl: 2.5rem; /* 40 */
-  --space-2xl: 3.75rem; /* 60 */
-  --space-3xl: 5rem; /* 80 */
+	/* Spacing (rem, 4px base) */
+	--space-xs: 0.25rem; /* 4 */
+	--space-sm: 0.5rem; /* 8 */
+	--space-md: 1rem; /* 16 */
+	--space-lg: 1.5rem; /* 24 */
+	--space-xl: 2.5rem; /* 40 */
+	--space-2xl: 3.75rem; /* 60 */
+	--space-3xl: 5rem; /* 80 */
 
-  /* Radius */
-  --radius-s: 6px;
-  --radius-m: 14px;
-  --radius-sm: 0.25rem; /* 4 */
-  --radius-md: 0.5rem; /* 8 */
-  --radius-lg: 0.75rem; /* 12 */
-  --radius-xl: 1rem; /* 16 */
-  --radius-pill: 999px;
+	/* Radius */
+	--radius-s: 6px;
+	--radius-m: 14px;
+	--radius-sm: 0.25rem; /* 4 */
+	--radius-md: 0.5rem; /* 8 */
+	--radius-lg: 0.75rem; /* 12 */
+	--radius-xl: 1rem; /* 16 */
+	--radius-pill: 999px;
 
-  /* Shadow */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 20px 60px rgba(5, 9, 4, 0.15);
-  --shadow-dropdown: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.1);
+	/* Glass surfaces */
+	--surface-glass-dark: rgba(40, 36, 30, 0.72);
+	/* Glass nav surfaces — dark neutral glass */
+	--surface-glass-nav: rgba(20, 24, 30, 0.35);
+	--surface-glass-nav-active: rgba(212, 177, 116, 0.12);
+	--border-glass-nav: rgba(255, 255, 255, 0.12);
+	--border-glass-nav-active: rgba(212, 177, 116, 0.6);
+	--blur-nav: 20px;
+	--radius-nav: 32px;
+	--radius-nav-item: 24px;
+	--nav-icon-size: 28px;
+	--nav-padding: 8px;
+	--nav-gap: 8px;
+	--nav-bottom-offset: 64px;
+	--contact-pill-bottom-offset: 12px;
 
-  /* Motion */
-  --transition-fast: 0.2s ease;
-  --transition-base: 0.3s ease;
+	/* Nav typography */
+	--nav-text-primary: #f4f5f7;
+	--nav-text-secondary: rgba(244, 245, 247, 0.7);
+	--nav-active-title: #fff4d6;
+	--nav-active-subtitle: #e7d2a1;
+
+	/* Nav icons */
+	--nav-icon-inactive: #d4d7db;
+	--nav-icon-active: #e7c98e;
+
+	/* Gold / Premium accent */
+	--gold: #d4b174;
+	--gold-light: #e7c98e;
+	--white-warm: #fff4d6;
+	--text-secondary-warm: rgba(255, 244, 214, 0.75);
+	--gold-glow-sm: 0 0 6px rgba(212, 177, 116, 0.25);
+	--gold-glow-border: 0 0 12px rgba(212, 177, 116, 0.18),
+		0 0 28px rgba(212, 177, 116, 0.08);
+	--gold-halo: radial-gradient(
+		circle,
+		rgba(212, 177, 116, 0.18) 0%,
+		rgba(212, 177, 116, 0.08) 40%,
+		transparent 75%
+	);
+
+	/* Nav indicator */
+	--nav-indicator-color: #e7c98e;
+
+	/* Nav active glow */
+	--nav-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25),
+		inset 0 0 32px rgba(231, 201, 142, 0.18),
+		0 0 48px rgba(231, 201, 142, 0.2);
+	--nav-icon-glow: drop-shadow(0 0 6px rgba(231, 201, 142, 0.7))
+		drop-shadow(0 0 16px rgba(231, 201, 142, 0.4));
+
+	/* Shadow */
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.07);
+	--shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.12);
+	--shadow-lg: 0 20px 60px rgba(5, 9, 4, 0.15);
+	--shadow-nav: 0 4px 20px rgba(120, 100, 70, 0.12),
+		0 1px 4px rgba(0, 0, 0, 0.06);
+	--shadow-dropdown: 0 2px 4px rgba(0, 0, 0, 0.05),
+		0 4px 12px rgba(0, 0, 0, 0.1);
+
+	/* Motion */
+	--transition-fast: 0.2s ease;
+	--transition-base: 0.3s ease;
 }
 
 /* Mobile scale: shrink typography + large spacing */
 @media (max-width: 768px) {
-  :root {
-    --font-size-sm: 0.8125rem;  /* 13 */
-    --font-size-md: 0.9375rem;  /* 15 */
-    --font-size-lg: 1.125rem;   /* 18 */
-    --font-size-xl: 1.25rem;    /* 20 */
-    --font-size-3xl: 1.625rem;  /* 26 */
-    --font-size-4xl: 2rem;      /* 32 */
+	:root {
+		--font-size-sm: 0.8125rem; /* 13 */
+		--font-size-md: 0.9375rem; /* 15 */
+		--font-size-lg: 1.125rem; /* 18 */
+		--font-size-xl: 1.25rem; /* 20 */
+		--font-size-3xl: 1.625rem; /* 26 */
+		--font-size-4xl: 2rem; /* 32 */
 
-    --space-2xl: 2rem;   /* 32 */
-    --space-3xl: 2.5rem; /* 40 */
-  }
+		--space-2xl: 2rem; /* 32 */
+		--space-3xl: 2.5rem; /* 40 */
+	}
 }

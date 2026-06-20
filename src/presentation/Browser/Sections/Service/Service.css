@@ -30,18 +30,6 @@
   flex-shrink: 0;
 }
 
-.rtl .service-section .section-label::before {
-  display: none;
-}
-
-.rtl .service-section .section-label::after {
-  content: "";
-  width: 22px;
-  height: 1px;
-  background: var(--color-caramel-light);
-  flex-shrink: 0;
-}
-
 .service-section .section-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 6vw, 3.6rem);
@@ -60,14 +48,14 @@
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 10px;
   margin-bottom: 60px;
 }
 
 .service-card {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-m);
-  padding: 28px 24px;
+  padding: 24px 20px;
   background: var(--color-bg);
   position: relative;
   overflow: hidden;
@@ -103,31 +91,44 @@
   z-index: 1;
 }
 
-.service-num {
-  font-family: var(--font-display);
-  font-size: 2.8rem;
-  font-weight: 300;
-  color: var(--color-line);
-  line-height: 1;
-  margin-bottom: 18px;
+.service-card-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(154, 123, 86, 0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: background 0.3s;
+}
+
+.service-card:hover .service-card-icon {
+  background: rgba(154, 123, 86, 0.15);
+}
+
+.service-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-caramel);
   transition: color 0.3s;
 }
 
-.service-card:hover .service-num {
+.service-card:hover .service-icon {
   color: var(--color-caramel-light);
 }
 
 .service-name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: var(--color-ink);
 }
 
 .service-desc {
-  font-size: 0.87rem;
-  line-height: 1.75;
+  font-size: 0.84rem;
+  line-height: 1.7;
   color: var(--color-ink-mid);
 }
 
@@ -161,11 +162,6 @@
   bottom: 20px;
   width: 1px;
   background: var(--color-line);
-}
-
-.rtl .process-list::before {
-  left: auto;
-  right: 19px;
 }
 
 .process-item {
@@ -236,6 +232,15 @@
 @media (min-width: 560px) {
   .cards-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .service-card {
+    padding: 28px 24px;
+  }
+
+  .service-name {
+    font-size: 1.25rem;
   }
 }
 
@@ -259,11 +264,6 @@
     bottom: auto;
     width: auto;
     height: 1px;
-  }
-
-  .rtl .process-list::before {
-    left: 10%;
-    right: 10%;
   }
 
   .process-item {

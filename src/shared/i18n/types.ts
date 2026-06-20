@@ -7,7 +7,7 @@ export interface HeroAction {
 }
 
 export interface ServiceCard {
-  num: string;
+  icon: string;
   name: string;
   desc: string;
 }
@@ -23,6 +23,11 @@ export interface AIPillar {
   title: string;
   text: string;
   items: string[];
+}
+
+export interface ExploreArea {
+  label: string;
+  subtitle: string;
 }
 
 export interface TextStructure {
@@ -101,5 +106,31 @@ export interface TextStructure {
   footer: {
     name: string;
     copy: string;
+  };
+  overlay: {
+    identity: {
+      name: string;
+      email: string;
+      emailSubject: string;
+    };
+    welcome: {
+      title: string;
+      subtitle: string;
+    };
+    dragHint: {
+      title: string;
+      subtitle: string;
+    };
+    portalCta: {
+      label: string;
+    };
+    exploreBar: {
+      ariaLabel: string;
+      areas: ExploreArea[];
+    };
+    contactPill: {
+      ariaLabel: string;
+      email: string;
+    };
   };
 }

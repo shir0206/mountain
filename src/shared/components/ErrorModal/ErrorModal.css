@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-.error-modal-overlay[data-visible='true'] {
+.error-modal-overlay[data-visible="true"] {
   opacity: 1;
 }
 
@@ -32,17 +32,16 @@
   cursor: default;
   transform: scale(0.96) translateY(8px);
   opacity: 0;
-  transition:
-    opacity 220ms ease-out,
+  transition: opacity 220ms ease-out,
     transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.error-modal-overlay[data-visible='true'] .error-modal {
+.error-modal-overlay[data-visible="true"] .error-modal {
   transform: scale(1) translateY(0);
   opacity: 1;
 }
 
-.error-modal__title {
+.error-modal-title {
   margin: 0;
   font-family: var(--font-body, sans-serif);
   font-size: var(--text-lg, 1.25rem);
@@ -50,7 +49,7 @@
   color: #f87171;
 }
 
-.error-modal__body {
+.error-modal-body {
   flex: 1;
   overflow: auto;
   background: rgba(0, 0, 0, 0.3);
@@ -58,7 +57,7 @@
   padding: var(--space-m, 1rem);
 }
 
-.error-modal__message {
+.error-modal-message {
   margin: 0;
   font-family: var(--font-system, monospace);
   font-size: var(--text-sm, 0.875rem);
@@ -68,7 +67,7 @@
   word-break: break-word;
 }
 
-.error-modal__close {
+.error-modal-close {
   align-self: flex-end;
   padding: var(--space-xs, 0.5rem) var(--space-m, 1rem);
   background: rgba(255, 255, 255, 0.08);
@@ -81,6 +80,6 @@
   transition: background var(--motion-fast, 0.2s) ease;
 }
 
-.error-modal__close:hover {
+.error-modal-close:hover {
   background: rgba(255, 255, 255, 0.14);
 }

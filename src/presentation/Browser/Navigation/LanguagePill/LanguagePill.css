@@ -1,0 +1,88 @@
+.language-pill-toggle {
+	display: flex;
+	align-items: center;
+	background: var(--color-cream-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	overflow: hidden;
+	height: 34px;
+}
+
+.language-pill-btn {
+	padding: 0 12px;
+	font-size: 0.7rem;
+	letter-spacing: 0.1em;
+	font-weight: var(--font-weight-regular);
+	color: var(--color-text-muted);
+	background: none;
+	border: none;
+	cursor: pointer;
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+	transition:
+		background var(--transition-fast),
+		color var(--transition-fast);
+}
+
+.language-pill-btn:first-child {
+	border-radius: 50px 0 0 50px;
+}
+.language-pill-btn:last-child {
+	border-radius: 50px 0 0 50px;
+}
+
+.language-pill-btn-active {
+	background: var(--color-caramel);
+	color: #fff;
+}
+
+/* ─── Overlay variant — glass + gold glow ─── */
+.language-pill-toggle-overlay {
+	position: relative;
+	background: var(--surface-glass-nav);
+	border: 1px solid var(--border-glass-nav);
+	border-radius: var(--radius-pill);
+	height: auto;
+	overflow: visible;
+	box-shadow:
+		0 10px 30px rgba(0, 0, 0, 0.15),
+		inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.language-pill-toggle-overlay .language-pill-btn {
+	position: relative;
+	width: 52px;
+	height: 36px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: var(--text-secondary-warm);
+	font-size: 0.7rem;
+	letter-spacing: 0.1em;
+	font-weight: var(--font-weight-regular);
+	cursor: pointer;
+	transition:
+		color var(--transition-fast),
+		background var(--transition-fast),
+		border-color var(--transition-fast),
+		box-shadow var(--transition-fast);
+}
+
+.language-pill-toggle-overlay .language-pill-btn-active {
+	color: var(--white-warm);
+	background: var(--surface-glass-nav-active);
+	border: 1px solid black;
+	border-color: var(--border-glass-nav-active);
+	box-shadow: var(--nav-active-shadow);
+}
+
+/* ─── Tab focus styles ─── */
+.tab-element:focus:not(:focus-visible) {
+	outline: none;
+	box-shadow: none;
+}
+
+.tab-element:focus-visible {
+	outline: 2px solid var(--color-caramel);
+	outline-offset: 2px;
+}

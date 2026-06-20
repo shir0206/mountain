@@ -85,12 +85,34 @@ for (let i = 0; i < posArr.length; i += 3) {
   posArr[i + 1] -= cy;
   posArr[i + 2] -= cz;
 }
-// Recompute bounds after centering
-minX -= cx; maxX -= cx;
-minY -= cy; maxY -= cy;
-minZ -= cz; maxZ -= cz;
+// Rotate -90° around X-axis to lay flat (XY plane → XZ plane)
+for (let i = 0; i < posArr.length; i += 3) {
+  const y = posArr[i + 1];
+  const z = posArr[i + 2];
+  posArr[i + 1] = -z;
+  posArr[i + 2] = y;
+}
 
+// Recompute bounds after rotation
+minX = Infinity; minY = Infinity; minZ = Infinity;
+maxX = -Infinity; maxY = -Infinity; maxZ = -Infinity;
+for (let i = 0; i < posArr.length; i += 3) {
+  minX = Math.min(minX, posArr[i]);
+  minY = Math.min(minY, posArr[i + 1]);
+  minZ = Math.min(minZ, posArr[i + 2]);
+  maxX = Math.max(maxX, posArr[i]);
+  maxY = Math.max(maxY, posArr[i + 1]);
+  maxZ = Math.max(maxZ, posArr[i + 2]);
+}
+
+// Rotate normals the same way
 const normArr = new Float32Array(normals);
+for (let i = 0; i < normArr.length; i += 3) {
+  const y = normArr[i + 1];
+  const z = normArr[i + 2];
+  normArr[i + 1] = -z;
+  normArr[i + 2] = y;
+}
 const idxArr = indices.every(i => i < 65536) ? new Uint16Array(indices) : new Uint32Array(indices);
 const useUint32 = !(indices.every(i => i < 65536));
 

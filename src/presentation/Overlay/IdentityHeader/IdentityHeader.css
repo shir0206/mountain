@@ -1,0 +1,58 @@
+.identity-header {
+	position: fixed;
+	inset-block-start: var(--space-md);
+	inset-inline-start: var(--space-md);
+	inset-inline-end: var(--space-md);
+	z-index: 20;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	pointer-events: none;
+}
+
+.identity-header-left {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.identity-header-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.identity-header-right {
+	pointer-events: auto;
+}
+
+.identity-header-name {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-medium);
+	color: var(--nav-text-primary);
+	letter-spacing: -0.02em;
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+	line-height: 1.2;
+	white-space: nowrap;
+	transition: color 0.3s ease;
+}
+
+.identity-header-email {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	font-family: var(--font-body);
+	font-size: 12px;
+	font-weight: var(--font-weight-regular);
+	color: var(--nav-icon-active);
+	white-space: nowrap;
+	transition: color 0.3s ease;
+}
+
+.identity-header-email .mailto-link-icon {
+	flex-shrink: 0;
+	color: var(--nav-icon-active);
+	transition: color 0.3s ease;
+}

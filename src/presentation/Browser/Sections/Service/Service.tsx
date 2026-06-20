@@ -9,6 +9,11 @@ import { ReactComponent as LoopIcon } from "../../../../assets/icons/process/loo
 import { ReactComponent as SearchIcon } from "../../../../assets/icons/process/search.svg";
 import { ReactComponent as SparklesIcon } from "../../../../assets/icons/process/sparkles.svg";
 
+import { ReactComponent as ServiceTerminalIcon } from "../../../../assets/icons/service/terminal.svg";
+import { ReactComponent as ServiceStructureIcon } from "../../../../assets/icons/service/structure.svg";
+import { ReactComponent as ServiceMonitorsIcon } from "../../../../assets/icons/service/monitors.svg";
+import { ReactComponent as ServiceDialogIcon } from "../../../../assets/icons/service/dialog.svg";
+
 interface ServiceProps {
   isVisible: boolean;
   containerRef?: React.RefObject<HTMLDivElement | null>;
@@ -25,6 +30,16 @@ const Service: React.FC<ServiceProps> = () => {
     code: CodeIcon,
     sparkles: SparklesIcon,
     loop: LoopIcon,
+  };
+
+  const serviceIcons: Record<
+    string,
+    React.ComponentType<React.SVGProps<SVGSVGElement>>
+  > = {
+    terminal: ServiceTerminalIcon,
+    structure: ServiceStructureIcon,
+    monitors: ServiceMonitorsIcon,
+    dialog: ServiceDialogIcon,
   };
 
   return (
@@ -45,7 +60,14 @@ const Service: React.FC<ServiceProps> = () => {
               className={`service-card reveal reveal-d${Math.min(i + 1, 4)}`}
             >
               <div className="service-card-inner">
-                <span className="service-num">{card.num}</span>
+                <div className="service-card-icon">
+                  {(() => {
+                    const ServiceIcon = serviceIcons[card.icon];
+                    return ServiceIcon ? (
+                      <ServiceIcon className="service-icon" />
+                    ) : null;
+                  })()}
+                </div>
                 <h3 className="service-name">{card.name}</h3>
                 <p className="service-desc">{card.desc}</p>
               </div>

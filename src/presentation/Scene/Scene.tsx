@@ -1,5 +1,12 @@
-import { Suspense, startTransition, useCallback, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import {
+  Suspense,
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   BakeShadows,
@@ -9,11 +16,7 @@ import {
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useDeviceContext } from "../../context/device/useDeviceContext";
 import { DEVICE } from "../../context/device/types";
-import {
-  CAMERA_PRESETS,
-  INITIAL_PRESET,
-  PRESET_BUTTONS,
-} from "./config/cameraPresets";
+import { CAMERA_PRESETS, INITIAL_PRESET } from "./config/cameraPresets";
 import {
   SCENE_OBJECTS_PRIMARY,
   SCENE_OBJECTS_SECONDARY,
@@ -22,23 +25,32 @@ import {
   SCENE_OBJECTS_SECONDARY_MOBILE,
   SCENE_OBJECTS_TERTIARY_MOBILE,
 } from "./config/sceneObjects";
-import { KEYBOARD_X, KEYBOARD_Y, KEYBOARD_Z } from "./config/positions";
 
-import { useOpenPortfolio } from "./hooks/useOpenPortfolio";
 import { useUploadTexturesOnIdle } from "./hooks/useUploadTexturesOnIdle";
-import { useChangeCameraPreset } from "./hooks/useChangeCameraPreset";
 import { Model, OnSuspenseResolved } from "./Model/Model";
 import { Lighting } from "./Lighting/Lighting";
-import { CameraTracker, CameraRig, type CameraRigHandle } from "./CameraRig/CameraRig";
-import { SceneButton3D } from "./SceneButton3D/SceneButton3D";
-import { IntroAnimation, type IntroAnimationHandle } from "./IntroAnimation/IntroAnimation";
+import {
+  CameraTracker,
+  CameraRig,
+  type CameraRigHandle,
+} from "./CameraRig/CameraRig";
+import {
+  IntroAnimation,
+  type IntroAnimationHandle,
+} from "./IntroAnimation/IntroAnimation";
 import { ShaderWarmup } from "./ShaderWarmup/ShaderWarmup";
 import { SceneReadyGate } from "./SceneReadyGate/SceneReadyGate";
 import { MemoryMonitor } from "./Model/MemoryMonitor";
-import { usePortfolioContext } from "../../context/portfolio/usePortfolioContext";
-import { BROWSER_MODE } from "../../context/portfolio/types";
+import { PortalButton3D } from "./PortalButton3D/PortalButton3D";
+import { ClickTextButton3D } from "./ClickTextButton3D/ClickTextButton3D";
+import { useSceneContext } from "../../context/scene/useSceneContext";
+import { SceneBackground } from "./SceneBackground/SceneBackground";
+import { SceneVignette } from "./SceneVignette/SceneVignette";
 
 // ─── Inner scene (runs inside Canvas) ─────────────────────────────────────────
+// Minimum Y the camera/target can reach — just above the pergola floor (-92)
+const MIN_CAMERA_Y = -88;
+
 function SceneInner({
   introComplete,
   onIntroComplete,
@@ -53,16 +65,34 @@ function SceneInner({
   const controlsRef = useRef<OrbitControlsImpl>(null);
   const introRef = useRef<IntroAnimationHandle>(null);
   const [tier2Ready, setTier2Ready] = useState(false);
-  const { invalidate } = useThree();
-  const openPortfolio = useOpenPortfolio();
+  const { camera } = useThree();
   useUploadTexturesOnIdle(introComplete);
-  const { browserMode } = usePortfolioContext();
-  const isBrowserOpen = browserMode !== BROWSER_MODE.CLOSED;
+
+  // Clamp camera + target Y so user never sees below the floor (runs every frame)
+  useFrame(() => {
+    const controls = controlsRef.current;
+    let clamped = false;
+    if (camera.position.y < MIN_CAMERA_Y) {
+      camera.position.y = MIN_CAMERA_Y;
+      clamped = true;
+    }
+    if (controls && controls.target.y < MIN_CAMERA_Y) {
+      controls.target.y = MIN_CAMERA_Y;
+      clamped = true;
+    }
+    if (clamped && controls) {
+      controls.update();
+    }
+  });
 
   // Called directly by SceneReadyGate once GPU is flushed — no useEffect needed.
   const handleSceneReady = useCallback(() => {
-    introRef.current?.start();
-  }, []);
+    if (isMobile) {
+      onIntroComplete();
+    } else {
+      introRef.current?.start();
+    }
+  }, [isMobile, onIntroComplete]);
 
   // Signal-based: tier 3 mounts only after tier 2's Suspense resolves.
   const onTier2Ready = useCallback(() => {
@@ -71,6 +101,7 @@ function SceneInner({
 
   return (
     <>
+      <SceneBackground />
       <Lighting />
       <CameraTracker controlsRef={controlsRef} />
       <SceneReadyGate onReady={handleSceneReady} />
@@ -87,21 +118,26 @@ function SceneInner({
 
       {/* Tier 1: mountain, pergola, mud, fences — visible during intro orbit */}
       <Suspense fallback={null}>
-        {(isMobile ? SCENE_OBJECTS_PRIMARY_MOBILE : SCENE_OBJECTS_PRIMARY).map((config) => (
-          <Model
-            key={config.position.join(",")}
-            path={config.path}
-            position={config.position}
-            scale={config.scale}
-            rotationY={config.rotationY}
-            tier="primary"
-          />
-        ))}
+        {(isMobile ? SCENE_OBJECTS_PRIMARY_MOBILE : SCENE_OBJECTS_PRIMARY).map(
+          (config) => (
+            <Model
+              key={config.position.join(",")}
+              path={config.path}
+              position={config.position}
+              scale={config.scale}
+              rotationY={config.rotationY}
+              tier="primary"
+            />
+          )
+        )}
       </Suspense>
 
       {/* Tier 2: near furniture — textures deferred until idle */}
       <Suspense fallback={null}>
-        {(isMobile ? SCENE_OBJECTS_SECONDARY_MOBILE : SCENE_OBJECTS_SECONDARY).map((config) => (
+        {(isMobile
+          ? SCENE_OBJECTS_SECONDARY_MOBILE
+          : SCENE_OBJECTS_SECONDARY
+        ).map((config) => (
           <Model
             key={config.position.join(",")}
             path={config.path}
@@ -119,7 +155,10 @@ function SceneInner({
       {/* Tier 3: decorative plants — true lazy load, textures deferred */}
       {tier2Ready && (
         <Suspense fallback={null}>
-          {(isMobile ? SCENE_OBJECTS_TERTIARY_MOBILE : SCENE_OBJECTS_TERTIARY).map((config) => (
+          {(isMobile
+            ? SCENE_OBJECTS_TERTIARY_MOBILE
+            : SCENE_OBJECTS_TERTIARY
+          ).map((config) => (
             <Model
               key={config.position.join(",")}
               path={config.path}
@@ -132,29 +171,25 @@ function SceneInner({
         </Suspense>
       )}
 
+      {/* Portal button — anchored above monitors */}
+      <Suspense fallback={null}>
+        <PortalButton3D />
+      </Suspense>
+
+      {/* Transparent click area over "click text" on tablet */}
+      <ClickTextButton3D />
+
       {/* Non-critical effects deferred until intro completes */}
-      {introComplete && (
-        <>
-          <SceneButton3D
-            position={[KEYBOARD_X + 0.8, KEYBOARD_Y + 0.35, KEYBOARD_Z - 0.1]}
-            color="#137f7f"
-            label={isBrowserOpen ? "" : "Open"}
-            onClick={openPortfolio}
-            size={0.1}
-            hotspot
-          />
-          <BakeShadows />
-        </>
-      )}
+      {introComplete && <BakeShadows />}
 
       <OrbitControls
         ref={controlsRef}
         makeDefault
         enableDamping
         dampingFactor={0.05}
-        minDistance={0}
+        minDistance={2}
         maxDistance={80}
-        onChange={() => invalidate()}
+        maxPolarAngle={Math.PI * 0.52}
       />
 
       {import.meta.env.DEV && <MemoryMonitor />}
@@ -163,13 +198,29 @@ function SceneInner({
 }
 
 // ─── Scene (root export — replaces World) ─────────────────────────────────────
-export default function Scene() {
-  const { cameraPreset: activePreset, changeCameraPreset } =
-    useChangeCameraPreset();
-  const [introComplete, setIntroComplete] = useState(false);
+export default function Scene({
+  onIntroComplete: onIntroCompleteProp,
+}: {
+  onIntroComplete: () => void;
+}) {
+  const { setIntroComplete, setTransitionFn } = useSceneContext();
   const { device, renderSettings } = useDeviceContext();
   const isMobile = device === DEVICE.MOBILE;
+  const [introComplete, setLocalIntroComplete] = useState(isMobile);
   const cameraRigRef = useRef<CameraRigHandle>(null);
+
+  const handleIntroComplete = useCallback(() => {
+    setLocalIntroComplete(true);
+    setIntroComplete(true);
+    onIntroCompleteProp();
+  }, [setIntroComplete, onIntroCompleteProp]);
+
+  // Register the camera transition function so overlay components can trigger it
+  useEffect(() => {
+    setTransitionFn((preset) => {
+      cameraRigRef.current?.transitionTo(preset);
+    });
+  }, [setTransitionFn]);
 
   return (
     <div
@@ -177,9 +228,9 @@ export default function Scene() {
         position: "relative",
         width: "100vw",
         height: "100vh",
-        background: "#0d1117",
       }}
     >
+      <SceneVignette />
       <Canvas
         camera={{
           position: CAMERA_PRESETS[INITIAL_PRESET].position,
@@ -197,56 +248,17 @@ export default function Scene() {
         frameloop="always"
         onCreated={({ gl }) => {
           gl.localClippingEnabled = true;
+          gl.toneMappingExposure = 1.1;
         }}
       >
         <AdaptiveDpr />
         <SceneInner
           introComplete={introComplete}
-          onIntroComplete={() => setIntroComplete(true)}
+          onIntroComplete={handleIntroComplete}
           isMobile={isMobile}
           cameraRigRef={cameraRigRef}
         />
       </Canvas>
-
-      {/* 2D overlay fallback buttons (accessibility + visibility guarantee) */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          gap: 10,
-          zIndex: 5,
-          fontFamily: "system-ui, sans-serif",
-        }}
-      >
-        {PRESET_BUTTONS.map((button) => (
-          <button
-            key={button.key}
-            onClick={() => {
-              cameraRigRef.current?.transitionTo(button.key);
-              changeCameraPreset(button.key);
-            }}
-            style={{
-              background:
-                activePreset === button.key
-                  ? button.color
-                  : "rgba(30,20,10,0.75)",
-              color: "#fff",
-              border: "none",
-              padding: "8px 16px",
-              borderRadius: 999,
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
-            }}
-          >
-            {button.label}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
