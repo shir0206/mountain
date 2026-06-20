@@ -1,5 +1,5 @@
 import { useCallback, useRef, useMemo, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 import * as P from "../config/positions";
@@ -202,7 +202,6 @@ export function PortalButton3D() {
   const atmoMatRef = useRef<THREE.ShaderMaterial>(null);
   const coreRef = useRef<THREE.PointLight>(null);
   const [oriented, setOriented] = useState(false);
-  const { camera } = useThree();
 
   // Orb shader material
   const orbUniforms = useMemo(
