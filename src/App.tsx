@@ -64,7 +64,11 @@ function AppContent() {
   }, [welcomeVisible, welcomeHiding, triggerHideWelcome]);
 
   return (
-    <div className="app-root" dir={isRTL(language) ? 'rtl' : 'ltr'} onPointerDown={handlePointerDown}>
+    <div
+      className="app-root"
+      dir={isRTL(language) ? "rtl" : "ltr"}
+      onPointerDown={handlePointerDown}
+    >
       {!sceneReady && <Loader />}
       <Scene onIntroComplete={handleIntroComplete} />
 
@@ -78,9 +82,7 @@ function AppContent() {
             isMobile={isMobile}
             onDismiss={handleDismissWelcome}
           />
-          {dragHintVisible && (
-            <DragHint onDismiss={handleDismissDragHint} />
-          )}
+          {dragHintVisible && <DragHint onDismiss={handleDismissDragHint} />}
           <ExploreBar
             activePreset={cameraPreset}
             onNavigate={transitionToPreset}

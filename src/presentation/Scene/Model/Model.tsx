@@ -32,7 +32,9 @@ if (typeof window !== "undefined") {
     });
   };
   if ("requestIdleCallback" in window) {
-    (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(idlePreload);
+    (
+      window as unknown as { requestIdleCallback: (cb: () => void) => void }
+    ).requestIdleCallback(idlePreload);
   } else {
     setTimeout(idlePreload, 100);
   }
@@ -96,7 +98,8 @@ export function Model({
     // Schedule CPU-side ArrayBuffer release once GPU has uploaded the data
     releaseGeometryMemory(c);
     // R3F calls .dispose() automatically when <primitive> unmounts
-    (c as unknown as { dispose: () => void }).dispose = () => disposeSceneGraph(c);
+    (c as unknown as { dispose: () => void }).dispose = () =>
+      disposeSceneGraph(c);
     return c;
   }, [scene, path, tier]);
 
@@ -109,4 +112,3 @@ export function Model({
     />
   );
 }
-

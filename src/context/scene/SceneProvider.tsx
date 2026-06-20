@@ -71,7 +71,15 @@ export const SceneProvider: React.FC<{ children: React.ReactNode }> = ({
       transitionToPreset,
       setTransitionFn,
     }),
-    [state, setRunIntro, setCameraPreset, setSceneReady, setIntroComplete, transitionToPreset, setTransitionFn]
+    [
+      state,
+      setRunIntro,
+      setCameraPreset,
+      setSceneReady,
+      setIntroComplete,
+      transitionToPreset,
+      setTransitionFn,
+    ]
   );
 
   return (

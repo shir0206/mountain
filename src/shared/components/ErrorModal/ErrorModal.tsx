@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import './ErrorModal.css';
+import { useEffect, useState } from "react";
+import "./ErrorModal.css";
 
 interface ErrorModalProps {
   message: string;

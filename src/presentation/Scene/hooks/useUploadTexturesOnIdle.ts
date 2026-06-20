@@ -61,8 +61,11 @@ export function useUploadTexturesOnIdle(enabled: boolean) {
 
 function scheduleNext(cb: (deadline?: IdleDeadline) => void) {
   if ("requestIdleCallback" in window) {
-    (window as unknown as { requestIdleCallback: (cb: (d: IdleDeadline) => void) => void })
-      .requestIdleCallback(cb);
+    (
+      window as unknown as {
+        requestIdleCallback: (cb: (d: IdleDeadline) => void) => void;
+      }
+    ).requestIdleCallback(cb);
   } else {
     setTimeout(() => cb(), 32);
   }

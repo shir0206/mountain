@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-.error-modal-overlay[data-visible='true'] {
+.error-modal-overlay[data-visible="true"] {
   opacity: 1;
 }
 
@@ -32,12 +32,11 @@
   cursor: default;
   transform: scale(0.96) translateY(8px);
   opacity: 0;
-  transition:
-    opacity 220ms ease-out,
+  transition: opacity 220ms ease-out,
     transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.error-modal-overlay[data-visible='true'] .error-modal {
+.error-modal-overlay[data-visible="true"] .error-modal {
   transform: scale(1) translateY(0);
   opacity: 1;
 }

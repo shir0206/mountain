@@ -49,11 +49,13 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
         <div className="navigation-logo">
           {isMobile ? (
             <>
-              {t.navigation.logoShort} <em>{t.navigation.logoSeparator}</em> {t.navigation.logoShortLastName}
+              {t.navigation.logoShort} <em>{t.navigation.logoSeparator}</em>{" "}
+              {t.navigation.logoShortLastName}
             </>
           ) : (
             <>
-              {t.navigation.logo} <em>{t.navigation.logoSeparator}</em> {t.navigation.logoLastName}
+              {t.navigation.logo} <em>{t.navigation.logoSeparator}</em>{" "}
+              {t.navigation.logoLastName}
             </>
           )}
         </div>
@@ -85,7 +87,9 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
             {t.navigation.cta}
           </button>
           <button
-            className={`navigation-hamburger ${isMobileMenuOpen ? "navigation-hamburger-open" : ""}`}
+            className={`navigation-hamburger ${
+              isMobileMenuOpen ? "navigation-hamburger-open" : ""
+            }`}
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
@@ -96,7 +100,11 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
           </button>
         </div>
       </div>
-      <div className={`navigation-mobile-menu ${isMobileMenuOpen ? "navigation-mobile-menu-open" : ""}`}>
+      <div
+        className={`navigation-mobile-menu ${
+          isMobileMenuOpen ? "navigation-mobile-menu-open" : ""
+        }`}
+      >
         {navigationItems.map((item) => (
           <a
             key={`${item.label}-mobile-${item.href}`}
