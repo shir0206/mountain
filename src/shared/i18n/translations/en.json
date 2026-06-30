@@ -23,20 +23,20 @@
   },
   "hero": {
     "name": "Shir Zabolotny",
-    "titleLine": "Frontend that",
-    "titleEmphasis": "feels right.",
-    "sub": "I build interfaces that are not only functional but clear, thoughtful, and pleasant to use. I pay attention to spacing, hierarchy, and flow so things feel natural and easy.",
+    "titleLine": "Engineering",
+    "titleEmphasis": "with an eye for design",
+    "sub": "We build software with careful decisions, from architecture to interface details, so products stay clear, maintainable, and natural to use.",
     "actions": [
       {
         "label": "Let's work together",
         "href": "#contact",
         "style": "primary"
       },
-      { "label": "See what I do", "href": "#service", "style": "ghost" }
+      { "label": "See what we do", "href": "#service", "style": "ghost" }
     ]
   },
   "about": {
-    "label": "About me",
+    "label": "About",
     "titleLine": "Creative thinking,",
     "titleEmphasis": "built into code",
     "paragraphs": [
@@ -50,31 +50,31 @@
     "label": "How it's like working together",
     "titleLine": "How it's like",
     "titleEmphasis": "working together",
-    "cardsLabel": "What I can help with",
+    "cardsLabel": "What we can help with",
     "cards": [
       {
         "icon": "terminal",
-        "name": "Frontend Development",
-        "desc": "Clean, scalable interfaces built for real-world use."
+        "name": "Software Development",
+        "desc": "Reliable software built with clarity, scalability, and long-term maintainability in mind."
       },
       {
         "icon": "structure",
         "name": "Architecture & Systems",
-        "desc": "Component architecture and state flow designed for long-term growth."
+        "desc": "Thoughtful architecture and state management designed for long-term growth."
       },
       {
         "icon": "monitors",
-        "name": "UI Implementation",
-        "desc": "Pixel-perfect, responsive implementation from design to browser."
+        "name": "Frontend Implementation",
+        "desc": "Responsive and polished interfaces built with attention to detail."
       },
       {
         "icon": "dialog",
         "name": "Collaboration",
-        "desc": "Thinking alongside designers, product, and founders."
+        "desc": "Working closely with designers, product teams, and founders to make better decisions"
       }
     ],
     "processLabel": "The process",
-    "processTitle": "How I work",
+    "processTitle": "How we work",
     "processIntro": "A clear process removes uncertainty. Here is how a typical engagement unfolds.",
     "steps": [
       {
@@ -151,7 +151,7 @@
       "messageLabel": "Message",
       "messagePlaceholder": "Tell me about your project...",
       "submit": "Send message",
-      "successMsg": "Thank you! I will be in touch soon."
+      "successMsg": "Thank you! We will be in touch soon."
     }
   },
   "footer": {
@@ -184,8 +184,8 @@
       ]
     },
     "contactPill": {
-      "ariaLabel": "Send email to hello@shirz.dev",
-      "email": "hello@shirz.dev"
+      "ariaLabel": "Send email to shir.zabolotny@gmail.com",
+      "email": "shir.zabolotny@gmail.com"
     }
   }
 }
