@@ -25,14 +25,14 @@
     "name": "Shir Zabolotny",
     "titleLine": "Engineering",
     "titleEmphasis": "with an eye for design",
-    "sub": "We build software with careful decisions, from architecture to interface details, so products stay clear, maintainable, and natural to use.",
+    "sub": "I build software with careful decisions, from architecture to interface details, so products stay clear, maintainable, and natural to use.",
     "actions": [
       {
         "label": "Let's work together",
         "href": "#contact",
         "style": "primary"
       },
-      { "label": "See what we do", "href": "#service", "style": "ghost" }
+      { "label": "See what I do", "href": "#service", "style": "ghost" }
     ]
   },
   "about": {
@@ -40,9 +40,9 @@
     "titleLine": "Creative thinking,",
     "titleEmphasis": "built into code",
     "paragraphs": [
-      "With a Masters in Information Systems and experience in tech companies, I shaped my skills around building things that hold up in real systems.",
-      "What truly guides my work is a **visual and intuitive sense**, how things should look, behave, and feel. I have an artistic eye, and I naturally notice composition, balance, and flow.",
-      "I like going deep into systems, understanding **how everything connects**, so decisions made early do not turn into friction later. I am also **easy to work with**: I ask questions, I listen, and I care about making things clear."
+      "With experience in tech companies and a Masters in Information Systems, I shaped my skills for building high quality software.",
+      "What truly guides my work is a **visual and intuitive sense** of how things should look, behave, and feel. I combine an **artistic eye** with **engineering thinking**, making decisions that keep software easy to evolve.",
+      "I am also **easy to work with**, I ask questions, I listen, and I care about making things clear."
     ],
     "photoHint": "Add your photo here"
   },
@@ -50,65 +50,71 @@
     "label": "How it's like working together",
     "titleLine": "How it's like",
     "titleEmphasis": "working together",
-    "cardsLabel": "What we can help with",
+    "cardsLabel": "What I can help with",
     "cards": [
       {
         "icon": "terminal",
         "name": "Software Development",
-        "desc": "Reliable software built with clarity, scalability, and long-term maintainability in mind."
+        "desc": "Building software that's easy to maintain and extend."
       },
       {
         "icon": "structure",
         "name": "Architecture & Systems",
-        "desc": "Thoughtful architecture and state management designed for long-term growth."
+        "desc": "Keeping architecture simple and scalable."
       },
       {
         "icon": "monitors",
         "name": "Frontend Implementation",
-        "desc": "Responsive and polished interfaces built with attention to detail."
+        "desc": "Creating polished user interfaces with attention to detail."
       },
       {
         "icon": "dialog",
         "name": "Collaboration",
-        "desc": "Working closely with designers, product teams, and founders to make better decisions"
+        "desc": "Collaborating across design and engineering."
       }
     ],
     "processLabel": "The process",
-    "processTitle": "How we work",
+    "processTitle": "How I work",
     "processIntro": "A clear process removes uncertainty. Here is how a typical engagement unfolds.",
     "steps": [
       {
         "icon": "search",
+
         "name": "Understanding",
-        "desc": "What you're building and how everything connects."
+        "desc": "Understanding the product, the users, and the problem."
       },
       {
         "icon": "lightbulb",
-        "name": "Clarifying",
-        "desc": "Mapping decisions, removing confusion before code is written."
+
+        "name": "Planning",
+        "desc": "Making decisions before writing code."
       },
       {
         "icon": "code",
+
         "name": "Building",
         "desc": "Implementing with attention to structure, reusability, and edge cases."
       },
       {
         "icon": "sparkles",
+
         "name": "Refining",
-        "desc": "Tuning spacing, interactions, and details until everything feels right."
+        "desc": "Polishing the details that improve the experience."
       },
       {
         "icon": "loop",
+
         "name": "Iterating",
-        "desc": "Improving based on feedback, usage, or new ideas."
+        "desc": "Improving through feedback and continuous iteration."
       }
     ]
   },
+
   "ai": {
     "label": "AI perspective",
     "titleLine": "Why not just",
     "titleEmphasis": "use AI?",
-    "introText": "AI is powerful. It writes code fast, builds components, and solves problems in seconds. We use it too.",
+    "introText": "AI is powerful. It writes code fast, builds components, and solves problems in seconds. I use it too.",
     "introSub": "But speed isn't the same as direction.",
     "pillars": [
       {
@@ -129,10 +135,10 @@
       {
         "icon": "target",
         "title": "Intent",
-        "text": "AI assembles what looks right. A professional builds what feels right.",
+        "text": "Every screen, interaction, and decision should have a reason behind it.",
         "items": [
-          "Not just working **parts**",
-          "But decisions that serve a clear **purpose**"
+          "AI optimizes the **output**",
+          "A professional optimizes **direction**"
         ]
       }
     ],
@@ -141,7 +147,7 @@
   "contact": {
     "titleLine": "Say",
     "titleLine2": "hello.",
-    "sub": "Working on something and want it to feel clearer, more polished, or easier to move forward? Even a short conversation can bring direction.",
+    "sub": "Building something? Let's talk.",
     "email": "shir.zabolotny@gmail.com",
     "form": {
       "nameLabel": "Name",
@@ -151,7 +157,7 @@
       "messageLabel": "Message",
       "messagePlaceholder": "Tell me about your project...",
       "submit": "Send message",
-      "successMsg": "Thank you! We will be in touch soon."
+      "successMsg": "Thank you! I will be in touch soon."
     }
   },
   "footer": {

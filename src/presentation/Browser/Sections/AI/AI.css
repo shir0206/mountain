@@ -2,186 +2,195 @@
    AI SECTION — DARK
 ═══════════════════════════════════════════════ */
 .ai-section {
-	background: var(--color-dark-bg);
-	color: #ede8e0;
-	padding: 80px 20px;
+  background: var(--color-dark-bg);
+  color: #ede8e0;
+  padding: 80px 20px;
 }
 
 .ai-container {
-	max-width: 1140px;
-	margin: 0 auto;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .ai-section .section-label {
-	font-size: 0.68rem;
-	letter-spacing: 0.22em;
-	text-transform: uppercase;
-	color: var(--color-caramel-light);
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 18px;
+  font-family: var(--font-display-primary);
+
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-caramel-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 .ai-section .section-label::before {
-	content: "";
-	width: 22px;
-	height: 1px;
-	background: var(--color-caramel);
-	flex-shrink: 0;
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--color-caramel);
+  flex-shrink: 0;
 }
 
 .ai-section .section-title {
-	font-family: var(--font-display);
-	font-size: clamp(2rem, 6vw, 3.6rem);
-	font-weight: 400;
-	line-height: 1.13;
-	color: #ede8e0;
-	margin-bottom: 28px;
+  font-family: var(--font-display-primary);
+  font-size: clamp(1rem, 4vw, 2rem);
+
+  font-weight: 400;
+  line-height: 1.13;
+  color: #ede8e0;
+  margin-bottom: 28px;
 }
 
 .ai-section .section-title strong {
-	font-weight: inherit;
-	color: var(--color-caramel);
+  font-family: var(--font-display-secondary);
+  font-size: clamp(2rem, 6vw, 3.6rem);
+
+  font-weight: inherit;
+  color: var(--color-caramel);
 }
 
 /* ─── Intro ─── */
 .ai-intro {
-	max-width: 680px;
-	margin-bottom: 60px;
+  max-width: 680px;
+  margin-bottom: 60px;
 }
 
 .ai-intro-text {
-	font-family: var(--font-display);
-	font-size: clamp(1.2rem, 3vw, 1.65rem);
-	font-weight: 300;
-	line-height: 1.65;
-	color: #d4c5b0;
-	margin-bottom: 20px;
+  font-family: var(--font-display-primary);
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: #d4c5b0;
+  margin-bottom: 20px;
 }
 
 .ai-intro-sub {
-	font-size: 0.95rem;
-	line-height: 1.8;
-	color: rgba(237, 232, 224, 0.6);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(237, 232, 224, 0.6);
 }
 
 /* ─── Pillars Grid ─── */
 .ai-pillars {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
 .ai-pillar {
-	background: var(--color-dark-soft);
-	border: 1px solid var(--color-dark-line);
-	border-radius: var(--radius-m);
-	padding: 32px 28px;
-	transition: border-color 0.3s;
+  background: var(--color-dark-soft);
+  border: 1px solid var(--color-dark-line);
+  border-radius: var(--radius-m);
+  padding: 32px 28px;
+  transition: border-color 0.3s;
 }
 
 .ai-pillar:hover {
-	border-color: rgba(154, 123, 86, 0.4);
+  border-color: rgba(154, 123, 86, 0.4);
 }
 
 .ai-pillar-icon {
-	width: 40px;
-	height: 40px;
-	background: rgba(154, 123, 86, 0.12);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(154, 123, 86, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .ai-icon-img {
-	width: 18px;
-	height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .ai-pillar-title {
-	font-family: var(--font-display);
-	font-size: 1.25rem;
-	font-weight: 500;
-	color: #ede8e0;
-	margin-bottom: 12px;
+  font-family: var(--font-display-primary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #ede8e0;
+  margin-bottom: 12px;
 }
 
 .ai-pillar-text {
-	font-size: 0.88rem;
-	line-height: 1.78;
-	color: rgba(237, 232, 224, 0.62);
-	margin-bottom: 14px;
+  font-size: 0.88rem;
+  line-height: 1.78;
+  color: rgba(237, 232, 224, 0.62);
+  margin-bottom: 14px;
 }
 
 .ai-pillar-items {
-	margin-top: 14px;
-	padding-top: 14px;
-	border-top: 1px solid var(--color-dark-line);
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-dark-line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .ai-pillar-item {
-	font-size: 0.83rem;
-	line-height: 1.6;
-	color: rgba(237, 232, 224, 0.58);
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: rgba(237, 232, 224, 0.58);
 }
 
 .ai-pillar-item strong {
-	color: var(--color-caramel-light);
-	font-weight: inherit;
+  color: var(--color-caramel-light);
+  font-weight: inherit;
+  font-style: italic;
 }
 
 /* ─── Footer ─── */
 .ai-footer {
-	margin-top: 56px;
-	padding-top: 40px;
-	border-top: 1px solid var(--color-dark-line);
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-dark-line);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .ai-footer-text {
-	font-family: var(--font-display);
-	font-size: clamp(1.1rem, 2.5vw, 1.45rem);
-	font-style: italic;
-	color: rgba(237, 232, 224, 0.75);
-	line-height: 1.5;
+  font-family: var(--font-display-primary);
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-style: italic;
+  color: rgba(237, 232, 224, 0.75);
+  line-height: 1.5;
 }
 
 .ai-footer-text strong {
-	font-weight: inherit;
-	color: var(--color-caramel-light);
+  font-family: var(--font-display-secondary);
+  font-style: italic;
+  font-weight: inherit;
+  color: var(--color-caramel-light);
 }
 
 /* ─── Responsive ─── */
 @media (min-width: 768px) {
-	.ai-section {
-		padding: 100px 40px;
-	}
+  .ai-section {
+    padding: 100px 40px;
+  }
 
-	.ai-pillars {
-		grid-template-columns: 1fr 1fr;
-	}
+  .ai-pillars {
+    grid-template-columns: 1fr 1fr;
+  }
 
-	.ai-footer {
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+  .ai-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 1024px) {
-	.ai-section {
-		padding: 120px 60px;
-	}
+  .ai-section {
+    padding: 120px 60px;
+  }
 
-	.ai-pillars {
-		grid-template-columns: repeat(3, 1fr);
-	}
+  .ai-pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

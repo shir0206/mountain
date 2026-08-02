@@ -41,7 +41,8 @@
   --color-maximize: #00ca4e;
 
   /* Typography */
-  --font-display: "Cormorant Garamond", serif;
+  --font-display-primary: "Noto Sans Mono", monospace;
+  --font-display-secondary: "Cormorant Garamond", serif;
   --font-body: "Jost", sans-serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: Georgia, "Times New Roman", serif;
