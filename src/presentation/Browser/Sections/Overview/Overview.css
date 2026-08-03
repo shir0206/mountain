@@ -17,33 +17,51 @@
   width: 100%;
 }
 
+/* Structural voice: mono, sets up the accented word */
 .hero-title {
   font-family: var(--font-display-primary);
-  font-size: clamp(1.5rem, 8vw, 4.5rem);
+  font-size: var(--text-hero);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: var(--leading-display);
   letter-spacing: -0.01em;
+  color: var(--color-ink);
   margin-bottom: 28px;
   opacity: 0;
   animation: heroFadeUp 0.8s 0.25s forwards;
 }
 
+.rtl .hero-title {
+  font-family: var(--font-display-primary-he);
+}
+
+/* Emphasis voice: Cormorant Garamond italic, caramel */
 .hero-title em {
   font-family: var(--font-display-secondary);
-  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-size: var(--text-hero-emphasis);
   font-weight: 400;
   font-style: italic;
   color: var(--color-caramel);
 }
 
+.rtl .hero-title em {
+  font-family: var(--font-display-secondary-he);
+}
+
+/* Reading voice: Jost */
 .hero-sub {
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  line-height: 1.78;
+  font-family: var(--font-body);
+  font-size: var(--text-hero-sub);
+  font-weight: 300;
+  line-height: var(--leading-loose);
   color: var(--color-ink-mid);
   max-width: 580px;
   margin-bottom: 40px;
   opacity: 0;
   animation: heroFadeUp 0.8s 0.4s forwards;
+}
+
+.rtl .hero-sub {
+  font-family: var(--font-body-he);
 }
 
 .hero-actions {
@@ -54,7 +72,7 @@
   animation: heroFadeUp 0.8s 0.55s forwards;
 }
 
-/* Buttons */
+/* Buttons — UI voice: Jost, uppercase, tracked */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -67,11 +85,15 @@
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   border: none;
   cursor: pointer;
   transition: background 0.25s, transform 0.2s;
+}
+
+.rtl .btn-primary {
+  font-family: var(--font-body-he);
 }
 
 .btn-primary:hover {
@@ -90,11 +112,15 @@
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   background: none;
   cursor: pointer;
   transition: border-color 0.25s, color 0.25s, transform 0.2s;
+}
+
+.rtl .btn-ghost {
+  font-family: var(--font-body-he);
 }
 
 .btn-ghost:hover {

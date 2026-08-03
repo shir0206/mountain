@@ -10,16 +10,15 @@
 }
 
 .footer-name {
-  font-family: var(--font-display-primary);
+  font-family: var(--font-body);
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 400;
   color: var(--color-ink);
   letter-spacing: 0.02em;
 }
 
-.footer-name strong {
-  font-weight: inherit;
-  color: var(--color-caramel);
+.rtl .footer-name {
+  font-family: var(--font-body-he);
 }
 
 .footer-copy {
@@ -27,4 +26,8 @@
   font-size: 0.8rem;
   color: var(--color-ink-light);
   margin: 0;
+}
+
+.rtl .footer-copy {
+  font-family: var(--font-body-he);
 }

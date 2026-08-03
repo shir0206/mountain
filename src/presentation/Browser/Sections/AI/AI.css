@@ -12,17 +12,22 @@
   margin: 0 auto;
 }
 
+/* Eyebrow — structural voice: mono, tracked, uppercase */
 .ai-section .section-label {
   font-family: var(--font-display-primary);
-
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--color-caramel-light);
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+}
+
+.rtl .ai-section .section-label {
+  font-family: var(--font-display-primary-he);
 }
 
 .ai-section .section-label::before {
@@ -33,22 +38,31 @@
   flex-shrink: 0;
 }
 
+/* Headline base line — structural voice */
 .ai-section .section-title {
   font-family: var(--font-display-primary);
-  font-size: clamp(1rem, 4vw, 2rem);
-
+  font-size: var(--text-h2);
   font-weight: 400;
-  line-height: 1.13;
+  line-height: var(--leading-heading);
   color: #ede8e0;
   margin-bottom: 28px;
 }
 
+.rtl .ai-section .section-title {
+  font-family: var(--font-display-primary-he);
+}
+
+/* Headline accent — emphasis voice: Cormorant Garamond italic, caramel */
 .ai-section .section-title strong {
   font-family: var(--font-display-secondary);
-  font-size: clamp(2rem, 6vw, 3.6rem);
-
-  font-weight: inherit;
+  font-size: var(--text-h2-emphasis);
+  font-weight: 400;
+  font-style: italic;
   color: var(--color-caramel);
+}
+
+.rtl .ai-section .section-title strong {
+  font-family: var(--font-display-secondary-he);
 }
 
 /* ─── Intro ─── */
@@ -57,19 +71,36 @@
   margin-bottom: 60px;
 }
 
+/* Lead statement — emphasis voice: Cormorant Garamond (upright, not italic —
+   reserves italic for the shorter accent words/quotes elsewhere) */
 .ai-intro-text {
-  font-family: var(--font-display-primary);
-  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  font-family: var(--font-body);
+  font-size: var(--text-body-lead);
+  line-height: var(--leading-heading);
+  margin: 24px 0 10px 0;
   font-weight: 300;
-  line-height: 1.65;
   color: #d4c5b0;
-  margin-bottom: 20px;
+}
+
+.rtl .ai-intro-text {
+  font-family: var(--font-body-he);
 }
 
 .ai-intro-sub {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: rgba(237, 232, 224, 0.6);
+  font-family: var(--font-body);
+  font-size: var(--text-body-lead);
+  font-weight: 300;
+  line-height: var(--leading-loose);
+  color: #d4c5b0;
+}
+
+.rtl .ai-intro-sub {
+  font-family: var(--font-body-he);
+}
+
+.ai-intro-sub strong {
+  font-weight: 400;
+  color: var(--color-caramel-light);
 }
 
 /* ─── Pillars Grid ─── */
@@ -107,19 +138,32 @@
   height: 18px;
 }
 
+/* Card title — structural voice: mono, medium weight */
 .ai-pillar-title {
-  font-family: var(--font-display-primary);
-  font-size: 1.25rem;
+  font-family: var(--font-body);
+  font-size: var(--text-card-title);
   font-weight: 500;
+  line-height: var(--leading-heading);
   color: #ede8e0;
   margin-bottom: 12px;
 }
 
+.rtl .ai-pillar-title {
+  font-family: var(--font-body-he);
+}
+
+/* Card copy — reading voice: Jost */
 .ai-pillar-text {
-  font-size: 0.88rem;
-  line-height: 1.78;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 300;
+  line-height: var(--leading-relaxed);
   color: rgba(237, 232, 224, 0.62);
   margin-bottom: 14px;
+}
+
+.rtl .ai-pillar-text {
+  font-family: var(--font-body-he);
 }
 
 .ai-pillar-items {
@@ -132,15 +176,23 @@
 }
 
 .ai-pillar-item {
-  font-size: 0.83rem;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 300;
+  line-height: var(--leading-relaxed);
   color: rgba(237, 232, 224, 0.58);
 }
 
+.rtl .ai-pillar-item {
+  font-family: var(--font-body-he);
+}
+
+/* Inline emphasis — emphasis voice: Cormorant Garamond italic, caramel-light
+   (was inheriting an unset font-family before, so the italic fell on the
+   body face by accident) */
 .ai-pillar-item strong {
+  font-weight: 400;
   color: var(--color-caramel-light);
-  font-weight: inherit;
-  font-style: italic;
 }
 
 /* ─── Footer ─── */
@@ -153,19 +205,31 @@
   gap: 16px;
 }
 
+/* Closing statement — emphasis voice: Cormorant Garamond italic
+   (font-family was previously unset, so the italic style was rendering
+   in the body face rather than the intended serif) */
 .ai-footer-text {
-  font-family: var(--font-display-primary);
-  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-family: var(--font-display-secondary);
+  font-size: var(--text-footer-quote);
+  font-weight: 400;
   font-style: italic;
+  line-height: var(--leading-heading);
   color: rgba(237, 232, 224, 0.75);
-  line-height: 1.5;
+}
+
+.rtl .ai-footer-text {
+  font-family: var(--font-display-secondary-he);
 }
 
 .ai-footer-text strong {
   font-family: var(--font-display-secondary);
   font-style: italic;
-  font-weight: inherit;
+  font-weight: 500;
   color: var(--color-caramel-light);
+}
+
+.rtl .ai-footer-text strong {
+  font-family: var(--font-display-secondary-he);
 }
 
 /* ─── Responsive ─── */

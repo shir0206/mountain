@@ -11,17 +11,22 @@
   margin: 0 auto;
 }
 
+/* Eyebrow — structural voice: mono, tracked, uppercase */
 .service-section .section-label {
   font-family: var(--font-display-primary);
-
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--color-caramel);
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+}
+
+.rtl .service-section .section-label {
+  font-family: var(--font-display-primary-he);
 }
 
 .service-section .section-label::before {
@@ -32,20 +37,31 @@
   flex-shrink: 0;
 }
 
+/* Headline base line — structural voice */
 .service-section .section-title {
   font-family: var(--font-display-primary);
-  font-size: clamp(1rem, 4vw, 2rem);
+  font-size: var(--text-h2);
   font-weight: 400;
-  line-height: 1.13;
+  line-height: var(--leading-heading);
   color: var(--color-ink);
   margin-bottom: 28px;
 }
 
+.rtl .service-section .section-title {
+  font-family: var(--font-display-primary-he);
+}
+
+/* Headline accent — emphasis voice: Cormorant Garamond italic, caramel */
 .service-section .section-title strong {
   font-family: var(--font-display-secondary);
-  font-size: clamp(2rem, 6vw, 3.6rem);
-  font-weight: inherit;
+  font-size: var(--text-h2-emphasis);
+  font-weight: 400;
+  font-style: italic;
   color: var(--color-caramel);
+}
+
+.rtl .service-section .section-title strong {
+  font-family: var(--font-display-secondary-he);
 }
 
 /* ─── Cards Grid ─── */
@@ -122,32 +138,51 @@
   color: var(--color-caramel-light);
 }
 
+/* Card title — structural voice: mono, medium weight */
 .service-name {
-  font-family: var(--font-display-primary);
-  font-size: 1.1rem;
+  font-family: var(--font-body);
+  font-size: var(--text-card-title);
   font-weight: 500;
+  line-height: var(--leading-heading);
   margin-bottom: 8px;
   color: var(--color-ink);
 }
 
+.rtl .service-name {
+  font-family: var(--font-body-he);
+}
+
+/* Card copy — reading voice: Jost */
 .service-desc {
-  font-size: 0.84rem;
-  line-height: 1.7;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 300;
+  line-height: var(--leading-relaxed);
   color: var(--color-ink-mid);
+}
+
+.rtl .service-desc {
+  font-family: var(--font-body-he);
 }
 
 /* ─── Process Timeline ─── */
 .process-title {
-  font-size: clamp(1.5rem, 3vw, 2.2rem) !important;
+  font-size: var(--text-h2-lg) !important;
   margin-bottom: 16px !important;
 }
 
 .process-intro {
-  max-width: 560px;
-  font-size: 0.95rem;
-  line-height: 1.75;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 300;
+  line-height: var(--leading-loose);
   color: var(--color-ink-mid);
+  max-width: 560px;
   margin-bottom: 48px;
+}
+
+.rtl .process-intro {
+  font-family: var(--font-body-he);
 }
 
 /* Mobile: vertical stack */
@@ -218,18 +253,30 @@
   height: 22px;
 }
 
+/* Item title — structural voice: mono, medium weight, slightly larger than card titles */
 .process-name {
-  font-family: var(--font-display-primary);
-  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-size: var(--text-card-title-lg);
   font-weight: 500;
+  line-height: var(--leading-heading);
   margin-bottom: 8px;
   color: var(--color-ink);
 }
 
+.rtl .process-name {
+  font-family: var(--font-body-he);
+}
+
 .process-desc {
-  font-size: 0.88rem;
-  line-height: 1.75;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 300;
+  line-height: var(--leading-relaxed);
   color: var(--color-ink-mid);
+}
+
+.rtl .process-desc {
+  font-family: var(--font-body-he);
 }
 
 /* ─── Responsive ─── */
@@ -244,7 +291,7 @@
   }
 
   .service-name {
-    font-size: 1.25rem;
+    font-size: var(--text-card-title-lg);
   }
 }
 

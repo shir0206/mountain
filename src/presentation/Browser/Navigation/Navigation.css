@@ -31,8 +31,12 @@
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--color-ink);
+  color: var(--color-caramel);
   flex-shrink: 0;
+}
+
+.rtl .navigation-logo {
+  font-family: var(--font-body-he);
 }
 
 .navigation-logo em {

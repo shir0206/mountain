@@ -66,6 +66,8 @@ function AppContent() {
   return (
     <div
       className="app-root"
+      // className={`app-root${isRTL(language) ? " rtl" : ""}`}
+
       dir={isRTL(language) ? "rtl" : "ltr"}
       onPointerDown={handlePointerDown}
     >

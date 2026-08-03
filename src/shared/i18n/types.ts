@@ -48,7 +48,6 @@ export interface TextStructure {
     contact: string;
     cta: string;
     logo: string;
-    logoSeparator: string;
     logoLastName: string;
     logoShort: string;
     logoShortLastName: string;

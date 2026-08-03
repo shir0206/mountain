@@ -67,6 +67,10 @@
   transition: color 0.3s ease;
 }
 
+.rtl .explore-label {
+  font-family: var(--font-body-he);
+}
+
 .explore-sub {
   font-family: var(--font-body);
   font-size: 12px;
@@ -74,6 +78,10 @@
   color: var(--nav-text-secondary);
   white-space: nowrap;
   transition: color 0.3s ease;
+}
+
+.rtl .explore-sub {
+  font-family: var(--font-body-he);
 }
 
 /* Active state — full card */

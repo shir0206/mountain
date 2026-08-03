@@ -39,6 +39,10 @@
 	transition: color 0.3s ease;
 }
 
+.rtl .identity-header-name {
+	font-family: var(--font-body-he);
+}
+
 .identity-header-email {
 	display: flex;
 	align-items: center;
@@ -49,6 +53,10 @@
 	color: var(--nav-icon-active);
 	white-space: nowrap;
 	transition: color 0.3s ease;
+}
+
+.rtl .identity-header-email {
+	font-family: var(--font-body-he);
 }
 
 .identity-header-email .mailto-link-icon {

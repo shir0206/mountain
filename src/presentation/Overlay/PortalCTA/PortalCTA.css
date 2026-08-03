@@ -41,6 +41,10 @@
   white-space: nowrap;
 }
 
+.rtl .portal-cta-label {
+  font-family: var(--font-display-primary-he);
+}
+
 @keyframes portalPulse {
   0%,
   100% {

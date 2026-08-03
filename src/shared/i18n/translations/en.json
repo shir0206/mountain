@@ -16,7 +16,6 @@
     "contact": "Contact",
     "cta": "Say hi",
     "logo": "Shir",
-    "logoSeparator": "·",
     "logoLastName": "Zabolotny",
     "logoShort": "Shir",
     "logoShortLastName": "Z"
@@ -47,7 +46,7 @@
     "photoHint": "Add your photo here"
   },
   "service": {
-    "label": "How it's like working together",
+    "label": "Working together",
     "titleLine": "How it's like",
     "titleEmphasis": "working together",
     "cardsLabel": "What I can help with",
@@ -114,8 +113,8 @@
     "label": "AI perspective",
     "titleLine": "Why not just",
     "titleEmphasis": "use AI?",
-    "introText": "AI is powerful. It writes code fast, builds components, and solves problems in seconds. I use it too.",
-    "introSub": "But speed isn't the same as direction.",
+    "introText": "AI is powerful. It writes code fast, builds components, and suggest solutions in seconds. I use it too.",
+    "introSub": "But speed isn't the same as **direction**.",
     "pillars": [
       {
         "icon": "link",
@@ -161,7 +160,7 @@
     }
   },
   "footer": {
-    "name": "Shir **Zabolotny**",
+    "name": "Shir Zabolotny",
     "copy": "© {year} Shir Zabolotny · Frontend Developer"
   },
   "overlay": {

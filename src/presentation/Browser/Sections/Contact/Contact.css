@@ -21,36 +21,56 @@
   flex: 0 0 auto;
 }
 
+/* Standalone statement — emphasis voice: Cormorant Garamond italic, caramel.
+   (Was mistakenly set in the mono/structural face; this is the same
+   "big emotive statement" role as the hero's <em>, so it gets the same face.) */
 .contact-title {
-  font-family: var(--font-display-primary);
-  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-family: var(--font-display-secondary);
+  font-size: var(--text-display-emphasis);
   font-weight: 400;
   font-style: italic;
-  line-height: 1.08;
-  color: var(--color-ink);
+  line-height: var(--leading-display);
+  color: var(--color-caramel);
   margin-top: 0;
   margin-bottom: 20px;
 }
 
+.rtl .contact-title {
+  font-family: var(--font-display-secondary-he);
+}
+
+/* Reading voice: Jost */
 .contact-sub {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lead);
+  font-weight: 300;
+  line-height: var(--leading-loose);
   color: var(--color-ink-mid);
   margin-bottom: 28px;
   max-width: 360px;
 }
 
+.rtl .contact-sub {
+  font-family: var(--font-body-he);
+}
+
+/* Tag-like link — structural voice: mono */
 .contact-email-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-display-primary);
-  font-size: 1.25rem;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
   color: var(--color-caramel);
   border-bottom: 1px solid var(--color-caramel-light);
   padding-bottom: 3px;
   transition: border-color 0.3s;
   text-decoration: none;
+}
+
+.rtl .contact-email-link {
+  font-family: var(--font-display-primary-he);
 }
 
 .contact-email-link:hover {
@@ -78,11 +98,18 @@
   flex: 1;
 }
 
+/* Field label — UI voice: Jost, uppercase, tracked (matches buttons) */
 .form-group label {
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
+  font-family: var(--font-body);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-ink-light);
+}
+
+.rtl .form-group label {
+  font-family: var(--font-body-he);
 }
 
 .form-group input,
@@ -92,12 +119,17 @@
   border: 1px solid var(--color-line);
   border-radius: var(--radius-s);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: var(--text-body);
   font-weight: 300;
   color: var(--color-ink);
   transition: border-color 0.2s;
   outline: none;
   resize: none;
+}
+
+.rtl .form-group input,
+.rtl .form-group textarea {
+  font-family: var(--font-body-he);
 }
 
 .form-group input:focus,
@@ -114,8 +146,14 @@
 }
 
 .form-status {
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 300;
   color: var(--color-caramel);
+}
+
+.rtl .form-status {
+  font-family: var(--font-body-he);
 }
 
 .form-status.visible {
