@@ -116,9 +116,6 @@
   font-weight: 400;
   color: var(--color-caramel);
 }
-.rtl .about-paragraph strong {
-  font-family: var(--font-display-secondary-he);
-}
 
 /* ─── Responsive ─── */
 @media (min-width: 768px) {
