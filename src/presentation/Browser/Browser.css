@@ -232,7 +232,7 @@
   scroll-padding-top: var(--nav-offset, 56px);
   transition: height var(--transition-base);
 
-  &.rtl {
+  &[dir="rtl"] {
     direction: rtl;
   }
 
@@ -253,7 +253,6 @@
     }
   }
 }
-
 
 /* Responsive */
 @media (max-width: 768px) {

@@ -52,7 +52,7 @@
   margin-bottom: 18px;
 }
 
-.rtl .about-body .section-label {
+[dir="rtl"] .about-body .section-label {
   font-family: var(--font-display-primary-he);
 }
 
@@ -74,7 +74,7 @@
   margin-bottom: 28px;
 }
 
-.rtl .about-body .section-title {
+[dir="rtl"] .about-body .section-title {
   font-family: var(--font-display-primary-he);
 }
 
@@ -86,7 +86,7 @@
   font-style: italic;
   color: var(--color-caramel);
 }
-.rtl .about-body .section-title strong {
+[dir="rtl"] .about-body .section-title strong {
   font-family: var(--font-display-secondary-he);
 }
 
@@ -99,7 +99,7 @@
   color: var(--color-ink-mid);
   margin-bottom: 16px;
 }
-.rtl .about-paragraph {
+[dir="rtl"] .about-paragraph {
   font-family: var(--font-body-he);
 }
 

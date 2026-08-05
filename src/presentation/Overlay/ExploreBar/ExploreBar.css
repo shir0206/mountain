@@ -67,7 +67,7 @@
   transition: color 0.3s ease;
 }
 
-.rtl .explore-label {
+[dir="rtl"] .explore-label {
   font-family: var(--font-body-he);
 }
 
@@ -80,7 +80,7 @@
   transition: color 0.3s ease;
 }
 
-.rtl .explore-sub {
+[dir="rtl"] .explore-sub {
   font-family: var(--font-body-he);
 }
 

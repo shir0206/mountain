@@ -12,50 +12,51 @@ import { BrowserHeader } from "./BrowserHeader/BrowserHeader";
 import { useScrollReveal } from "./hooks/useScrollReveal";
 
 interface BrowserShellProps {
-	contentRef: RefObject<HTMLDivElement | null>;
-	onContentMount: (node: HTMLDivElement | null) => void;
-	setSectionRef: (id: string) => (el: HTMLDivElement | null) => void;
-	visibleSectionIds: Set<SectionIdType>;
+  contentRef: RefObject<HTMLDivElement | null>;
+  onContentMount: (node: HTMLDivElement | null) => void;
+  setSectionRef: (id: string) => (el: HTMLDivElement | null) => void;
+  visibleSectionIds: Set<SectionIdType>;
 }
 
 export function BrowserShell({
-	contentRef,
-	onContentMount,
-	setSectionRef,
-	visibleSectionIds,
+  contentRef,
+  onContentMount,
+  setSectionRef,
+  visibleSectionIds,
 }: BrowserShellProps) {
-	const { browserMode, language } = usePortfolioContext();
-	const { runIntro } = useSceneContext();
-	useScrollReveal(contentRef, !runIntro);
+  const { browserMode, language } = usePortfolioContext();
+  const { runIntro } = useSceneContext();
+  useScrollReveal(contentRef, !runIntro);
 
-	return (
-		<div
-			className={`browser-container is-${browserMode}`}
-			onClick={(event) => event.stopPropagation()}
-		>
-			<BrowserHeader />
+  return (
+    <div
+      className={`browser-container is-${browserMode}`}
+      onClick={(event) => event.stopPropagation()}
+    >
+      <BrowserHeader />
 
-			<div
-				className={`browser-content${language === LANGUAGE.HE ? " rtl" : ""}`}
-				ref={onContentMount}
-			>
-				{!runIntro && (
-					<>
-						<Navigation containerRef={contentRef} />
-						{SECTIONS.map(({ id, Screen }) => (
-							<WebsiteSection
-								key={id}
-								id={id}
-								isVisible={visibleSectionIds.has(id)}
-								Screen={Screen}
-								setRef={setSectionRef(id)}
-								containerRef={contentRef}
-							/>
-						))}
-						<Footer />
-					</>
-				)}
-			</div>
-		</div>
-	);
+      <div
+        className={`browser-content`}
+        ref={onContentMount}
+        dir={`${language === LANGUAGE.HE ? "rtl" : ""}`}
+      >
+        {!runIntro && (
+          <>
+            <Navigation containerRef={contentRef} />
+            {SECTIONS.map(({ id, Screen }) => (
+              <WebsiteSection
+                key={id}
+                id={id}
+                isVisible={visibleSectionIds.has(id)}
+                Screen={Screen}
+                setRef={setSectionRef(id)}
+                containerRef={contentRef}
+              />
+            ))}
+            <Footer />
+          </>
+        )}
+      </div>
+    </div>
+  );
 }

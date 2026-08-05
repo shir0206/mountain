@@ -35,7 +35,7 @@
   margin-bottom: 20px;
 }
 
-.rtl .contact-title {
+[dir="rtl"] .contact-title {
   font-family: var(--font-display-secondary-he);
 }
 
@@ -50,7 +50,7 @@
   max-width: 360px;
 }
 
-.rtl .contact-sub {
+[dir="rtl"] .contact-sub {
   font-family: var(--font-body-he);
 }
 
@@ -69,7 +69,7 @@
   text-decoration: none;
 }
 
-.rtl .contact-email-link {
+[dir="rtl"] .contact-email-link {
   font-family: var(--font-display-primary-he);
 }
 
@@ -108,7 +108,7 @@
   color: var(--color-ink-light);
 }
 
-.rtl .form-group label {
+[dir="rtl"] .form-group label {
   font-family: var(--font-body-he);
 }
 
@@ -127,8 +127,8 @@
   resize: none;
 }
 
-.rtl .form-group input,
-.rtl .form-group textarea {
+[dir="rtl"] .form-group input,
+[dir="rtl"] .form-group textarea {
   font-family: var(--font-body-he);
 }
 
@@ -152,7 +152,7 @@
   color: var(--color-caramel);
 }
 
-.rtl .form-status {
+[dir="rtl"] .form-status {
   font-family: var(--font-body-he);
 }
 

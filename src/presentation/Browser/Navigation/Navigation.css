@@ -35,7 +35,7 @@
   flex-shrink: 0;
 }
 
-.rtl .navigation-logo {
+[dir="rtl"] .navigation-logo {
   font-family: var(--font-body-he);
 }
 
@@ -87,7 +87,7 @@
   width: 100%;
 }
 
-.rtl .navigation-link::after {
+[dir="rtl"] .navigation-link::after {
   left: auto;
   right: 0;
 }

@@ -17,7 +17,7 @@
   letter-spacing: 0.02em;
 }
 
-.rtl .footer-name {
+[dir="rtl"] .footer-name {
   font-family: var(--font-body-he);
 }
 
@@ -28,6 +28,6 @@
   margin: 0;
 }
 
-.rtl .footer-copy {
+[dir="rtl"] .footer-copy {
   font-family: var(--font-body-he);
 }

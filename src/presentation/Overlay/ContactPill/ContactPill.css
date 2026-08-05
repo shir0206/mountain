@@ -45,6 +45,6 @@
   letter-spacing: 0.01em;
 }
 
-.rtl .contact-pill-text {
+[dir="rtl"] .contact-pill-text {
   font-family: var(--font-body-he);
 }

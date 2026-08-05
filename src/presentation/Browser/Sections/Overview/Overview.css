@@ -30,7 +30,7 @@
   animation: heroFadeUp 0.8s 0.25s forwards;
 }
 
-.rtl .hero-title {
+[dir="rtl"] .hero-title {
   font-family: var(--font-display-primary-he);
 }
 
@@ -43,7 +43,7 @@
   color: var(--color-caramel);
 }
 
-.rtl .hero-title em {
+[dir="rtl"] .hero-title em {
   font-family: var(--font-display-secondary-he);
 }
 
@@ -60,7 +60,7 @@
   animation: heroFadeUp 0.8s 0.4s forwards;
 }
 
-.rtl .hero-sub {
+[dir="rtl"] .hero-sub {
   font-family: var(--font-body-he);
 }
 
@@ -92,7 +92,7 @@
   transition: background 0.25s, transform 0.2s;
 }
 
-.rtl .btn-primary {
+[dir="rtl"] .btn-primary {
   font-family: var(--font-body-he);
 }
 
@@ -119,7 +119,7 @@
   transition: border-color 0.25s, color 0.25s, transform 0.2s;
 }
 
-.rtl .btn-ghost {
+[dir="rtl"] .btn-ghost {
   font-family: var(--font-body-he);
 }
 

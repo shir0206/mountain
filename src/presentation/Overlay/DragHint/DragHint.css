@@ -55,7 +55,7 @@
   white-space: nowrap;
 }
 
-.rtl .drag-hint-text {
+[dir="rtl"] .drag-hint-text {
   font-family: var(--font-body-he);
 }
 
@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 
-.rtl .drag-hint-sub {
+[dir="rtl"] .drag-hint-sub {
   font-family: var(--font-body-he);
 }
 
