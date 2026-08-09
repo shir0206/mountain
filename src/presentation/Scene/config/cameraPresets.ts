@@ -14,7 +14,6 @@ export const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
     target: [5, -87, -6.5],
   },
   peak: {
-    //position: [25, -78, 40],
     position: [-2, -71, -55],
     target: [-7, -86, -3.5],
   },
