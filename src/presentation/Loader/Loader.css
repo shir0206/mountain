@@ -1,1280 +1,623 @@
-@property --c {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: #3d6b35;
-}
-
 .loader-screen {
+  --color-top: #e9d9a8;
+  --color-front: #b8912a;
+  --color-side: #4a3608;
+  --gold-bright: #f0e2b8;
+  --gold-mid: #c19a2e;
+  --gold-dark: #4a3608;
+
+  /* Animation speed params — override via inline style / props */
+  --cube-duration: 4s;
+  --shimmer-duration: 3s;
+
   position: fixed;
   inset: 0;
-  background: #0d1117;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    ellipse at center,
+    #1a1408 0%,
+    #080603 55%,
+    #000000 100%
+  );
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* ---------- Card container ---------- */
+.card {
+  background: radial-gradient(
+      circle at 15% 0%,
+      rgba(212, 175, 55, 0.07),
+      transparent 45%
+    ),
+    #0b0a08;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.03) inset,
+    0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(212, 175, 55, 0.08);
+  padding: clamp(28px, 6vw, 44px) clamp(24px, 7vw, 50px) clamp(26px, 6vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 5vw, 34px);
+  position: relative;
+  overflow: hidden;
+  width: min(340px, 100%);
+  box-sizing: border-box;
+}
+
+/* ---------- Cube scene ---------- */
+.cube-scene {
+  position: relative;
+  width: clamp(120px, 32vw, 160px);
+  height: clamp(135px, 36vw, 180px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  font-family: system-ui, sans-serif;
+  z-index: 1;
 }
 
-.loader-mountain {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #0d1117;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 240px;
-  contain: layout style;
-}
-
-.loader-mountain::after {
+/* Glow aura behind cube — phase-locked to the same cube cycle as the
+   floor shadow, so the two lights read as one coordinated event. */
+.cube-scene::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 22%;
+  width: 62.5%;
+  height: 62.5%;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  z-index: 10;
+  background: radial-gradient(
+    circle,
+    rgba(230, 190, 110, 0.28) 0%,
+    rgba(180, 140, 40, 0.12) 40%,
+    transparent 70%
+  );
+  animation: glow-breathe var(--cube-duration) ease infinite;
+  will-change: opacity;
 }
 
-/* Progress section */
-.loader-progress {
-  margin-top: 32px;
+@keyframes glow-breathe {
+  0% {
+    opacity: 0.35;
+  } /* cube tall, neutral */
+  16% {
+    opacity: 0.6;
+  } /* cube squashed flat  → brightest contact */
+  30% {
+    opacity: 0.35;
+  } /* cube stretched back → neutral */
+  33.33% {
+    opacity: 0.35;
+  }
+  42% {
+    opacity: 0.48;
+  } /* cube swings left  */
+  50% {
+    opacity: 0.48;
+  } /* cube swings right */
+  58% {
+    opacity: 0.35;
+  }
+  66.66% {
+    opacity: 0.35;
+  }
+  75% {
+    opacity: 0.22;
+  } /* cube lifts up   → dims */
+  83% {
+    opacity: 0.6;
+  } /* cube dips down  → brightest contact */
+  91% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+
+/* Sparkles — anchored to the cube itself, bursting outward a moment after
+   each of the cube's 8 fast-motion segments completes. Delays are stored
+   as fractions of --cube-duration so they stay in sync when the speed
+   param changes. */
+.sparkle {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 2px 0.5px rgba(230, 200, 140, 0.5);
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.3);
+  animation: spark-pop var(--cube-duration) infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* 1. after squash-down (fires at 18% of cycle) */
+.sparkle:nth-child(1) {
+  --tx: 14px;
+  --ty: -40px;
+  animation-delay: calc(var(--cube-duration) * -0.1);
+}
+/* 2. after stretch-up (fires at 32% of cycle) */
+.sparkle:nth-child(2) {
+  --tx: -46px;
+  --ty: -18px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.24);
+}
+/* 3. after dash-left (fires at 44% of cycle) */
+.sparkle:nth-child(3) {
+  --tx: 44px;
+  --ty: 14px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.36);
+}
+/* 4a. after fastest swing-right (fires at 52% of cycle) */
+.sparkle:nth-child(4) {
+  --tx: -58px;
+  --ty: -10px;
+  animation-delay: calc(var(--cube-duration) * -0.44);
+}
+/* 4b. companion spark, same impact, wider angle (fires slightly after 4a) */
+.sparkle:nth-child(5) {
+  --tx: -50px;
+  --ty: 22px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.455);
+}
+/* 5. after return-to-center (fires at 60% of cycle) */
+.sparkle:nth-child(6) {
+  --tx: 10px;
+  --ty: -46px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.52);
+}
+/* 6. after rise-up (fires at 77% of cycle) */
+.sparkle:nth-child(7) {
+  --tx: -16px;
+  --ty: 48px;
+  animation-delay: calc(var(--cube-duration) * -0.69);
+}
+/* 7a. after fastest swing-down (fires at 85% of cycle) */
+.sparkle:nth-child(8) {
+  --tx: 34px;
+  --ty: -50px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.77);
+}
+/* 7b. companion spark, same impact, wider angle (fires slightly after 7a) */
+.sparkle:nth-child(9) {
+  --tx: -38px;
+  --ty: -46px;
+  animation-delay: calc(var(--cube-duration) * -0.785);
+}
+/* 8. after return-to-center (fires at 93% of cycle) */
+.sparkle:nth-child(10) {
+  --tx: -12px;
+  --ty: 44px;
+  width: 2px;
+  height: 2px;
+  animation-delay: calc(var(--cube-duration) * -0.85);
+}
+
+@keyframes spark-pop {
+  0%,
+  3% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.3);
+  }
+  8% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--tx) * 0.35),
+        calc(-50% + var(--ty) * 0.35),
+        0
+      )
+      scale(1);
+  }
+  22% {
+    opacity: 0;
+    transform: translate3d(calc(-50% + var(--tx)), calc(-50% + var(--ty)), 0)
+      scale(0.2);
+  }
+  22.01%,
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.3);
+  }
+}
+
+/* Cube area */
+.cube-area {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
 }
 
-.loader-progress-track {
-  width: 180px;
+/* Loader wrapper — one tight, quiet edge highlight that reads as an
+   actual lit metal edge. */
+.loader-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  filter: drop-shadow(0 0 1.5px rgba(240, 226, 184, 0.7))
+    drop-shadow(0 0 5px rgba(193, 154, 46, 0.25));
+}
+
+/* Contact shadow — mirrors the cube's actual physical motion at the same
+   keyframe percentages the cube itself uses. */
+.floor-glow {
+  position: relative;
+  width: 70px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(230, 200, 140, 0.55) 0%,
+    rgba(193, 154, 46, 0.24) 40%,
+    transparent 75%
+  );
+  filter: blur(2px);
+  margin-top: 2px;
+  animation: floor-sync var(--cube-duration) ease infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes floor-sync {
+  0% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  } /* cube tall, neutral */
+  16% {
+    transform: scale(1.28, 0.78);
+    opacity: 0.75;
+  } /* cube squashed flat  → spread + flatten */
+  30% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  } /* cube stretched back → neutral */
+  33.33% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  }
+  42% {
+    transform: scale(1.16, 1);
+    opacity: 0.62;
+  } /* cube swings left  → smear wide */
+  50% {
+    transform: scale(1.16, 1);
+    opacity: 0.62;
+  } /* cube swings right → smear wide */
+  58% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  } /* cube settles center */
+  66.66% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  }
+  75% {
+    transform: scale(0.7, 0.7);
+    opacity: 0.32;
+  } /* cube lifts up   → shadow shrinks + dims */
+  83% {
+    transform: scale(1.2, 1.2);
+    opacity: 0.75;
+  } /* cube dips down  → shadow grows + brightens */
+  91% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 0.55;
+  }
+}
+
+/* Shared cube variables */
+.loader-pulse,
+.loader-shake-horizontal,
+.loader-shake-vertical {
+  --cube-size: 25px;
+  --depth-offset: calc(0.353 * var(--cube-size));
+  position: absolute;
+  aspect-ratio: 1;
+  display: grid;
+}
+
+/* === STAGE 1: Vertical scale pulse === */
+.loader-pulse {
+  height: calc(var(--cube-size) + var(--depth-offset));
+  animation: stage1-vis var(--cube-duration) infinite step-end;
+}
+.loader-pulse::before {
+  content: "";
+  height: 100%;
+  margin: auto 0;
+  clip-path: polygon(
+    var(--depth-offset) 0,
+    100% 0,
+    100% calc(100% - var(--depth-offset)),
+    calc(100% - var(--depth-offset)) 100%,
+    0 100%,
+    0 var(--depth-offset)
+  );
+  background: conic-gradient(
+    from -90deg at var(--cube-size) var(--depth-offset),
+    var(--color-top) 135deg,
+    var(--color-side) 0 270deg,
+    var(--color-front) 0
+  );
+  animation: pulse-scale var(--cube-duration) infinite;
+  transform-origin: center center;
+}
+
+@keyframes stage1-vis {
+  0% {
+    visibility: visible;
+  }
+  33.33% {
+    visibility: hidden;
+  }
+}
+
+@keyframes pulse-scale {
+  0% {
+    transform: scaleY(1);
+  }
+  16% {
+    transform: scaleY(0.4);
+  }
+  30% {
+    transform: scaleY(1);
+  }
+  33.33%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* === STAGE 2: Shake horizontally === */
+.loader-shake-horizontal {
+  width: calc(var(--cube-size) + var(--depth-offset));
+  animation: stage2-vis var(--cube-duration) infinite step-end;
+}
+.loader-shake-horizontal::before,
+.loader-shake-horizontal::after {
+  content: "";
+  clip-path: polygon(
+    var(--depth-offset) 0,
+    100% 0,
+    100% calc(100% - var(--depth-offset)),
+    calc(100% - var(--depth-offset)) 100%,
+    0 100%,
+    0 var(--depth-offset)
+  );
+  background: conic-gradient(
+    from -90deg at var(--cube-size) var(--depth-offset),
+    var(--color-top) 135deg,
+    var(--color-side) 0 270deg,
+    var(--color-front) 0
+  );
+  animation: shake-horizontal var(--cube-duration) infinite;
+}
+.loader-shake-horizontal::before {
+  z-index: 1;
+  margin-bottom: calc(var(--depth-offset) / -2 - 1px);
+}
+.loader-shake-horizontal::after {
+  margin-top: calc(var(--depth-offset) / -2 - 1px);
+  animation-delay: calc(var(--cube-duration) * 0.1);
+}
+
+@keyframes stage2-vis {
+  0% {
+    visibility: hidden;
+  }
+  33.33% {
+    visibility: visible;
+  }
+  66.66% {
+    visibility: hidden;
+  }
+}
+
+@keyframes shake-horizontal {
+  0%,
+  33.33% {
+    transform: translateX(0);
+  }
+  42% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  58%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* === STAGE 3: Shake vertically === */
+.loader-shake-vertical {
+  width: calc(var(--cube-size) + var(--depth-offset));
+  display: flex;
+  animation: stage3-vis var(--cube-duration) infinite step-end;
+}
+.loader-shake-vertical::before,
+.loader-shake-vertical::after {
+  content: "";
+  flex: 1;
+  clip-path: polygon(
+    var(--depth-offset) 0,
+    100% 0,
+    100% calc(100% - var(--depth-offset)),
+    calc(100% - var(--depth-offset)) 100%,
+    0 100%,
+    0 var(--depth-offset)
+  );
+  background: conic-gradient(
+    from -90deg at calc(100% - var(--depth-offset)) var(--depth-offset),
+    var(--color-top) 135deg,
+    var(--color-side) 0 270deg,
+    var(--color-front) 0
+  );
+  animation: shake-vertical var(--cube-duration) infinite;
+}
+.loader-shake-vertical::before {
+  margin-right: calc(var(--depth-offset) / -2 - 1px);
+}
+.loader-shake-vertical::after {
+  margin-left: calc(var(--depth-offset) / -2 - 1px);
+  animation-delay: calc(var(--cube-duration) * 0.1);
+}
+
+@keyframes stage3-vis {
+  0% {
+    visibility: hidden;
+  }
+  66.66% {
+    visibility: visible;
+  }
+}
+
+@keyframes shake-vertical {
+  0%,
+  66.66% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  83% {
+    transform: translateY(10px);
+  }
+  91%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Progress bar ---------- */
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: min(220px, 100%);
+  z-index: 1;
+}
+
+.progress-track {
+  width: 100%;
   height: 3px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(212, 175, 55, 0.12);
   border-radius: 2px;
   overflow: hidden;
-}
-
-.loader-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #3d6b35, #7a9a6a);
-  border-radius: 2px;
-  transition: width 300ms ease;
-}
-
-.loader-progress-text {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 11px;
-  letter-spacing: 0.5px;
-}
-
-/* 3D bars structure */
-.loader-bars {
   position: relative;
-  width: 2px;
+}
+
+.progress-fill {
   height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateX(-38deg) rotateY(40deg) rotateZ(0deg);
+  background: linear-gradient(
+    90deg,
+    var(--gold-dark),
+    var(--gold-mid) 55%,
+    var(--gold-bright)
+  );
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden; /* clips the shimmer to the filled width only */
+  box-shadow: 0 0 6px rgba(193, 154, 46, 0.4);
+  transition: width 0.2s ease-out;
 }
 
-.loader-bar {
-  position: absolute;
-  bottom: 39px;
-  left: -3px;
-  width: 6px;
-  transform-origin: bottom center;
-  transform-style: preserve-3d;
-  will-change: transform;
-  contain: layout style;
-}
-
-/*
-  Ring layout — 4 rings, evenly spaced at 12 px:
-    Sec ring   — 23 bars, r = 36 px, h = 65 px  [terrain 1: snowy ridge + river]
-    Outer ring — 16 bars, r = 24 px, h = 50 px  [terrain 2: high snowy mountain + lake]
-    Inner ring —  8 bars, r = 12 px, h = 32 px  [terrain 3: hills + river]
-    Core       —  1 bar,  r =  0 px, h = 14 px  [terrain 3: centre]
-  Total: 48 bars  (was 57)
-*/
-.loader-bar-sec {
-  height: 65px;
-}
-.loader-bar-outer {
-  height: 50px;
-}
-.loader-bar-inner {
-  height: 32px;
-}
-.loader-bar-core {
-  height: 14px;
-}
-
-.loader-face {
-  position: absolute;
-  width: 6px;
-  height: 100%;
-  left: 50%;
-  margin-left: -3px;
-  backface-visibility: hidden;
-  background: var(--c);
-}
-
-.loader-face-front {
-  transform: rotateY(0deg) translateZ(3px);
-  filter: brightness(1);
-}
-
-.loader-face-left {
-  transform: rotateY(270deg) translateZ(3px);
-  filter: brightness(0.7);
-}
-
-.loader-bar::after {
+.progress-fill::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  margin-left: -3px;
-  transform: rotateX(90deg) translateZ(0px) translateY(-3px);
-  transform-origin: center top;
-  background: var(--c);
-  filter: brightness(1.1);
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  animation: shimmer var(--shimmer-duration) infinite;
+  will-change: transform;
 }
 
-/* ─────────────────────────────────────────────────────────
-   SEC RING — 23 bars, r = 36 px
-   Positions unchanged from original.
-───────────────────────────────────────────────────────── */
-.lbs1 {
-  transform: translateX(0px) translateZ(-36px);
-}
-.lbs2 {
-  transform: translateX(10px) translateZ(-35px);
-}
-.lbs3 {
-  transform: translateX(19px) translateZ(-31px);
-}
-.lbs4 {
-  transform: translateX(26px) translateZ(-25px);
-}
-.lbs5 {
-  transform: translateX(32px) translateZ(-17px);
-}
-.lbs6 {
-  transform: translateX(35px) translateZ(-7px);
-}
-.lbs7 {
-  transform: translateX(36px) translateZ(2px);
-}
-.lbs8 {
-  transform: translateX(34px) translateZ(12px);
-}
-.lbs9 {
-  transform: translateX(29px) translateZ(21px);
-}
-.lbs10 {
-  transform: translateX(23px) translateZ(28px);
-}
-.lbs11 {
-  transform: translateX(14px) translateZ(33px);
-}
-.lbs12 {
-  transform: translateX(5px) translateZ(36px);
-}
-.lbs13 {
-  transform: translateX(-5px) translateZ(36px);
-}
-.lbs14 {
-  transform: translateX(-14px) translateZ(33px);
-}
-.lbs15 {
-  transform: translateX(-23px) translateZ(28px);
-}
-.lbs16 {
-  transform: translateX(-29px) translateZ(21px);
-}
-.lbs26 {
-  transform: translateX(-34px) translateZ(12px);
-}
-.lbs27 {
-  transform: translateX(-36px) translateZ(2px);
-}
-.lbs28 {
-  transform: translateX(-35px) translateZ(-7px);
-}
-.lbs29 {
-  transform: translateX(-32px) translateZ(-17px);
-}
-.lbs30 {
-  transform: translateX(-26px) translateZ(-25px);
-}
-.lbs31 {
-  transform: translateX(-19px) translateZ(-31px);
-}
-.lbs32 {
-  transform: translateX(-10px) translateZ(-35px);
-}
-
-/* ─────────────────────────────────────────────────────────
-   OUTER RING — 16 bars, r = 24 px
-   22.5° steps: X = round(24·sinθ), Z = round(−24·cosθ)
-───────────────────────────────────────────────────────── */
-/* θ =   0° */
-.lbo1 {
-  transform: translateX(0px) translateZ(-24px);
-}
-/* θ =  22° */
-.lbo2 {
-  transform: translateX(9px) translateZ(-22px);
-}
-/* θ =  45° */
-.lbo3 {
-  transform: translateX(17px) translateZ(-17px);
-}
-/* θ =  67° */
-.lbo4 {
-  transform: translateX(22px) translateZ(-9px);
-}
-/* θ =  90° */
-.lbo5 {
-  transform: translateX(24px) translateZ(0px);
-}
-/* θ = 112° */
-.lbo6 {
-  transform: translateX(22px) translateZ(9px);
-}
-/* θ = 135° */
-.lbo7 {
-  transform: translateX(17px) translateZ(17px);
-}
-/* θ = 157° */
-.lbo8 {
-  transform: translateX(9px) translateZ(22px);
-}
-/* θ = 180° */
-.lbo9 {
-  transform: translateX(0px) translateZ(24px);
-}
-/* θ = 202° */
-.lbo10 {
-  transform: translateX(-9px) translateZ(22px);
-}
-/* θ = 225° */
-.lbo11 {
-  transform: translateX(-17px) translateZ(17px);
-}
-/* θ = 247° */
-.lbo12 {
-  transform: translateX(-22px) translateZ(9px);
-}
-/* θ = 270° */
-.lbo13 {
-  transform: translateX(-24px) translateZ(0px);
-}
-/* θ = 292° */
-.lbo14 {
-  transform: translateX(-22px) translateZ(-9px);
-}
-/* θ = 315° */
-.lbo15 {
-  transform: translateX(-17px) translateZ(-17px);
-}
-/* θ = 337° */
-.lbo16 {
-  transform: translateX(-9px) translateZ(-22px);
-}
-
-/* ─────────────────────────────────────────────────────────
-   INNER RING — 8 bars, r = 12 px
-   45° steps: X = round(12·sinθ), Z = round(−12·cosθ)
-   12·sin45° = 8.49 ≈ 9;  12·cos45° = 8.49 ≈ 9
-───────────────────────────────────────────────────────── */
-/* θ =   0° */
-.lbi1 {
-  transform: translateX(0px) translateZ(-12px);
-}
-/* θ =  45° */
-.lbi2 {
-  transform: translateX(9px) translateZ(-9px);
-}
-/* θ =  90° */
-.lbi3 {
-  transform: translateX(12px) translateZ(0px);
-}
-/* θ = 135° */
-.lbi4 {
-  transform: translateX(9px) translateZ(9px);
-}
-/* θ = 180° */
-.lbi5 {
-  transform: translateX(0px) translateZ(12px);
-}
-/* θ = 225° */
-.lbi6 {
-  transform: translateX(-9px) translateZ(9px);
-}
-/* θ = 270° */
-.lbi7 {
-  transform: translateX(-12px) translateZ(0px);
-}
-/* θ = 315° */
-.lbi8 {
-  transform: translateX(-9px) translateZ(-9px);
-}
-
-/* ─────────────────────────────────────────────────────────
-   CORE — 1 bar, r = 0
-───────────────────────────────────────────────────────── */
-.lbc1 {
-  transform: translateX(0px) translateZ(0px);
-}
-
-/* ═══════════════════════════════════════════════════════
-   ANIMATION ASSIGNMENTS
-═══════════════════════════════════════════════════════ */
-
-/* Sec ring */
-.lbs1 {
-  animation: ls1 5s ease-in-out infinite;
-  animation-delay: -0.242s;
-}
-.lbs2 {
-  animation: ls2 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-.lbs3 {
-  animation: ls3 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs4 {
-  animation: ls4 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs5 {
-  animation: ls5 5s ease-in-out infinite;
-  animation-delay: -0.171s;
-}
-.lbs6 {
-  animation: ls6 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs7 {
-  animation: ls7 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs8 {
-  animation: ls8 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-.lbs9 {
-  animation: ls9 5s ease-in-out infinite;
-  animation-delay: -0.242s;
-}
-.lbs10 {
-  animation: ls10 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-.lbs11 {
-  animation: ls11 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs12 {
-  animation: ls12 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs13 {
-  animation: ls13 5s ease-in-out infinite;
-  animation-delay: -0.171s;
-}
-.lbs14 {
-  animation: ls14 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs15 {
-  animation: ls15 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs16 {
-  animation: ls16 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-.lbs26 {
-  animation: ls26 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-.lbs27 {
-  animation: ls27 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs28 {
-  animation: ls28 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs29 {
-  animation: ls29 5s ease-in-out infinite;
-  animation-delay: -0.171s;
-}
-.lbs30 {
-  animation: ls30 5s ease-in-out infinite;
-  animation-delay: -0.177s;
-}
-.lbs31 {
-  animation: ls31 5s ease-in-out infinite;
-  animation-delay: -0.192s;
-}
-.lbs32 {
-  animation: ls32 5s ease-in-out infinite;
-  animation-delay: -0.214s;
-}
-
-/*
-  Outer ring — terrain 2 (high snowy mountain + lake)
-  16 bars at r=24. Pick 16 evenly-spaced keyframes from original 24 lb* set.
-  Mapping: lbo1→lb1, lbo2→lb3, lbo3→lb5, lbo4→lb6, lbo5→lb7, lbo6→lb8,
-           lbo7→lb9, lbo8→lb11, lbo9→lb13, lbo10→lb14, lbo11→lb15,
-           lbo12→lb17, lbo13→lb19, lbo14→lb20, lbo15→lb22, lbo16→lb24
-*/
-.lbo1 {
-  animation: lb1 5s ease-in-out infinite;
-  animation-delay: -0.182s;
-}
-.lbo2 {
-  animation: lb3 5s ease-in-out infinite;
-  animation-delay: -0.162s;
-}
-.lbo3 {
-  animation: lb5 5s ease-in-out infinite;
-  animation-delay: -0.143s;
-}
-.lbo4 {
-  animation: lb6 5s ease-in-out infinite;
-  animation-delay: -0.136s;
-}
-.lbo5 {
-  animation: lb7 5s ease-in-out infinite;
-  animation-delay: -0.143s;
-}
-.lbo6 {
-  animation: lb8 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo7 {
-  animation: lb9 5s ease-in-out infinite;
-  animation-delay: -0.136s;
-}
-.lbo8 {
-  animation: lb11 5s ease-in-out infinite;
-  animation-delay: -0.143s;
-}
-.lbo9 {
-  animation: lb13 5s ease-in-out infinite;
-  animation-delay: -0.182s;
-}
-.lbo10 {
-  animation: lb14 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo11 {
-  animation: lb15 5s ease-in-out infinite;
-  animation-delay: -0.136s;
-}
-.lbo12 {
-  animation: lb17 5s ease-in-out infinite;
-  animation-delay: -0.143s;
-}
-.lbo13 {
-  animation: lb19 5s ease-in-out infinite;
-  animation-delay: -0.182s;
-}
-.lbo14 {
-  animation: lb20 5s ease-in-out infinite;
-  animation-delay: -0.155s;
-}
-.lbo15 {
-  animation: lb22 5s ease-in-out infinite;
-  animation-delay: -0.136s;
-}
-.lbo16 {
-  animation: lb24 5s ease-in-out infinite;
-  animation-delay: -0.162s;
-}
-
-/*
-  Inner ring — terrain 3 (hills + river)
-  8 bars at r=12. Pick 8 evenly-spaced from original 16 lm* set:
-  lm1 lm3 lm5 lm7 lm9 lm11 lm13 lm15
-*/
-.lbi1 {
-  animation: lm1 5s ease-in-out infinite;
-  animation-delay: -0.121s;
-}
-.lbi2 {
-  animation: lm3 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbi3 {
-  animation: lm5 5s ease-in-out infinite;
-  animation-delay: -0.086s;
-}
-.lbi4 {
-  animation: lm7 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbi5 {
-  animation: lm9 5s ease-in-out infinite;
-  animation-delay: -0.121s;
-}
-.lbi6 {
-  animation: lm11 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-.lbi7 {
-  animation: lm13 5s ease-in-out infinite;
-  animation-delay: -0.086s;
-}
-.lbi8 {
-  animation: lm15 5s ease-in-out infinite;
-  animation-delay: -0.096s;
-}
-
-/* Core */
-.lbc1 {
-  animation: lc1 5s ease-in-out infinite;
-  animation-delay: 0s;
-}
-
-/* ═══════════════════════════════════════════════════════
-   KEYFRAMES
-═══════════════════════════════════════════════════════ */
-
-/* ── Sec ring (terrain 1: snowy ridge + river) ── */
-@keyframes ls1 {
-  0%,
+@keyframes shimmer {
+  0% {
+    transform: translateX(0);
+  }
   100% {
-    scale: 1 0.82 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes ls2 {
-  0%,
-  100% {
-    scale: 1 0.94 1;
-    --c: #8c9298;
-  }
-  33.33% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes ls3 {
-  0%,
-  100% {
-    scale: 1 0.96 1;
-    --c: #aeb2b6;
-  }
-  33.33% {
-    scale: 1 0.72 1;
-    --c: #848a92;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes ls4 {
-  0%,
-  100% {
-    scale: 1 0.98 1;
-    --c: #cfd1d3;
-  }
-  33.33% {
-    scale: 1 0.8 1;
-    --c: #6b737b;
-  }
-  66.66% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-}
-@keyframes ls5 {
-  0%,
-  100% {
-    scale: 1 0.97 1;
-    --c: #bec1c4;
-  }
-  33.33% {
-    scale: 1 1 1;
-    --c: #f0f0f0;
-  }
-  66.66% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-}
-@keyframes ls6 {
-  0%,
-  100% {
-    scale: 1 0.95 1;
-    --c: #9da2a7;
-  }
-  33.33% {
-    scale: 1 0.72 1;
-    --c: #848a92;
-  }
-  66.66% {
-    scale: 1 0.52 1;
-    --c: #749764;
-  }
-}
-@keyframes ls7 {
-  0%,
-  100% {
-    scale: 1 0.84 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.55 1;
-    --c: #7a9a6a;
-  }
-  66.66% {
-    scale: 1 0.55 1;
-    --c: #7a9a6a;
-  }
-}
-@keyframes ls8 {
-  0%,
-  100% {
-    scale: 1 0.77 1;
-    --c: #747c84;
-  }
-  33.33% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-  66.66% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-}
-@keyframes ls9 {
-  0%,
-  100% {
-    scale: 1 0.72 1;
-    --c: #848a92;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.44 1;
-    --c: #638e53;
-  }
-}
-@keyframes ls10 {
-  0%,
-  100% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  33.33% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  66.66% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-}
-@keyframes ls11 {
-  0%,
-  100% {
-    scale: 1 0.26 1;
-    --c: #46743b;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-}
-@keyframes ls12 {
-  0%,
-  100% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  33.33% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  66.66% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-}
-@keyframes ls13 {
-  0%,
-  100% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  33.33% {
-    scale: 1 0.06 1;
-    --c: #257992;
-  }
-  66.66% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-}
-@keyframes ls14 {
-  0%,
-  100% {
-    scale: 1 0.25 1;
-    --c: #44733a;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-}
-@keyframes ls15 {
-  0%,
-  100% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-}
-@keyframes ls16 {
-  0%,
-  100% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-}
-@keyframes ls26 {
-  0%,
-  100% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  33.33% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  66.66% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-}
-@keyframes ls27 {
-  0%,
-  100% {
-    scale: 1 0.26 1;
-    --c: #46743b;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
-@keyframes ls28 {
-  0%,
-  100% {
-    scale: 1 0.24 1;
-    --c: #437139;
-  }
-  33.33% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  66.66% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-}
-@keyframes ls29 {
-  0%,
-  100% {
-    scale: 1 0.24 1;
-    --c: #437139;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-}
-@keyframes ls30 {
-  0%,
-  100% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  33.33% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
-@keyframes ls31 {
-  0%,
-  100% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  33.33% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  66.66% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-}
-@keyframes ls32 {
-  0%,
-  100% {
-    scale: 1 0.75 1;
-    --c: #7b828a;
-  }
-  33.33% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-  66.66% {
-    scale: 1 0.22 1;
-    --c: #406e37;
+    transform: translateX(300%);
   }
 }
 
-/* ── Outer ring (terrain 2: high snowy mountain + lake) ── */
-@keyframes lb1 {
-  0%,
-  100% {
-    scale: 1 0.78 1;
-    --c: #717981;
-  }
-  33.33% {
-    scale: 1 0.58 1;
-    --c: #7d9873;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
+/* Hero number — solid gold, flat fill so it doesn't compete with the cube. */
+.progress-percent {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gold-mid);
 }
-@keyframes lb3 {
-  0%,
-  100% {
-    scale: 1 0.85 1;
-    --c: #6b737b;
+
+/* ---------- Responsive ---------- */
+@media (max-width: 420px) {
+  .card {
+    gap: 20px;
   }
-  33.33% {
-    scale: 1 0.82 1;
-    --c: #6b737b;
+
+  .loader-wrapper {
+    width: 50px;
+    height: 50px;
   }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
+
+  .loader-pulse,
+  .loader-shake-horizontal,
+  .loader-shake-vertical {
+    --cube-size: 21px;
   }
-}
-@keyframes lb5 {
-  0%,
-  100% {
-    scale: 1 0.85 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.92 1;
-    --c: #6b737b;
-  }
-  66.66% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-}
-@keyframes lb6 {
-  0%,
-  100% {
-    scale: 1 0.82 1;
-    --c: #6b737b;
-  }
-  33.33% {
-    scale: 1 0.85 1;
-    --c: #6b737b;
-  }
-  66.66% {
-    scale: 1 0.52 1;
-    --c: #749764;
-  }
-}
-@keyframes lb7 {
-  0%,
-  100% {
-    scale: 1 0.78 1;
-    --c: #717981;
-  }
-  33.33% {
-    scale: 1 0.78 1;
-    --c: #717981;
-  }
-  66.66% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-}
-@keyframes lb8 {
-  0%,
-  100% {
-    scale: 1 0.74 1;
-    --c: #7e848c;
-  }
-  33.33% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  66.66% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-}
-@keyframes lb9 {
-  0%,
-  100% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-  33.33% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
-@keyframes lb11 {
-  0%,
-  100% {
-    scale: 1 0.3 1;
-    --c: #4c7b40;
-  }
-  33.33% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  66.66% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-}
-@keyframes lb13 {
-  0%,
-  100% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  33.33% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes lb14 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  33.33% {
-    scale: 1 0.06 1;
-    --c: #257992;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes lb15 {
-  0%,
-  100% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  33.33% {
-    scale: 1 0.07 1;
-    --c: #26788b;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes lb17 {
-  0%,
-  100% {
-    scale: 1 0.24 1;
-    --c: #437139;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-}
-@keyframes lb19 {
-  0%,
-  100% {
-    scale: 1 0.22 1;
-    --c: #406e37;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-}
-@keyframes lb20 {
-  0%,
-  100% {
-    scale: 1 0.23 1;
-    --c: #417038;
-  }
-  33.33% {
-    scale: 1 0.06 1;
-    --c: #257992;
-  }
-  66.66% {
-    scale: 1 0.4 1;
-    --c: #5a8a4a;
-  }
-}
-@keyframes lb22 {
-  0%,
-  100% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  33.33% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
-@keyframes lb24 {
-  0%,
-  100% {
-    scale: 1 0.74 1;
-    --c: #7e848c;
-  }
-  33.33% {
-    scale: 1 0.55 1;
-    --c: #7a9a6a;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
+
+  .progress-section {
+    gap: 10px;
   }
 }
 
-/* ── Inner ring keyframes (terrain 3: hills + river) — original lm* ── */
-@keyframes lm1 {
-  0%,
-  100% {
-    scale: 1 0.73 1;
-    --c: #81878f;
+@media (max-height: 560px) {
+  .loader-screen {
+    padding: 10px;
   }
-  33.33% {
-    scale: 1 0.52 1;
-    --c: #749764;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes lm3 {
-  0%,
-  100% {
-    scale: 1 0.77 1;
-    --c: #747c84;
-  }
-  33.33% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes lm5 {
-  0%,
-  100% {
-    scale: 1 0.73 1;
-    --c: #81878f;
-  }
-  33.33% {
-    scale: 1 0.32 1;
-    --c: #4e7e42;
-  }
-  66.66% {
-    scale: 1 0.5 1;
-    --c: #6f955f;
-  }
-}
-@keyframes lm7 {
-  0%,
-  100% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  33.33% {
-    scale: 1 0.28 1;
-    --c: #49773d;
-  }
-  66.66% {
-    scale: 1 0.45 1;
-    --c: #658f55;
-  }
-}
-@keyframes lm9 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  33.33% {
-    scale: 1 0.05 1;
-    --c: #237a99;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
-  }
-}
-@keyframes lm11 {
-  0%,
-  100% {
-    scale: 1 0.21 1;
-    --c: #3e6d36;
-  }
-  33.33% {
-    scale: 1 0.03 1;
-    --c: #1f7ca6;
-  }
-  66.66% {
-    scale: 1 0.2 1;
-    --c: #3d6b35;
-  }
-}
-@keyframes lm13 {
-  0%,
-  100% {
-    scale: 1 0.24 1;
-    --c: #437139;
-  }
-  33.33% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
-  }
-  66.66% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-}
-@keyframes lm15 {
-  0%,
-  100% {
-    scale: 1 0.35 1;
-    --c: #538245;
-  }
-  33.33% {
-    scale: 1 0.48 1;
-    --c: #6b935b;
-  }
-  66.66% {
-    scale: 1 0.38 1;
-    --c: #578748;
-  }
-}
 
-/* ── Core (terrain 3 centre) ── */
-@keyframes lc1 {
-  0%,
-  100% {
-    scale: 1 0.04 1;
-    --c: #217b9f;
+  .card {
+    gap: 16px;
+    padding: 20px 24px;
   }
-  33.33% {
-    scale: 1 0.42 1;
-    --c: #5e8c4e;
-  }
-  66.66% {
-    scale: 1 0.08 1;
-    --c: #287785;
+
+  .cube-scene {
+    width: 110px;
+    height: 120px;
   }
 }

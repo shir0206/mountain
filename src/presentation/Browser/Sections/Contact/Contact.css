@@ -69,10 +69,6 @@
   text-decoration: none;
 }
 
-[dir="rtl"] .contact-email-link {
-  font-family: var(--font-display-primary-he);
-}
-
 .contact-email-link:hover {
   border-color: var(--color-caramel);
 }
@@ -83,6 +79,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding-inline-end: 20px;
 }
 
 .form-row {

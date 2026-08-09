@@ -46,7 +46,7 @@
     "photoHint": "Add your photo here"
   },
   "service": {
-    "label": "Working together",
+    "label": "Services",
     "titleLine": "How it's like",
     "titleEmphasis": "working together",
     "cardsLabel": "What I can help with",
@@ -145,7 +145,7 @@
   },
   "contact": {
     "titleLine": "Say",
-    "titleLine2": "hello.",
+    "titleLine2": "hello",
     "sub": "Building something? Let's talk.",
     "email": "shir.zabolotny@gmail.com",
     "form": {
