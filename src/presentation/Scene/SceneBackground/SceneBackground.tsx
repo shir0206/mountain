@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const BG_PATH = "images/background3.webp";
+const BG_PATH = "images/background.webp";
 const BG_FOV = 75; // wider than main camera → shows more top/bottom of panorama
 
 export function SceneBackground() {

@@ -49,13 +49,11 @@ const Navigation: React.FC<NavigationProps> = ({ containerRef }) => {
         <div className="navigation-logo">
           {isMobile ? (
             <>
-              {t.navigation.logoShort} <em>{t.navigation.logoSeparator}</em>{" "}
-              {t.navigation.logoShortLastName}
+              {t.navigation.logoShort} {t.navigation.logoShortLastName}
             </>
           ) : (
             <>
-              {t.navigation.logo} <em>{t.navigation.logoSeparator}</em>{" "}
-              {t.navigation.logoLastName}
+              {t.navigation.logo} {t.navigation.logoLastName}
             </>
           )}
         </div>

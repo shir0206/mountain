@@ -2,7 +2,7 @@ import React from "react";
 
 import "./About.css";
 
-import imagePath from "../../../../assets/images/shirzabolotny.png?url";
+import imagePath from "../../../../assets/images/shirzabolotny.webp?url";
 import { useTranslation } from "../../../../context/portfolio/useTranslation";
 import { parseEmphasis } from "../../../../shared/utils/parseEmphasis";
 
