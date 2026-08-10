@@ -197,10 +197,15 @@
   content: "";
   position: absolute;
   left: 19px;
-  top: 4%;
+  top: 3%;
   bottom: 20px;
   width: 1px;
   background: var(--color-line);
+}
+
+[dir="rtl"] .process-list::before {
+  left: auto;
+  right: 19px;
 }
 
 .process-item {
@@ -311,10 +316,15 @@
   .process-list::before {
     left: 10%;
     right: 10%;
-    top: 4%;
+    top: 5%;
     bottom: auto;
     width: auto;
     height: 1px;
+  }
+
+  [dir="rtl"] .process-list::before {
+    left: 10%;
+    right: 10%;
   }
 
   .process-item {
