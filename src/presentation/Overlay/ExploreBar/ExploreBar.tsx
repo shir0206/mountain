@@ -2,6 +2,7 @@ import "./ExploreBar.css";
 import type { PresetKey } from "../../Scene/types";
 import { useTranslation } from "../../../context/portfolio/useTranslation";
 import { Icon } from "../../../shared/components/Icon/Icon";
+import { useSceneContext } from "../../../context/scene/useSceneContext";
 
 interface ExploreBarProps {
   activePreset: PresetKey;
@@ -13,6 +14,9 @@ const AREA_KEYS: PresetKey[] = ["workstation", "meeting", "peak"];
 export function ExploreBar({ activePreset, onNavigate }: ExploreBarProps) {
   const { t } = useTranslation();
   const { ariaLabel, areas } = t.overlay.exploreBar;
+  const { runIntro, introComplete } = useSceneContext();
+
+  const isDisabled = !(runIntro && introComplete);
 
   return (
     <nav className="explore-bar" aria-label={ariaLabel}>
@@ -22,8 +26,10 @@ export function ExploreBar({ activePreset, onNavigate }: ExploreBarProps) {
         return (
           <button
             key={key}
-            className={`explore-btn${isActive ? " active" : ""}`}
-            onClick={() => onNavigate(key)}
+            className={`explore-btn${isActive ? " active" : ""}${
+              isDisabled ? " disabled" : ""
+            }`}
+            onClick={() => !isDisabled && onNavigate(key)}
             aria-current={isActive ? "location" : undefined}
             aria-label={`Go to ${area.label}`}
           >
