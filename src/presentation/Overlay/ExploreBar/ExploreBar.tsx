@@ -16,7 +16,7 @@ export function ExploreBar({ activePreset, onNavigate }: ExploreBarProps) {
   const { ariaLabel, areas } = t.overlay.exploreBar;
   const { runIntro, introComplete } = useSceneContext();
 
-  const isDisabled = !(runIntro && introComplete);
+  const isDisabled = runIntro ? !introComplete : false;
 
   return (
     <nav className="explore-bar" aria-label={ariaLabel}>
