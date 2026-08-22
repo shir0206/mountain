@@ -1,25 +1,21 @@
-// ─── Scene object positions ──────────────────────────────────────────────────
-// All spatial constants for 3D objects in the scene.
-// Each object is a grouped constant with X, Y, Z, SCALE, and optionally ANGLE.
-
 import type { ScenePosition } from "../types";
 
 export const MOUNTAIN: ScenePosition = {
-  SCALE: 25,
+  SCALE: 27,
   X: 0,
   Y: -100,
   Z: 0,
-  ANGLE: -Math.PI * 1.5,
+  ANGLE: -Math.PI * 1.55,
 };
 
 export const PEAK_WORLD_Y = MOUNTAIN.Y + 1 * MOUNTAIN.SCALE;
 
 export const PERGOLA: ScenePosition = {
-  X: 7,
-  Y: PEAK_WORLD_Y - 11.95,
-  Z: -7,
+  X: 10,
+  Y: PEAK_WORLD_Y - 13,
+  Z: -0.5,
   SCALE: 0.05,
-  ANGLE: Math.PI,
+  ANGLE: Math.PI - 0.5, // was Math.PI
 };
 
 export const PERGOLA_FLOOR: ScenePosition = {
@@ -32,9 +28,10 @@ export const PERGOLA_FLOOR: ScenePosition = {
 
 export const DESK: ScenePosition = {
   X: PERGOLA.X - 13.84,
-  Y: PERGOLA.Y + 1,
+  Y: PERGOLA.Y + 0.82,
   Z: PERGOLA.Z + 4.05,
   SCALE: 1.75,
+  ANGLE: -0.5,
 };
 
 export const SHELF: ScenePosition = {
@@ -153,6 +150,7 @@ export const TREE_POT: ScenePosition = {
   Y: PERGOLA.Y - 2.18,
   Z: PERGOLA.Z + 1,
   SCALE: 1.5,
+  ANGLE: PERGOLA.ANGLE,
 };
 
 export const TREE: ScenePosition = {
@@ -168,6 +166,7 @@ export const COFFEE_TABLE: ScenePosition = {
   Y: PERGOLA.Y + 0.01,
   Z: PERGOLA.Z + 4,
   SCALE: 2,
+  ANGLE: PERGOLA.ANGLE,
 };
 
 export const TABLET: ScenePosition = {

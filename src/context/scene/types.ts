@@ -23,7 +23,6 @@ export interface SceneContextType extends SceneState {
   setCameraPreset: (preset: PresetKey) => void;
   setSceneReady: (ready: boolean) => void;
   setIntroComplete: (complete: boolean) => void;
-  /** Trigger a smooth camera transition to a preset (set by Scene once CameraRig mounts) */
   transitionToPreset: (preset: PresetKey) => void;
   setTransitionFn: (fn: (preset: PresetKey) => void) => void;
 }

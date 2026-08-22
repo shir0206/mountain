@@ -188,7 +188,7 @@ function SceneInner({
         enableDamping
         dampingFactor={0.05}
         minDistance={2}
-        maxDistance={80}
+        maxDistance={55}
         maxPolarAngle={Math.PI * 0.52}
       />
 

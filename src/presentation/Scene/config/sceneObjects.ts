@@ -193,6 +193,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     label: "Wall Desk",
     position: [P.DESK.X, P.DESK.Y, P.DESK.Z],
     scale: [P.DESK.SCALE * 1.5, P.DESK.SCALE * 0.5, P.DESK.SCALE * 1.5],
+    rotationY: P.DESK.ANGLE,
   },
   {
     path: "models_optimized/desk.glb",
