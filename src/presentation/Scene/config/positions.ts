@@ -13,7 +13,7 @@ export const PEAK_WORLD_Y = MOUNTAIN.Y + 1 * MOUNTAIN.SCALE;
 export const PERGOLA: ScenePosition = {
   X: 10,
   Y: PEAK_WORLD_Y - 13,
-  Z: -0.5,
+  Z: -0.47,
   SCALE: 0.05,
   ANGLE: Math.PI - 0.5, // was Math.PI
 };
@@ -31,7 +31,7 @@ export const DESK: ScenePosition = {
   Y: PERGOLA.Y + 0.82,
   Z: PERGOLA.Z + 4.05,
   SCALE: 1.75,
-  ANGLE: -0.5,
+  ANGLE: PERGOLA.ANGLE - Math.PI,
 };
 
 export const SHELF: ScenePosition = {
@@ -39,6 +39,7 @@ export const SHELF: ScenePosition = {
   Y: PERGOLA.Y + 2.4,
   Z: PERGOLA.Z + 6.7,
   SCALE: 0.7,
+  ANGLE: PERGOLA.ANGLE - Math.PI,
 };
 
 export const SHELF_PLANT: ScenePosition = {
@@ -46,7 +47,7 @@ export const SHELF_PLANT: ScenePosition = {
   Y: SHELF.Y - 1.15,
   Z: SHELF.Z + 0.71,
   SCALE: 2,
-  ANGLE: Math.PI / 2,
+  ANGLE: SHELF.ANGLE + Math.PI / 2,
 };
 
 export const SHELF_PLANT_POT: ScenePosition = {
@@ -54,7 +55,7 @@ export const SHELF_PLANT_POT: ScenePosition = {
   Y: SHELF.Y - 0.898,
   Z: SHELF.Z + 0.62,
   SCALE: 2,
-  ANGLE: Math.PI / 2,
+  ANGLE: SHELF.ANGLE + Math.PI / 2,
 };
 
 export const MONITOR_MIDDLE: ScenePosition = {
@@ -62,7 +63,7 @@ export const MONITOR_MIDDLE: ScenePosition = {
   X: DESK.X - 0.5,
   Y: DESK.Y - 0.45,
   Z: DESK.Z + 3,
-  ANGLE: Math.PI * 0.5,
+  ANGLE: DESK.ANGLE + Math.PI * 0.5,
 };
 
 export const MONITOR_LEFT: ScenePosition = {
@@ -146,25 +147,25 @@ export const OFFICE_CHAIR: ScenePosition = {
 };
 
 export const TREE_POT: ScenePosition = {
-  X: PERGOLA.X - 1,
+  X: PERGOLA.X - 1.2,
   Y: PERGOLA.Y - 2.18,
-  Z: PERGOLA.Z + 1,
+  Z: PERGOLA.Z + 0.15,
   SCALE: 1.5,
-  ANGLE: PERGOLA.ANGLE,
+  ANGLE: PERGOLA.ANGLE + Math.PI * 0.5,
 };
 
 export const TREE: ScenePosition = {
-  X: TREE_POT.X + 0.25,
+  X: TREE_POT.X,
   Y: TREE_POT.Y + 2.2,
-  Z: PERGOLA.Z + 0.7,
+  Z: PERGOLA.Z + 0.5,
   SCALE: 0.25,
-  ANGLE: -Math.PI * 1.5,
+  ANGLE: TREE_POT.ANGLE,
 };
 
 export const COFFEE_TABLE: ScenePosition = {
-  X: PERGOLA.X - 4,
-  Y: PERGOLA.Y + 0.01,
-  Z: PERGOLA.Z + 4,
+  X: PERGOLA.X - 5,
+  Y: PERGOLA.Y - 0.03,
+  Z: PERGOLA.Z + 1.8,
   SCALE: 2,
   ANGLE: PERGOLA.ANGLE,
 };

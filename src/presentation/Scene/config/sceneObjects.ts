@@ -200,6 +200,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     label: "Shelf",
     position: [P.SHELF.X, P.SHELF.Y, P.SHELF.Z],
     scale: [P.SHELF.SCALE * 1, P.SHELF.SCALE * 0.8, P.SHELF.SCALE * 1],
+    rotationY: P.SHELF.ANGLE,
   },
   {
     path: "models_optimized/pot.glb",
@@ -236,6 +237,7 @@ export const SCENE_OBJECTS: SceneObject[] = [
     label: "Tree Pot",
     position: [P.TREE_POT.X, P.TREE_POT.Y, P.TREE_POT.Z],
     scale: [P.TREE_POT.SCALE, P.TREE_POT.SCALE * 2.5, P.TREE_POT.SCALE],
+    rotationY: P.TREE_POT.ANGLE,
   },
 ];
 
