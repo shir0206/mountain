@@ -15,7 +15,7 @@ export const PERGOLA: ScenePosition = {
   Y: PEAK_WORLD_Y - 13,
   Z: -0.47,
   SCALE: 0.05,
-  ANGLE: Math.PI - 0.5, // was Math.PI
+  ANGLE: Math.PI - 0.5,
 };
 
 export const PERGOLA_FLOOR: ScenePosition = {
@@ -27,123 +27,123 @@ export const PERGOLA_FLOOR: ScenePosition = {
 };
 
 export const DESK: ScenePosition = {
-  X: PERGOLA.X - 13.84,
-  Y: PERGOLA.Y + 0.82,
-  Z: PERGOLA.Z + 4.05,
+  X: PERGOLA.X - 14.1,
+  Y: PERGOLA.Y + 0.97,
+  Z: PERGOLA.Z - 3.1,
   SCALE: 1.75,
   ANGLE: PERGOLA.ANGLE - Math.PI,
 };
 
 export const SHELF: ScenePosition = {
-  X: PERGOLA.X - 14.42,
-  Y: PERGOLA.Y + 2.4,
-  Z: PERGOLA.Z + 6.7,
+  X: DESK.X - 1.75,
+  Y: DESK.Y + 1.3,
+  Z: DESK.Z + 2.05,
   SCALE: 0.7,
   ANGLE: PERGOLA.ANGLE - Math.PI,
 };
 
-export const SHELF_PLANT: ScenePosition = {
-  X: SHELF.X + 0.2,
-  Y: SHELF.Y - 1.15,
-  Z: SHELF.Z + 0.71,
+export const SHELF_PLANT_POT: ScenePosition = {
+  X: SHELF.X - 0.1,
+  Y: SHELF.Y - 0.898,
+  Z: SHELF.Z + 0.5,
   SCALE: 2,
   ANGLE: SHELF.ANGLE + Math.PI / 2,
 };
 
-export const SHELF_PLANT_POT: ScenePosition = {
-  X: SHELF.X + 0.18,
-  Y: SHELF.Y - 0.898,
-  Z: SHELF.Z + 0.62,
-  SCALE: 2,
-  ANGLE: SHELF.ANGLE + Math.PI / 2,
+export const SHELF_PLANT: ScenePosition = {
+  X: SHELF_PLANT_POT.X + 0.02,
+  Y: SHELF_PLANT_POT.Y - 0.252,
+  Z: SHELF_PLANT_POT.Z + 0.09,
+  SCALE: SHELF_PLANT_POT.SCALE,
+  ANGLE: SHELF_PLANT_POT.ANGLE,
 };
 
 export const MONITOR_MIDDLE: ScenePosition = {
   SCALE: 1.65,
-  X: DESK.X - 0.5,
+  X: DESK.X - 1.7,
   Y: DESK.Y - 0.45,
-  Z: DESK.Z + 3,
+  Z: DESK.Z + 2,
   ANGLE: DESK.ANGLE + Math.PI * 0.5,
 };
 
 export const MONITOR_LEFT: ScenePosition = {
   SCALE: 1.65,
-  X: MONITOR_MIDDLE.X + 1.23,
+  X: MONITOR_MIDDLE.X + 0.52,
   Y: MONITOR_MIDDLE.Y,
-  Z: MONITOR_MIDDLE.Z + 1.05,
-  ANGLE: (MONITOR_MIDDLE.ANGLE ?? 0) + Math.PI * 0.08,
+  Z: MONITOR_MIDDLE.Z + 1.52,
+  ANGLE: (MONITOR_MIDDLE.ANGLE ?? 0) + Math.PI * 0.077,
 };
 
 export const MONITOR_RIGHT: ScenePosition = {
   SCALE: 1.65,
-  X: MONITOR_MIDDLE.X - 1.16,
+  X: MONITOR_MIDDLE.X - 0.35,
   Y: MONITOR_MIDDLE.Y,
-  Z: MONITOR_MIDDLE.Z - 1.4,
+  Z: MONITOR_MIDDLE.Z - 1.8,
   ANGLE: (MONITOR_MIDDLE.ANGLE ?? 0) - Math.PI * 0.1,
 };
 
 export const CLICK_CODE: ScenePosition = {
-  X: MONITOR_MIDDLE.X + 0.005,
+  X: MONITOR_MIDDLE.X + 2.05,
   Y: MONITOR_MIDDLE.Y + 1,
-  Z: MONITOR_MIDDLE.Z - 4.25,
+  Z: MONITOR_MIDDLE.Z - 3.75,
   SCALE: 0.5,
   ANGLE: MONITOR_MIDDLE.ANGLE,
 };
 
-export const KEYBOARD: ScenePosition = {
-  X: DESK.X + 0.6,
-  Y: DESK.Y + 0.05,
-  Z: DESK.Z - 0.8,
-  SCALE: 0.01,
-  ANGLE: Math.PI * -1.5,
-};
-
 export const LAPTOP: ScenePosition = {
-  X: DESK.X + 0.2,
+  X: DESK.X - 0.2,
   Y: DESK.Y + 0.05,
   Z: DESK.Z + 0.4,
   SCALE: 2,
-  ANGLE: Math.PI * 1.5,
+  ANGLE: DESK.ANGLE + Math.PI * 1.5,
 };
 
 export const DESK_LAMP: ScenePosition = {
-  X: DESK.X - 0.1,
+  X: DESK.X - 0.9,
   Y: DESK.Y + 0.45,
-  Z: DESK.Z + 1,
+  Z: DESK.Z + 0.7,
   SCALE: 0.8,
-  ANGLE: Math.PI,
+  ANGLE: DESK.ANGLE + Math.PI,
 };
 
 export const MOUSE: ScenePosition = {
-  X: DESK.X + 0.3,
+  X: DESK.X + 1.2,
   Y: DESK.Y + 0.05,
   Z: DESK.Z - 1.6,
   SCALE: 1.6,
-  ANGLE: Math.PI * 1.5,
+  ANGLE: DESK.ANGLE + Math.PI * 1.5,
+};
+
+export const KEYBOARD: ScenePosition = {
+  X: DESK.X + 1.1,
+  Y: DESK.Y + 0.05,
+  Z: DESK.Z - 0.8,
+  SCALE: 0.01,
+  ANGLE: DESK.ANGLE + Math.PI * -1.5,
 };
 
 export const MUG: ScenePosition = {
-  X: DESK.X - 0.5,
+  X: DESK.X + 1.1,
   Y: DESK.Y - 1.724,
-  Z: DESK.Z - 2.7,
+  Z: DESK.Z - 3,
   SCALE: 0.07,
-  ANGLE: Math.PI * 1.5,
+  ANGLE: DESK.ANGLE + Math.PI * 1.5,
 };
 
 export const COASTER: ScenePosition = {
-  X: MUG.X + 0.55,
+  X: MUG.X + 0.2,
   Y: MUG.Y + 1.77,
-  Z: MUG.Z + 0.6,
+  Z: MUG.Z + 0.75,
   SCALE: 0.2,
-  ANGLE: Math.PI * 0.8,
+  ANGLE: DESK.ANGLE + Math.PI * 0.8,
 };
 
 export const OFFICE_CHAIR: ScenePosition = {
-  X: DESK.X + 1.4,
+  X: DESK.X + 2,
   Y: DESK.Y - 1,
-  Z: DESK.Z - 1,
+  Z: DESK.Z - 0.5,
   SCALE: 0.015,
-  ANGLE: Math.PI * 1.6,
+  ANGLE: DESK.ANGLE + Math.PI * 1.6,
 };
 
 export const TREE_POT: ScenePosition = {
