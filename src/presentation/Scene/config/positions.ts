@@ -270,7 +270,7 @@ export const TABLET_TEXT: ScenePosition = {
   ANGLE: 0,
 };
 
-const floorLampOffset = rotateOffset(-0.2, -1.8, PERGOLA_ROTATION_DELTA);
+const floorLampOffset = rotateOffset(-1, -1.8, PERGOLA_ROTATION_DELTA);
 
 export const FLOOR_LAMP: ScenePosition = {
   X: COFFEE_TABLE.X + floorLampOffset.dx,
