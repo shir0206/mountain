@@ -1,4 +1,4 @@
-import { DESK, COFFEE_TABLE, PERGOLA } from "./positions";
+import { DESK, TABLE, PERGOLA } from "./positions";
 import { INITIAL_PRESET } from "../../../context/scene/types";
 import type { CameraPreset, PresetKey } from "../types";
 
@@ -10,8 +10,8 @@ export const CAMERA_PRESETS: Record<PresetKey, CameraPreset> = {
     target: [DESK.X, DESK.Y + 0.2, DESK.Z - 0.5],
   },
   meeting: {
-    position: [COFFEE_TABLE.X - 4, COFFEE_TABLE.Y + 2.5, COFFEE_TABLE.Z + 4],
-    target: [COFFEE_TABLE.X + 2, COFFEE_TABLE.Y - 0.3, COFFEE_TABLE.Z - 2],
+    position: [TABLE.X - 4, TABLE.Y + 2.7, TABLE.Z + 4],
+    target: [TABLE.X + 2, TABLE.Y - 0.3, TABLE.Z - 2],
   },
   peak: {
     position: [PERGOLA.X - 9, PERGOLA.Y + 13.95, PERGOLA.Z - 48],

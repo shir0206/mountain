@@ -168,13 +168,9 @@ export const SCENE_OBJECTS: SceneObject[] = [
   },
   {
     path: "models_optimized/meeting-table.glb",
-    label: "Coffee Table",
-    position: [P.COFFEE_TABLE.X, P.COFFEE_TABLE.Y, P.COFFEE_TABLE.Z],
-    scale: [
-      P.COFFEE_TABLE.SCALE,
-      P.COFFEE_TABLE.SCALE * 0.85,
-      P.COFFEE_TABLE.SCALE,
-    ],
+    label: "Table",
+    position: [P.TABLE.X, P.TABLE.Y, P.TABLE.Z],
+    scale: [P.TABLE.SCALE, P.TABLE.SCALE * 0.85, P.TABLE.SCALE],
   },
 
   {

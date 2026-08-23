@@ -13,29 +13,29 @@ export type PositionTuple = readonly [number, number, number];
 export type Position3D = PositionTuple;
 
 export interface ScenePosition {
-	X: number;
-	Y: number;
-	Z: number;
-	SCALE: number;
-	ANGLE?: number;
+  X: number;
+  Y: number;
+  Z: number;
+  SCALE: number;
+  ANGLE: number;
 }
 
 export interface CameraPreset {
-	position: PositionTuple;
-	target: PositionTuple;
+  position: PositionTuple;
+  target: PositionTuple;
 }
 
 /** Per-frame hint for the intro choreography (consumed by IntroAnimation). */
 export interface IntroPhase {
-	duration: number;
+  duration: number;
 }
 
 /** Declarative scene object (GLB model + placement). */
 export interface SceneObject {
-	path: string;
-	label: string;
-	position: PositionTuple;
-	scale: number | PositionTuple;
-	rotationY?: number;
-	noShadow?: boolean;
+  path: string;
+  label: string;
+  position: PositionTuple;
+  scale: number | PositionTuple;
+  rotationY?: number;
+  noShadow?: boolean;
 }

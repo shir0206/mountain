@@ -91,7 +91,7 @@ optimize_model "pot-plant-with-mud.glb" 0.9 512
 optimize_model "coffee_mug_school_project.glb" 0.9 512
 
 # Furniture
-optimize_model "coffee_table_final (1).glb" 0.9 512
+optimize_model "Table_final (1).glb" 0.9 512
 optimize_model "pergola_structure.glb" 0.9 512
 optimize_model "pergola_floor.glb" 1.0 512
 

@@ -239,23 +239,24 @@ export const TREE: ScenePosition = {
   ANGLE: TREE_POT.ANGLE,
 };
 
-// ---- Coffee table / seating area (offset from PERGOLA) ----
+// ---- table / seating area (offset from PERGOLA) ----
 
-const coffeeTableOffset = rotateOffset(-4, 4, PERGOLA_ROTATION_DELTA);
+const tableOffset = rotateOffset(-4, 4, PERGOLA_ROTATION_DELTA);
 
-export const COFFEE_TABLE: ScenePosition = {
-  X: PERGOLA.X + coffeeTableOffset.dx,
+export const TABLE: ScenePosition = {
+  X: PERGOLA.X + tableOffset.dx,
   Y: PERGOLA.Y + 0.01,
-  Z: PERGOLA.Z + coffeeTableOffset.dz,
+  Z: PERGOLA.Z + tableOffset.dz,
   SCALE: 2,
+  ANGLE: 0,
 };
 
 const tabletOffset = rotateOffset(-0.2, 0.2, PERGOLA_ROTATION_DELTA);
 
 export const TABLET: ScenePosition = {
-  X: COFFEE_TABLE.X + tabletOffset.dx,
-  Y: COFFEE_TABLE.Y + 0.8,
-  Z: COFFEE_TABLE.Z + tabletOffset.dz,
+  X: TABLE.X + tabletOffset.dx,
+  Y: TABLE.Y + 0.8,
+  Z: TABLE.Z + tabletOffset.dz,
   SCALE: 2,
   ANGLE: Math.PI * 1.5,
 };
@@ -273,64 +274,65 @@ export const TABLET_TEXT: ScenePosition = {
 const floorLampOffset = rotateOffset(-1, -1.8, PERGOLA_ROTATION_DELTA);
 
 export const FLOOR_LAMP: ScenePosition = {
-  X: COFFEE_TABLE.X + floorLampOffset.dx,
-  Y: COFFEE_TABLE.Y + 0.01,
-  Z: COFFEE_TABLE.Z + floorLampOffset.dz,
+  X: TABLE.X + floorLampOffset.dx,
+  Y: TABLE.Y + 0.01,
+  Z: TABLE.Z + floorLampOffset.dz,
   SCALE: 0.01,
   ANGLE: Math.PI,
 };
 
 // Armchairs were already defined parametrically (radius + fixed angle
-// around COFFEE_TABLE), so they never needed a hardcoded correction — they
-// automatically follow COFFEE_TABLE's corrected X/Z. Left untouched.
+// around TABLE), so they never needed a hardcoded correction — they
+// automatically follow TABLE's corrected X/Z. Left untouched.
 
 const ARMCHAIR_RADIUS = 1.5;
-const ARMCHAIR_Y = COFFEE_TABLE.Y + 0.01;
+const ARMCHAIR_Y = TABLE.Y + 0.01;
 const ARMCHAIR_SCALE = 0.0175;
 
 export const ARMCHAIR_A: ScenePosition = {
-  X: COFFEE_TABLE.X + Math.cos(Math.PI * 0.1) * ARMCHAIR_RADIUS,
+  X: TABLE.X + Math.cos(Math.PI * 0.1) * ARMCHAIR_RADIUS,
   Y: ARMCHAIR_Y,
-  Z: COFFEE_TABLE.Z + Math.sin(Math.PI * 0.1) * ARMCHAIR_RADIUS,
+  Z: TABLE.Z + Math.sin(Math.PI * 0.1) * ARMCHAIR_RADIUS,
   SCALE: ARMCHAIR_SCALE,
   ANGLE: Math.PI * 1.4,
 };
 
 export const ARMCHAIR_B: ScenePosition = {
-  X: COFFEE_TABLE.X + Math.cos(Math.PI * 0.5) * ARMCHAIR_RADIUS,
+  X: TABLE.X + Math.cos(Math.PI * 0.5) * ARMCHAIR_RADIUS,
   Y: ARMCHAIR_Y,
-  Z: COFFEE_TABLE.Z + Math.sin(Math.PI * 0.5) * ARMCHAIR_RADIUS,
+  Z: TABLE.Z + Math.sin(Math.PI * 0.5) * ARMCHAIR_RADIUS,
   SCALE: ARMCHAIR_SCALE,
   ANGLE: Math.PI * 1,
 };
 
 export const ARMCHAIR_C: ScenePosition = {
-  X: COFFEE_TABLE.X + Math.cos(Math.PI * 0.9) * ARMCHAIR_RADIUS,
+  X: TABLE.X + Math.cos(Math.PI * 0.9) * ARMCHAIR_RADIUS,
   Y: ARMCHAIR_Y,
-  Z: COFFEE_TABLE.Z + Math.sin(Math.PI * 0.9) * ARMCHAIR_RADIUS,
+  Z: TABLE.Z + Math.sin(Math.PI * 0.9) * ARMCHAIR_RADIUS,
   SCALE: ARMCHAIR_SCALE,
   ANGLE: Math.PI * 0.6,
 };
 
 export const ARMCHAIR_D: ScenePosition = {
-  X: COFFEE_TABLE.X + Math.cos(Math.PI * 1.3) * ARMCHAIR_RADIUS,
+  X: TABLE.X + Math.cos(Math.PI * 1.3) * ARMCHAIR_RADIUS,
   Y: ARMCHAIR_Y,
-  Z: COFFEE_TABLE.Z + Math.sin(Math.PI * 1.3) * ARMCHAIR_RADIUS,
+  Z: TABLE.Z + Math.sin(Math.PI * 1.3) * ARMCHAIR_RADIUS,
   SCALE: ARMCHAIR_SCALE,
   ANGLE: Math.PI * 0.2,
 };
 
 export const ARMCHAIR_E: ScenePosition = {
-  X: COFFEE_TABLE.X + Math.cos(Math.PI * 1.7) * ARMCHAIR_RADIUS,
+  X: TABLE.X + Math.cos(Math.PI * 1.7) * ARMCHAIR_RADIUS,
   Y: ARMCHAIR_Y,
-  Z: COFFEE_TABLE.Z + Math.sin(Math.PI * 1.7) * ARMCHAIR_RADIUS,
+  Z: TABLE.Z + Math.sin(Math.PI * 1.7) * ARMCHAIR_RADIUS,
   SCALE: ARMCHAIR_SCALE,
   ANGLE: Math.PI * 1.8,
 };
 
 export const RUG_MEETING: ScenePosition = {
-  X: COFFEE_TABLE.X,
-  Y: COFFEE_TABLE.Y - 0.01,
-  Z: COFFEE_TABLE.Z,
+  X: TABLE.X,
+  Y: TABLE.Y - 0.01,
+  Z: TABLE.Z,
   SCALE: 2.2,
+  ANGLE: 0,
 };
