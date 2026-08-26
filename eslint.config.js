@@ -20,4 +20,14 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // react-three-fiber idiomatically mutates three.js objects returned by
+    // useThree()/passed to useFrame() (camera, gl, controls, ...) — that's
+    // not React state, so react-hooks/immutability's false positives here
+    // are expected and safe to disable for the Scene tree.
+    files: ["src/presentation/Scene/**/*.{ts,tsx}"],
+    rules: {
+      "react-hooks/immutability": "off",
+    },
+  },
 ])

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Jost Favicon";
+        src: url(data:font/woff2;base64,d09GMgABAAAAAANkAA8AAAAABlAAAAMMAAO1wwAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwwBmA/U1RBVEQARBEICoJggjgBNgIkAxQLDAAEIAWDYAcgGxsFUZQwyh6ALw5sY5ZDD8LmRmWMb65wOCl+frA07J475Kp4/mPt9dy3kHAJ2BG67wsKUZiyq7EodMbHVde46OzRWpt9sfxZzJM7+dRnkVhpgZYZstPA91FBapI0Adw6i/3PyTe4AxUXpU/cTJvnAbcFs5TybEyRzscCTjDQscE6j9biSB/IHqpd+eCj1nJzkUwkmAaUiFYEkzZKIJevHp8Q0cIAYPCDGvzfxR+8FjRIPL2PJiR4UH9b5/Kqo76XE3DLp8kdndARfvynR28rYM6I20osfqM9nEQgkPlaxFY+EeMKK/mwk+/DAxkJjEdvGZ2wIVpLEchEFtCIyiaAgEKDlfyClQKOAuPGFUYU7sAA5ZUa/g71Q40AiAwsAR2YxBieAz8ALSBKqS5ZFC2EQlEc7YZOT8HOZQK4s6M9ga2zZbgVsM0lZsfhszNCJyewrNPdTf6p0yVY1gGhs6NUAga4IgAyG7FA9shCkrXmmbXkrBW45YC4aI9IrgQEqjrWT3dMWceLu1IfHdUjLayDpNTFbdi05QTMpSU49bgfv70VP4GV40aa1yTt0kMepanrKqah6SOpbKckza/X/F+7ostlISAyISWoxW0KA7xQOBQ+z8gULqjKa6EvKCdnJCPgoMjCWX7JKZYL08phLWBlT2Bli2dnzSd9PnQHNrJtThla5CTn8rzCzKslI2SnKMf9wMpKNwCDQWA0Uxu1rf69nmS1t3E/8gmMf7iT/QD8vy82GrZYb9wC9AqEHyL2DwjgCQi5SpcF6pJccVoFuJBYKwSdjyYcEhAAUIIp3zXSTuAnazJW+yXLrDmysd9fvOXIznr/RG91aGxhOnsLOIGeBDei54dtEsttCxbbD5dCIkMpHa1ZTnnuggJ7z+LBrCuXRSXg6tNnKCSzuDwpJTKEbJ6JpiaJAskoVgPHYmhSmHgCD3JRHKRg6QR16IdN0Dw9Xr7HuCcCnoIy3AkklI7h6moYamuZUqCKaS63Dr4rXR6FxZTS/OSAH8IrOWI/aAcxdArOncXAMPmBIccJAA==) format("woff2");
+        font-weight: 500;
+      }
+      text {
+        font-family: "Jost Favicon", "Jost", sans-serif;
+        font-weight: 500;
+      }
+    </style>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#1c1a18" />
+  <text x="32" y="35" text-anchor="middle" dominant-baseline="central" font-size="24" fill="#e7c98e" letter-spacing="0.2">Shir</text>
+</svg>

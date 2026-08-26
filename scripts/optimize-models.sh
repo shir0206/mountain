@@ -6,7 +6,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SRC_DIR="$ROOT/public/models"
+SRC_DIR="$ROOT/src/assets/models/original"
 OUT_DIR="$ROOT/public/models_optimized"
 CLI="npx gltf-transform"
 

@@ -1,15 +1,38 @@
 # Unused Assets
 
 Scan scope: references in `src/**` and `index.html`.
-Only `models_optimized/*.glb` paths are referenced (from `src/components/World.tsx`).
+Only `models_optimized/*.glb` paths are referenced (from `src/presentation/Scene/config/`).
 
-## Summary
+> **2026-08-25 correction:** the file list below (91 marketplace-asset filenames like
+> `aglaonema_plant.glb`, `teapot.glb`, `chrysanthemum.glb`) described a `public/models/`
+> that no longer matches what was actually on disk. By the time of the 2026-08-25 deploy
+> audit, `public/models/` held only **13 files** with simple names (`mountain.glb`,
+> `armchair.glb`, `pergola_structure.glb`, etc.) — these are the **pre-optimization
+> source versions** of a subset of the 22 files in `models_optimized/`, kept
+> intentionally for the `scripts/optimize-models.sh` pipeline, not dead marketplace
+> downloads. They were moved to `src/assets/models/original/` (out of `public/`, so
+> they no longer get copied into `dist/`, but stay in the repo for re-optimization).
+> The 91-file list below is historical and no longer reflects reality — kept for
+> record, not as an action item.
+
+## Summary (historical, see correction above)
 - `public/models/` — 86 files, **0 referenced** → entire directory unused
 - `public/favicon.svg` — unused (no `<link rel="icon">` in `index.html`)
 - `public/icons.svg` — unused (no imports/refs)
 - `public/models_optimized/` — all 41 files used ✅
 
-## Unused `public/models/` (originals)
+## Current state (2026-08-25)
+- `public/models/` — **removed**; the 13 real source files it contained now live in
+  `src/assets/models/original/` (86 MB, kept for the optimization pipeline, excluded
+  from every build).
+- `public/favicon.svg` — **now used**: a new wordmark favicon was added 2026-08-25 and
+  is referenced from `index.html`.
+- `public/icons.svg` — no longer present in `public/` at all (removed at some point
+  after this doc was written; nothing references it).
+- `public/models_optimized/` — still all 22 files referenced, verified 1:1 against
+  `src/presentation/Scene/config/{sceneObjects.ts,renderPolicy.ts}`.
+
+## Unused `public/models/` (originals) — historical list, file names no longer match reality
 - aglaonema_plant.glb
 - alexandra_cardenas_code.glb
 - alexandra_cardenas_livecoding_d5.glb
@@ -90,6 +113,6 @@ Only `models_optimized/*.glb` paths are referenced (from `src/components/World.t
 - wood_floor.glb
 - wooden_fence.glb
 
-## Other unused
+## Other unused (historical)
 - public/favicon.svg
 - public/icons.svg
